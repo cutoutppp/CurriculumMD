@@ -5,16 +5,18 @@ from collections import defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-vault_dir = r'c:\Users\peera\Desktop\AntigravityProject\CurriculumMD\Curriculum_Vault'
+vault_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Curriculum_Vault')
 all_md = glob.glob(os.path.join(vault_dir, '**/*.md'), recursive=True)
 
-stats = defaultdict(lambda: {'kpis': 0, 'rw': 0, 'pt': 0, 'indices': 0, 'unspecified': 0})
+stats = defaultdict(lambda: {'kpis': 0, 'rw': 0, 'pt': 0, 'courses': 0, 'indices': 0, 'unspecified': 0})
 total_kpis = 0
+total_courses = 0
 
 for f in all_md:
     rel = os.path.relpath(f, vault_dir)
     subj = rel.split(os.sep)[0]
     fname = os.path.basename(f)
+    
     if fname.startswith('00_'):
         stats[subj]['indices'] += 1
     elif subj.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_')):
@@ -35,25 +37,34 @@ for f in all_md:
             stats[subj]['pt'] += 1
         else:
             stats[subj]['unspecified'] += 1
+    elif subj == '09_หลักสูตรสถานศึกษา':
+        if not fname.startswith('00_'):
+            stats[subj]['courses'] += 1
+            total_courses += 1
+        else:
+            stats[subj]['indices'] += 1
     else:
         stats[subj]['indices'] += 1
 
 total_idx = sum(s['indices'] for s in stats.values())
 print("========================================================================================")
-print("🏆 CURRICULUM VAULT FULL AUDIT REPORT (ALL 8 LEARNING AREAS)")
+print("🏆 CURRICULUM VAULT FULL AUDIT REPORT (NATIONAL CORE & SCHOOL CURRICULUM)")
 print("========================================================================================")
-print(f"Total Markdown Files: {len(all_md):,}")
-print(f"Total KPI Files     : {total_kpis:,} / 2,024 (100.0% EXACT)")
-print(f"Total Index Files   : {total_idx:,}")
+print(f"Total Markdown Files   : {len(all_md):,}")
+print(f"Total National KPIs    : {total_kpis:,} / 2,056 (100.0% EXACT MATCH สพฐ. ๒๕๖๖)")
+print(f"Total School Courses   : {total_courses:,} รายวิชา (พร้อมตารางโครงสร้างและแผนวัด K-P-A)")
+print(f"Total Index/Hub Files  : {total_idx:,}")
 print("----------------------------------------------------------------------------------------")
-print(f"{'Subject Folder':<30} | {'Total KPIs':<10} | {'ระหว่างทาง':<10} | {'ปลายทาง':<10} | {'ไม่ระบุ':<7} | Index Files")
+print(f"{'Folder / Category':<35} | {'KPIs/Courses':<12} | {'ระหว่างทาง':<10} | {'ปลายทาง':<10} | Index Hubs")
 print("----------------------------------------------------------------------------------------")
 
 for subj in sorted(stats.keys()):
     st = stats[subj]
-    if subj.endswith('.md'):
-        print(f"{subj:<30} | {'-':<10} | {'-':<10} | {'-':<10} | {'-':<7} | {st['indices']}")
+    if subj == '09_หลักสูตรสถานศึกษา':
+        print(f"{subj:<35} | {st['courses']:>8} วิชา | {'-':<10} | {'-':<10} | {st['indices']}")
+    elif subj.endswith('.md'):
+        print(f"{subj:<35} | {'-':<12} | {'-':<10} | {'-':<10} | {st['indices']}")
     else:
-        print(f"{subj:<30} | {st['kpis']:>10} | {st['rw']:>10} | {st['pt']:>10} | {st['unspecified']:>7} | {st['indices']}")
+        print(f"{subj:<35} | {st['kpis']:>8} ตัว | {st['rw']:>10} | {st['pt']:>10} | {st['indices']}")
 
 print("========================================================================================")
