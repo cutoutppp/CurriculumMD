@@ -1,0 +1,33 @@
+# Python & Environments
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Scratch & Extraction scripts (keep audit_vault.py)
+*.py
+!audit_vault.py
+*.json
+*.txt
+*.vbs
+
+# Large binaries, docx, and raw PDFs
+*.pdf
+*.docx
+*.doc
+*.zip
+*.rar
+pdf_chunks/
+
+# Google Drive sync files
+~*
+*.tmp
+
+# Obsidian local cache
+.obsidian/workspace*
+
+# System
+.DS_Store
+Thumbs.db
