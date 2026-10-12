@@ -9,6 +9,7 @@ env/
 # Scratch & Extraction scripts (keep audit_vault.py)
 *.py
 !audit_vault.py
+!audit_vault_tier3.py
 !ai_assistant.py
 *.json
 *.txt
@@ -20,6 +21,11 @@ env/
 *.doc
 *.zip
 *.rar
+*.xlsx
+*.csv
+*_extracted.md
+*_decoded.md
+school_curriculum_raw/
 pdf_chunks/
 
 # Google Drive sync files
