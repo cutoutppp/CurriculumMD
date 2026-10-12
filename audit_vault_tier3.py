@@ -163,8 +163,8 @@ def run_3tier_audit():
     # ==========================================
     print(f"\n[ชั้นที่ 3: โครงสร้างความสัมพันธ์และการนำไปใช้ (Relational Mapping)]")
     print(f"  • ตัวชี้วัดเชื่อมโยงกับมาตรฐาน (belongs_to): {len(kpi_files):,} ความสัมพันธ์ (100% Valid)")
-    print(f"  • ความสัมพันธ์เชิงสาระ (strand)             : กำหนดค่าครบถ้วน {len(kpi_files):,} รายการ")
-    print(f"  • รายวิชาสถานศึกษาที่รองรับ (09_หลักสูตร)  : {len(course_files):,} รายวิชา (ครอบคลุมแผนวัดประเมินผล K-P-A)")
+    if course_files:
+        print(f"  • รายวิชาสถานศึกษาที่รองรับ (09_หลักสูตร)  : {len(course_files):,} รายวิชา (Local Extension)")
     print(f"  • ฟิลด์บูรณาการและวิธีวัด (integrates_with/assessed_by): บรรจุใน Schema พร้อมให้ครูผู้สอนบันทึกต่อยอด")
 
     print("\n" + "-" * 90)
