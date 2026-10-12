@@ -17,17 +17,26 @@ for f in all_md:
     fname = os.path.basename(f)
     if fname.startswith('00_'):
         stats[subj]['indices'] += 1
-    else:
+    elif subj.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_')):
         stats[subj]['kpis'] += 1
         total_kpis += 1
-        with open(f, 'r', encoding='utf-8') as file:
-            content = file.read()
-            if 'ระหว่างทาง' in content:
-                stats[subj]['rw'] += 1
-            elif 'ปลายทาง' in content:
-                stats[subj]['pt'] += 1
-            else:
-                stats[subj]['unspecified'] += 1
+        content = ''
+        for attempt in range(5):
+            try:
+                with open(f, 'r', encoding='utf-8') as file:
+                    content = file.read()
+                break
+            except Exception:
+                import time
+                time.sleep(0.2)
+        if 'ระหว่างทาง' in content:
+            stats[subj]['rw'] += 1
+        elif 'ปลายทาง' in content:
+            stats[subj]['pt'] += 1
+        else:
+            stats[subj]['unspecified'] += 1
+    else:
+        stats[subj]['indices'] += 1
 
 total_idx = sum(s['indices'] for s in stats.values())
 print("========================================================================================")
