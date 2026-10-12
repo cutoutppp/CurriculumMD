@@ -28,6 +28,9 @@ env/
 school_curriculum_raw/
 pdf_chunks/
 
+# Local School Curriculum (PTNK Specific)
+Curriculum_Vault/09_หลักสูตรสถานศึกษา/
+
 # Google Drive sync files
 ~*
 *.tmp

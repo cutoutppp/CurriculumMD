@@ -48,11 +48,12 @@ for f in all_md:
 
 total_idx = sum(s['indices'] for s in stats.values())
 print("========================================================================================")
-print("🏆 CURRICULUM VAULT FULL AUDIT REPORT (NATIONAL CORE & SCHOOL CURRICULUM)")
+print("🏆 CURRICULUM VAULT FULL AUDIT REPORT (NATIONAL CORE CURRICULUM)")
 print("========================================================================================")
 print(f"Total Markdown Files   : {len(all_md):,}")
 print(f"Total National KPIs    : {total_kpis:,} / 2,056 (100.0% EXACT MATCH สพฐ. ๒๕๖๖)")
-print(f"Total School Courses   : {total_courses:,} รายวิชา (พร้อมตารางโครงสร้างและแผนวัด K-P-A)")
+if total_courses > 0:
+    print(f"Total School Courses   : {total_courses:,} รายวิชา (Local Extension)")
 print(f"Total Index/Hub Files  : {total_idx:,}")
 print("----------------------------------------------------------------------------------------")
 print(f"{'Folder / Category':<35} | {'KPIs/Courses':<12} | {'ระหว่างทาง':<10} | {'ปลายทาง':<10} | Index Hubs")
