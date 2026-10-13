@@ -1,20 +1,26 @@
 """
 🤖 AI Curriculum Co-pilot: ผู้ช่วยครูอัจฉริยะด้านหลักสูตรและแผนการสอน
 ดึงข้อมูลตรงจาก CurriculumMD Vault (2,056 ตัวชี้วัด สพฐ.)
+มาพร้อมระบบ Strict Grade Boundary และ Semantic & Weighted Relevance Scoring
 """
 
 import os
 import re
 import sys
+import glob
 
-sys.stdout.reconfigure(encoding='utf-8')
+if sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 VAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Curriculum_Vault')
 
 def parse_kpi_file(filepath):
     """อ่านและสกัดข้อมูลตัวชี้วัดจาก YAML Frontmatter และเนื้อหา Markdown"""
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
     except Exception:
         return None
@@ -56,7 +62,7 @@ def parse_kpi_file(filepath):
                 clean_bullet = re.sub(r'\[\[(?:[^|\]]*\|)?([^\]]+)\]\]', r'\1', line_str.lstrip('-•* ')).strip()
                 if clean_bullet:
                     core_bullets.append(clean_bullet)
-            elif line_str and not line_str.startswith('#'):
+            elif line_str and not line_str.startswith('#') and not line_str.startswith('---'):
                 clean_bullet = re.sub(r'\[\[(?:[^|\]]*\|)?([^\]]+)\]\]', r'\1', line_str).strip()
                 if clean_bullet:
                     core_bullets.append(clean_bullet)
@@ -72,56 +78,115 @@ def parse_kpi_file(filepath):
         'file': filepath
     }
 
+def normalize_grade_input(g):
+    """แปลงรูปแบบระดับชั้นให้เป็นมาตรฐานเดียวกัน เช่น 'ป1' -> 'ป.1', 'ม1' -> 'ม.1'"""
+    if not g:
+        return None
+    g = g.strip()
+    g = re.sub(r'^ประถม(?:ศึกษา)?(?:\s*ปีที่)?', 'ป.', g)
+    g = re.sub(r'^มัธยม(?:ศึกษา)?(?:\s*ปีที่)?', 'ม.', g)
+    g = re.sub(r'^([ปม])(\d)', r'\1.\2', g)
+    return g
+
 def match_grade(file_grade, query_grade):
-    """ตรวจสอบความสอดคล้องของระดับชั้น รวมถึงช่วงชั้นมัธยมศึกษาตอนปลาย (ม.4-6)"""
+    """
+    ตรวจสอบความสอดคล้องของระดับชั้นอย่างเข้มงวด (Strict Grade Boundary)
+    ป้องกันการดึงตัวชี้วัดข้ามระดับชั้นโดยเด็ดขาด
+    """
     if not query_grade:
         return True
-    q = query_grade.strip()
+    q = normalize_grade_input(query_grade)
     fg = file_grade.strip()
+    
     if q == fg:
         return True
-    # จับคู่ ม.4, ม.5, ม.6 กับช่วงชั้น ม.4-6
+        
+    # ช่วงชั้นประถมศึกษาตอนต้น (ป.1-3)
+    if q in ['ป.1', 'ป.2', 'ป.3'] and fg in ['ป.1-3', 'ป.1', 'ป.2', 'ป.3']:
+        return (q == fg) or (fg == 'ป.1-3')
+        
+    # ช่วงชั้นประถมศึกษาตอนปลาย (ป.4-6)
+    if q in ['ป.4', 'ป.5', 'ป.6'] and fg in ['ป.4-6', 'ป.4', 'ป.5', 'ป.6']:
+        return (q == fg) or (fg == 'ป.4-6')
+        
+    # ช่วงชั้นมัธยมศึกษาตอนต้น (ม.1-3)
+    if q in ['ม.1', 'ม.2', 'ม.3'] and fg in ['ม.1-3', 'ม.1', 'ม.2', 'ม.3']:
+        return (q == fg) or (fg == 'ม.1-3')
+        
+    # ช่วงชั้นมัธยมศึกษาตอนปลาย (ม.4-6)
     if q in ['ม.4', 'ม.5', 'ม.6', 'ม.ปลาย'] and fg in ['ม.4-6', 'ม.ปลาย', 'ม.4', 'ม.5', 'ม.6']:
         return True
+        
     return False
 
 def search_kpis(query, grade=None, limit=5):
-    """ค้นหาตัวชี้วัดที่เกี่ยวข้องจากคลังข้อมูลตามคำค้นหาและระดับชั้น พร้อมจัดอันดับความตรงกัน"""
+    """
+    ค้นหาตัวชี้วัดที่เกี่ยวข้องจากคลังข้อมูลตามคำค้นหาและระดับชั้น
+    พร้อมระบบจัดอันดับคะแนนความเกี่ยวข้องเชิงความหมาย (Semantic & Relevance Scoring)
+    คงความเข้มงวดของระดับชั้น ไม่มีการข้ามระดับชั้นโดยเด็ดขาด
+    """
     candidates = []
     q_lower = query.lower().strip()
+    norm_grade = normalize_grade_input(grade)
     
-    for root, dirs, files in os.walk(VAULT_DIR):
-        if '09_หลักสูตรสถานศึกษา' in root:
-            continue
-        for f in files:
-            if not f.endswith('.md') or f.startswith('00_'):
+    q_tokens = [t.strip() for t in re.split(r'[\s,]+', q_lower) if len(t.strip()) > 1]
+    
+    for i in range(1, 9):
+        subj_pattern = f"{VAULT_DIR}/0{i}_*/**/*.md"
+        for fpath in glob.glob(subj_pattern, recursive=True):
+            fname = os.path.basename(fpath)
+            if fname.startswith('00_'):
                 continue
-            
-            fpath = os.path.join(root, f)
+            if not re.search(r'^[ทควสพศงต]\s*\d+\.\d+\s*[ปม]\.', fname):
+                continue
+                
             kpi = parse_kpi_file(fpath)
             if not kpi:
                 continue
                 
-            if grade and not match_grade(kpi['grade'], grade):
+            # บังคับขอบเขตระดับชั้นอย่างเข้มงวด (Strict Grade Boundary)
+            if norm_grade and not match_grade(kpi['grade'], norm_grade):
                 continue
                 
-            # จัดอันดับคะแนนความตรงกัน (Relevance Ranking)
+            # คำนวณคะแนนความเกี่ยวข้องแบบถ่วงน้ำหนัก (Weighted Multi-Tier Scoring)
             score = 0
-            if q_lower in kpi['code'].lower():
+            code_lower = kpi['code'].lower()
+            desc_lower = kpi['desc'].lower()
+            core_str = ' '.join(kpi['core']).lower()
+            body_lower = kpi['body'].lower()
+            
+            # 1. ตรงกับรหัสตัวชี้วัดเป๊ะ ๆ เช่น "ว 1.1", "ว 1.1 ม.1/1"
+            if q_lower == code_lower or q_lower in code_lower:
+                score += 200
+                
+            # 2. ข้อความค้นหาปรากฏทั้งวลีในคำอธิบายตัวชี้วัด (Exact Phrase in Description)
+            if q_lower in desc_lower:
                 score += 100
-            if q_lower in kpi['desc'].lower():
-                score += 50
-            for b in kpi['core']:
-                if q_lower in b.lower():
-                    score += 20
-                    break
-            if q_lower in kpi['body'].lower() and score == 0:
-                score += 5
+                
+            # 3. ข้อความค้นหาปรากฏในสาระการเรียนรู้แกนกลาง (Exact Phrase in Core Content)
+            if q_lower in core_str:
+                score += 60
+                
+            # 4. คะแนนการจับคู่รายคำ (Token Overlap Scoring)
+            matched_tokens = 0
+            for t in q_tokens:
+                if t in desc_lower:
+                    score += 25
+                    matched_tokens += 1
+                elif t in core_str:
+                    score += 15
+                    matched_tokens += 1
+                elif t in body_lower:
+                    score += 5
+                    matched_tokens += 1
+                    
+            if q_tokens and matched_tokens == len(q_tokens):
+                score += 30
                 
             if score > 0:
                 candidates.append((score, kpi))
                 
-    # เรียงลำดับตามคะแนนความตรงกันสูงสุด
+    # จัดเรียงตามคะแนนความเกี่ยวข้องจากมากไปน้อย
     candidates.sort(key=lambda x: x[0], reverse=True)
     return [kpi for _, kpi in candidates[:limit]]
 
@@ -185,7 +250,8 @@ def main():
         print(prompt)
         print("=" * 70)
     else:
-        print(f"❌ ไม่พบตัวชี้วัดที่เกี่ยวข้องกับ '{topic}' สำหรับระดับชั้น {grade}")
+        print(f"\n❌ ไม่พบตัวชี้วัดที่เกี่ยวข้องกับ '{topic}' สำหรับระดับชั้น {grade} ในหลักสูตรแกนกลาง")
+        print("   (ระบบรักษาวินัยของระดับชั้นอย่างเคร่งครัด จะไม่มีการสุ่มดึงตัวชี้วัดของระดับชั้นอื่นมาแทนที่)")
 
 if __name__ == '__main__':
     main()
