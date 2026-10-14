@@ -1,5 +1,5 @@
 ---
-id: concept-775002
+id: concept-107069
 title: "เหตุการณ์ ๑๑ กันยายน ๒๐๐๑ (Nine Eleven )"
 type: concept
 mentions_count: 2

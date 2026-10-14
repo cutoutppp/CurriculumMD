@@ -430,6 +430,23 @@
       lucide.createIcons();
       if (typeof OPEN_CURRICULUM_DATA !== 'undefined') {
         allKpis = OPEN_CURRICULUM_DATA.kpis;
+        
+        // Dynamically populate header metrics from live data bundle
+        const totalCount = allKpis.length;
+        const formativeCount = allKpis.filter(k => k.indicator_type === 'ระหว่างทาง').length;
+        const summativeCount = allKpis.filter(k => k.indicator_type === 'ปลายทาง').length;
+        const mappedCount = allKpis.filter(k => k.school_courses && k.school_courses.length > 0).length;
+        
+        const elTotal = document.getElementById('stat-total-kpi');
+        const elFormative = document.getElementById('stat-formative-kpi');
+        const elSummative = document.getElementById('stat-summative-kpi');
+        const elMapped = document.getElementById('stat-mapped-kpi');
+
+        if (elTotal) elTotal.textContent = totalCount.toLocaleString();
+        if (elFormative) elFormative.textContent = formativeCount.toLocaleString();
+        if (elSummative) elSummative.textContent = summativeCount.toLocaleString();
+        if (elMapped) elMapped.textContent = mappedCount.toLocaleString();
+
         initSubjectBar();
         applyFilters();
       } else {

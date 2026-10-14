@@ -11,7 +11,12 @@ env/
 !audit_vault.py
 !audit_vault_tier3.py
 !ai_assistant.py
+!build_open_curriculum_data.py
+!optimize_vault_links.py
+!scripts/*.py
+!reports/*.md
 *.json
+!all_kpi_master.json
 *.txt
 *.vbs
 
