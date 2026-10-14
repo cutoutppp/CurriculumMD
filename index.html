@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thailand Open Curriculum | แพลตฟอร์มสำรวจและตรวจสอบหลักสูตรการศึกษาไทย</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b'
+            },
+            slate: {
+              850: '#151f32',
+              900: '#0f172a',
+              950: '#090d16'
+            }
+          },
+          fontFamily: {
+            sans: ['Sarabun', 'Prompt', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Sarabun & Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Prompt', sans-serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .highlight-match {
+      background-color: rgba(245, 158, 11, 0.35);
+      color: #fef08a;
+      padding: 0 2px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs py-1.5 px-4 text-center font-medium shadow-sm flex items-center justify-center space-x-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
+    <span>⚡ นวัตกรรมหลักสูตรเปิด: ตรวจสอบความสอดคล้อง 100% กับมาตรฐาน สพฐ. ๒๕๖๖ | โรงเรียนพัฒนานิคม</span>
+  </div>
+
+  <!-- Navbar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-black font-black text-xl shadow-lg shadow-emerald-500/20">
+          OC
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-heading font-bold text-lg text-white tracking-tight">THAI OPEN CURRICULUM</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">BETA</span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">แพลตฟอร์มสืบค้นและสำรวจตัวชี้วัดแกนกลาง ๒,๐๕๖ ข้อ</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button id="btn-export-json" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>ส่งออก JSON</span>
+        </button>
+        <button id="btn-export-csv" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
+          <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>ส่งออก CSV</span>
+        </button>
+        <a href="https://github.com/cutoutppp/CurriculumMD" target="_blank" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3.5 py-1.5 rounded-lg transition flex items-center space-x-1 shadow-md shadow-emerald-600/20">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Stats (Inspired by openbudget.wevis.info) -->
+  <section class="border-b border-slate-800/80 bg-gradient-to-b from-slate-900 to-slate-950 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300 mb-4">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <span>ระบบตรวจสอบความถูกต้อง 3 ชั้น (Machine Verified 100%)</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3">
+        เปิดคลังข้อมูล <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">หลักสูตรการศึกษาไทย</span>
+      </h1>
+      <p class="max-w-3xl mx-auto text-sm sm:text-base text-slate-400 mb-8 leading-relaxed">
+        สำรวจ ตรวจสอบ และเชื่อมโยงเป้าหมายการเรียนรู้ระดับชาติสู่ห้องเรียนจริง ค้นหาว่าทักษะและมโนทัศน์รอบตัวถูกสอนในระดับชั้นไหน วิชาใด และมีสัดส่วนอย่างไร
+      </p>
+
+      <!-- Key Metrics 4 Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto text-left">
+        <!-- Metric 1: Total KPIs -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm hover:border-slate-700 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-medium text-slate-400">ตัวชี้วัดแกนกลางทั้งหมด</span>
+            <div class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+              <i data-lucide="award" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-white" id="stat-total-kpi">2,056</div>
+          <div class="text-[11px] text-emerald-400 mt-1 flex items-center space-x-1">
+            <i data-lucide="check-circle" class="w-3 h-3"></i>
+            <span>ตรงกับต้นฉบับ สพฐ. 100%</span>
+          </div>
+        </div>
+
+        <!-- Metric 2: Formative -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm hover:border-slate-700 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-medium text-slate-400">ตัวชี้วัดระหว่างทาง</span>
+            <div class="p-1.5 rounded-lg bg-blue-500/10 text-blue-400">
+              <i data-lucide="git-commit" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-blue-400" id="stat-formative-kpi">1,285</div>
+          <div class="text-[11px] text-slate-400 mt-1">
+            คิดเป็น <span class="text-slate-200 font-semibold">62.5%</span> (กระบวนการเรียนรู้)
+          </div>
+        </div>
+
+        <!-- Metric 3: Summative -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm hover:border-slate-700 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-medium text-slate-400">ตัวชี้วัดปลายทาง</span>
+            <div class="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+              <i data-lucide="target" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-amber-400" id="stat-summative-kpi">771</div>
+          <div class="text-[11px] text-slate-400 mt-1">
+            คิดเป็น <span class="text-slate-200 font-semibold">37.5%</span> (ผลลัพธ์รวบยอด)
+          </div>
+        </div>
+
+        <!-- Metric 4: School Courses -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm hover:border-slate-700 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-medium text-slate-400">วิชาโรงเรียนพัฒนานิคม</span>
+            <div class="p-1.5 rounded-lg bg-purple-500/10 text-purple-400">
+              <i data-lucide="school" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-purple-400" id="stat-school-courses">548</div>
+          <div class="text-[11px] text-slate-400 mt-1">
+            ผูกโยงแล้ว <span class="text-slate-200 font-semibold" id="stat-mapped-kpi">735</span> ตัวชี้วัด
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subject Area Navigation Strip -->
+  <section class="border-b border-slate-800 bg-slate-900/40 py-3 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-xs font-medium text-slate-400 mb-2 flex items-center justify-between">
+        <span>จำแนกตาม 8 กลุ่มสาระการเรียนรู้ (คลิกเพื่อกรอง):</span>
+        <button id="btn-reset-subject" class="text-emerald-400 hover:underline text-[11px] hidden">แสดงทั้งหมด</button>
+      </div>
+      <div id="subject-filter-bar" class="flex flex-wrap gap-1.5 sm:gap-2">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Search & Filter Interface -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- Search Input & Quick Tags -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-6 shadow-xl">
+      <div class="relative">
+        <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+        <input 
+          id="search-input"
+          type="text" 
+          placeholder="ค้นหามโนทัศน์ สิ่งของ หรือเรื่องที่คุณสนใจ (เช่น: สิ่งแวดล้อม, ดอกเบี้ย, ยา, ขยะ, โฆษณา, AI, แผนที่, ปฐมพยาบาล...)"
+          class="w-full bg-slate-950 border border-slate-700/80 rounded-xl pl-12 pr-10 py-3.5 text-sm sm:text-base text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition"
+        >
+        <button id="btn-clear-search" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 hidden">
+          <i data-lucide="x-circle" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Quick Search Keywords -->
+      <div class="mt-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs">
+        <span class="text-slate-400 flex items-center space-x-1">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>ลองค้นคำยอดฮิต:</span>
+        </span>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="สิ่งแวดล้อม">🌱 สิ่งแวดล้อม</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="เงิน">💰 เงิน / ดอกเบี้ย</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ยา">💊 ยา / สุขภาพ</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ไฟฟ้า">⚡ ไฟฟ้า</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ขยะ">🗑️ ขยะ</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="โฆษณา">📢 โฆษณา / ผู้บริโภค</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="กฎหมาย">⚖️ กฎหมาย</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="แผนที่">🗺️ แผนที่</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ปฐมพยาบาล">🩹 ปฐมพยาบาล</button>
+      </div>
+
+      <!-- Advanced Filter Row -->
+      <div class="mt-4 pt-4 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <!-- Grade Band Filter -->
+        <div>
+          <label class="block text-[11px] font-medium text-slate-400 mb-1">ช่วงชั้นการศึกษา</label>
+          <select id="filter-grade-band" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-lg p-2 focus:border-emerald-500 focus:outline-none">
+            <option value="ALL">ทุกช่วงชั้น (ป.1 - ม.6)</option>
+            <option value="ประถมต้น (ป.1-3)">ประถมศึกษาตอนต้น (ป.1 - ป.3)</option>
+            <option value="ประถมปลาย (ป.4-6)">ประถมศึกษาตอนปลาย (ป.4 - ป.6)</option>
+            <option value="มัธยมต้น (ม.1-3)">มัธยมศึกษาตอนต้น (ม.1 - ม.3)</option>
+            <option value="มัธยมปลาย (ม.4-6)">มัธยมศึกษาตอนปลาย (ม.4 - ม.6)</option>
+          </select>
+        </div>
+
+        <!-- Type Filter -->
+        <div>
+          <label class="block text-[11px] font-medium text-slate-400 mb-1">ประเภทตัวชี้วัด (สพฐ. ๒๕๖๖)</label>
+          <select id="filter-type" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-lg p-2 focus:border-emerald-500 focus:outline-none">
+            <option value="ALL">ทุกประเภท (ระหว่างทาง + ปลายทาง)</option>
+            <option value="ระหว่างทาง">เฉพาะ "ระหว่างทาง" (Formative)</option>
+            <option value="ปลายทาง">เฉพาะ "ปลายทาง" (Summative)</option>
+          </select>
+        </div>
+
+        <!-- School Course Filter -->
+        <div>
+          <label class="block text-[11px] font-medium text-slate-400 mb-1">การนำไปใช้ในโรงเรียน</label>
+          <select id="filter-school" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-lg p-2 focus:border-emerald-500 focus:outline-none">
+            <option value="ALL">ตัวชี้วัดทั้งหมด</option>
+            <option value="MAPPED">เฉพาะที่เปิดสอนในโรงเรียนพัฒนานิคม</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Search Insights & Metric Banner -->
+    <div id="search-insights-banner" class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div class="flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span class="text-slate-300 font-medium" id="search-result-count">แสดงผล 2,056 จาก 2,056 ตัวชี้วัด</span>
+      </div>
+      <!-- Mini Grade Timeline Distribution -->
+      <div class="flex items-center space-x-3 text-slate-400">
+        <span class="text-[11px]">การกระจายตามช่วงชั้น:</span>
+        <div class="flex items-center space-x-1 font-mono text-[11px]">
+          <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300" id="dist-p13" title="ป.1-3">ป.ต้น: 0</span>
+          <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300" id="dist-p46" title="ป.4-6">ป.ปลาย: 0</span>
+          <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300" id="dist-m13" title="ม.1-3">ม.ต้น: 0</span>
+          <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300" id="dist-m46" title="ม.4-6">ม.ปลาย: 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Results Feed -->
+    <div id="kpi-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-16">
+      <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto mb-3 text-slate-500">
+        <i data-lucide="search-x" class="w-8 h-8"></i>
+      </div>
+      <h3 class="font-heading font-semibold text-lg text-white mb-1">ไม่พบตัวชี้วัดที่ตรงกับเงื่อนไข</h3>
+      <p class="text-xs text-slate-400 max-w-sm mx-auto">
+        ลองค้นหาด้วยคำอื่น หรือกดปุ่มรีเซ็ตตัวกรองเพื่อดูตัวชี้วัดทั้งหมด
+      </p>
+      <button id="btn-reset-all" class="mt-4 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium transition">
+        รีเซ็ตตัวกรองทั้งหมด
+      </button>
+    </div>
+
+    <!-- Pagination / Load More -->
+    <div class="mt-8 text-center" id="pagination-container">
+      <button id="btn-load-more" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-200 font-medium transition shadow-sm inline-flex items-center space-x-2">
+        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        <span>โหลดตัวชี้วัดเพิ่มเติม (แสดงอยู่ <span id="display-count">40</span> ข้อ)</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Side Drawer for KPI Details (Connected Papers style) -->
+  <div id="drawer-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  <aside id="kpi-drawer" class="fixed right-0 top-0 bottom-0 w-full sm:w-[500px] bg-slate-900 border-l border-slate-800 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+      <div class="flex items-center space-x-2">
+        <span id="drawer-type-badge" class="px-2 py-0.5 rounded text-[11px] font-bold">ระหว่างทาง</span>
+        <span id="drawer-grade-badge" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">ป.1</span>
+      </div>
+      <button id="btn-close-drawer" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Content -->
+    <div class="flex-1 overflow-y-auto p-5 space-y-5 text-sm" id="drawer-body">
+      <div>
+        <h2 id="drawer-code" class="text-2xl font-bold font-heading text-white tracking-tight mb-1">ส 5.2 ม.4-6/1</h2>
+        <p id="drawer-subject" class="text-xs text-emerald-400 font-medium">สังคมศึกษา ศาสนา และวัฒนธรรม</p>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
+        <h4 class="text-xs font-semibold text-slate-400 mb-2 flex items-center space-x-1.5">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-300"></i>
+          <span>คำอธิบายตัวชี้วัด (Official Description)</span>
+        </h4>
+        <p id="drawer-text" class="text-white text-sm leading-relaxed">
+          -
+        </p>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
+        <h4 class="text-xs font-semibold text-slate-400 mb-2 flex items-center space-x-1.5">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>สาระการเรียนรู้แกนกลาง (Core Content)</span>
+        </h4>
+        <div id="drawer-core" class="text-slate-300 text-xs leading-relaxed whitespace-pre-line font-mono bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+          -
+        </div>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
+        <h4 class="text-xs font-semibold text-slate-400 mb-2 flex items-center space-x-1.5">
+          <i data-lucide="school" class="w-3.5 h-3.5 text-purple-400"></i>
+          <span>การนำไปจัดการเรียนรู้จริงในโรงเรียนพัฒนานิคม</span>
+        </h4>
+        <div id="drawer-courses" class="space-y-1.5 mt-2">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Provenance Verification Card -->
+      <div class="bg-emerald-950/20 border border-emerald-500/20 rounded-xl p-3.5 text-xs text-emerald-300 flex items-start space-x-2.5">
+        <i data-lucide="badge-check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+        <div>
+          <div class="font-semibold text-emerald-200">ผ่านการรับรองความถูกต้องตรงกับต้นฉบับ สพฐ. ๒๕๖๖</div>
+          <div class="text-[11px] text-emerald-400/80 mt-0.5">ตรวจสอบความถูกต้องระดับตัวอักษรและโครงสร้างความสัมพันธ์ (Automated Fidelity Diff Verified)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-slate-800 bg-slate-900/90 text-right">
+      <button id="btn-close-drawer-bottom" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition font-medium">
+        ปิดหน้าต่าง
+      </button>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
+          OC
+        </div>
+        <div>
+          <p class="text-slate-300 font-medium">Thailand Open Curriculum | โรงเรียนพัฒนานิคม</p>
+          <p class="text-[11px] text-slate-500">ข้อมูลเปิดเพื่อการศึกษาขั้นพื้นฐาน (Civic Open Educational Data)</p>
+        </div>
+      </div>
+      <div class="text-center sm:text-right text-[11px]">
+        <p>อ้างอิงหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง พ.ศ. ๒๕๖๐)</p>
+        <p class="text-slate-600 mt-0.5">และแนวทางการวัดและประเมินผลตัวชี้วัดระหว่างทาง-ปลายทาง สพฐ. ว๑๕๑๖/๒๕๖๖</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load Data Bundle -->
+  <script src="kpi_data.js"></script>
+
+  <!-- Main Application Logic -->
+  <script>
+    // State
+    let allKpis = [];
+    let filteredKpis = [];
+    let currentLimit = 40;
+    const PAGE_CHUNK = 40;
+    let selectedSubject = 'ALL';
+    let searchQuery = '';
+    let selectedGradeBand = 'ALL';
+    let selectedType = 'ALL';
+    let selectedSchool = 'ALL';
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      if (typeof OPEN_CURRICULUM_DATA !== 'undefined') {
+        allKpis = OPEN_CURRICULUM_DATA.kpis;
+        initSubjectBar();
+        applyFilters();
+      } else {
+        console.error('Data bundle kpi_data.js not loaded!');
+      }
+
+      setupEventListeners();
+    });
+
+    // Setup Subject Filter Pills
+    function initSubjectBar() {
+      const container = document.getElementById('subject-filter-bar');
+      const meta = OPEN_CURRICULUM_DATA.subject_meta;
+      const counts = OPEN_CURRICULUM_DATA.subject_counts;
+
+      let html = '';
+      for (const [subjName, m] of Object.entries(meta)) {
+        const count = counts[subjName] ? counts[subjName].total : 0;
+        html += `
+          <button 
+            class="subj-pill text-xs px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 hover:border-slate-700 transition flex items-center space-x-2 text-slate-300"
+            data-subject="${subjName}"
+          >
+            <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${m.color}"></span>
+            <span class="font-medium">${subjName}</span>
+            <span class="text-[10px] text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded">${count}</span>
+          </button>
+        `;
+      }
+      container.innerHTML = html;
+
+      // Event listener for pills
+      container.querySelectorAll('.subj-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const s = btn.getAttribute('data-subject');
+          if (selectedSubject === s) {
+            selectedSubject = 'ALL'; // toggle off
+          } else {
+            selectedSubject = s;
+          }
+          updatePillStyles();
+          applyFilters();
+        });
+      });
+    }
+
+    function updatePillStyles() {
+      const pills = document.querySelectorAll('.subj-pill');
+      const resetBtn = document.getElementById('btn-reset-subject');
+      
+      if (selectedSubject === 'ALL') {
+        resetBtn.classList.add('hidden');
+        pills.forEach(p => {
+          p.classList.remove('ring-2', 'ring-emerald-500', 'bg-slate-800', 'border-emerald-500');
+          p.classList.add('bg-slate-900', 'border-slate-800');
+        });
+      } else {
+        resetBtn.classList.remove('hidden');
+        pills.forEach(p => {
+          if (p.getAttribute('data-subject') === selectedSubject) {
+            p.classList.add('ring-2', 'ring-emerald-500', 'bg-slate-800', 'border-emerald-500');
+            p.classList.remove('bg-slate-900', 'border-slate-800');
+          } else {
+            p.classList.remove('ring-2', 'ring-emerald-500', 'bg-slate-800', 'border-emerald-500');
+            p.classList.add('bg-slate-900', 'border-slate-800');
+          }
+        });
+      }
+    }
+
+    // Event Listeners
+    function setupEventListeners() {
+      const searchInput = document.getElementById('search-input');
+      const clearBtn = document.getElementById('btn-clear-search');
+      const gradeFilter = document.getElementById('filter-grade-band');
+      const typeFilter = document.getElementById('filter-type');
+      const schoolFilter = document.getElementById('filter-school');
+      const loadMoreBtn = document.getElementById('btn-load-more');
+      const resetAllBtn = document.getElementById('btn-reset-all');
+      const resetSubjBtn = document.getElementById('btn-reset-subject');
+
+      // Search debounce
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        searchQuery = e.target.value.trim();
+        if (searchQuery.length > 0) {
+          clearBtn.classList.remove('hidden');
+        } else {
+          clearBtn.classList.add('hidden');
+        }
+        debounceTimer = setTimeout(() => {
+          applyFilters();
+        }, 200);
+      });
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        clearBtn.classList.add('hidden');
+        applyFilters();
+      });
+
+      // Quick Tags
+      document.querySelectorAll('.quick-tag').forEach(tagBtn => {
+        tagBtn.addEventListener('click', () => {
+          const tag = tagBtn.getAttribute('data-tag');
+          searchInput.value = tag;
+          searchQuery = tag;
+          clearBtn.classList.remove('hidden');
+          applyFilters();
+        });
+      });
+
+      // Dropdown filters
+      gradeFilter.addEventListener('change', (e) => {
+        selectedGradeBand = e.target.value;
+        applyFilters();
+      });
+
+      typeFilter.addEventListener('change', (e) => {
+        selectedType = e.target.value;
+        applyFilters();
+      });
+
+      schoolFilter.addEventListener('change', (e) => {
+        selectedSchool = e.target.value;
+        applyFilters();
+      });
+
+      // Load More
+      loadMoreBtn.addEventListener('click', () => {
+        currentLimit += PAGE_CHUNK;
+        renderKpis();
+      });
+
+      // Reset buttons
+      resetAllBtn.addEventListener('click', resetAllFilters);
+      resetSubjBtn.addEventListener('click', () => {
+        selectedSubject = 'ALL';
+        updatePillStyles();
+        applyFilters();
+      });
+
+      // Drawer close
+      document.getElementById('btn-close-drawer').addEventListener('click', closeDrawer);
+      document.getElementById('btn-close-drawer-bottom').addEventListener('click', closeDrawer);
+      document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
+
+      // Export Buttons
+      document.getElementById('btn-export-json').addEventListener('click', exportJSON);
+      document.getElementById('btn-export-csv').addEventListener('click', exportCSV);
+    }
+
+    function resetAllFilters() {
+      searchQuery = '';
+      selectedSubject = 'ALL';
+      selectedGradeBand = 'ALL';
+      selectedType = 'ALL';
+      selectedSchool = 'ALL';
+
+      document.getElementById('search-input').value = '';
+      document.getElementById('btn-clear-search').classList.add('hidden');
+      document.getElementById('filter-grade-band').value = 'ALL';
+      document.getElementById('filter-type').value = 'ALL';
+      document.getElementById('filter-school').value = 'ALL';
+
+      updatePillStyles();
+      applyFilters();
+    }
+
+    // Filter Logic
+    function applyFilters() {
+      currentLimit = PAGE_CHUNK;
+
+      const q = searchQuery.toLowerCase();
+
+      filteredKpis = allKpis.filter(k => {
+        // Subject filter
+        if (selectedSubject !== 'ALL' && k.subject !== selectedSubject) return false;
+
+        // Grade band filter
+        if (selectedGradeBand !== 'ALL' && k.grade_band !== selectedGradeBand) return false;
+
+        // Type filter
+        if (selectedType !== 'ALL' && k.type !== selectedType) return false;
+
+        // School course filter
+        if (selectedSchool === 'MAPPED' && k.courses.length === 0) return false;
+
+        // Text query
+        if (q.length > 0) {
+          const matchCode = k.code.toLowerCase().includes(q);
+          const matchText = k.text.toLowerCase().includes(q);
+          const matchCore = k.core_content.toLowerCase().includes(q);
+          const matchStandard = k.standard.toLowerCase().includes(q);
+          const matchStrand = k.strand.toLowerCase().includes(q);
+          const matchCourses = k.courses.some(c => c.toLowerCase().includes(q));
+          if (!matchCode && !matchText && !matchCore && !matchStandard && !matchStrand && !matchCourses) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      updateInsightsBanner();
+      renderKpis();
+    }
+
+    // Update Banner Stats
+    function updateInsightsBanner() {
+      const countEl = document.getElementById('search-result-count');
+      countEl.innerText = `แสดงผล ${filteredKpis.length.toLocaleString()} จาก ${allKpis.length.toLocaleString()} ตัวชี้วัด`;
+
+      // Timeline distributions
+      let p13 = 0, p46 = 0, m13 = 0, m46 = 0;
+      filteredKpis.forEach(k => {
+        if (k.grade_band === 'ประถมต้น (ป.1-3)') p13++;
+        else if (k.grade_band === 'ประถมปลาย (ป.4-6)') p46++;
+        else if (k.grade_band === 'มัธยมต้น (ม.1-3)') m13++;
+        else if (k.grade_band === 'มัธยมปลาย (ม.4-6)') m46++;
+      });
+
+      document.getElementById('dist-p13').innerText = `ป.ต้น: ${p13}`;
+      document.getElementById('dist-p46').innerText = `ป.ปลาย: ${p46}`;
+      document.getElementById('dist-m13').innerText = `ม.ต้น: ${m13}`;
+      document.getElementById('dist-m46').innerText = `ม.ปลาย: ${m46}`;
+    }
+
+    // Highlight text
+    function highlight(text, q) {
+      if (!q || q.length === 0) return text;
+      const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<span class="highlight-match">$1</span>');
+    }
+
+    // Render KPI Cards
+    function renderKpis() {
+      const grid = document.getElementById('kpi-grid');
+      const emptyState = document.getElementById('empty-state');
+      const pagination = document.getElementById('pagination-container');
+      const displayCount = document.getElementById('display-count');
+
+      if (filteredKpis.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        pagination.classList.add('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      const slice = filteredKpis.slice(0, currentLimit);
+      displayCount.innerText = slice.length.toLocaleString();
+
+      if (slice.length >= filteredKpis.length) {
+        pagination.classList.add('hidden');
+      } else {
+        pagination.classList.remove('hidden');
+      }
+
+      const q = searchQuery;
+      const meta = OPEN_CURRICULUM_DATA.subject_meta;
+
+      let html = '';
+      slice.forEach((k, idx) => {
+        const subjMeta = meta[k.subject] || { color: '#64748b' };
+        const isSummative = k.type === 'ปลายทาง';
+        const typeBadge = isSummative
+          ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">ปลายทาง</span>`
+          : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">ระหว่างทาง</span>`;
+
+        const schoolBadge = k.courses.length > 0
+          ? `<span class="inline-flex items-center space-x-1 text-[11px] text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded">
+              <i data-lucide="school" class="w-3 h-3 text-purple-400"></i>
+              <span>${k.courses[0].split('_')[0]} (${k.courses.length} วิชา)</span>
+            </span>`
+          : '';
+
+        html += `
+          <div 
+            class="kpi-card bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl p-4 transition duration-200 cursor-pointer flex flex-col justify-between hover:shadow-lg hover:shadow-emerald-500/5 group"
+            onclick="openDrawer('${k.id}')"
+          >
+            <div>
+              <!-- Card Header -->
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${subjMeta.color}"></span>
+                  <span class="text-xs font-semibold text-slate-300 font-heading">${k.subject}</span>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <span class="text-[11px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded">${k.grade}</span>
+                  ${typeBadge}
+                </div>
+              </div>
+
+              <!-- KPI Code -->
+              <h3 class="text-lg font-bold font-heading text-white group-hover:text-emerald-400 transition mb-2">
+                ${highlight(k.code, q)}
+              </h3>
+
+              <!-- Description -->
+              <p class="text-xs text-slate-300 leading-relaxed line-clamp-3 mb-3">
+                ${highlight(k.text, q)}
+              </p>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">
+              <div>
+                ${schoolBadge}
+              </div>
+              <span class="text-emerald-400 group-hover:underline flex items-center space-x-1">
+                <span>ดูรายละเอียด</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </span>
+            </div>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // Drawer Logic
+    function openDrawer(kpiId) {
+      const kpi = allKpis.find(k => k.id === kpiId);
+      if (!kpi) return;
+
+      document.getElementById('drawer-code').innerText = kpi.code;
+      document.getElementById('drawer-subject').innerText = `${kpi.subject} | ${kpi.strand}`;
+      document.getElementById('drawer-grade-badge').innerText = kpi.grade;
+
+      const typeBadge = document.getElementById('drawer-type-badge');
+      if (kpi.type === 'ปลายทาง') {
+        typeBadge.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        typeBadge.innerText = 'ตัวชี้วัดปลายทาง (Summative)';
+      } else {
+        typeBadge.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30';
+        typeBadge.innerText = 'ตัวชี้วัดระหว่างทาง (Formative)';
+      }
+
+      document.getElementById('drawer-text').innerText = kpi.text;
+      document.getElementById('drawer-core').innerText = kpi.core_content || 'ไม่มีการระบุสาระแกนกลางเฉพาะ';
+
+      // Courses list
+      const coursesContainer = document.getElementById('drawer-courses');
+      if (kpi.courses && kpi.courses.length > 0) {
+        let cHtml = '';
+        kpi.courses.forEach(c => {
+          cHtml += `
+            <div class="flex items-center space-x-2 text-xs bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-slate-200">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span class="font-medium">${c}</span>
+            </div>
+          `;
+        });
+        coursesContainer.innerHTML = cHtml;
+      } else {
+        coursesContainer.innerHTML = `
+          <div class="text-xs text-slate-500 italic p-2 bg-slate-900/50 rounded-lg">
+            * ยังไม่ได้ระบุรายวิชาที่นำไปใช้ในหลักสูตรสถานศึกษา
+          </div>
+        `;
+      }
+
+      // Show drawer
+      document.getElementById('drawer-backdrop').classList.remove('hidden');
+      const drawer = document.getElementById('kpi-drawer');
+      drawer.classList.remove('translate-x-full');
+
+      lucide.createIcons();
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawer-backdrop').classList.add('hidden');
+      document.getElementById('kpi-drawer').classList.add('translate-x-full');
+    }
+
+    // Export Handlers
+    function exportJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(filteredKpis, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `open_curriculum_export_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function exportCSV() {
+      const headers = ['code', 'subject', 'grade', 'type', 'text', 'courses'];
+      let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // UTF-8 BOM
+      csvContent += headers.join(",") + "\r\n";
+
+      filteredKpis.forEach(k => {
+        const row = [
+          `"${k.code}"`,
+          `"${k.subject}"`,
+          `"${k.grade}"`,
+          `"${k.type}"`,
+          `"${k.text.replace(/"/g, '""')}"`,
+          `"${k.courses.join('; ')}"`
+        ];
+        csvContent += row.join(",") + "\r\n";
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `open_curriculum_export_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+  </script>
+</body>
+</html>
