@@ -77,9 +77,9 @@
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
 
   <!-- Top Announcement Bar -->
-  <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs py-1.5 px-4 text-center font-medium shadow-sm flex items-center justify-center space-x-2">
-    <span class="inline-block w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-    <span>⚡ นวัตกรรมหลักสูตรเปิด: ตรวจสอบความสอดคล้อง 100% กับมาตรฐาน สพฐ. ๒๕๖๖ | โรงเรียนพัฒนานิคม</span>
+  <div class="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-800 text-slate-300 text-xs py-1.5 px-4 text-center font-medium shadow-sm flex items-center justify-center space-x-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span>📍 ฐานข้อมูลเปิด: ตัวชี้วัดและสาระการเรียนรู้แกนกลาง ๒,๐๕๖ ข้อ (สพฐ. ๒๕๕๑ ปรับปรุง ๒๕๖๐) | โรงเรียนพัฒนานิคม</span>
   </div>
 
   <!-- Navbar -->
@@ -92,9 +92,9 @@
         <div>
           <div class="flex items-center space-x-2">
             <span class="font-heading font-bold text-lg text-white tracking-tight">THAI OPEN CURRICULUM</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">BETA</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">OPEN DATA</span>
           </div>
-          <p class="text-xs text-slate-400 hidden sm:block">แพลตฟอร์มสืบค้นและสำรวจตัวชี้วัดแกนกลาง ๒,๐๕๖ ข้อ</p>
+          <p class="text-xs text-slate-400 hidden sm:block">สืบค้นตัวชี้วัดและสาระการเรียนรู้แกนกลาง ๘ กลุ่มสาระ</p>
         </div>
       </div>
 
@@ -119,14 +119,14 @@
   <section class="border-b border-slate-800/80 bg-gradient-to-b from-slate-900 to-slate-950 py-10 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto text-center">
       <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300 mb-4">
-        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-        <span>ระบบตรวจสอบความถูกต้อง 3 ชั้น (Machine Verified 100%)</span>
+        <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
+        <span>ฐานข้อมูลเทียบเคียงถ้อยคำกับเอกสาร สพฐ. ๒๕๖๖ (รอการตรวจรับรองรายบุคคลโดยครูผู้สอน)</span>
       </div>
       <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3">
-        เปิดคลังข้อมูล <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">หลักสูตรการศึกษาไทย</span>
+        เปิดคลัง <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">ตัวชี้วัดและสาระการเรียนรู้แกนกลาง</span>
       </h1>
       <p class="max-w-3xl mx-auto text-sm sm:text-base text-slate-400 mb-8 leading-relaxed">
-        สำรวจ ตรวจสอบ และเชื่อมโยงเป้าหมายการเรียนรู้ระดับชาติสู่ห้องเรียนจริง ค้นหาว่าทักษะและมโนทัศน์รอบตัวถูกสอนในระดับชั้นไหน วิชาใด และมีสัดส่วนอย่างไร
+        สำรวจเป้าหมายและเนื้อหาการเรียนรู้ระดับชาติตั้งแต่ ป.๑ ถึง ม.๖ ค้นหาว่าสาระแกนกลางและทักษะรอบตัวถูกจัดสรรไว้ในวิชาใด และนำไปจัดการเรียนรู้จริงในโรงเรียนอย่างไร
       </p>
 
       <!-- Key Metrics 4 Cards -->
@@ -134,15 +134,14 @@
         <!-- Metric 1: Total KPIs -->
         <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm hover:border-slate-700 transition">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-medium text-slate-400">ตัวชี้วัดแกนกลางทั้งหมด</span>
+            <span class="text-xs font-medium text-slate-400">ตัวชี้วัดแกนกลาง</span>
             <div class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
               <i data-lucide="award" class="w-4 h-4"></i>
             </div>
           </div>
           <div class="text-2xl sm:text-3xl font-bold font-heading text-white" id="stat-total-kpi">2,056</div>
-          <div class="text-[11px] text-emerald-400 mt-1 flex items-center space-x-1">
-            <i data-lucide="check-circle" class="w-3 h-3"></i>
-            <span>ตรงกับต้นฉบับ สพฐ. 100%</span>
+          <div class="text-[11px] text-slate-400 mt-1 flex items-center space-x-1">
+            <span>ครอบคลุม ๘ กลุ่มสาระการเรียนรู้</span>
           </div>
         </div>
 
@@ -214,7 +213,7 @@
         <input 
           id="search-input"
           type="text" 
-          placeholder="ค้นหามโนทัศน์ สิ่งของ หรือเรื่องที่คุณสนใจ (เช่น: สิ่งแวดล้อม, ดอกเบี้ย, ยา, ขยะ, โฆษณา, AI, แผนที่, ปฐมพยาบาล...)"
+          placeholder="ค้นหาสาระการเรียนรู้แกนกลาง, เนื้อหา, หรือตัวชี้วัด (เช่น: พันธุกรรม, ภาษี, ประชาธิปไตย, ธาตุ, แรง, ระบบสุริยะ, สิ่งแวดล้อม...)"
           class="w-full bg-slate-950 border border-slate-700/80 rounded-xl pl-12 pr-10 py-3.5 text-sm sm:text-base text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition"
         >
         <button id="btn-clear-search" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 hidden">
@@ -226,9 +225,10 @@
       <div class="mt-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs">
         <span class="text-slate-400 flex items-center space-x-1">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span>ลองค้นคำยอดฮิต:</span>
+          <span>ลองค้นเนื้อหายอดฮิต:</span>
         </span>
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="สิ่งแวดล้อม">🌱 สิ่งแวดล้อม</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="พันธุกรรม">🧬 พันธุกรรม / เซลล์</button>
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="เงิน">💰 เงิน / ดอกเบี้ย</button>
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ยา">💊 ยา / สุขภาพ</button>
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ไฟฟ้า">⚡ ไฟฟ้า</button>
@@ -236,7 +236,7 @@
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="โฆษณา">📢 โฆษณา / ผู้บริโภค</button>
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="กฎหมาย">⚖️ กฎหมาย</button>
         <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="แผนที่">🗺️ แผนที่</button>
-        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ปฐมพยาบาล">🩹 ปฐมพยาบาล</button>
+        <button class="quick-tag px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ประชาธิปไตย">🏛️ ประชาธิปไตย</button>
       </div>
 
       <!-- Advanced Filter Row -->
@@ -373,11 +373,11 @@
       </div>
 
       <!-- Provenance Verification Card -->
-      <div class="bg-emerald-950/20 border border-emerald-500/20 rounded-xl p-3.5 text-xs text-emerald-300 flex items-start space-x-2.5">
-        <i data-lucide="badge-check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-300 flex items-start space-x-2.5">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
         <div>
-          <div class="font-semibold text-emerald-200">ผ่านการรับรองความถูกต้องตรงกับต้นฉบับ สพฐ. ๒๕๖๖</div>
-          <div class="text-[11px] text-emerald-400/80 mt-0.5">ตรวจสอบความถูกต้องระดับตัวอักษรและโครงสร้างความสัมพันธ์ (Automated Fidelity Diff Verified)</div>
+          <div class="font-semibold text-slate-200">สถานะการเทียบเคียงข้อมูล</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">ผ่านการเทียบเคียงตัวอักษรกับเล่ม สพฐ. ด้วยโปรแกรมคอมพิวเตอร์ (Automated Text Diff) | อยู่ระหว่างรอการลงนามรับรองเป็นรายวิชาโดยครูผู้สอน</div>
         </div>
       </div>
     </div>
@@ -727,15 +727,36 @@
                 </div>
               </div>
 
+              <!-- Standard & Strand -->
+              <div class="text-[11px] text-slate-400 mb-1 flex items-center space-x-1.5">
+                <span class="font-medium text-slate-300">${k.standard}</span>
+                <span>•</span>
+                <span class="truncate text-slate-400">${k.strand}</span>
+              </div>
+
               <!-- KPI Code -->
-              <h3 class="text-lg font-bold font-heading text-white group-hover:text-emerald-400 transition mb-2">
-                ${highlight(k.code, q)}
+              <h3 class="text-base font-bold font-heading text-white group-hover:text-emerald-400 transition mb-2 flex items-center space-x-2">
+                <span>${highlight(k.code, q)}</span>
               </h3>
 
-              <!-- Description -->
-              <p class="text-xs text-slate-300 leading-relaxed line-clamp-3 mb-3">
+              <!-- Indicator Description -->
+              <div class="text-xs text-slate-300 leading-relaxed mb-3">
+                <span class="text-[11px] font-semibold text-slate-400">ตัวชี้วัด:</span>
                 ${highlight(k.text, q)}
-              </p>
+              </div>
+
+              <!-- Core Content (สาระการเรียนรู้แกนกลาง) -->
+              ${k.core_content ? `
+                <div class="p-2.5 rounded-lg bg-slate-950/90 border border-slate-800/80 text-xs mb-3">
+                  <div class="text-[11px] font-semibold text-emerald-400/90 mb-1 flex items-center space-x-1.5">
+                    <i data-lucide="book-marked" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>สาระการเรียนรู้แกนกลาง (เนื้อหาที่สอน):</span>
+                  </div>
+                  <div class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                    ${highlight(k.core_content, q)}
+                  </div>
+                </div>
+              ` : ''}
             </div>
 
             <!-- Card Footer -->
@@ -744,7 +765,7 @@
                 ${schoolBadge}
               </div>
               <span class="text-emerald-400 group-hover:underline flex items-center space-x-1">
-                <span>ดูรายละเอียด</span>
+                <span>ดูรายละเอียดฉบับเต็ม</span>
                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
               </span>
             </div>
