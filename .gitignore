@@ -13,6 +13,9 @@ env/
 !ai_assistant.py
 !build_open_curriculum_data.py
 !optimize_vault_links.py
+!rebuild_all_assessment_data.py
+!build_assessment_hubs.py
+!generate_assessment_plan_docx.py
 !scripts/*.py
 !reports/*.md
 *.json
@@ -35,6 +38,7 @@ pdf_chunks/
 
 # Local School Curriculum (PTNK Specific)
 Curriculum_Vault/09_หลักสูตรสถานศึกษา/
+Curriculum_Vault/CurriculumMD/
 
 # Google Drive sync files
 ~*
