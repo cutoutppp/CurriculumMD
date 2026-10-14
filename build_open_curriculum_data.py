@@ -10,20 +10,36 @@ with open('all_kpi_master.json', 'r', encoding='utf-8') as f:
 courses_dir = 'Curriculum_Vault/09_หลักสูตรสถานศึกษา'
 course_map = {}
 
+def extract_kpi_from_link(link, kpi_keys):
+    parts = [p.strip() for p in link.split('|')]
+    for p in parts:
+        c1 = re.sub(r'\s+', ' ', p)
+        if c1 in kpi_keys:
+            return c1
+        m = re.match(r'^([ทควสพศงต]\s*\d+\.\d+\s*[ปม]\.\d+(?:-\d+)?)-(\d+)$', p)
+        if m:
+            c2 = f"{re.sub(r'\s+', ' ', m.group(1))}/{m.group(2)}"
+            if c2 in kpi_keys:
+                return c2
+    return None
+
+master_keys = set(master.keys())
+
 for root, dirs, files in os.walk(courses_dir):
     for f in files:
         if f.endswith('.md') and not f.startswith('00_'):
             cpath = os.path.join(root, f)
             with open(cpath, 'r', encoding='utf-8') as fp:
                 txt = fp.read()
-            links = re.findall(r'\[\[([ทควสพศงต]\s*\d+\.\d+\s*[ปม]\.[^\]\|]+)', txt)
+            wikilinks = re.findall(r'\[\[(.*?)\]\]', txt)
             c_name = f.replace('.md', '')
-            for l in links:
-                norm_code = re.sub(r'\s+', ' ', l.strip()).replace('-', '/')
-                if norm_code not in course_map:
-                    course_map[norm_code] = []
-                if c_name not in course_map[norm_code]:
-                    course_map[norm_code].append(c_name)
+            for l in wikilinks:
+                kpi_code = extract_kpi_from_link(l, master_keys)
+                if kpi_code:
+                    if kpi_code not in course_map:
+                        course_map[kpi_code] = []
+                    if c_name not in course_map[kpi_code]:
+                        course_map[kpi_code].append(c_name)
 
 print(f"Mapped {len(course_map)} KPIs to school courses.")
 
