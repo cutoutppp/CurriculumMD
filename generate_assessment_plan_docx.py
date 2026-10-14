@@ -415,16 +415,7 @@ class OfficialAssessmentPlanGenerator:
             tot_pre_k += k_val
             tot_pre_p += p_val
             tot_pre_a += a_val
-            nk_list = u.get("national_kpis", [])
-            if is_basic and nk_list:
-                if len(nk_list) <= 2:
-                    kpi_txt = ", ".join(nk_list)
-                else:
-                    kpi_txt = f"{nk_list[0]}, {nk_list[1]} (+{len(nk_list)-2})"
-            elif is_basic:
-                kpi_txt = f"ตัวชี้วัดหน่วยที่ {u_no}"
-            else:
-                kpi_txt = f"ข้อที่ {u_no}"
+            kpi_txt = f"ตัวชี้วัดหน่วยที่ {u_no}" if is_basic else f"ข้อที่ {u_no}"
             methods = "- กิจกรรม/ใบงาน\n- การสังเกตพฤติกรรม"
             if i == 0:
                 methods += "\n- ชิ้นงานสำคัญ"
@@ -466,16 +457,7 @@ class OfficialAssessmentPlanGenerator:
             tot_post_a += a_val
             tot_post_score += sc
 
-            nk_list = u.get("national_kpis", [])
-            if is_basic and nk_list:
-                if len(nk_list) <= 2:
-                    kpi_txt = ", ".join(nk_list)
-                else:
-                    kpi_txt = f"{nk_list[0]}, {nk_list[1]} (+{len(nk_list)-2})"
-            elif is_basic:
-                kpi_txt = f"ตัวชี้วัดหน่วยที่ {u_no}"
-            else:
-                kpi_txt = f"ข้อที่ {u_no}"
+            kpi_txt = f"ตัวชี้วัดหน่วยที่ {u_no}" if is_basic else f"ข้อที่ {u_no}"
             methods = "- กิจกรรม/ใบงาน\n- การสังเกตพฤติกรรม\n- การอภิปรายกลุ่ม"
             add_data_row(table, u_no, f"{u_name} ({u_hrs} ชั่วโมง)", kpi_txt, methods, k_val, p_val, a_val, sc)
 
