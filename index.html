@@ -40,8 +40,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons (Pinned stable version) -->
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
 
   <style>
     body {
@@ -82,12 +82,12 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black pb-24">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black pb-28">
 
   <!-- Top Announcement Bar -->
   <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800 text-slate-300 text-xs py-1.5 px-4 text-center font-medium shadow-sm flex items-center justify-center space-x-2">
     <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-    <span>ฐานข้อมูลเปิด: ตัวชี้วัดและสาระการเรียนรู้แกนกลาง ๒,๐๕๖ ข้อ (สพฐ. ๒๕๕๑ ปรับปรุง ๒๕๖๐) | พร้อมระบบก๊อปปี้ทำแผนและคำอธิบายรายวิชา</span>
+    <span>ฐานข้อมูลเปิด: ตัวชี้วัดและสาระการเรียนรู้แกนกลาง ๒,๐๕๖ ข้อ (สพฐ. ๒๕๕๑ ปรับปรุง ๒๕๖๐) | โรงเรียนพัฒนานิคม</span>
   </div>
 
   <!-- Navbar -->
@@ -100,7 +100,7 @@
         <div>
           <div class="flex items-center space-x-2">
             <span class="font-heading font-bold text-lg text-white tracking-tight">THAI OPEN CURRICULUM</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">FOR TEACHERS</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">TEACHER TOOLS</span>
           </div>
           <p class="text-xs text-slate-400 hidden sm:block">สืบค้นตัวชี้วัด สาระแกนกลาง สัดส่วนระหว่างทาง-ปลายทาง และตัวช่วยทำแผนการสอน</p>
         </div>
@@ -110,7 +110,8 @@
         <!-- Open Overview Modal Button -->
         <button id="btn-open-overview-modal" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-100 font-medium px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5 shadow-sm">
           <i data-lucide="book-open" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span>โครงสร้างสาระ & คุณภาพผู้เรียน</span>
+          <span class="hidden sm:inline">โครงสร้างสาระ & คุณภาพผู้เรียน</span>
+          <span class="sm:hidden">โครงสร้างสาระ</span>
         </button>
 
         <button id="btn-export-json" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition hidden md:flex items-center space-x-1.5">
@@ -134,13 +135,13 @@
     <div class="max-w-7xl mx-auto text-center">
       <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300 mb-3">
         <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
-        <span>ระบบช่วยครู: ค้นหาตัวชี้วัด สาระแกนกลาง และก๊อปปี้ไปวางในแผนการสอนหรือคำอธิบายรายวิชาได้ทันที</span>
+        <span>ระบบช่วยครู: ค้นหาตัวชี้วัด สาระแกนกลาง ก๊อปปี้ไปวางในแผนการสอนหรือคำอธิบายรายวิชาได้ทันที</span>
       </div>
       <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
         คลังข้อมูล <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">มาตรฐาน ตัวชี้วัด และสาระการเรียนรู้แกนกลาง</span>
       </h1>
       <p class="max-w-3xl mx-auto text-xs sm:text-sm text-slate-400 mb-6 leading-relaxed">
-        เห็นสัดส่วนตัวชี้วัดระหว่างทาง-ปลายทางชัดเจน ตรวจสอบสาระแกนกลาง และก๊อปปี้ไปวางในเอกสารหลักสูตรได้สะดวกรวดเร็ว
+        ตรวจสอบสัดส่วนตัวชี้วัดระหว่างทาง-ปลายทาง ค้นหาสาระแกนกลาง พร้อมระบบก๊อปปี้จัดกลุ่มตามฟอร์มทางการของกระทรวงศึกษาธิการ
       </p>
 
       <!-- Key Metrics 4 Cards (จำนวนหรือปริมาณชัดเจน) -->
@@ -231,12 +232,12 @@
           <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-cyan-400"></i>
           <span>เลือกระดับชั้นที่สอน (คลิกเพื่อดูตัวชี้วัดประจำชั้นทันที):</span>
         </div>
-        <div id="grade-band-tabs" class="flex items-center space-x-1 text-xs">
-          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition" data-band="ALL">ทุกช่วงชั้น</button>
-          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition" data-band="ประถมต้น (ป.1-3)">ป.ต้น (1-3)</button>
-          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition" data-band="ประถมปลาย (ป.4-6)">ป.ปลาย (4-6)</button>
-          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition" data-band="มัธยมต้น (ม.1-3)">ม.ต้น (1-3)</button>
-          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition" data-band="มัธยมปลาย (ม.4-6)">ม.ปลาย (4-6)</button>
+        <div id="grade-band-tabs" class="flex items-center space-x-1 text-xs overflow-x-auto pb-1 sm:pb-0">
+          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition whitespace-nowrap" data-band="ALL">ทุกช่วงชั้น</button>
+          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition whitespace-nowrap" data-band="ประถมต้น (ป.1-3)">ป.ต้น (1-3)</button>
+          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition whitespace-nowrap" data-band="ประถมปลาย (ป.4-6)">ป.ปลาย (4-6)</button>
+          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition whitespace-nowrap" data-band="มัธยมต้น (ม.1-3)">ม.ต้น (1-3)</button>
+          <button class="grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition whitespace-nowrap" data-band="มัธยมปลาย (ม.4-6)">ม.ปลาย (4-6)</button>
         </div>
       </div>
       <!-- Grade pills row -->
@@ -256,7 +257,7 @@
         <input 
           id="search-input"
           type="text" 
-          placeholder="ค้นหาตัวชี้วัด เช่น รหัส (ท 1.1 ม.1/1), สาระแกนกลาง (กลอนสุภาพ, พันธุกรรม, ดอกเบี้ย, กฎหมาย, สิ่งแวดล้อม...)"
+          placeholder="ค้นหาตัวชี้วัด เช่น รหัส (ท 1.1 ม.1/1 หรือ ท1.1 หรือ ท ๑.๑), เนื้อหา (กลอน, พันธุกรรม, ดอกเบี้ย, กฎหมาย...)"
           class="w-full bg-slate-950 border border-slate-700/80 rounded-xl pl-12 pr-10 py-3 text-sm sm:text-base text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition"
         >
         <button id="btn-clear-search" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 hidden">
@@ -273,7 +274,7 @@
         <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="สิ่งแวดล้อม">🌱 สิ่งแวดล้อม</button>
         <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="พันธุกรรม">🧬 พันธุกรรม</button>
         <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ดอกเบี้ย">💰 ดอกเบี้ย / ภาษี</button>
-        <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="สุขภาพ">💊 ยา / สุขภาพ</button>
+        <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="สุขภาพ">💊 สุขภาพ / ยา</button>
         <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ไฟฟ้า">⚡ ไฟฟ้า</button>
         <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="ประชาธิปไตย">🏛️ ประชาธิปไตย</button>
         <button class="quick-tag px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-tag="การอ่านออกเสียง">📖 การอ่านออกเสียง</button>
@@ -322,7 +323,7 @@
           <div class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
             <span class="text-sm font-semibold font-heading text-white" id="search-result-title">ผลการแสดงรายการตัวชี้วัด</span>
-            <span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" id="search-result-count">2,056 ตัวชี้วัด</span>
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono" id="search-result-count">2,056 ตัวชี้วัด</span>
           </div>
           <p class="text-xs text-slate-400 mt-0.5" id="search-result-subtitle">ครอบคลุมทุกระดับชั้นและทุกกลุ่มสาระการเรียนรู้</p>
         </div>
@@ -331,7 +332,7 @@
         <div class="flex items-center space-x-2 self-start md:self-auto">
           <button id="btn-select-all-filtered" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
             <i data-lucide="check-square" class="w-3.5 h-3.5 text-emerald-400"></i>
-            <span>เลือกทั้งหมดในหน้านี้</span>
+            <span id="btn-select-all-label">เลือกทั้งหมดที่กรอง (2,056 ข้อ)</span>
           </button>
           <button id="btn-deselect-all" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 transition hidden">
             <span>ยกเลิกที่เลือก</span>
@@ -344,10 +345,10 @@
         <div class="flex items-center justify-between text-xs text-slate-300 font-medium">
           <div class="flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-            <span>ระหว่างทาง: <strong class="text-blue-400" id="banner-count-formative">1,285</strong> ข้อ (<span id="banner-pct-formative">62.5%</span>)</span>
+            <span>ระหว่างทาง: <strong class="text-blue-400 font-mono" id="banner-count-formative">1,285</strong> ข้อ (<span id="banner-pct-formative">62.5%</span>)</span>
           </div>
           <div class="flex items-center space-x-2">
-            <span>ปลายทาง: <strong class="text-amber-400" id="banner-count-summative">771</strong> ข้อ (<span id="banner-pct-summative">37.5%</span>)</span>
+            <span>ปลายทาง: <strong class="text-amber-400 font-mono" id="banner-count-summative">771</strong> ข้อ (<span id="banner-pct-summative">37.5%</span>)</span>
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
           </div>
         </div>
@@ -397,7 +398,7 @@
         </div>
         <div>
           <span class="text-xs font-bold text-white font-heading" id="batch-selected-count">เลือกไว้ 0 ข้อ</span>
-          <p class="text-[10px] text-slate-400" id="batch-breakdown-count">(ระหว่างทาง 0, ปลายทาง 0)</p>
+          <p class="text-[10px] text-slate-400 font-mono" id="batch-breakdown-count">(ระหว่างทาง 0, ปลายทาง 0)</p>
         </div>
       </div>
       <button id="btn-batch-clear" class="text-xs text-slate-400 hover:text-rose-400 underline sm:hidden">ยกเลิก</button>
@@ -406,19 +407,19 @@
     <!-- Batch Actions Buttons -->
     <div class="flex flex-wrap items-center gap-1.5 w-full sm:w-auto justify-end">
       <!-- Action 1: Copy for Course Description -->
-      <button id="btn-copy-batch-course-desc" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-emerald-600/20">
+      <button id="btn-copy-batch-course-desc" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-emerald-600/20" title="คัดลอกรหัสจัดกลุ่มตามมาตรฐานพร้อมสรุปยอดตามแบบฟอร์มกระทรวงฯ">
         <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
         <span>ก๊อปท้ายคำอธิบายรายวิชา</span>
       </button>
 
       <!-- Action 2: Copy for Lesson Plan -->
-      <button id="btn-copy-batch-plan" class="text-xs bg-cyan-600 hover:bg-cyan-500 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-cyan-600/20">
+      <button id="btn-copy-batch-plan" class="text-xs bg-cyan-600 hover:bg-cyan-500 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-cyan-600/20" title="คัดลอกมาตรฐาน ตัวชี้วัด และสาระแกนกลางสำหรับแผนการสอน">
         <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
         <span>ก๊อปชุดทำแผนการสอน</span>
       </button>
 
       <!-- Action 3: Copy as Table for Word/Excel -->
-      <button id="btn-copy-batch-table" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5">
+      <button id="btn-copy-batch-table" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5" title="คัดลอกเป็นตาราง HTML/TSV พร้อมวางลง Word หรือ Excel ได้ทันที">
         <i data-lucide="table" class="w-3.5 h-3.5 text-amber-400"></i>
         <span>ก๊อปตาราง (Word/Excel)</span>
       </button>
@@ -445,9 +446,14 @@
         <span id="drawer-type-badge" class="px-2 py-0.5 rounded text-[11px] font-bold">ระหว่างทาง</span>
         <span id="drawer-grade-badge" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">ป.1</span>
       </div>
-      <button id="btn-close-drawer" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
+      <div class="flex items-center space-x-1">
+        <button id="drawer-btn-share-link" class="text-slate-400 hover:text-emerald-400 p-1.5 rounded-lg hover:bg-slate-800" title="คัดลอกลิงก์แชร์ตัวชี้วัดนี้">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+        </button>
+        <button id="btn-close-drawer" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Drawer Content -->
@@ -557,7 +563,7 @@
           </div>
           <div>
             <h3 class="font-heading font-bold text-base sm:text-lg text-white">โครงสร้างกลุ่มสาระและคุณภาพผู้เรียน</h3>
-            <p class="text-xs text-slate-400">เป้าหมายของหลักสูตรแกนกลาง และคุณภาพผู้เรียนเมื่อจบแต่ละช่วงชั้น</p>
+            <p class="text-xs text-slate-400">เป้าหมายของหลักสูตรแกนกลาง และคุณภาพผู้เรียนเมื่อจบแต่ละช่วงชั้น (อ้างอิง สพฐ.)</p>
           </div>
         </div>
         <button id="btn-close-overview-modal" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
@@ -614,6 +620,7 @@
   <script>
     // State
     let allKpis = [];
+    let kpiMap = new Map();
     let filteredKpis = [];
     let currentLimit = 40;
     const PAGE_CHUNK = 40;
@@ -624,13 +631,25 @@
     let selectedType = 'ALL';
     let selectedSchool = 'ALL';
     
-    // Multi-Select Batch State
+    // Multi-Select Batch State (Persistent via localStorage)
+    const STORAGE_KEY = 'open_curriculum_selected_kpis_v2';
     let selectedKpiIds = new Set();
     let currentDrawerKpi = null;
     let activeModalSubject = 'ภาษาไทย';
 
     // List of individual grades
-    const ORDERED_GRADES = ['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.ปลาย (ม.4-6)'];
+    const ORDERED_GRADES = ['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.4', 'ม.5', 'ม.6', 'ม.4-6'];
+
+    // Helper: Normalize Thai text (Arabic digits, remove spaces)
+    function normalizeSearchText(str) {
+      if (!str) return '';
+      const thaiDigits = ['๐','๑','๒','๓','๔','๕','๖','๗','๘','๙'];
+      let s = str.toLowerCase();
+      for (let i = 0; i < 10; i++) {
+        s = s.replaceAll(thaiDigits[i], String(i));
+      }
+      return s.replace(/\s+/g, '');
+    }
 
     // Init
     document.addEventListener('DOMContentLoaded', () => {
@@ -638,6 +657,16 @@
       if (typeof OPEN_CURRICULUM_DATA !== 'undefined') {
         allKpis = OPEN_CURRICULUM_DATA.kpis;
         
+        // Build search index and lookup map for high performance
+        allKpis.forEach(k => {
+          kpiMap.set(k.id, k);
+          const rawSearchStr = `${k.code} ${k.text} ${k.standard} ${k.standard_desc || ''} ${k.strand} ${k.core_content || ''} ${(k.courses || []).join(' ')}`;
+          k.searchIndex = normalizeSearchText(rawSearchStr);
+        });
+
+        // Load saved selections from localStorage
+        loadSelectedKpisFromStorage();
+
         // Dynamically populate header metrics from live data bundle
         const totalCount = allKpis.length;
         const formativeCount = allKpis.filter(k => k.type === 'ระหว่างทาง').length;
@@ -664,12 +693,50 @@
         initSubjectBar();
         initGradePills();
         applyFilters();
+
+        // Handle URL deep link e.g. #kpi=ท 1.1 ม.1/1
+        handleUrlHash();
       } else {
         console.error('Data bundle kpi_data.js not loaded!');
       }
 
       setupEventListeners();
     });
+
+    // Storage helpers
+    function loadSelectedKpisFromStorage() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const arr = JSON.parse(saved);
+          if (Array.isArray(arr)) {
+            selectedKpiIds = new Set(arr.filter(id => kpiMap.has(id)));
+          }
+        }
+      } catch (e) {
+        console.warn('LocalStorage load error:', e);
+      }
+    }
+
+    function saveSelectedKpisToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(selectedKpiIds)));
+      } catch (e) {
+        console.warn('LocalStorage save error:', e);
+      }
+    }
+
+    // Deep Linking via URL Hash
+    function handleUrlHash() {
+      const hash = decodeURIComponent(window.location.hash || '');
+      if (hash.startsWith('#kpi=')) {
+        const code = hash.replace('#kpi=', '').trim();
+        const found = allKpis.find(k => k.code === code || k.id === code);
+        if (found) {
+          openDrawer(found.id);
+        }
+      }
+    }
 
     // Setup Subject Filter Pills
     function initSubjectBar() {
@@ -735,7 +802,6 @@
 
     // Initialize Interactive Grade Pills (จำนวนและปริมาณชัดเจน)
     function initGradePills() {
-      const container = document.getElementById('grade-pills-container');
       updateGradePillsCount();
     }
 
@@ -743,7 +809,6 @@
       const container = document.getElementById('grade-pills-container');
       if (!container) return;
 
-      // Calculate counts based on current selectedSubject
       const pool = selectedSubject === 'ALL' 
         ? allKpis 
         : allKpis.filter(k => k.subject === selectedSubject);
@@ -759,13 +824,7 @@
       `;
 
       ORDERED_GRADES.forEach(g => {
-        let count = 0;
-        if (g === 'ม.ปลาย (ม.4-6)') {
-          count = pool.filter(k => ['ม.4', 'ม.5', 'ม.6', 'ม.4-6', 'ม.ปลาย'].includes(k.grade)).length;
-        } else {
-          count = pool.filter(k => k.grade === g).length;
-        }
-
+        const count = pool.filter(k => k.grade === g).length;
         const isSelected = selectedGrade === g;
         html += `
           <button 
@@ -786,7 +845,6 @@
           const g = btn.getAttribute('data-grade');
           selectedGrade = g;
           
-          // Sync grade-band tab
           if (g === 'ALL') {
             selectedGradeBand = 'ALL';
           } else if (['ป.1', 'ป.2', 'ป.3'].includes(g)) {
@@ -811,9 +869,9 @@
       document.querySelectorAll('.grade-band-tab').forEach(tab => {
         const b = tab.getAttribute('data-band');
         if (b === selectedGradeBand) {
-          tab.className = 'grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition';
+          tab.className = 'grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition whitespace-nowrap';
         } else {
-          tab.className = 'grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition';
+          tab.className = 'grade-band-tab px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 transition whitespace-nowrap';
         }
       });
     }
@@ -841,7 +899,7 @@
         }
         debounceTimer = setTimeout(() => {
           applyFilters();
-        }, 180);
+        }, 150);
       });
 
       clearBtn.addEventListener('click', () => {
@@ -913,7 +971,7 @@
       document.getElementById('btn-close-drawer-bottom').addEventListener('click', closeDrawer);
       document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
 
-      // Drawer Copy Handlers
+      // Drawer Copy & Share Handlers
       setupDrawerCopyHandlers();
 
       // Export Buttons
@@ -925,6 +983,21 @@
 
       // Overview Modal Handlers
       setupOverviewModal();
+
+      // Keyboard Esc handler
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const modal = document.getElementById('overview-modal-backdrop');
+          if (modal && !modal.classList.contains('hidden')) {
+            modal.classList.add('hidden');
+            return;
+          }
+          const drawer = document.getElementById('kpi-drawer');
+          if (drawer && !drawer.classList.contains('translate-x-full')) {
+            closeDrawer();
+          }
+        }
+      });
     }
 
     function resetAllFilters() {
@@ -947,10 +1020,10 @@
       applyFilters();
     }
 
-    // Filter Logic
+    // Filter Logic with Normalized Search
     function applyFilters() {
       currentLimit = PAGE_CHUNK;
-      const q = searchQuery.toLowerCase();
+      const qNorm = normalizeSearchText(searchQuery);
 
       filteredKpis = allKpis.filter(k => {
         // Subject filter
@@ -961,11 +1034,7 @@
 
         // Specific grade filter
         if (selectedGrade !== 'ALL') {
-          if (selectedGrade === 'ม.ปลาย (ม.4-6)') {
-            if (!['ม.4', 'ม.5', 'ม.6', 'ม.4-6', 'ม.ปลาย'].includes(k.grade)) return false;
-          } else {
-            if (k.grade !== selectedGrade) return false;
-          }
+          if (k.grade !== selectedGrade) return false;
         }
 
         // Type filter
@@ -974,18 +1043,9 @@
         // School course filter
         if (selectedSchool === 'MAPPED' && (!k.courses || k.courses.length === 0)) return false;
 
-        // Text query search
-        if (q.length > 0) {
-          const matchCode = k.code.toLowerCase().includes(q);
-          const matchText = k.text.toLowerCase().includes(q);
-          const matchCore = k.core_content.toLowerCase().includes(q);
-          const matchStandard = k.standard.toLowerCase().includes(q);
-          const matchStandardDesc = (k.standard_desc || '').toLowerCase().includes(q);
-          const matchStrand = k.strand.toLowerCase().includes(q);
-          const matchCourses = k.courses && k.courses.some(c => c.toLowerCase().includes(q));
-          if (!matchCode && !matchText && !matchCore && !matchStandard && !matchStandardDesc && !matchStrand && !matchCourses) {
-            return false;
-          }
+        // Normalized Search
+        if (qNorm.length > 0) {
+          if (!k.searchIndex.includes(qNorm)) return false;
         }
 
         return true;
@@ -1000,6 +1060,7 @@
       const countEl = document.getElementById('search-result-count');
       const titleEl = document.getElementById('search-result-title');
       const subEl = document.getElementById('search-result-subtitle');
+      const selectAllLabel = document.getElementById('btn-select-all-label');
       
       const countFormativeEl = document.getElementById('banner-count-formative');
       const countSummativeEl = document.getElementById('banner-count-summative');
@@ -1010,6 +1071,9 @@
 
       const totalFound = filteredKpis.length;
       countEl.innerText = `${totalFound.toLocaleString()} ตัวชี้วัด`;
+      if (selectAllLabel) {
+        selectAllLabel.innerText = `เลือกทั้งหมดที่กรอง (${totalFound.toLocaleString()} ข้อ)`;
+      }
 
       // Scope Title
       let scopeTitle = selectedSubject === 'ALL' ? 'ทุกกลุ่มสาระการเรียนรู้' : selectedSubject;
@@ -1041,6 +1105,8 @@
 
       barFormative.style.width = `${formPct}%`;
       barSummative.style.width = `${sumPct}%`;
+
+      updateBatchBarUI();
     }
 
     // Highlight text
@@ -1106,7 +1172,7 @@
                 <div class="flex items-center space-x-2">
                   <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${subjMeta.color}"></span>
                   <span class="text-xs font-semibold text-slate-300 font-heading">${k.subject}</span>
-                  <span class="text-[11px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded">${k.grade}</span>
+                  <span class="text-[11px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded font-mono">${k.grade}</span>
                   ${typeBadge}
                 </div>
 
@@ -1219,6 +1285,7 @@
       } else {
         selectedKpiIds.delete(kpiId);
       }
+      saveSelectedKpisToStorage();
       updateBatchBarUI();
     }
 
@@ -1234,10 +1301,9 @@
         bar.classList.add('translate-y-0', 'opacity-100');
         if (deselectBtn) deselectBtn.classList.remove('hidden');
 
-        // Calculate formative vs summative in selected set
         let fCount = 0, sCount = 0;
         selectedKpiIds.forEach(id => {
-          const k = allKpis.find(item => item.id === id);
+          const k = kpiMap.get(id);
           if (k) {
             if (k.type === 'ระหว่างทาง') fCount++;
             else sCount++;
@@ -1272,7 +1338,13 @@
     function setupBatchHandlers() {
       // Select All Filtered
       document.getElementById('btn-select-all-filtered').addEventListener('click', () => {
+        if (filteredKpis.length > 200) {
+          if (!confirm(`คุณกำลังจะเลือกตัวชี้วัดทั้งหมด ${filteredKpis.length} ข้อในตัวกรองนี้ ต้องการดำเนินการต่อหรือไม่?`)) {
+            return;
+          }
+        }
         filteredKpis.forEach(k => selectedKpiIds.add(k.id));
+        saveSelectedKpisToStorage();
         updateBatchBarUI();
         showToast(`เลือกทั้งหมด ${filteredKpis.length} ตัวชี้วัดเรียบร้อย!`);
       });
@@ -1280,16 +1352,20 @@
       // Deselect All
       const clearAll = () => {
         selectedKpiIds.clear();
+        saveSelectedKpisToStorage();
         updateBatchBarUI();
       };
       document.getElementById('btn-deselect-all').addEventListener('click', clearAll);
       document.getElementById('btn-batch-clear').addEventListener('click', clearAll);
       document.getElementById('btn-batch-clear-desktop').addEventListener('click', clearAll);
 
-      // Batch Action 1: Copy for Course Description (ท้ายคำอธิบายรายวิชา)
+      // Batch Action 1: Copy for Course Description (ท้ายคำอธิบายรายวิชา - ฟอร์มมาตรฐานกระทรวงฯ)
       document.getElementById('btn-copy-batch-course-desc').addEventListener('click', () => {
         const selectedList = getSelectedKpiList();
         if (selectedList.length === 0) return;
+
+        // Sort deterministically by code
+        selectedList.sort((a, b) => a.code.localeCompare(b.code, 'th', { numeric: true }));
 
         // Group by standard
         const groups = {};
@@ -1299,14 +1375,19 @@
         selectedList.forEach(k => {
           const std = k.standard;
           if (!groups[std]) groups[std] = [];
-          groups[std].push(k.code);
+          
+          // In standard MOE format, we write standard name, then sub-codes: e.g. ท 1.1 ม.1/1, ม.1/2
+          const parts = k.code.split(' ');
+          const subCode = parts[parts.length - 1]; // e.g. ม.1/1
+          groups[std].push(subCode);
+
           if (k.type === 'ระหว่างทาง') formativeCount++;
           else summativeCount++;
         });
 
         let output = "ตัวชี้วัด\n";
-        for (const [std, codes] of Object.entries(groups)) {
-          output += `${codes.join(', ')}\n`;
+        for (const [std, subCodes] of Object.entries(groups)) {
+          output += `${std} ${subCodes.join(', ')}\n`;
         }
         output += `รวมทั้งหมด ${selectedList.length} ตัวชี้วัด (ตัวชี้วัดระหว่างทาง ${formativeCount} ตัวชี้วัด, ตัวชี้วัดปลายทาง ${summativeCount} ตัวชี้วัด)`;
 
@@ -1317,6 +1398,8 @@
       document.getElementById('btn-copy-batch-plan').addEventListener('click', () => {
         const selectedList = getSelectedKpiList();
         if (selectedList.length === 0) return;
+
+        selectedList.sort((a, b) => a.code.localeCompare(b.code, 'th', { numeric: true }));
 
         // Group by standard
         const groups = {};
@@ -1346,25 +1429,61 @@
         copyToClipboard(output, `คัดลอกชุดข้อมูลทำแผนการสอน (${selectedList.length} ตัวชี้วัด) แล้ว!`);
       });
 
-      // Batch Action 3: Copy as Table (TSV) for Word / Excel
+      // Batch Action 3: Copy as Rich Table for Word & Excel
       document.getElementById('btn-copy-batch-table').addEventListener('click', () => {
         const selectedList = getSelectedKpiList();
         if (selectedList.length === 0) return;
 
+        selectedList.sort((a, b) => a.code.localeCompare(b.code, 'th', { numeric: true }));
+
+        // Plain text TSV
         let tsv = "รหัสตัวชี้วัด\tมาตรฐานการเรียนรู้\tข้อความตัวชี้วัด\tสาระการเรียนรู้แกนกลาง\tประเภทตัวชี้วัด\tวิชาที่เปิดสอน\n";
+        let htmlRows = '';
+
         selectedList.forEach(k => {
           const cleanCore = (k.core_content || '').replace(/\r?\n|\r/g, ' ');
           const coursesStr = (k.courses || []).join('; ');
           tsv += `${k.code}\t${k.standard}: ${k.standard_desc || ''}\t${k.text}\t${cleanCore}\tตัวชี้วัด${k.type}\t${coursesStr}\n`;
+
+          const typeColor = k.type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+          htmlRows += `
+            <tr>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; font-weight:bold; white-space:nowrap; vertical-align:top;">${k.code}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;"><strong>${k.standard}:</strong> ${k.standard_desc || ''}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${k.text}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${cleanCore}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${k.type}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; font-size:12px; vertical-align:top;">${coursesStr}</td>
+            </tr>
+          `;
         });
 
-        copyToClipboard(tsv, `คัดลอกตาราง (${selectedList.length} รายการ) พร้อมวางลง Word/Excel แล้ว!`);
+        const htmlTable = `
+          <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:Sarabun, sans-serif; font-size:14px; line-height:1.5;">
+            <thead>
+              <tr style="background-color:#f1f5f9; text-align:left;">
+                <th style="padding:8px 10px; border:1px solid #cbd5e1;">รหัสตัวชี้วัด</th>
+                <th style="padding:8px 10px; border:1px solid #cbd5e1;">มาตรฐานการเรียนรู้</th>
+                <th style="padding:8px 10px; border:1px solid #cbd5e1;">ข้อความตัวชี้วัด</th>
+                <th style="padding:8px 10px; border:1px solid #cbd5e1;">สาระการเรียนรู้แกนกลาง</th>
+                <th style="padding:8px 10px; border:1px solid #cbd5e1;">ประเภทตัวชี้วัด</th>
+                <th style="padding:8px 10px; border:1px solid #cbd5e1;">รายวิชาที่นำไปใช้</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${htmlRows}
+            </tbody>
+          </table>
+        `;
+
+        copyRichTable(tsv, htmlTable, `คัดลอกตาราง (${selectedList.length} รายการ) พร้อมวางลง Word และ Excel แล้ว!`);
       });
 
       // Batch Action 4: Copy Codes only (CSV)
       document.getElementById('btn-copy-batch-codes').addEventListener('click', () => {
         const selectedList = getSelectedKpiList();
         if (selectedList.length === 0) return;
+        selectedList.sort((a, b) => a.code.localeCompare(b.code, 'th', { numeric: true }));
         const codes = selectedList.map(k => k.code).join(', ');
         copyToClipboard(codes, `คัดลอกรหัส (${selectedList.length} ข้อ) แล้ว!`);
       });
@@ -1373,7 +1492,7 @@
     function getSelectedKpiList() {
       const list = [];
       selectedKpiIds.forEach(id => {
-        const k = allKpis.find(item => item.id === id);
+        const k = kpiMap.get(id);
         if (k) list.push(k);
       });
       return list;
@@ -1381,20 +1500,20 @@
 
     // 1-Click Copy Handlers for Individual KPI Cards
     function copyKpiCode(kpiId) {
-      const k = allKpis.find(item => item.id === kpiId);
+      const k = kpiMap.get(kpiId);
       if (!k) return;
       copyToClipboard(k.code, `คัดลอกรหัส ${k.code} แล้ว!`);
     }
 
     function copyKpiText(kpiId) {
-      const k = allKpis.find(item => item.id === kpiId);
+      const k = kpiMap.get(kpiId);
       if (!k) return;
       const text = `${k.code} ${k.text}`;
       copyToClipboard(text, `คัดลอกตัวชี้วัด ${k.code} แล้ว!`);
     }
 
     function copyKpiPlanTemplate(kpiId) {
-      const k = allKpis.find(item => item.id === kpiId);
+      const k = kpiMap.get(kpiId);
       if (!k) return;
 
       let planText = `มาตรฐาน ${k.standard}: ${k.standard_desc || ''}\n`;
@@ -1408,7 +1527,7 @@
 
     // Drawer Logic
     function openDrawer(kpiId) {
-      const kpi = allKpis.find(k => k.id === kpiId);
+      const kpi = kpiMap.get(kpiId);
       if (!kpi) return;
       currentDrawerKpi = kpi;
 
@@ -1432,16 +1551,24 @@
       document.getElementById('drawer-text').innerText = kpi.text;
       document.getElementById('drawer-core').innerText = kpi.core_content || 'ไม่มีการระบุสาระแกนกลางเฉพาะสำหรับตัวชี้วัดนี้';
 
-      // Courses list
+      // Courses list with GitHub links
       const coursesContainer = document.getElementById('drawer-courses');
       if (kpi.courses && kpi.courses.length > 0) {
         let cHtml = '';
         kpi.courses.forEach(c => {
+          const ghUrl = `https://github.com/cutoutppp/CurriculumMD/blob/main/Curriculum_Vault/09_หลักสูตรสถานศึกษา/${encodeURIComponent(c)}.md`;
           cHtml += `
-            <div class="flex items-center space-x-2 text-xs bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-slate-200">
-              <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span class="font-medium font-mono">${c}</span>
-            </div>
+            <a 
+              href="${ghUrl}" 
+              target="_blank" 
+              class="flex items-center justify-between text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 p-2.5 rounded-lg text-slate-200 transition group"
+            >
+              <div class="flex items-center space-x-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="font-medium font-mono">${c}</span>
+              </div>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 transition"></i>
+            </a>
           `;
         });
         coursesContainer.innerHTML = cHtml;
@@ -1452,6 +1579,9 @@
           </div>
         `;
       }
+
+      // Update URL hash without reload
+      history.replaceState(null, null, `#kpi=${encodeURIComponent(kpi.code)}`);
 
       // Show drawer
       document.getElementById('drawer-backdrop').classList.remove('hidden');
@@ -1465,6 +1595,10 @@
       document.getElementById('drawer-backdrop').classList.add('hidden');
       document.getElementById('kpi-drawer').classList.add('translate-x-full');
       currentDrawerKpi = null;
+      // Clear hash without reload
+      if (window.location.hash.startsWith('#kpi=')) {
+        history.replaceState(null, null, ' ');
+      }
     }
 
     function setupDrawerCopyHandlers() {
@@ -1492,6 +1626,13 @@
         if (!currentDrawerKpi) return;
         const text = `ตัวชี้วัด ${currentDrawerKpi.code} ${currentDrawerKpi.text}`;
         copyToClipboard(text, 'คัดลอกสำหรับคำอธิบายรายวิชาแล้ว!');
+      });
+
+      // Share link button
+      document.getElementById('drawer-btn-share-link').addEventListener('click', () => {
+        if (!currentDrawerKpi) return;
+        const shareUrl = `${window.location.origin}${window.location.pathname}#kpi=${encodeURIComponent(currentDrawerKpi.code)}`;
+        copyToClipboard(shareUrl, `คัดลอกลิงก์แชร์ตัวชี้วัด ${currentDrawerKpi.code} แล้ว!`);
       });
     }
 
@@ -1549,7 +1690,6 @@
       // Render Body Content
       const body = document.getElementById('modal-overview-content');
 
-      // Find all standards for this subject
       const subjectKpis = allKpis.filter(k => k.subject === subjName);
       const subjectStandards = Array.from(new Set(subjectKpis.map(k => k.standard))).sort();
 
@@ -1600,7 +1740,7 @@
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
           <div>
             <h4 class="text-xl font-bold font-heading text-white mb-0.5">${subjName}</h4>
-            <p class="text-xs text-emerald-400">หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พุทธศักราช ๒๕๕๑</p>
+            <p class="text-xs text-emerald-400">หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พุทธศักราช ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐)</p>
           </div>
           <div class="text-right">
             <span class="text-xs text-slate-400 font-mono">${subjectKpis.length} ตัวชี้วัด | ${subjectStandards.length} มาตรฐาน</span>
@@ -1658,6 +1798,24 @@
     function escapeJsString(str) {
       if (!str) return '';
       return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
+    }
+
+    // Rich Table Clipboard (HTML for Word + TSV for Excel)
+    function copyRichTable(tsvText, htmlText, successMsg) {
+      if (navigator.clipboard && window.ClipboardItem) {
+        const textBlob = new Blob([tsvText], { type: 'text/plain' });
+        const htmlBlob = new Blob([htmlText], { type: 'text/html' });
+        navigator.clipboard.write([
+          new ClipboardItem({
+            'text/plain': textBlob,
+            'text/html': htmlBlob
+          })
+        ]).then(() => {
+          showToast(successMsg);
+        }).catch(() => fallbackCopy(tsvText, successMsg));
+      } else {
+        fallbackCopy(tsvText, successMsg);
+      }
     }
 
     // Generic Clipboard Helper with Fallback
