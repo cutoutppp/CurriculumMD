@@ -205,6 +205,60 @@
     </div>
   </section>
 
+  <!-- Matrix / Heatmap Collapsible Section (ภาพรวมตัวชี้วัด 8 กลุ่มสาระ x 10 ระดับชั้น) -->
+  <section class="border-b border-slate-800 bg-slate-900/40 py-3 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center justify-between">
+        <button 
+          id="btn-toggle-matrix"
+          class="text-xs font-semibold text-slate-200 hover:text-emerald-400 flex items-center space-x-2 transition py-1"
+        >
+          <div class="p-1 rounded bg-emerald-500/10 text-emerald-400">
+            <i data-lucide="grid" class="w-4 h-4"></i>
+          </div>
+          <span>📊 แผนภูมิสรุปภาพรวมตัวชี้วัด (Curriculum Matrix: ๘ กลุ่มสาระ × ๑๐ ระดับชั้น)</span>
+          <span id="matrix-toggle-badge" class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-800 text-slate-400 border border-slate-700">คลิกเพื่อเปิดตาราง</span>
+          <i data-lucide="chevron-down" id="matrix-chevron" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+        </button>
+        <span class="text-[11px] text-slate-400 hidden md:inline">คลิกที่ช่องใดก็ได้เพื่อกรองวิชาและชั้นทันที</span>
+      </div>
+
+      <!-- Matrix Container (collapsed by default) -->
+      <div id="matrix-container" class="mt-3 overflow-x-auto hidden transition-all duration-300">
+        <div class="min-w-[850px] bg-slate-950 border border-slate-800 rounded-xl p-3 shadow-inner">
+          <table class="w-full text-center text-xs border-collapse font-sans">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 text-[11px]">
+                <th class="text-left py-2 px-3 font-semibold">กลุ่มสาระการเรียนรู้</th>
+                <th class="py-2 px-1">ป.1</th>
+                <th class="py-2 px-1">ป.2</th>
+                <th class="py-2 px-1">ป.3</th>
+                <th class="py-2 px-1">ป.4</th>
+                <th class="py-2 px-1">ป.5</th>
+                <th class="py-2 px-1">ป.6</th>
+                <th class="py-2 px-1">ม.1</th>
+                <th class="py-2 px-1">ม.2</th>
+                <th class="py-2 px-1">ม.3</th>
+                <th class="py-2 px-1">ม.4-6</th>
+                <th class="py-2 px-3 font-semibold text-right">รวม</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-tbody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+            <tfoot id="matrix-tfoot" class="border-t border-slate-800 font-semibold text-slate-300 text-[11px]">
+              <!-- Injected via JavaScript -->
+            </tfoot>
+          </table>
+          <div class="mt-2 text-[10px] text-slate-500 flex items-center justify-between px-1">
+            <span>* ตัวเลขในแต่ละช่อง: <strong>รวม</strong> ด้านบน, <strong>ระหว่างทาง / ปลายทาง</strong> ด้านล่าง</span>
+            <span>โรงเรียนพัฒนานิคมเปิดสอนชั้น ม.1 - ม.6 (รวม 548 รายวิชา)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Subject Area Navigation Bar -->
   <section class="border-b border-slate-800 bg-slate-900/50 py-3 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
@@ -692,6 +746,7 @@
 
         initSubjectBar();
         initGradePills();
+        initMatrix();
         applyFilters();
 
         // Handle URL deep link e.g. #kpi=ท 1.1 ม.1/1
@@ -702,6 +757,165 @@
 
       setupEventListeners();
     });
+
+    // Initialize Curriculum Matrix (Heatmap Table: 8 subjects x 10 grades)
+    function initMatrix() {
+      const tbody = document.getElementById('matrix-tbody');
+      const tfoot = document.getElementById('matrix-tfoot');
+      if (!tbody || !tfoot) return;
+
+      const subjects = [
+        'ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษา ศาสนา และวัฒนธรรม',
+        'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาต่างประเทศ'
+      ];
+      const grades = ['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.4-6'];
+      const meta = OPEN_CURRICULUM_DATA.subject_meta;
+
+      const matrix = {};
+      const colTotals = {};
+      grades.forEach(g => colTotals[g] = { total: 0, formative: 0, summative: 0 });
+      let grandTotal = 0, grandFormative = 0, grandSummative = 0;
+
+      subjects.forEach(s => {
+        matrix[s] = {};
+        grades.forEach(g => matrix[s][g] = { total: 0, formative: 0, summative: 0 });
+      });
+
+      allKpis.forEach(k => {
+        const s = k.subject;
+        let g = k.grade;
+        if (['ม.4', 'ม.5', 'ม.6', 'ม.4-6'].includes(g)) g = 'ม.4-6';
+
+        if (matrix[s] && matrix[s][g]) {
+          matrix[s][g].total++;
+          colTotals[g].total++;
+          grandTotal++;
+          if (k.type === 'ระหว่างทาง') {
+            matrix[s][g].formative++;
+            colTotals[g].formative++;
+            grandFormative++;
+          } else {
+            matrix[s][g].summative++;
+            colTotals[g].summative++;
+            grandSummative++;
+          }
+        }
+      });
+
+      // Render rows
+      let tbodyHtml = '';
+      subjects.forEach(s => {
+        const m = meta[s] || { color: '#64748b' };
+        let rowTotal = 0, rowFormative = 0, rowSummative = 0;
+        let cellsHtml = '';
+
+        grades.forEach(g => {
+          const cell = matrix[s][g];
+          rowTotal += cell.total;
+          rowFormative += cell.formative;
+          rowSummative += cell.summative;
+
+          const intensity = cell.total > 0 ? (cell.total > 25 ? 'bg-slate-900/90 hover:bg-slate-800' : 'bg-slate-900/40 hover:bg-slate-800/80') : 'text-slate-600';
+          cellsHtml += `
+            <td class="p-1">
+              <button 
+                class="matrix-cell w-full py-1.5 px-1 rounded-lg border border-slate-800/80 hover:border-emerald-500/60 ${intensity} transition cursor-pointer text-center group"
+                data-subject="${s}"
+                data-grade="${g}"
+                title="${s} ${g}: ${cell.total} ตัวชี้วัด (ระหว่างทาง ${cell.formative}, ปลายทาง ${cell.summative})"
+              >
+                <div class="font-bold text-xs font-mono text-slate-200 group-hover:text-emerald-400">${cell.total}</div>
+                <div class="text-[9px] text-slate-500 font-mono scale-90">${cell.formative}/${cell.summative}</div>
+              </button>
+            </td>
+          `;
+        });
+
+        tbodyHtml += `
+          <tr class="hover:bg-slate-900/50 transition border-b border-slate-800/40">
+            <td class="text-left py-2 px-3">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${m.color}"></span>
+                <span class="font-medium text-slate-200 font-heading text-xs">${s}</span>
+              </div>
+            </td>
+            ${cellsHtml}
+            <td class="py-2 px-3 text-right font-mono font-bold text-emerald-400">
+              <div>${rowTotal}</div>
+              <div class="text-[9px] text-slate-500">${rowFormative}/${rowSummative}</div>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = tbodyHtml;
+
+      // Render footer
+      let tfootCells = '';
+      grades.forEach(g => {
+        const col = colTotals[g];
+        tfootCells += `
+          <td class="py-2 px-1 text-center font-mono">
+            <div>${col.total}</div>
+            <div class="text-[9px] text-slate-500 font-normal">${col.formative}/${col.summative}</div>
+          </td>
+        `;
+      });
+
+      tfoot.innerHTML = `
+        <tr class="bg-slate-900/80">
+          <td class="text-left py-2.5 px-3 font-bold text-white">รวมทุกกลุ่มสาระ</td>
+          ${tfootCells}
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-emerald-300">
+            <div>${grandTotal}</div>
+            <div class="text-[9px] text-slate-400 font-normal">${grandFormative}/${grandSummative}</div>
+          </td>
+        </tr>
+      `;
+
+      // Attach cell click handlers
+      tbody.querySelectorAll('.matrix-cell').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const s = btn.getAttribute('data-subject');
+          const g = btn.getAttribute('data-grade');
+          selectedSubject = s;
+          selectedGrade = g;
+
+          if (['ป.1', 'ป.2', 'ป.3'].includes(g)) selectedGradeBand = 'ประถมต้น (ป.1-3)';
+          else if (['ป.4', 'ป.5', 'ป.6'].includes(g)) selectedGradeBand = 'ประถมปลาย (ป.4-6)';
+          else if (['ม.1', 'ม.2', 'ม.3'].includes(g)) selectedGradeBand = 'มัธยมต้น (ม.1-3)';
+          else selectedGradeBand = 'มัธยมปลาย (ม.4-6)';
+
+          document.getElementById('filter-grade-band').value = selectedGradeBand;
+          updatePillStyles();
+          updateGradeBandTabsUI();
+          updateGradePillsCount();
+          applyFilters();
+
+          const banner = document.getElementById('search-insights-banner');
+          if (banner) banner.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      // Toggle Matrix collapsible
+      const toggleBtn = document.getElementById('btn-toggle-matrix');
+      const container = document.getElementById('matrix-container');
+      const badge = document.getElementById('matrix-toggle-badge');
+      const chevron = document.getElementById('matrix-chevron');
+
+      toggleBtn.addEventListener('click', () => {
+        const isHidden = container.classList.contains('hidden');
+        if (isHidden) {
+          container.classList.remove('hidden');
+          badge.innerText = 'คลิกเพื่อซ่อน';
+          chevron.style.transform = 'rotate(180deg)';
+        } else {
+          container.classList.add('hidden');
+          badge.innerText = 'คลิกเพื่อเปิดตาราง';
+          chevron.style.transform = 'rotate(0deg)';
+        }
+      });
+    }
 
     // Storage helpers
     function loadSelectedKpisFromStorage() {
