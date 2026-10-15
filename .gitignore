@@ -5,6 +5,8 @@ __pycache__/
 .venv/
 venv/
 env/
+.env
+.env.*
 
 # Scratch & Extraction scripts (keep audit_vault.py)
 *.py
