@@ -43,8 +43,6 @@
   <!-- Lucide Icons (Pinned stable version) -->
   <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
 
-  <!-- Chart.js for Interactive Line Graphs -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <style>
     body {
@@ -216,74 +214,20 @@
         <span>เลือกเปิดดูเป็นส่วนๆ ได้:</span>
       </div>
 
-      <div class="flex flex-wrap items-center gap-1.5 text-xs">
-        <!-- Toggle 1: Chart Section -->
-        <button id="toggle-section-chart" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center space-x-1.5">
-          <i data-lucide="line-chart" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>📈 เส้นกราฟแนวโน้ม</span>
-          <span class="section-indicator text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.2 rounded font-mono">เปิดอยู่</span>
-        </button>
-
-        <!-- Toggle 2: Matrix Section -->
-        <button id="toggle-section-matrix" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center space-x-1.5">
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <!-- Toggle: Matrix Section -->
+        <button id="toggle-section-matrix" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center space-x-1.5 cursor-pointer">
           <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>📊 ตารางเมทริกซ์ 8 กลุ่มสาระ</span>
-          <span class="section-indicator text-[10px] text-slate-500 bg-slate-950 px-1.5 py-0.2 rounded font-mono">ซ่อนอยู่</span>
+          <span class="section-indicator text-[10px] text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded font-mono">ซ่อนอยู่</span>
         </button>
 
-        <!-- Toggle 3: Workspace Section -->
-        <button id="toggle-section-workspace" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 transition flex items-center space-x-1.5">
+        <!-- Toggle: Workspace Section -->
+        <button id="toggle-section-workspace" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 transition flex items-center space-x-1.5 cursor-pointer">
           <i data-lucide="clipboard-list" class="w-3.5 h-3.5 text-emerald-400"></i>
           <span>🎯 คลังสืบค้นและทำแผน</span>
-          <span class="section-indicator text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.2 rounded font-mono">เปิดอยู่</span>
+          <span class="section-indicator text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded font-mono">เปิดอยู่</span>
         </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 1: Interactive Line Graph Section (เส้นกราฟโชว์ชัดเจน) -->
-  <section id="section-chart" class="border-b border-slate-800 bg-slate-900/40 py-5 px-4 sm:px-6 lg:px-8 transition-all">
-    <div class="max-w-7xl mx-auto">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
-              <h3 class="font-heading font-bold text-base sm:text-lg text-white">เส้นทางพัฒนาการตัวชี้วัดตามระดับชั้น (ป.๑ ถึง ม.ปลาย)</h3>
-              <span id="chart-subject-badge" class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">ทุกกลุ่มสาระการเรียนรู้ (๒,๐๕๖ ข้อ)</span>
-            </div>
-            <p class="text-xs text-slate-400 mt-1">
-              แสดงความสัมพันธ์ของตัวชี้วัดระหว่างทาง (สีฟ้า) กับปลายทาง (สีส้ม) ในแต่ละชั้นปี | <span class="text-emerald-400">คลิกที่จุดบนกราฟเพื่อกรองตัวชี้วัดระดับชั้นนั้นทันที</span>
-            </p>
-          </div>
-
-          <!-- Subject selector pills for the chart -->
-          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 md:pb-0" id="chart-subject-selector">
-            <button class="chart-subj-pill px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-600 text-white border border-emerald-500 transition whitespace-nowrap" data-subject="ALL">ทุกกลุ่มสาระ</button>
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-        <!-- Canvas Container -->
-        <div class="relative w-full h-[280px] sm:h-[320px] bg-slate-950/80 rounded-xl p-3 border border-slate-800/80">
-          <canvas id="kpiTrendCanvas"></canvas>
-        </div>
-
-        <!-- Quick Insights Badges -->
-        <div class="mt-4 pt-3 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-slate-300">
-          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center space-x-2">
-            <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-            <span><strong>ระดับชั้นที่มีตัวชี้วัดสูงสุด:</strong> มัธยมศึกษาปีที่ ๓ (๒๔๐ ข้อ)</span>
-          </div>
-          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center space-x-2">
-            <div class="w-2 h-2 rounded-full bg-sky-400"></div>
-            <span><strong>สัดส่วนระหว่างทางเฉลี่ย:</strong> ๖๒.๕% (เน้นการเรียนรู้เพื่อพัฒนา)</span>
-          </div>
-          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center space-x-2">
-            <div class="w-2 h-2 rounded-full bg-amber-400"></div>
-            <span><strong>จุดเปลี่ยนความเข้มข้น:</strong> ประถมปลายสู่มัธยมต้น (ป.๖ → ม.๑ เพิ่ม ๙.๖%)</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -822,10 +766,6 @@
     let selectedType = 'ALL';
     let selectedSchool = 'ALL';
     let currentViewMode = 'card'; // 'card' or 'table'
-    
-    // Chart Instance State
-    let trendChartInstance = null;
-    let currentChartSubject = 'ALL';
 
     // Multi-Select Batch State (Persistent via localStorage)
     const STORAGE_KEY = 'open_curriculum_selected_kpis_v2';
@@ -889,7 +829,6 @@
         initSubjectBar();
         initGradePills();
         initMatrix();
-        initTrendChart();
         applyFilters();
 
         // Handle URL deep link
@@ -933,202 +872,6 @@
         if (found) {
           openDrawer(found.id);
         }
-      }
-    }
-
-    // Interactive Trend Line Chart
-    function initTrendChart() {
-      const canvas = document.getElementById('kpiTrendCanvas');
-      if (!canvas || typeof Chart === 'undefined') return;
-
-      const grades = ['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.4-6'];
-      const data = getTrendData('ALL');
-
-      // Populate chart subject selector pills
-      const subjSelector = document.getElementById('chart-subject-selector');
-      if (subjSelector) {
-        const subjects = Object.keys(OPEN_CURRICULUM_DATA.subject_meta);
-        let pillsHtml = `
-          <button class="chart-subj-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-600 text-white border border-emerald-500 transition whitespace-nowrap" data-subject="ALL">ทุกกลุ่มสาระ</button>
-        `;
-        subjects.forEach(s => {
-          pillsHtml += `
-            <button class="chart-subj-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition whitespace-nowrap" data-subject="${s}">${s}</button>
-          `;
-        });
-        subjSelector.innerHTML = pillsHtml;
-
-        subjSelector.querySelectorAll('.chart-subj-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const s = btn.getAttribute('data-subject');
-            subjSelector.querySelectorAll('.chart-subj-btn').forEach(b => {
-              b.className = 'chart-subj-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition whitespace-nowrap';
-            });
-            btn.className = 'chart-subj-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-600 text-white border border-emerald-500 transition whitespace-nowrap';
-            updateTrendChart(s);
-          });
-        });
-      }
-
-      trendChartInstance = new Chart(canvas, {
-        type: 'line',
-        data: {
-          labels: grades,
-          datasets: [
-            {
-              label: 'ตัวชี้วัดระหว่างทาง (Formative)',
-              data: data.formative,
-              borderColor: '#38bdf8',
-              backgroundColor: 'rgba(56, 189, 248, 0.12)',
-              fill: true,
-              tension: 0.35,
-              borderWidth: 2.5,
-              pointBackgroundColor: '#38bdf8',
-              pointBorderColor: '#0f172a',
-              pointBorderWidth: 2,
-              pointRadius: 4.5,
-              pointHoverRadius: 7
-            },
-            {
-              label: 'ตัวชี้วัดปลายทาง (Summative)',
-              data: data.summative,
-              borderColor: '#f59e0b',
-              backgroundColor: 'rgba(245, 158, 11, 0.12)',
-              fill: true,
-              tension: 0.35,
-              borderWidth: 2.5,
-              pointBackgroundColor: '#f59e0b',
-              pointBorderColor: '#0f172a',
-              pointBorderWidth: 2,
-              pointRadius: 4.5,
-              pointHoverRadius: 7
-            },
-            {
-              label: 'ตัวชี้วัดรวม (Total)',
-              data: data.total,
-              borderColor: '#10b981',
-              borderDash: [4, 4],
-              fill: false,
-              tension: 0.35,
-              borderWidth: 2,
-              pointBackgroundColor: '#10b981',
-              pointBorderColor: '#0f172a',
-              pointBorderWidth: 2,
-              pointRadius: 4,
-              pointHoverRadius: 6
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: {
-            mode: 'index',
-            intersect: false
-          },
-          plugins: {
-            legend: {
-              position: 'top',
-              labels: {
-                color: '#cbd5e1',
-                font: { family: 'Sarabun', size: 12 },
-                usePointStyle: true,
-                boxWidth: 8
-              }
-            },
-            tooltip: {
-              backgroundColor: '#0f172a',
-              titleColor: '#f8fafc',
-              bodyColor: '#cbd5e1',
-              borderColor: '#334155',
-              borderWidth: 1,
-              padding: 10,
-              titleFont: { family: 'Prompt', size: 13, weight: 'bold' },
-              bodyFont: { family: 'Sarabun', size: 12 },
-              callbacks: {
-                title: function(items) {
-                  return `ระดับชั้น ${items[0].label}`;
-                },
-                afterBody: function(items) {
-                  return '\n(คลิกที่จุดเพื่อกรองตัวชี้วัดชั้นนี้)';
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 11 } }
-            },
-            y: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 11 } },
-              beginAtZero: true
-            }
-          },
-          onClick: (e, activeElements) => {
-            if (activeElements && activeElements.length > 0) {
-              const index = activeElements[0].index;
-              const clickedGrade = grades[index];
-              selectedGrade = clickedGrade;
-
-              if (['ป.1', 'ป.2', 'ป.3'].includes(clickedGrade)) selectedGradeBand = 'ประถมต้น (ป.1-3)';
-              else if (['ป.4', 'ป.5', 'ป.6'].includes(clickedGrade)) selectedGradeBand = 'ประถมปลาย (ป.4-6)';
-              else if (['ม.1', 'ม.2', 'ม.3'].includes(clickedGrade)) selectedGradeBand = 'มัธยมต้น (ม.1-3)';
-              else selectedGradeBand = 'มัธยมปลาย (ม.4-6)';
-
-              document.getElementById('filter-grade-band').value = selectedGradeBand;
-              updatePillStyles();
-              updateGradeBandTabsUI();
-              updateGradePillsCount();
-              applyFilters();
-
-              const banner = document.getElementById('search-insights-banner');
-              if (banner) banner.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      });
-    }
-
-    function getTrendData(subject) {
-      const grades = ['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.4-6'];
-      const pool = subject === 'ALL' ? allKpis : allKpis.filter(k => k.subject === subject);
-
-      const formative = [];
-      const summative = [];
-      const total = [];
-
-      grades.forEach(g => {
-        let subPool;
-        if (g === 'ม.4-6') {
-          subPool = pool.filter(k => ['ม.4', 'ม.5', 'ม.6', 'ม.4-6'].includes(k.grade));
-        } else {
-          subPool = pool.filter(k => k.grade === g);
-        }
-        const f = subPool.filter(k => k.type === 'ระหว่างทาง').length;
-        const s = subPool.filter(k => k.type === 'ปลายทาง').length;
-        formative.push(f);
-        summative.push(s);
-        total.push(f + s);
-      });
-
-      return { formative, summative, total };
-    }
-
-    function updateTrendChart(subject) {
-      currentChartSubject = subject;
-      if (!trendChartInstance) return;
-
-      const data = getTrendData(subject);
-      trendChartInstance.data.datasets[0].data = data.formative;
-      trendChartInstance.data.datasets[1].data = data.summative;
-      trendChartInstance.data.datasets[2].data = data.total;
-      trendChartInstance.update();
-
-      const badge = document.getElementById('chart-subject-badge');
-      if (badge) {
-        badge.innerText = subject === 'ALL' ? 'ทุกกลุ่มสาระการเรียนรู้ (๒,๐๕๖ ข้อ)' : `${subject} (${allKpis.filter(k => k.subject === subject).length} ข้อ)`;
       }
     }
 
@@ -1306,8 +1049,6 @@
           updatePillStyles();
           updateGradePillsCount();
           applyFilters();
-          // Sync chart
-          updateTrendChart(selectedSubject);
         });
       });
     }
@@ -1521,7 +1262,6 @@
         updatePillStyles();
         updateGradePillsCount();
         applyFilters();
-        updateTrendChart('ALL');
       });
 
       // Drawer close
@@ -1560,27 +1300,11 @@
 
     // Setup Section Toggles (เลือกเปิดดูเป็นส่วนๆ ได้)
     function setupSectionToggles() {
-      const toggleChart = document.getElementById('toggle-section-chart');
       const toggleMatrix = document.getElementById('toggle-section-matrix');
       const toggleWorkspace = document.getElementById('toggle-section-workspace');
 
-      const secChart = document.getElementById('section-chart');
       const secMatrix = document.getElementById('section-matrix');
       const secWorkspace = document.getElementById('section-workspace');
-
-      if (toggleChart && secChart) {
-        toggleChart.addEventListener('click', () => {
-          const isHidden = secChart.classList.contains('hidden');
-          const ind = toggleChart.querySelector('.section-indicator');
-          if (isHidden) {
-            secChart.classList.remove('hidden');
-            if (ind) { ind.innerText = 'เปิดอยู่'; ind.className = 'section-indicator text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.2 rounded font-mono'; }
-          } else {
-            secChart.classList.add('hidden');
-            if (ind) { ind.innerText = 'ซ่อนอยู่'; ind.className = 'section-indicator text-[10px] text-slate-500 bg-slate-950 px-1.5 py-0.2 rounded font-mono'; }
-          }
-        });
-      }
 
       if (toggleMatrix && secMatrix) {
         toggleMatrix.addEventListener('click', () => {
@@ -1588,11 +1312,11 @@
           const ind = toggleMatrix.querySelector('.section-indicator');
           if (isHidden) {
             secMatrix.classList.remove('hidden');
-            if (ind) { ind.innerText = 'เปิดอยู่'; ind.className = 'section-indicator text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.2 rounded font-mono'; }
+            if (ind) { ind.innerText = 'เปิดอยู่'; ind.className = 'section-indicator text-[10px] text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded font-mono'; }
             secMatrix.scrollIntoView({ behavior: 'smooth' });
           } else {
             secMatrix.classList.add('hidden');
-            if (ind) { ind.innerText = 'ซ่อนอยู่'; ind.className = 'section-indicator text-[10px] text-slate-500 bg-slate-950 px-1.5 py-0.2 rounded font-mono'; }
+            if (ind) { ind.innerText = 'ซ่อนอยู่'; ind.className = 'section-indicator text-[10px] text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded font-mono'; }
           }
         });
       }
@@ -1622,7 +1346,6 @@
       updateGradeBandTabsUI();
       updateGradePillsCount();
       applyFilters();
-      updateTrendChart('ALL');
     }
 
     // Filter Logic with Normalized Search
