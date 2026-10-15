@@ -1,0 +1,14 @@
+# CurriculumMD AI Rules
+
+## ⚡ Fast Lookup for Curriculum & Semester Questions
+When the user asks questions like:
+- "เทอมนี้สอนอะไรบ้าง" / "What are we teaching this term?"
+- "วิชา... สอนอะไร" / "What are the KPIs for course X?"
+- "ทำแผนการสอนวิชา..." / "Create a lesson plan for course X"
+
+DO NOT search or scan across the 548 individual files in `Curriculum_Vault/09_หลักสูตรสถานศึกษา/`!
+Instead:
+1. Immediately read `SEMESTER_TEACHING_GUIDE.md` or parse `semester_catalog.json`. It maps Grade (ม.1–ม.6) -> Term (เทอม 1 / เทอม 2) -> 8 Subject Areas -> Courses & KPIs in O(1) time.
+2. If the user didn't specify which grade/subject they teach, ask politely:
+   "คุณครูสอนระดับชั้นไหน และกลุ่มสาระหรือรายวิชาใดครับ (เช่น ภาษาไทย ม.1 เทอม 1 หรือ รหัสวิชา ท21101)?"
+3. Look up full KPI texts in `all_kpi_master.json`.
