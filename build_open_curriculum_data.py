@@ -1,12 +1,70 @@
 import json, re, os, glob
 
-print("Generating kpi_data.js for Open Curriculum Portal...")
+print("Generating enhanced kpi_data.js for Open Curriculum Portal...")
 
 # 1. Load Master KPIs
 with open('all_kpi_master.json', 'r', encoding='utf-8') as f:
     master = json.load(f)
 
-# 2. Map School Courses from 09_หลักสูตรสถานศึกษา
+# 2. Extract Standards and Subject Overviews from 01-08 Hubs
+def clean_wiki(text):
+    text = re.sub(r'\[\[(?:[^|\]]*\|)?([^\]]+)\]\]', r'\1', text)
+    return text.strip()
+
+standards_dict = {}
+subject_overviews = {}
+
+hub_files = sorted(glob.glob('Curriculum_Vault/0[1-8]_*/00_*.md'))
+for hf in hub_files:
+    dirname = os.path.basename(os.path.dirname(hf))
+    sname = re.sub(r'^\d+_', '', dirname)
+    if 'สังคม' in sname:
+        sname = 'สังคมศึกษา ศาสนา และวัฒนธรรม'
+    
+    with open(hf, 'r', encoding='utf-8') as f:
+        txt = f.read()
+    
+    # Extract Standards
+    matches = re.findall(r'มาตรฐาน\s+([ก-ฮ]\s*\d+\.\d+)[^:\n]*:\s*([^\n]+)', txt)
+    for m in matches:
+        code = re.sub(r'\s+', ' ', m[0].strip())
+        desc = clean_wiki(m[1].strip())
+        standards_dict[code] = desc
+
+    # Extract Why
+    why = ''
+    m_why = re.search(r'##\s*🎯?\s*ทำไมต้องเรียน[^\n]*\n([\s\S]*?)(?=\n---\n|\n## )', txt)
+    if m_why:
+        why = clean_wiki(m_why.group(1))
+
+    # Extract What
+    what = ''
+    m_what = re.search(r'##\s*📚?\s*เรียนรู้อะไร[^\n]*\n([\s\S]*?)(?=\n---\n|\n## )', txt)
+    if m_what:
+        what = clean_wiki(m_what.group(1))
+
+    # Extract Quality Milestones
+    quality = {}
+    m_qual = re.search(r'##\s*🌟?\s*คุณภาพผู้เรียน\n([\s\S]*?)(?=\n---\n|\n## )', txt)
+    if m_qual:
+        sub_sections = re.split(r'\n###\s+', m_qual.group(1))
+        for sec in sub_sections:
+            if not sec.strip(): continue
+            lines = sec.strip().split('\n')
+            heading = lines[0].strip()
+            body = clean_wiki('\n'.join(lines[1:]))
+            if heading and body:
+                quality[heading] = body
+
+    subject_overviews[sname] = {
+        'why': why,
+        'what': what,
+        'quality': quality
+    }
+
+print(f"Extracted {len(standards_dict)} standards and {len(subject_overviews)} subject overviews.")
+
+# 3. Map School Courses from 09_หลักสูตรสถานศึกษา
 courses_dir = 'Curriculum_Vault/09_หลักสูตรสถานศึกษา'
 course_map = {}
 
@@ -55,14 +113,16 @@ SUBJECT_META = {
     'ภาษาต่างประเทศ': {'code': '08_EN', 'color': '#06B6D4', 'bg': 'bg-cyan-50', 'border': 'border-cyan-500', 'text': 'text-cyan-600', 'icon': 'languages'}
 }
 
-# 3. Assemble KPI list
+# 4. Assemble KPI list and Detailed Counts
 kpi_list = []
 subject_counts = {}
+grade_counts = {}
 
 for code, d in master.items():
     subject = d.get('subject', 'ทั่วไป')
     k_type = d.get('type', 'ระหว่างทาง')
     grade = d.get('grade', '')
+    std = d.get('standard', '')
     
     # Grade band classification
     grade_band = 'อื่นๆ'
@@ -72,16 +132,18 @@ for code, d in master.items():
         grade_band = 'ประถมปลาย (ป.4-6)'
     elif grade in ['ม.1', 'ม.2', 'ม.3', 'ม.1-3']:
         grade_band = 'มัธยมต้น (ม.1-3)'
-    elif grade in ['ม.4', 'ม.5', 'ม.6', 'ม.4-6']:
+    elif grade in ['ม.4', 'ม.5', 'ม.6', 'ม.4-6', 'ม.ปลาย']:
         grade_band = 'มัธยมปลาย (ม.4-6)'
         
     courses = course_map.get(code, [])
+    std_desc = standards_dict.get(std, '')
     
     kpi_item = {
         'id': code,
         'code': code,
         'subject': subject,
-        'standard': d.get('standard', ''),
+        'standard': std,
+        'standard_desc': std_desc,
         'strand': d.get('strand', ''),
         'grade': grade,
         'grade_band': grade_band,
@@ -92,15 +154,35 @@ for code, d in master.items():
     }
     kpi_list.append(kpi_item)
     
+    # Subject stats
     if subject not in subject_counts:
-        subject_counts[subject] = {'total': 0, 'formative': 0, 'summative': 0}
+        subject_counts[subject] = {'total': 0, 'formative': 0, 'summative': 0, 'mapped': 0, 'grades': {}}
     subject_counts[subject]['total'] += 1
     if k_type == 'ระหว่างทาง':
         subject_counts[subject]['formative'] += 1
     else:
         subject_counts[subject]['summative'] += 1
+    if courses:
+        subject_counts[subject]['mapped'] += 1
+        
+    if grade not in subject_counts[subject]['grades']:
+        subject_counts[subject]['grades'][grade] = {'total': 0, 'formative': 0, 'summative': 0}
+    subject_counts[subject]['grades'][grade]['total'] += 1
+    if k_type == 'ระหว่างทาง':
+        subject_counts[subject]['grades'][grade]['formative'] += 1
+    else:
+        subject_counts[subject]['grades'][grade]['summative'] += 1
 
-# 4. Total Stats
+    # Global grade stats
+    if grade not in grade_counts:
+        grade_counts[grade] = {'total': 0, 'formative': 0, 'summative': 0}
+    grade_counts[grade]['total'] += 1
+    if k_type == 'ระหว่างทาง':
+        grade_counts[grade]['formative'] += 1
+    else:
+        grade_counts[grade]['summative'] += 1
+
+# 5. Total Stats
 total_kpis = len(kpi_list)
 total_formative = sum(1 for k in kpi_list if k['type'] == 'ระหว่างทาง')
 total_summative = sum(1 for k in kpi_list if k['type'] == 'ปลายทาง')
@@ -114,10 +196,13 @@ output_data = {
         'total_mapped_kpis': total_mapped_kpis,
         'total_courses': 548,
         'fidelity_rate': 100.0,
-        'audit_timestamp': '2026-10-14'
+        'audit_timestamp': '2026-10-15'
     },
     'subject_meta': SUBJECT_META,
     'subject_counts': subject_counts,
+    'grade_counts': grade_counts,
+    'standards': standards_dict,
+    'subject_overviews': subject_overviews,
     'kpis': kpi_list
 }
 
@@ -128,4 +213,4 @@ with open('kpi_data.js', 'w', encoding='utf-8') as f:
     json.dump(output_data, f, ensure_ascii=False)
     f.write(';\n')
 
-print(f"kpi_data.js created successfully! ({len(kpi_list)} KPIs, {len(subject_counts)} subjects)")
+print(f"kpi_data.js created successfully! ({len(kpi_list)} KPIs, {len(subject_counts)} subjects, {len(standards_dict)} standards, {len(subject_overviews)} overviews)")
