@@ -22,6 +22,7 @@ env/
 !reports/*.md
 *.json
 !all_kpi_master.json
+!semester_catalog.json
 *.txt
 *.vbs
 
