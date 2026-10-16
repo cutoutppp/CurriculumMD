@@ -11,8 +11,8 @@ html_template = '''<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thailand Curriculum Structure Map | แผนภาพโครงสร้างหลักสูตรแกนกลาง ๕ ระดับ</title>
-  <meta name="description" content="แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐานแบบเจาะลึกวงย่อย (Drill-down Radial Circles) ๕ ระดับ พร้อมระบบสืบค้นตัวชี้วัด ๒,๐๕๖ ข้อ">
+  <title>แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</title>
+  <meta name="description" content="แผนภาพและระบบสืบค้นโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน (กลุ่มสาระ สาระ มาตรฐาน และตัวชี้วัด)">
 
   <!-- Google Fonts: IBM Plex Sans Thai, Prompt & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -244,14 +244,14 @@ html_template = '''<!DOCTYPE html>
           </div>
           <div>
             <div class="flex items-center space-x-2">
-              <span class="font-mono text-[11px] tracking-wider text-emerald-400 uppercase font-bold">THAILAND OPEN CURRICULUM</span>
-              <span class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">๕ ระดับ • เจาะลึกวงย่อย</span>
+              <span class="font-mono text-[11px] tracking-wider text-emerald-400 uppercase font-semibold">โครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐)</span>
             </div>
             <h1 class="text-lg sm:text-xl font-bold font-heading text-white tracking-tight">
               แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน
             </h1>
             <p class="text-xs text-slate-400 max-w-2xl mt-0.5">
-              โครงสร้าง ๕ ระดับ: แกนกลาง ➔ ๘ กลุ่มสาระ ➔ ๓๑ สาระ ➔ ๕๕ มาตรฐาน ➔ ๒,๐๕๖ ตัวชี้วัด • คลิกจุดใดเพื่อขยายดูเป็นวงของตัวเองได้
+              ๘ กลุ่มสาระการเรียนรู้ • ๓๑ สาระ • ๕๕ มาตรฐาน • ๒,๐๕๖ ตัวชี้วัด
             </p>
           </div>
         </div>
@@ -262,11 +262,11 @@ html_template = '''<!DOCTYPE html>
           <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1">
             <button id="btn-view-map" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm">
               <i data-lucide="orbit" class="w-3.5 h-3.5"></i>
-              <span>🌐 แผนภาพโครงสร้าง</span>
+              <span>แผนภาพ</span>
             </button>
             <button id="btn-view-catalog" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
               <i data-lucide="table-properties" class="w-3.5 h-3.5"></i>
-              <span>📋 ตารางคลังสืบค้น</span>
+              <span>ตารางสืบค้น</span>
             </button>
           </div>
 
@@ -347,7 +347,7 @@ html_template = '''<!DOCTYPE html>
           <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
             <div class="flex items-center space-x-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">รายละเอียดเชิงลึก</span>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">ข้อมูลรายละเอียด</span>
             </div>
             <button id="btn-panel-reset" class="text-[11px] font-medium text-emerald-400 hover:text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/60 px-2.5 py-1 rounded-full border border-emerald-500/30 transition flex items-center space-x-1">
               <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
@@ -364,14 +364,14 @@ html_template = '''<!DOCTYPE html>
         <!-- Center Column: Interactive Graph Stage with Breadcrumb Header (6 cols) -->
         <section class="lg:col-span-6 relative flex flex-col">
           
-          <!-- Drill-down Breadcrumb Navigation Bar (ใหม่!) -->
+          <!-- Drill-down Breadcrumb Navigation Bar -->
           <div class="rounded-t-2xl bg-slate-900/95 border-t border-x border-slate-800 px-4 py-2.5 flex items-center justify-between text-xs backdrop-blur z-20">
             <div id="drillBreadcrumb" class="flex items-center space-x-1.5 overflow-x-auto text-slate-400 font-mono text-[11px] pr-2">
-              <!-- Rendered via JS: [🌐 ทั้งหมด] ❯ [ภาษาไทย] ❯ [สาระที่ ๑] ... -->
+              <!-- Rendered via JS -->
             </div>
             <button id="btn-drill-up" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-medium transition flex items-center space-x-1.5 shrink-0 hidden">
               <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span>ย้อนกลับวงก่อนหน้า</span>
+              <span>ย้อนกลับ</span>
             </button>
           </div>
 
@@ -379,7 +379,7 @@ html_template = '''<!DOCTYPE html>
           <div class="absolute top-14 right-3.5 z-20 flex items-center space-x-1.5">
             <button id="btn-toggle-focus" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-emerald-400 border border-emerald-500/50 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5">
               <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
-              <span>Focus โหมด</span>
+              <span>โหมดโฟกัส</span>
             </button>
             <button id="btn-toggle-labels" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5">
               <i data-lucide="tag" class="w-3.5 h-3.5 text-amber-400"></i>
@@ -410,7 +410,7 @@ html_template = '''<!DOCTYPE html>
             <!-- Interaction Guidance Tag -->
             <div class="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none px-4 py-1.5 rounded-full bg-slate-950/85 border border-slate-800 text-[11px] text-slate-300 shadow-xl backdrop-blur flex items-center space-x-2 whitespace-nowrap">
               <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span>คลิกโหนดเพื่อดูรายละเอียด • ดับเบิลคลิกเพื่อขยายเป็นวงของตัวเอง • หมุนล้อเพื่อซูม</span>
+              <span>คลิกเพื่อดูรายละเอียด • ดับเบิลคลิกเพื่อดูเฉพาะกลุ่ม • เลื่อนเมาส์เพื่อซูม</span>
             </div>
           </div>
         </section>
@@ -519,9 +519,9 @@ html_template = '''<!DOCTYPE html>
           <div>
             <h2 class="text-base font-bold text-white flex items-center space-x-2">
               <i data-lucide="table-properties" class="w-4 h-4 text-emerald-400"></i>
-              <span>คลังตารางสืบค้นและส่งออกตัวชี้วัด (Catalog View)</span>
+              <span>ตารางสืบค้นตัวชี้วัด</span>
             </h2>
-            <p class="text-xs text-slate-400 mt-0.5">สืบค้นตัวชี้วัดแบบ Realtime และเลือกหลายข้อเพื่อคัดลอกตารางลง Microsoft Word สวยงามทันที</p>
+            <p class="text-xs text-slate-400 mt-0.5">สืบค้นตัวชี้วัดและคัดลอกตารางสำหรับเอกสาร Word</p>
           </div>
 
           <div class="flex items-center space-x-2">
@@ -540,7 +540,7 @@ html_template = '''<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Integrated Search & Filter Control Bar (แก้ปัญหาค้นหาในตารางไม่ได้!) -->
+        <!-- Integrated Search & Filter Control Bar -->
         <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3">
           <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5">
             <!-- 1. Realtime Search Input -->
@@ -641,10 +641,10 @@ html_template = '''<!DOCTYPE html>
     <footer class="border-t border-slate-900/80 bg-slate-950/80 px-4 sm:px-6 lg:px-8 py-3 mt-auto">
       <div class="max-w-[1720px] mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
         <div>
-          หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐) • หลักสูตรสถานศึกษาโรงเรียนพัฒนานิคม จ.ลพบุรี
+          หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐) • โรงเรียนพัฒนานิคม จ.ลพบุรี
         </div>
         <div class="flex items-center space-x-3">
-          <span>ความสมบูรณ์ฐานข้อมูล: 100% (2,056 ตัวชี้วัด)</span>
+          <span>ฐานข้อมูล ๒,๐๕๖ ตัวชี้วัด</span>
           <span>•</span>
           <a href="https://github.com/cutoutppp/CurriculumMD" target="_blank" class="hover:text-emerald-400 transition">GitHub Repository</a>
         </div>
@@ -659,27 +659,27 @@ html_template = '''<!DOCTYPE html>
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <h3 class="text-base font-bold text-white flex items-center space-x-2">
           <i data-lucide="help-circle" class="w-5 h-5 text-amber-400"></i>
-          <span>คู่มือการใช้งานแผนภาพโครงสร้างและเจาะลึกวงย่อย</span>
+          <span>คู่มือการใช้งาน</span>
         </h3>
         <button id="btn-close-help" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div class="space-y-3 text-xs text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <strong class="text-emerald-400 block mb-1">๑. การเจาะลึกดูเป็นวงย่อยของตัวเอง (Drill-down Radial Circles)</strong>
-          <p>• คลิกเลือกจุดใดในแผนภาพ (กลุ่มสาระ / สาระ / มาตรฐาน) แล้วกดปุ่ม <span class="text-cyan-400 font-semibold">"ขยายดูเฉพาะวงนี้"</span> หรือ <span class="text-white font-semibold">ดับเบิลคลิกที่โหนดนั้น</span></p>
-          <p>• แผนภาพจะขยายจุดนั้นขึ้นมาเป็นศูนย์กลาง (Center) แล้วกระจายกิ่งก้านบริวารรอบวง 360 องศา ทำให้อ่านชื่อและตัวชี้วัดได้อย่างชัดเจน สบายตา</p>
-          <p>• กดปุ่ม <span class="text-emerald-400 font-semibold">"ย้อนกลับวงก่อนหน้า"</span> หรือคลิกที่แถบ Breadcrumb ด้านบนเพื่อกลับสู่วงใหญ่ได้ตลอดเวลา</p>
+          <strong class="text-emerald-400 block mb-1">๑. การดูเฉพาะกลุ่ม (เจาะลึกวงย่อย)</strong>
+          <p>• คลิกเลือกจุดใดในแผนภาพ (กลุ่มสาระ / สาระ / มาตรฐาน) แล้วกดปุ่ม <span class="text-cyan-400 font-semibold">"ดูเฉพาะ..."</span> หรือ <span class="text-white font-semibold">ดับเบิลคลิกที่โหนดนั้น</span></p>
+          <p>• แผนภาพจะแสดงจุดที่เลือกเป็นศูนย์กลาง และกระจายรายการย่อยรอบวง ๓๖๐ องศา เพื่อให้อ่านรายละเอียดได้สะดวก</p>
+          <p>• กดปุ่ม <span class="text-emerald-400 font-semibold">"ย้อนกลับ"</span> หรือคลิกที่แถบด้านบนเพื่อกลับสู่วงหลัก</p>
         </div>
         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <strong class="text-sky-400 block mb-1">๒. การสืบค้นในตารางคลังตัวชี้วัด (Catalog View)</strong>
-          <p>• สลับมาที่แท็บ <span class="text-emerald-400 font-semibold">"ตารางคลังสืบค้น"</span> สามารถพิมพ์ค้นหาข้อความ, รหัสตัวชี้วัด (เช่น ท 1.1), หรือรหัสวิชา (เช่น ว21101) ในช่องค้นหาได้แบบ Realtime ทันที</p>
+          <strong class="text-sky-400 block mb-1">๒. การสืบค้นในตาราง</strong>
+          <p>• สลับมาที่แท็บ <span class="text-emerald-400 font-semibold">"ตารางสืบค้น"</span> สามารถพิมพ์ค้นหาข้อความ, รหัสตัวชี้วัด (เช่น ท 1.1), หรือรหัสวิชา (เช่น ว21101) ได้ทันที</p>
           <p>• เลือกกรองตามกลุ่มสาระ, ระดับชั้น หรือประเภทตัวชี้วัดระหว่างทาง/ปลายทางได้</p>
-          <p>• ติ๊กเลือกรายการที่ต้องการ แล้วกดปุ่ม <span class="text-emerald-400 font-semibold">"คัดลอกตารางลง Word"</span> เพื่อนำตารางสวยงามไปวางในเอกสารได้ทันที</p>
+          <p>• เลือกรายการที่ต้องการ แล้วกดปุ่ม <span class="text-emerald-400 font-semibold">"คัดลอกตารางลง Word"</span> เพื่อนำไปวางในเอกสาร</p>
         </div>
       </div>
       <div class="pt-2 text-right">
         <button id="btn-help-understood" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition">
-          เข้าใจแล้ว เริ่มใช้งานเลย
+          ปิด
         </button>
       </div>
     </div>
@@ -1650,17 +1650,17 @@ html_template = '''<!DOCTYPE html>
       el.tooltipKind.innerText = kindLabels[node.kind] || node.kind;
       el.tooltipTitle.innerText = node.name || node.code;
       if (node.isDrillCenter && node.id !== 'root-curriculum') {
-        el.tooltipSub.innerText = '⚡ จุดศูนย์กลางของวงนี้ (คลิกเพื่อย้อนกลับวงก่อนหน้า)';
+        el.tooltipSub.innerText = 'จุดศูนย์กลาง (คลิกเพื่อย้อนกลับ)';
       } else if (node.kind === 'strand') {
-        el.tooltipSub.innerText = `${node.subject} • ${node.standardsCount} มาตรฐาน • ${node.kpiCount} ตัวชี้วัด (ดับเบิลคลิกเพื่อเจาะลึก)`;
+        el.tooltipSub.innerText = `${node.subject} • ${node.standardsCount} มาตรฐาน • ${node.kpiCount} ตัวชี้วัด`;
       } else if (node.kind === 'standard') {
-        el.tooltipSub.innerText = `${node.strand} • ${node.kpiCount} ตัวชี้วัด (ดับเบิลคลิกเพื่อเจาะลึก)`;
+        el.tooltipSub.innerText = `${node.strand} • ${node.kpiCount} ตัวชี้วัด`;
       } else if (node.kind === 'kpi') {
         el.tooltipSub.innerText = `${node.grade} • ${node.standard} • ${(node.courses || []).length} วิชาใน รร.`;
       } else if (node.kind === 'subject') {
-        el.tooltipSub.innerText = `${node.kpiCount} ตัวชี้วัดใน ๕๕ มาตรฐาน (ดับเบิลคลิกเพื่อเจาะลึก)`;
+        el.tooltipSub.innerText = `${node.kpiCount} ตัวชี้วัดใน ๕๕ มาตรฐาน`;
       } else {
-        el.tooltipSub.innerText = 'คลิกเพื่อดูภาพรวมทั้งหมด';
+        el.tooltipSub.innerText = 'คลิกเพื่อดูรายละเอียด';
       }
 
       const rect = el.graphStage.getBoundingClientRect();
@@ -1837,7 +1837,7 @@ html_template = '''<!DOCTYPE html>
     function nodeMatchesFilter(node) {
       if (node.id === graph.centerNode.id) return true;
 
-      // Realtime Search Text Matching (แก้ปัญหาค้นหาไม่ได้!)
+      // Realtime Search Text Matching
       if (state.search && state.search.trim().length > 0) {
         const qNorm = normText(state.search);
         if (node.searchIndex && !node.searchIndex.includes(qNorm)) {
@@ -1892,7 +1892,7 @@ html_template = '''<!DOCTYPE html>
         html = `
           <div class="space-y-4 animate-fadeIn">
             <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-brand-navy/60 border border-slate-700/80">
-              <span class="text-[10px] font-mono tracking-wider text-emerald-400 uppercase font-bold">โครงสร้างระดับ ๐: ศูนย์กลางหลักสูตร</span>
+              <span class="text-[10px] font-mono tracking-wider text-emerald-400 uppercase font-bold">โครงสร้างหลักสูตรแกนกลาง</span>
               <h2 class="text-base font-bold text-white mt-1">หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</h2>
               <p class="text-slate-300 text-xs mt-1">พุทธศักราช ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐) • ๘ กลุ่มสาระ • ๓๑ สาระ • ๕๕ มาตรฐาน • ๒,๐๕๖ ตัวชี้วัด</p>
             </div>
@@ -1917,7 +1917,7 @@ html_template = '''<!DOCTYPE html>
             </div>
 
             <div>
-              <span class="text-[11px] font-semibold text-slate-400 block mb-2">คลิกเพื่อเจาะลึกเฉพาะวงกลุ่มสาระฯ:</span>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">เลือกกลุ่มสาระการเรียนรู้:</span>
               <div class="space-y-1.5">
                 ${Object.entries(DATA.subject_meta).map(([name, meta]) => `
                   <button onclick="drillTo('subj-${meta.code || name}')" class="w-full px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-left transition flex items-center justify-between text-xs group">
@@ -1942,7 +1942,7 @@ html_template = '''<!DOCTYPE html>
             <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
               <div class="flex items-center space-x-2 mb-1.5">
                 <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
-                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">โครงสร้างระดับ ๑: กลุ่มสาระ</span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">กลุ่มสาระการเรียนรู้</span>
               </div>
               <h2 class="text-base font-bold text-white">${node.name}</h2>
               <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
@@ -1957,19 +1957,19 @@ html_template = '''<!DOCTYPE html>
               ${!isCenter ? `
                 <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow-md flex items-center justify-center space-x-1.5">
                   <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-                  <span>ขยายดูเฉพาะวงกลุ่มสาระ${node.name} (Drill-down)</span>
+                  <span>ดูเฉพาะกลุ่มสาระ${node.name}</span>
                 </button>
               ` : `
                 <button onclick="drillUp()" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition flex items-center justify-center space-x-1.5">
                   <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                  <span>ย้อนกลับสู่วงภาพรวมทั้งหมด</span>
+                  <span>ย้อนกลับภาพรวม</span>
                 </button>
               `}
             </div>
 
             <!-- List of Strands in Subject -->
             <div>
-              <span class="text-[11px] font-semibold text-slate-300 block mb-2">สาระการเรียนรู้ในกลุ่มสาระนี้ (${uniqueStrands.length} สาระ):</span>
+              <span class="text-[11px] font-semibold text-slate-300 block mb-2">สาระการเรียนรู้ในกลุ่มนี้ (${uniqueStrands.length} สาระ):</span>
               <div class="space-y-1.5">
                 ${uniqueStrands.map((stName, idx) => {
                   const stMatch = stName.match(/สาระที่\\s*([0-9๑-๙]+)/);
@@ -1981,7 +1981,7 @@ html_template = '''<!DOCTYPE html>
                       <div>
                         <span class="text-xs font-semibold text-cyan-300 group-hover:text-cyan-200 block">${stName}</span>
                       </div>
-                      <span class="font-mono text-[10px] text-slate-500">ขยายวง ➔</span>
+                      <span class="font-mono text-[10px] text-slate-500">ดูสาระนี้ ➔</span>
                     </button>
                   `;
                 }).join('')}
@@ -2007,7 +2007,7 @@ html_template = '''<!DOCTYPE html>
         html = `
           <div class="space-y-4 animate-fadeIn">
             <div class="p-4 rounded-2xl bg-slate-900 border border-cyan-500/40">
-              <span class="text-[10px] font-mono tracking-wider text-cyan-400 uppercase font-bold">โครงสร้างระดับ ๒: สาระการเรียนรู้ (Strand)</span>
+              <span class="text-[10px] font-mono tracking-wider text-cyan-400 uppercase font-bold">สาระการเรียนรู้</span>
               <h2 class="text-base font-bold text-white mt-1">${node.name}</h2>
               <p class="text-slate-400 text-xs mt-0.5">กลุ่มสาระการเรียนรู้${node.subject}</p>
             </div>
@@ -2032,12 +2032,12 @@ html_template = '''<!DOCTYPE html>
               ${!isCenter ? `
                 <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow-md flex items-center justify-center space-x-1.5">
                   <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-                  <span>ขยายดูเฉพาะวง ${node.shortLabel} (Drill-down)</span>
+                  <span>ดูเฉพาะ${node.shortLabel}</span>
                 </button>
               ` : `
                 <button onclick="drillUp()" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition flex items-center justify-center space-x-1.5">
                   <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                  <span>ย้อนกลับวงก่อนหน้า</span>
+                  <span>ย้อนกลับ</span>
                 </button>
               `}
             </div>
@@ -2053,7 +2053,7 @@ html_template = '''<!DOCTYPE html>
                     <button onclick="drillTo('${stdId}')" class="w-full p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500 text-left transition group">
                       <div class="flex items-center justify-between mb-1">
                         <span class="text-xs font-bold text-white group-hover:text-emerald-400 transition">${stdCode}</span>
-                        <span class="font-mono text-[10px] text-cyan-400">ขยายวง ➔</span>
+                        <span class="font-mono text-[10px] text-cyan-400">ดูมาตรฐานนี้ ➔</span>
                       </div>
                       <p class="text-[11px] text-slate-400 leading-snug line-clamp-2">${stdDesc || 'ไม่มีคำอธิบาย'}</p>
                     </button>
@@ -2076,7 +2076,7 @@ html_template = '''<!DOCTYPE html>
         html = `
           <div class="space-y-4 animate-fadeIn">
             <div class="p-4 rounded-2xl bg-slate-900 border border-blue-500/40">
-              <span class="text-[10px] font-mono tracking-wider text-blue-400 uppercase font-bold">โครงสร้างระดับ ๓: มาตรฐานการเรียนรู้</span>
+              <span class="text-[10px] font-mono tracking-wider text-blue-400 uppercase font-bold">มาตรฐานการเรียนรู้</span>
               <h2 class="text-base font-bold text-white mt-1">${node.code}</h2>
               <p class="text-slate-400 text-xs mt-0.5">${node.strand || ''} • กลุ่มสาระ${node.subject || ''}</p>
               <p class="text-slate-200 text-xs leading-relaxed mt-2.5 pt-2 border-t border-slate-800">${node.desc || DATA.standards[node.code] || 'ไม่มีคำอธิบาย'}</p>
@@ -2092,12 +2092,12 @@ html_template = '''<!DOCTYPE html>
               ${!isCenter ? `
                 <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow-md flex items-center justify-center space-x-1.5">
                   <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-                  <span>ขยายดูเฉพาะวงมาตรฐาน ${node.code} (Drill-down)</span>
+                  <span>ดูเฉพาะมาตรฐาน ${node.code}</span>
                 </button>
               ` : `
                 <button onclick="drillUp()" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition flex items-center justify-center space-x-1.5">
                   <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                  <span>ย้อนกลับวงก่อนหน้า</span>
+                  <span>ย้อนกลับ</span>
                 </button>
               `}
             </div>
@@ -2120,12 +2120,12 @@ html_template = '''<!DOCTYPE html>
 
             <button onclick="copyStandardWordTable('${node.id}')" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-md flex items-center justify-center space-x-1.5">
               <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
-              <span>คัดลอกตารางมาตรฐาน ${node.code} (${stdKpis.length} ข้อ) ลง Word</span>
+              <span>คัดลอกตารางมาตรฐาน ${node.code} ลง Word</span>
             </button>
           </div>
         `;
       } else {
-        // KPI Node (ระดับ ๔: ตัวชี้วัด)
+        // KPI Node (ตัวชี้วัด)
         const typeBadge = node.type === 'ปลายทาง'
           ? `<span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-bold">ตัวชี้วัดปลายทาง (Summative)</span>`
           : `<span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/40 text-[10px] font-mono font-bold">ตัวชี้วัดระหว่างทาง (Formative)</span>`;
@@ -2144,7 +2144,7 @@ html_template = '''<!DOCTYPE html>
             <!-- Header Card -->
             <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
               <div class="flex items-center justify-between mb-1.5">
-                <span class="text-[10px] font-mono text-slate-400">ระดับ ๔: ตัวชี้วัด</span>
+                <span class="text-[10px] font-mono text-slate-400">ตัวชี้วัด</span>
                 ${typeBadge}
               </div>
               <h2 class="text-lg font-bold font-mono text-white tracking-tight">${node.code}</h2>
@@ -2179,7 +2179,7 @@ html_template = '''<!DOCTYPE html>
             <div class="space-y-1.5 pt-1">
               <button onclick="copyKpiWordTable('${node.id}')" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-md flex items-center justify-center space-x-1.5">
                 <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
-                <span>คัดลอกตาราง (วางใน Word สวยทันที)</span>
+                <span>คัดลอกตารางลง Word</span>
               </button>
 
               <div class="grid grid-cols-2 gap-1.5">
@@ -2187,7 +2187,7 @@ html_template = '''<!DOCTYPE html>
                   <i data-lucide="book-open" class="w-3 h-3 text-sky-400"></i>
                   <span>คัดลอกทำแผน</span>
                 </button>
-                <button onclick="copyToClipboard('${node.code}', 'คัดลอกรหัส ${node.code} แล้ว!')" class="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-medium transition flex items-center justify-center space-x-1">
+                <button onclick="copyToClipboard('${node.code}', 'คัดลอกรหัส ${node.code} แล้ว')" class="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-medium transition flex items-center justify-center space-x-1">
                   <i data-lucide="copy" class="w-3 h-3 text-amber-400"></i>
                   <span>คัดลอกรหัส</span>
                 </button>
@@ -2290,7 +2290,7 @@ html_template = '''<!DOCTYPE html>
         if (state.search || state.subject !== 'ALL' || state.grade !== 'ALL' || state.type !== 'ALL') {
           el.catalogResultCount.innerHTML = `พบ <span class="text-white font-bold">${filtered.length}</span> รายการ จากทั้งหมด ${totalMaster} ข้อ`;
         } else {
-          el.catalogResultCount.innerHTML = `แสดงทั้งหมด <span class="text-white font-bold">${totalMaster}</span> ตัวชี้วัดแกนกลาง (สพฐ. ๒๕๖๖)`;
+          el.catalogResultCount.innerHTML = `แสดงทั้งหมด <span class="text-white font-bold">${totalMaster}</span> ตัวชี้วัด`;
         }
       }
 
@@ -2566,7 +2566,7 @@ html_template = '''<!DOCTYPE html>
         });
         filtered.forEach(k => state.selectedKpiCodes.add(k.code));
         renderCatalogTable();
-        showToast(`เลือกตัวชี้วัดทั้งหมด ${state.selectedKpiCodes.size} ข้อแล้ว!`);
+        showToast(`เลือกตัวชี้วัด ${state.selectedKpiCodes.size} รายการ`);
       });
 
       document.getElementById('btn-catalog-copy-word').addEventListener('click', () => {
@@ -2641,7 +2641,7 @@ html_template = '''<!DOCTYPE html>
         </table>
       `;
 
-      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${code} พร้อมวางลง Word แล้ว!`);
+      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${code} แล้ว`);
     }
 
     function copyStandardWordTable(stdId) {
@@ -2684,7 +2684,7 @@ html_template = '''<!DOCTYPE html>
         </table>
       `;
 
-      copyRichTable(tsv, htmlTable, `คัดลอกตารางมาตรฐาน ${rawStdCode} (${stdKpis.length} ข้อ) พร้อมวางลง Word แล้ว!`);
+      copyRichTable(tsv, htmlTable, `คัดลอกตารางมาตรฐาน ${rawStdCode} แล้ว`);
     }
 
     function copyStrandWordTable(strandId) {
@@ -2732,7 +2732,7 @@ html_template = '''<!DOCTYPE html>
         </table>
       `;
 
-      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${sample.strand} (${strandKpis.length} ข้อ) พร้อมวางลง Word แล้ว!`);
+      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${sample.strand} แล้ว`);
     }
 
     function copyKpiPlanTemplate(kpiId) {
@@ -2752,7 +2752,7 @@ html_template = '''<!DOCTYPE html>
       if (coreContent) {
         planText += `สาระการเรียนรู้แกนกลาง: ${coreContent.replace(/\\n/g, ' ')}\\n`;
       }
-      copyToClipboard(planText, `คัดลอกแบบฟอร์มทำแผน ${code} แล้ว!`);
+      copyToClipboard(planText, `คัดลอกข้อมูลแผน ${code} แล้ว`);
     }
 
     function copyBatchTable() {
@@ -2797,7 +2797,7 @@ html_template = '''<!DOCTYPE html>
         </table>
       `;
 
-      copyRichTable(tsv, htmlTable, `คัดลอกตาราง (${selected.length} รายการ) พร้อมวางลง Word แล้ว!`);
+      copyRichTable(tsv, htmlTable, `คัดลอกตาราง (${selected.length} รายการ) แล้ว`);
     }
 
     function copyBatchPlan() {
@@ -2813,7 +2813,7 @@ html_template = '''<!DOCTYPE html>
         planText += `\\n`;
       });
 
-      copyToClipboard(planText, `คัดลอกข้อมูลทำแผน (${selected.length} ข้อ) แล้ว!`);
+      copyToClipboard(planText, `คัดลอกข้อมูลแผน (${selected.length} ข้อ) แล้ว`);
     }
 
     // Rich Table Clipboard
@@ -2829,7 +2829,7 @@ html_template = '''<!DOCTYPE html>
       }
     }
 
-    function copyToClipboard(text, successMsg = 'คัดลอกลงคลิปบอร์ดแล้ว!') {
+    function copyToClipboard(text, successMsg = 'คัดลอกแล้ว') {
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
       } else {
