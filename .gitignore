@@ -23,6 +23,7 @@ env/
 *.json
 !all_kpi_master.json
 !semester_catalog.json
+!school_courses_assessment_matrix.json
 *.txt
 *.vbs
 
