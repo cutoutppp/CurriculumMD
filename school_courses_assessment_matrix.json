@@ -75236,5 +75236,3973 @@
       "ง 1.1 ม.1/3 (ปลายทาง): ตัดสินใจแก้ปัญหา การทำงานอย่างมีเหตุผล"
     ],
     "is_scheduled_term2": true
+  },
+  "ว20224": {
+    "course_code": "ว20224",
+    "course_name": "Google SketchUp (Model",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว20223": {
+    "course_code": "ว20223",
+    "course_name": "Google SketchUp (AR & VR)",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว20233": {
+    "course_code": "ว20233",
+    "course_name": "นวัตกรรมสมองกลฝังตัว (Embedded Systems Innovation)",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว22207": {
+    "course_code": "ว22207",
+    "course_name": "วิทยาศาสตร์สุขภาพและความงาม",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.2",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "I20201": {
+    "course_code": "I20201",
+    "course_name": "การศึกษาค้นคว้า และสร้างองค์ความรู้",
+    "learning_area": "กิจกรรมพัฒนาผู้เรียน (IS)",
+    "normalized_area": "กิจกรรมพัฒนาผู้เรียน (IS)",
+    "folder_name": "09_กิจกรรมพัฒนาผู้เรียน_IS",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "I20202": {
+    "course_code": "I20202",
+    "course_name": "การสื่อสารและการนำเสนอ",
+    "learning_area": "กิจกรรมพัฒนาผู้เรียน (IS)",
+    "normalized_area": "กิจกรรมพัฒนาผู้เรียน (IS)",
+    "folder_name": "09_กิจกรรมพัฒนาผู้เรียน_IS",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "อ20239": {
+    "course_code": "อ20239",
+    "course_name": "English stories for reading",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "จ20212": {
+    "course_code": "จ20212",
+    "course_name": "ภาษาจีนเพื่อการสอบมาตรฐาน 2",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว20222": {
+    "course_code": "ว20222",
+    "course_name": "Google Workspace",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว20209": {
+    "course_code": "ว20209",
+    "course_name": "Google App for Education",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30221": {
+    "course_code": "ว30221",
+    "course_name": "เคมี 1",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30267": {
+    "course_code": "ว30267",
+    "course_name": "Ai for Smart leaning",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30268": {
+    "course_code": "ว30268",
+    "course_name": "Ai for Communication",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30265": {
+    "course_code": "ว30265",
+    "course_name": "Software Design and Development",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30266": {
+    "course_code": "ว30266",
+    "course_name": "IoT Project Presentation",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30263": {
+    "course_code": "ว30263",
+    "course_name": "Digital Graphic Design",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30264": {
+    "course_code": "ว30264",
+    "course_name": "Grphic Design for Communication",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30293": {
+    "course_code": "ว30293",
+    "course_name": "Cloud computing",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30287": {
+    "course_code": "ว30287",
+    "course_name": "คอมพิวเตอร์กราฟิก",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30288": {
+    "course_code": "ว30288",
+    "course_name": "คอมพิวเตอร์กราฟิก",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30289": {
+    "course_code": "ว30289",
+    "course_name": "การเขียนโปรแกรมเบื้องต้น",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30290": {
+    "course_code": "ว30290",
+    "course_name": "การเขียนโปรแกรมเบื้องต้น",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "อ30235": {
+    "course_code": "อ30235",
+    "course_name": "ภาษาอังกฤษเพื่อการโรงแรม (English for Hotel Services)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "อ30236": {
+    "course_code": "อ30236",
+    "course_name": "ภาษาอังกฤษเพื่อการมีงานทำ (English for Employability)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "อ30201": {
+    "course_code": "อ30201",
+    "course_name": "ภาษาอังกฤษเพื่อการสื่อสารเชิงทัศน์ (Articulate Visual Speech)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "อ30202": {
+    "course_code": "อ30202",
+    "course_name": "ศิลปะการพูดในที่สาธารณะ (Articulate Public Speaking)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "อ30203": {
+    "course_code": "อ30203",
+    "course_name": "English for Strategic Future Readiness (กลยุทธ์เตรียมความพร้อมอนาคตภาษาอังกฤษ",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "อ30204": {
+    "course_code": "อ30204",
+    "course_name": "English for Portfolio Building (ภาษาอังกฤษเพื่อการสร้างแฟ้มสะสมผลงาน)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "อ30205": {
+    "course_code": "อ30205",
+    "course_name": "Academic Test Readiness (ภาษาอังกฤษเพื่อความพร้อมทางการสอบ)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "อ30206": {
+    "course_code": "อ30206",
+    "course_name": "English for Standardized Testing (ภาษาอังกฤษเพื่อการทดสอบมาตรฐาน)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "อ30237": {
+    "course_code": "อ30237",
+    "course_name": "English for Life & Educational Planning (ภาษาอังกฤษเพื่อการวางแผนชีวิตและการศึกษาต่อ)",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30282": {
+    "course_code": "ว30282",
+    "course_name": "โลก ดาราศาสตร์และอวกาศ",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30298": {
+    "course_code": "ว30298",
+    "course_name": "ชีววิทยาเพื่อการศึกษา",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ท30210": {
+    "course_code": "ท30210",
+    "course_name": "สุนทรียภาพ แห่งการประพันธ์",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ส30208": {
+    "course_code": "ส30208",
+    "course_name": "ถอดรหัสสังคมมนุษย์",
+    "learning_area": "สังคมศึกษา ศาสนา และวัฒนธรรม",
+    "normalized_area": "สังคมศึกษา ศาสนา และวัฒนธรรม",
+    "folder_name": "04_สังคมศึกษา",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ท31201": {
+    "course_code": "ท31201",
+    "course_name": "การเขียน",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท31203": {
+    "course_code": "ท31203",
+    "course_name": "การเขียน",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท32201": {
+    "course_code": "ท32201",
+    "course_name": "การพูด",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.5",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท32202": {
+    "course_code": "ท32202",
+    "course_name": "วรรณกรรมท้องถิ่น",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.5",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ท33201": {
+    "course_code": "ท33201",
+    "course_name": "ภาษาไทยเพื่อการศึกษาต่อ",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.6",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท33203": {
+    "course_code": "ท33203",
+    "course_name": "ภาษาไทยเพื่อการศึกษาต่อ",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.6",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท31205": {
+    "course_code": "ท31205",
+    "course_name": "ศิลปะการอ่าน",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท31206": {
+    "course_code": "ท31206",
+    "course_name": "วรรณกรรมนานาชาติ",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ท32203": {
+    "course_code": "ท32203",
+    "course_name": "ประวัติวรรณคดี",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.5",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท32204": {
+    "course_code": "ท32204",
+    "course_name": "ประวัติวรรณคดี",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.5",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ท30201": {
+    "course_code": "ท30201",
+    "course_name": "ภาษาไทยเพื่อกิจกรรมการแสดง",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ท30202": {
+    "course_code": "ท30202",
+    "course_name": "ภาษาไทยเพื่อกิจกรรมการแสดง",
+    "learning_area": "ภาษาไทย",
+    "normalized_area": "ภาษาไทย",
+    "folder_name": "01_ภาษาไทย",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30296": {
+    "course_code": "ว30296",
+    "course_name": "Youtube creator",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ค31203": {
+    "course_code": "ค31203",
+    "course_name": "คณิตศาสตร์อุตสาหกรรม",
+    "learning_area": "คณิตศาสตร์",
+    "normalized_area": "คณิตศาสตร์",
+    "folder_name": "02_คณิตศาสตร์",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ค31204": {
+    "course_code": "ค31204",
+    "course_name": "คณิตศาสตร์อุตสาหกรรม",
+    "learning_area": "คณิตศาสตร์",
+    "normalized_area": "คณิตศาสตร์",
+    "folder_name": "02_คณิตศาสตร์",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ค33204": {
+    "course_code": "ค33204",
+    "course_name": "คณิตศาสตร์อุตสาหกรรม",
+    "learning_area": "คณิตศาสตร์",
+    "normalized_area": "คณิตศาสตร์",
+    "folder_name": "02_คณิตศาสตร์",
+    "grade_level": "ม.6",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ง30232": {
+    "course_code": "ง30232",
+    "course_name": "งานติดตั้งไฟฟ้าในอาคาร",
+    "learning_area": "การงานอาชีพ",
+    "normalized_area": "การงานอาชีพ",
+    "folder_name": "07_การงานอาชีพ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ง30204": {
+    "course_code": "ง30204",
+    "course_name": "เขียนแบบเทคนิคเบื้องต้น",
+    "learning_area": "การงานอาชีพ",
+    "normalized_area": "การงานอาชีพ",
+    "folder_name": "07_การงานอาชีพ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ง30226": {
+    "course_code": "ง30226",
+    "course_name": "โครงงานอุตสาหกรรม",
+    "learning_area": "การงานอาชีพ",
+    "normalized_area": "การงานอาชีพ",
+    "folder_name": "07_การงานอาชีพ",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30278": {
+    "course_code": "ว30278",
+    "course_name": "ผลิตภัณฑ์อัจฉริยะ (Smart Product)",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ว30279": {
+    "course_code": "ว30279",
+    "course_name": "การพัฒนาโครงงานด้วยกระบวนการ SDLC",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ว30280": {
+    "course_code": "ว30280",
+    "course_name": "การสร้างสรรค์เนื้อหาและสื่อดิจิทัล",
+    "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "normalized_area": "วิทยาศาสตร์และเทคโนโลยี",
+    "folder_name": "03_วิทยาศาสตร์และเทคโนโลยี",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ส30269": {
+    "course_code": "ส30269",
+    "course_name": "ความสัมพันธ์ระหว่างประเทศ",
+    "learning_area": "สังคมศึกษา ศาสนา และวัฒนธรรม",
+    "normalized_area": "สังคมศึกษา ศาสนา และวัฒนธรรม",
+    "folder_name": "04_สังคมศึกษา",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ส30270": {
+    "course_code": "ส30270",
+    "course_name": "กระบวนการยุติธรรม",
+    "learning_area": "สังคมศึกษา ศาสนา และวัฒนธรรม",
+    "normalized_area": "สังคมศึกษา ศาสนา และวัฒนธรรม",
+    "folder_name": "04_สังคมศึกษา",
+    "grade_level": "ม.3",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": true
+  },
+  "ศ31205": {
+    "course_code": "ศ31205",
+    "course_name": "การปฏิบัติเครื่องเป่าเบื้องต้น",
+    "learning_area": "ศิลปะ",
+    "normalized_area": "ศิลปะ",
+    "folder_name": "06_ศิลปะ",
+    "grade_level": "ม.4",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": true,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "ศ33205": {
+    "course_code": "ศ33205",
+    "course_name": "การอำนวยเพลงในวงโยธวาทิต",
+    "learning_area": "ศิลปะ",
+    "normalized_area": "ศิลปะ",
+    "folder_name": "06_ศิลปะ",
+    "grade_level": "ม.6",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
+  },
+  "จ20213": {
+    "course_code": "จ20213",
+    "course_name": "เปิดประตูสู่จีน",
+    "learning_area": "ภาษาต่างประเทศ",
+    "normalized_area": "ภาษาต่างประเทศ",
+    "folder_name": "08_ภาษาต่างประเทศ",
+    "grade_level": "ม.0",
+    "credits": 1.0,
+    "total_hours": 40,
+    "is_basic": false,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
+    "teachers": [
+      "....................................................."
+    ],
+    "units": [
+      {
+        "unit_no": "1",
+        "unit_name": "หน่วยการเรียนรู้ที่ 1",
+        "hours": 9,
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "หน่วยการเรียนรู้ที่ 2",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "หน่วยการเรียนรู้ที่ 3",
+        "hours": 9,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
+        "indicators_raw": [],
+        "key_concepts": []
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "หน่วยการเรียนรู้ที่ 4",
+        "hours": 10,
+        "score_k": 6,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 10,
+        "indicators_raw": [],
+        "key_concepts": []
+      }
+    ],
+    "indicators": [],
+    "is_scheduled_term2": false
   }
 }
