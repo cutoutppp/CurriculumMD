@@ -1,0 +1,3630 @@
+# -*- coding: utf-8 -*-
+"""
+Builder script for the Unified Line-and-Node Tree Graph
+- Dual perspectives on the same page (Subject-First vs. Grade-First)
+- Thai / Arabic numeral toggle (เลขไทย / เลขอารบิก) throughout UI
+- Line & Branch pruning on filter ("ถ้าใช้ตัวกรองก็ตัดเส้นอื่นทิ้งไปด้วยจะได้หาได้ง่าย")
+- Realtime catalog search with complete grade options (ป.๑ - ม.๖)
+- Zero boastful text, humble and practical educational terminology
+"""
+
+import os
+
+def generate_index_html():
+    return '''<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</title>
+  <meta name="description" content="แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐) จำแนกกลุ่มสาระ สาระ มาตรฐาน และตัวชี้วัดระหว่างทาง-ปลายทาง">
+
+  <!-- Google Fonts: IBM Plex Sans Thai, Prompt & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Prompt:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans Thai"', 'Prompt', 'system-ui', 'sans-serif'],
+            heading: ['Prompt', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace']
+          },
+          colors: {
+            brand: {
+              navy: '#0d3d70',
+              deep: '#071f3a',
+              accent: '#10b981'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-card: rgba(15, 23, 42, 0.88);
+      --ink: #f8fafc;
+      --ink-soft: #94a3b8;
+      --line: rgba(51, 65, 85, 0.5);
+      --line-strong: rgba(71, 85, 105, 0.8);
+      --navy-deep: #071f3a;
+      --navy: #0d3d70;
+      --teal: #10b981;
+      --amber: #f59e0b;
+      --sky: #38bdf8;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 0%, #172554 0%, #0b1120 40%, #030712 100%);
+      color: var(--ink);
+      font-family: "IBM Plex Sans Thai", system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Interactive Graph Stage */
+    .graph-stage {
+      position: relative;
+      height: clamp(620px, 75vh, 920px);
+      min-height: 620px;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      background:
+        radial-gradient(circle at center, rgba(16, 185, 129, 0.04) 0%, transparent 60%),
+        radial-gradient(circle at center, rgba(56, 189, 248, 0.03) 0%, transparent 40%),
+        linear-gradient(180deg, #090e17 0%, #030712 100%);
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+    .graph-stage:active { cursor: grabbing; }
+
+    #graphSvg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Concentric Guideline Rings */
+    .graph-ring {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-dasharray: 4 6;
+      stroke-width: 1px;
+    }
+    .graph-ring-label {
+      font-size: 11px;
+      fill: rgba(148, 163, 184, 0.7);
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      text-anchor: middle;
+      pointer-events: none;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    /* SVG Edges */
+    .graph-edge {
+      fill: none;
+      stroke-linecap: round;
+      transition: stroke 200ms ease, stroke-width 200ms ease, opacity 200ms ease;
+      pointer-events: none;
+    }
+
+    /* SVG Nodes */
+    .node {
+      cursor: pointer;
+      transition: opacity 200ms ease;
+    }
+    .node .node-visible-shape {
+      transition: r 180ms ease, fill 180ms ease, stroke 180ms ease, filter 180ms ease;
+    }
+    .node:hover .node-visible-shape {
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+
+    /* Node Hit Area (Invisible large circle for effortless clicking) */
+    .node-hit-area {
+      fill: transparent;
+      pointer-events: all;
+      cursor: pointer;
+    }
+
+    /* Labels */
+    .node-label-bg {
+      font-size: 11px;
+      fill: none;
+      stroke: #030712;
+      stroke-width: 3.5px;
+      stroke-linejoin: round;
+      pointer-events: all;
+      cursor: pointer;
+      user-select: none;
+      font-family: "IBM Plex Sans Thai", sans-serif;
+    }
+    .node-label-fg {
+      font-size: 11px;
+      fill: #f1f5f9;
+      pointer-events: all;
+      cursor: pointer;
+      user-select: none;
+      font-family: "IBM Plex Sans Thai", sans-serif;
+      font-weight: 500;
+    }
+
+    /* Focus & Highlights */
+    .is-dimmed {
+      opacity: 0.12 !important;
+    }
+    .edge-dimmed {
+      opacity: 0.03 !important;
+    }
+    .edge-highlighted {
+      opacity: 0.95 !important;
+      stroke-width: 2.2px !important;
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+    .node-highlighted .node-visible-shape {
+      filter: drop-shadow(0 0 14px currentColor) !important;
+    }
+
+    /* Selected Node Halo Animation */
+    @keyframes haloPulse {
+      0% { stroke-dashoffset: 0; opacity: 0.8; }
+      50% { stroke-dashoffset: 16; opacity: 1; }
+      100% { stroke-dashoffset: 32; opacity: 0.8; }
+    }
+    .selected-halo {
+      animation: haloPulse 3s linear infinite;
+    }
+
+    /* Toast animation */
+    @keyframes toastSlide {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .toast-animate {
+      animation: toastSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- App Shell -->
+  <div class="min-h-screen flex flex-col">
+
+    <!-- Topbar Header -->
+    <header class="border-b border-slate-800/80 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-3.5">
+      <div class="max-w-[1720px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- Brand & Title -->
+        <div class="flex items-start space-x-3.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-sky-500 flex items-center justify-center text-white shadow-lg shadow-emerald-950 shrink-0 mt-0.5">
+            <i data-lucide="network" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-mono text-[11px] tracking-wider text-emerald-400 uppercase font-semibold">โครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐)</span>
+            </div>
+            <h1 class="text-lg sm:text-xl font-bold font-heading text-white tracking-tight">
+              แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน
+            </h1>
+            <p id="header-subdesc" class="text-xs text-slate-400 max-w-2xl mt-0.5">
+              ๘ กลุ่มสาระการเรียนรู้ • ๓๑ สาระ • ๕๕ มาตรฐาน • ๒,๐๕๖ ตัวชี้วัด
+            </p>
+          </div>
+        </div>
+
+        <!-- Top Actions -->
+        <div class="flex items-center space-x-2.5 shrink-0 flex-wrap gap-y-2">
+          
+          <!-- Numeral Switcher: เลขไทย / เลขอารบิก -->
+          <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1 shadow-sm">
+            <button id="btn-num-thai" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm" title="แสดงตัวเลขเป็นเลขไทย (๑ ๒ ๓)">
+              <span>เลขไทย (๑ ๒ ๓)</span>
+            </button>
+            <button id="btn-num-arabic" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1" title="แสดงตัวเลขเป็นเลขอารบิก (1 2 3)">
+              <span>เลขอารบิก (1 2 3)</span>
+            </button>
+          </div>
+
+          <!-- Main View Switcher -->
+          <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1">
+            <button id="btn-view-map" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm">
+              <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+              <span>แผนภาพโครงสร้าง (Tree Graph)</span>
+            </button>
+            <button id="btn-view-catalog" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
+              <i data-lucide="table-properties" class="w-3.5 h-3.5"></i>
+              <span>ตารางสืบค้น</span>
+            </button>
+          </div>
+
+          <button id="btn-open-help" class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-medium transition flex items-center space-x-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>วิธีใช้</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Summary Metrics Strip (6 Key Cards) -->
+    <section class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+        <!-- 1. Learning Areas -->
+        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-pink-500 hover:border-slate-700 transition">
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">กลุ่มสาระการเรียนรู้</span>
+          <div class="flex items-baseline space-x-1.5">
+            <span id="stat-total-subjects" class="text-xl sm:text-2xl font-bold font-mono text-white">๘</span>
+            <span class="text-[10px] text-pink-400">กลุ่มสาระฯ</span>
+          </div>
+        </div>
+
+        <!-- 2. Strands (สาระ) -->
+        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-cyan-500 hover:border-slate-700 transition">
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">สาระการเรียนรู้</span>
+          <div class="flex items-baseline space-x-1.5">
+            <span id="stat-total-strands" class="text-xl sm:text-2xl font-bold font-mono text-cyan-400">๓๑</span>
+            <span class="text-[10px] text-cyan-300">สาระ</span>
+          </div>
+        </div>
+
+        <!-- 3. Standards -->
+        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-blue-500 hover:border-slate-700 transition">
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">มาตรฐานการเรียนรู้</span>
+          <div class="flex items-baseline space-x-1.5">
+            <span id="stat-total-standards" class="text-xl sm:text-2xl font-bold font-mono text-white">๕๕</span>
+            <span class="text-[10px] text-blue-400">มาตรฐาน</span>
+          </div>
+        </div>
+
+        <!-- 4. Total KPIs -->
+        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-emerald-500 hover:border-slate-700 transition">
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">ตัวชี้วัดทั้งหมด</span>
+          <div class="flex items-baseline space-x-1.5">
+            <span id="stat-total-kpi" class="text-xl sm:text-2xl font-bold font-mono text-emerald-400">๒,๐๕๖</span>
+            <span class="text-[10px] text-emerald-400">ตัวชี้วัด</span>
+          </div>
+        </div>
+
+        <!-- 5. Formative & Summative -->
+        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-amber-500 hover:border-slate-700 transition">
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">ระหว่างทาง / ปลายทาง</span>
+          <div class="flex items-baseline space-x-1.5 font-mono">
+            <span id="stat-total-formative" class="text-base sm:text-lg font-bold text-sky-400">๑,๒๘๕</span>
+            <span class="text-slate-500 text-xs">/</span>
+            <span id="stat-total-summative" class="text-base sm:text-lg font-bold text-amber-400">๗๗๑</span>
+          </div>
+        </div>
+
+        <!-- 6. School Courses -->
+        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-purple-500 hover:border-slate-700 transition">
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">วิชาโรงเรียนพัฒนานิคม</span>
+          <div class="flex items-baseline space-x-1.5">
+            <span id="stat-total-courses" class="text-xl sm:text-2xl font-bold font-mono text-purple-400">๕๔๘</span>
+            <span class="text-[10px] text-purple-300">วิชา (ม.๑–๖)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main View 1: Interactive Line-and-Node Tree Graph (Default View) -->
+    <main id="main-map-view" class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-3 flex-1 flex flex-col">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 flex-1 items-start">
+
+        <!-- Left Column: Details & Action Info Panel (3 cols) -->
+        <aside id="infoPanel" class="lg:col-span-3 glass-panel rounded-3xl p-4 sm:p-5 flex flex-col max-h-[820px] overflow-hidden">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">ข้อมูลรายละเอียด</span>
+            </div>
+            <button id="btn-panel-reset" class="text-[11px] font-medium text-emerald-400 hover:text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/60 px-2.5 py-1 rounded-full border border-emerald-500/30 transition flex items-center space-x-1">
+              <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+              <span>กลับภาพรวม</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Info Content Container -->
+          <div id="infoContent" class="overflow-y-auto pr-1 flex-1 space-y-4 text-xs leading-relaxed">
+            <!-- Injected via JavaScript -->
+          </div>
+        </aside>
+
+        <!-- Center Column: Tree Graph Stage with Breadcrumb Header (6 cols) -->
+        <section class="lg:col-span-6 relative flex flex-col">
+          
+          <!-- Drill-down Breadcrumb Navigation Bar -->
+          <div class="rounded-t-2xl bg-slate-900/95 border-t border-x border-slate-800 px-4 py-2.5 flex items-center justify-between text-xs backdrop-blur z-20">
+            <div id="drillBreadcrumb" class="flex items-center space-x-1.5 overflow-x-auto text-slate-400 font-mono text-[11px] pr-2">
+              <!-- Rendered via JS -->
+            </div>
+            <button id="btn-drill-up" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-medium transition flex items-center space-x-1.5 shrink-0 hidden">
+              <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>ย้อนกลับ</span>
+            </button>
+          </div>
+
+          <!-- Perspective Switcher Bar (Same Canvas, Instant Toggle) -->
+          <div id="treePerspectiveBar" class="bg-slate-950/95 border-x border-b border-slate-800/90 px-4 py-2 flex items-center justify-between text-xs backdrop-blur z-20">
+            <div class="flex items-center space-x-2">
+              <span class="text-slate-400 text-[11px] font-medium flex items-center gap-1">
+                <i data-lucide="git-branch" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="text-slate-300 font-semibold">มุมมองโครงสร้าง:</span>
+              </span>
+              <div class="bg-slate-900 border border-slate-700/80 p-0.5 rounded-lg flex items-center space-x-0.5">
+                <button id="btn-tree-subject" class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm">
+                  <i data-lucide="book-open" class="w-3 h-3"></i>
+                  <span>แตกตามกลุ่มสาระวิชา</span>
+                </button>
+                <button id="btn-tree-grade" class="px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1">
+                  <i data-lucide="graduation-cap" class="w-3 h-3"></i>
+                  <span>แตกตามระดับชั้น (ป.๑ – ม.๖)</span>
+                </button>
+              </div>
+            </div>
+            <span id="treePerspectiveDesc" class="text-[11px] text-slate-400 font-mono hidden sm:inline">
+              หลักสูตรแกนกลาง ➔ ๘ กลุ่มสาระ ➔ สาระ ➔ มาตรฐาน
+            </span>
+          </div>
+
+          <!-- Floating Toolbar -->
+          <div class="absolute top-24 right-3.5 z-20 flex items-center space-x-1.5">
+            <button id="btn-toggle-focus" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-emerald-400 border border-emerald-500/50 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5">
+              <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
+              <span>โหมดโฟกัส</span>
+            </button>
+            <button id="btn-toggle-labels" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5">
+              <i data-lucide="tag" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span id="label-toggle-text">ซ่อนป้ายชื่อ</span>
+            </button>
+            <button id="btn-reset-view" class="p-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition" title="รีเซ็ตตำแหน่งและมุมมอง">
+              <i data-lucide="maximize-2" class="w-4 h-4"></i>
+            </button>
+            <button id="btn-zoom-in" class="p-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition" title="ซูมเข้า">
+              <i data-lucide="zoom-in" class="w-4 h-4"></i>
+            </button>
+            <button id="btn-zoom-out" class="p-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition" title="ซูมออก">
+              <i data-lucide="zoom-out" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Stage SVG Container -->
+          <div class="graph-stage rounded-t-none" id="graphStage">
+            <svg id="graphSvg" viewBox="-750 -750 1500 1500" aria-label="Thailand Curriculum Structure Tree Map" role="img"></svg>
+
+            <!-- Floating Node Tooltip on Map -->
+            <div id="graphTooltip" class="absolute pointer-events-none opacity-0 transition-opacity duration-150 z-30 px-3 py-1.5 rounded-xl bg-slate-950/95 border border-slate-700 text-white shadow-2xl text-[11px] backdrop-blur -translate-x-1/2 -translate-y-full mb-2 whitespace-nowrap">
+              <div id="tooltipKind" class="text-[9px] font-mono uppercase font-bold text-emerald-400"></div>
+              <div id="tooltipTitle" class="font-bold text-xs text-white"></div>
+              <div id="tooltipSub" class="text-[10px] text-slate-400"></div>
+            </div>
+
+            <!-- Interaction Guidance Tag -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none px-4 py-1.5 rounded-full bg-slate-950/85 border border-slate-800 text-[11px] text-slate-300 shadow-xl backdrop-blur flex items-center space-x-2 whitespace-nowrap">
+              <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>คลิกเพื่อดูรายละเอียด • ดับเบิลคลิกเพื่อเจาะลึกเฉพาะกลุ่ม • เลื่อนเมาส์เพื่อซูม</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Column: Control & Filter Panel (3 cols) -->
+        <aside id="controlPanel" class="lg:col-span-3 glass-panel rounded-3xl p-4 sm:p-5 flex flex-col max-h-[820px] overflow-hidden">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+            <div class="flex items-center space-x-2">
+              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">ตัวกรองโครงสร้าง</span>
+            </div>
+            <button id="btn-clear-filters" class="text-[11px] font-medium text-slate-400 hover:text-white transition">
+              ล้างทั้งหมด
+            </button>
+          </div>
+
+          <div class="overflow-y-auto pr-1 flex-1 space-y-4 text-xs">
+            <!-- 1. Realtime Search -->
+            <div>
+              <label for="searchInput" class="block text-[11px] font-semibold text-slate-300 mb-1.5">ค้นหา สาระ / ตัวชี้วัด / รหัสวิชา</label>
+              <div class="relative">
+                <input
+                  id="searchInput"
+                  type="search"
+                  placeholder="เช่น การอ่าน, ท ๑.๑, ท21101, ป.๒..."
+                  class="w-full bg-slate-950/90 border border-slate-700/80 rounded-xl px-3 py-2 pl-9 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition shadow-inner"
+                />
+                <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-2.5"></i>
+              </div>
+              <div id="searchMatchCount" class="text-[10px] text-slate-500 mt-1"></div>
+              <div id="searchMatchChips" class="flex flex-wrap gap-1 mt-1.5 max-h-24 overflow-y-auto"></div>
+            </div>
+
+            <!-- 2. Subject Pills Grid (8 Subjects) -->
+            <div>
+              <span class="block text-[11px] font-semibold text-slate-300 mb-1.5">กลุ่มสาระการเรียนรู้ (๘ กลุ่ม)</span>
+              <div id="subjectPillGrid" class="grid grid-cols-2 gap-1.5">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- 3. Grade Filter -->
+            <div>
+              <label for="filterGrade" class="block text-[11px] font-semibold text-slate-300 mb-1.5">ระดับชั้นการศึกษา</label>
+              <select id="filterGrade" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-xl p-2.5 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกระดับชั้น (ป.๑ - ม.๖)</option>
+                <option value="ประถมต้น (ป.1-3)">ประถมศึกษาตอนต้น (ป.๑ - ป.๓)</option>
+                <option value="ประถมปลาย (ป.4-6)">ประถมศึกษาตอนปลาย (ป.๔ - ป.๖)</option>
+                <option value="มัธยมต้น (ม.1-3)">มัธยมศึกษาตอนต้น (ม.๑ - ม.๓)</option>
+                <option value="มัธยมปลาย (ม.4-6)">มัธยมศึกษาตอนปลาย (ม.๔ - ม.๖)</option>
+                <option value="ป.1">ประถมศึกษาปีที่ ๑ (ป.๑)</option>
+                <option value="ป.2">ประถมศึกษาปีที่ ๒ (ป.๒)</option>
+                <option value="ป.3">ประถมศึกษาปีที่ ๓ (ป.๓)</option>
+                <option value="ป.4">ประถมศึกษาปีที่ ๔ (ป.๔)</option>
+                <option value="ป.5">ประถมศึกษาปีที่ ๕ (ป.๕)</option>
+                <option value="ป.6">ประถมศึกษาปีที่ ๖ (ป.๖)</option>
+                <option value="ม.1">มัธยมศึกษาปีที่ ๑ (ม.๑)</option>
+                <option value="ม.2">มัธยมศึกษาปีที่ ๒ (ม.๒)</option>
+                <option value="ม.3">มัธยมศึกษาปีที่ ๓ (ม.๓)</option>
+                <option value="ม.4">มัธยมศึกษาปีที่ ๔ (ม.๔)</option>
+                <option value="ม.5">มัธยมศึกษาปีที่ ๕ (ม.๕)</option>
+                <option value="ม.6">มัธยมศึกษาปีที่ ๖ (ม.๖)</option>
+                <option value="ม.4-6">มัธยมศึกษาตอนปลาย (ม.๔-๖)</option>
+              </select>
+            </div>
+
+            <!-- 4. Term / Semester Filter -->
+            <div>
+              <label for="filterTerm" class="block text-[11px] font-semibold text-slate-300 mb-1.5">ภาคเรียน (อิงโครงสร้างรายวิชา)</label>
+              <select id="filterTerm" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-xl p-2.5 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกภาคเรียน</option>
+                <option value="1">ภาคเรียนที่ ๑</option>
+                <option value="2">ภาคเรียนที่ ๒</option>
+              </select>
+            </div>
+
+            <!-- 5. KPI Type Filter -->
+            <div>
+              <label for="filterType" class="block text-[11px] font-semibold text-slate-300 mb-1.5">ประเภทตัวชี้วัด (สพฐ. ว๘๐/๒๕๖๖)</label>
+              <select id="filterType" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-xl p-2.5 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกประเภท (ระหว่างทาง + ปลายทาง)</option>
+                <option value="ระหว่างทาง">ตัวชี้วัดระหว่างทาง (Formative: ๑,๒๘๕ ข้อ)</option>
+                <option value="ปลายทาง">ตัวชี้วัดปลายทาง (Summative: ๗๗๑ ข้อ)</option>
+              </select>
+            </div>
+
+            <!-- 6. School Course Mapping Filter -->
+            <div>
+              <label for="filterSchool" class="block text-[11px] font-semibold text-slate-300 mb-1.5">การเชื่อมโยงรายวิชาสถานศึกษา</label>
+              <select id="filterSchool" class="w-full bg-slate-950 border border-slate-700 text-xs text-slate-200 rounded-xl p-2.5 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ตัวชี้วัดแกนกลางทั้งหมด (๒,๐๕๖)</option>
+                <option value="MAPPED">เฉพาะที่มีวิชารองรับ (โรงเรียนพัฒนานิคม)</option>
+              </select>
+            </div>
+
+            <!-- Download Grade Summary Options -->
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <span class="block text-[11px] font-semibold text-slate-400">ส่งออกเอกสารสรุปรายระดับชั้น (.docx):</span>
+              <div class="grid grid-cols-2 gap-1.5">
+                <button onclick="downloadGradeWord('ป.1')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ป.๑ (.docx)</button>
+                <button onclick="downloadGradeWord('ป.2')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ป.๒ (.docx)</button>
+                <button onclick="downloadGradeWord('ป.3')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ป.๓ (.docx)</button>
+                <button onclick="downloadGradeWord('ป.4')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ป.๔ (.docx)</button>
+                <button onclick="downloadGradeWord('ป.5')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ป.๕ (.docx)</button>
+                <button onclick="downloadGradeWord('ป.6')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ป.๖ (.docx)</button>
+                <button onclick="downloadGradeWord('ม.1')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ม.๑ (.docx)</button>
+                <button onclick="downloadGradeWord('ม.2')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ม.๒ (.docx)</button>
+                <button onclick="downloadGradeWord('ม.3')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ม.๓ (.docx)</button>
+                <button onclick="downloadGradeWord('ม.4-6')" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] text-center font-mono transition">ม.๔-๖ (.docx)</button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Main View 2: Realtime Catalog & Table Search View (Initially Hidden) -->
+    <main id="main-catalog-view" class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 flex-1 flex flex-col hidden">
+      <div class="glass-panel rounded-3xl p-5 flex flex-col flex-1">
+        
+        <!-- Table Search Bar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800">
+          <div>
+            <h2 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i>
+              <span>ตารางสืบค้นและจัดการตัวชี้วัด (๒,๐๕๖ ตัวชี้วัด)</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              ค้นหาตัวชี้วัดระหว่างทางและปลายทาง จำแนกตามกลุ่มสาระ สาระ มาตรฐาน และรายวิชาสถานศึกษา
+            </p>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex items-center space-x-2">
+            <button id="btn-catalog-select-all" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium transition flex items-center space-x-1.5">
+              <i data-lucide="check-square" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>เลือกทั้งหมดที่ค้นพบ</span>
+            </button>
+            <button id="btn-catalog-copy-word" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium transition flex items-center space-x-1.5">
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>คัดลอกตารางลง Word</span>
+            </button>
+            <button id="btn-catalog-copy-plan" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium transition flex items-center space-x-1.5">
+              <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>คัดลอกโครงร่างแผน</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Controls Strip -->
+        <div class="space-y-3 mb-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-2.5">
+            
+            <!-- 1. Search text input -->
+            <div class="md:col-span-5 relative">
+              <input
+                id="catalogSearchInput"
+                type="search"
+                placeholder="พิมพ์ค้นหา รหัสตัวชี้วัด, สาระ, ข้อความ, หรือรหัสวิชา..."
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 pl-9 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition shadow-inner"
+              />
+              <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-2.5"></i>
+            </div>
+
+            <!-- 2. Subject Filter -->
+            <div class="md:col-span-3">
+              <select id="catalogFilterSubject" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกกลุ่มสาระการเรียนรู้ (๘ กลุ่ม)</option>
+                <option value="ภาษาไทย">ภาษาไทย</option>
+                <option value="คณิตศาสตร์">คณิตศาสตร์</option>
+                <option value="วิทยาศาสตร์และเทคโนโลยี">วิทยาศาสตร์และเทคโนโลยี</option>
+                <option value="สังคมศึกษา ศาสนา และวัฒนธรรม">สังคมศึกษา ศาสนา และวัฒนธรรม</option>
+                <option value="สุขศึกษาและพลศึกษา">สุขศึกษาและพลศึกษา</option>
+                <option value="ศิลปะ">ศิลปะ</option>
+                <option value="การงานอาชีพ">การงานอาชีพ</option>
+                <option value="ภาษาต่างประเทศ">ภาษาต่างประเทศ</option>
+              </select>
+            </div>
+
+            <!-- 3. Grade Filter (Complete with ป.1 - ม.6) -->
+            <div class="md:col-span-2">
+              <select id="catalogFilterGrade" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกระดับชั้น (ป.๑ - ม.๖)</option>
+                <option value="ประถมต้น (ป.1-3)">ประถมศึกษาตอนต้น (ป.๑ - ป.๓)</option>
+                <option value="ประถมปลาย (ป.4-6)">ประถมศึกษาตอนปลาย (ป.๔ - ป.๖)</option>
+                <option value="มัธยมต้น (ม.1-3)">มัธยมศึกษาตอนต้น (ม.๑ - ม.๓)</option>
+                <option value="มัธยมปลาย (ม.4-6)">มัธยมศึกษาตอนปลาย (ม.๔ - ม.๖)</option>
+                <option value="ป.1">ประถมศึกษาปีที่ ๑ (ป.๑)</option>
+                <option value="ป.2">ประถมศึกษาปีที่ ๒ (ป.๒)</option>
+                <option value="ป.3">ประถมศึกษาปีที่ ๓ (ป.๓)</option>
+                <option value="ป.4">ประถมศึกษาปีที่ ๔ (ป.๔)</option>
+                <option value="ป.5">ประถมศึกษาปีที่ ๕ (ป.๕)</option>
+                <option value="ป.6">ประถมศึกษาปีที่ ๖ (ป.๖)</option>
+                <option value="ม.1">มัธยมศึกษาปีที่ ๑ (ม.๑)</option>
+                <option value="ม.2">มัธยมศึกษาปีที่ ๒ (ม.๒)</option>
+                <option value="ม.3">มัธยมศึกษาปีที่ ๓ (ม.๓)</option>
+                <option value="ม.4">มัธยมศึกษาปีที่ ๔ (ม.๔)</option>
+                <option value="ม.5">มัธยมศึกษาปีที่ ๕ (ม.๕)</option>
+                <option value="ม.6">มัธยมศึกษาปีที่ ๖ (ม.๖)</option>
+                <option value="ม.4-6">มัธยมศึกษาตอนปลาย (ม.๔-๖)</option>
+              </select>
+            </div>
+
+            <!-- 4. Type Filter -->
+            <div class="md:col-span-2">
+              <select id="catalogFilterType" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกประเภทตัวชี้วัด</option>
+                <option value="ระหว่างทาง">ตัวชี้วัดระหว่างทาง (Formative)</option>
+                <option value="ปลายทาง">ตัวชี้วัดปลายทาง (Summative)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Result Count Bar -->
+          <div class="flex items-center justify-between text-xs text-slate-400 pt-1 border-t border-slate-800/80">
+            <div id="catalogResultCount" class="font-mono text-[11px] text-emerald-400 font-semibold">
+              กำลังคำนวณผลการค้นหา...
+            </div>
+            <button id="btn-catalog-clear-search" class="text-[11px] text-slate-400 hover:text-white transition">
+              ล้างตัวกรองทั้งหมด
+            </button>
+          </div>
+        </div>
+
+        <!-- Scrollable Table -->
+        <div class="flex-1 overflow-auto rounded-2xl border border-slate-800 bg-slate-950/60">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="sticky top-0 bg-slate-900/95 border-b border-slate-800 text-[11px] font-mono text-slate-400 uppercase tracking-wider backdrop-blur z-10">
+              <tr>
+                <th class="p-3 w-10 text-center">เลือก</th>
+                <th class="p-3 w-32">รหัสตัวชี้วัด</th>
+                <th class="p-3 w-40">กลุ่มสาระ / สาระ</th>
+                <th class="p-3 w-28 text-center">ประเภท</th>
+                <th class="p-3">ข้อความตัวชี้วัด</th>
+                <th class="p-3">สาระการเรียนรู้แกนกลาง</th>
+                <th class="p-3 w-44">วิชาสถานศึกษา</th>
+                <th class="p-3 w-28 text-center">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody id="catalog-table-tbody" class="divide-y divide-slate-800/60 font-sans">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Pagination Footer -->
+        <div id="catalogPaginationStrip" class="pt-3 flex items-center justify-between text-xs text-slate-400 border-t border-slate-800 mt-2">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+    <div class="glass-panel rounded-3xl max-w-2xl w-full p-6 text-xs text-slate-300 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white flex items-center space-x-2">
+          <i data-lucide="help-circle" class="w-5 h-5 text-emerald-400"></i>
+          <span>วิธีใช้งานแผนภาพโครงสร้างหลักสูตรแกนกลาง</span>
+        </h3>
+        <button id="btn-close-help" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-3 leading-relaxed">
+        <h4 class="font-bold text-white text-sm">๑. มุมมองโครงสร้าง (Tree Graph):</h4>
+        <p>• สลับมุมมองได้ทันทีจากแถบด้านบนแผนภาพ: <strong>แตกตามกลุ่มสาระวิชา</strong> หรือ <strong>แตกตามระดับชั้น (ป.๑ – ม.๖)</strong></p>
+        <p>• หากใช้ตัวกรอง (เช่น เลือกกลุ่มสาระ หรือพิมพ์คำค้นหา) <strong>ระบบจะตัดเส้นกิ่งอื่นที่ไม่เกี่ยวข้องออกทันที</strong> เพื่อให้เห็นเฉพาะจุดที่ต้องการได้อย่างรวดเร็ว</p>
+        <p>• คลิกที่โหนดเพื่อดูรายละเอียดในแผงด้านซ้าย หรือกดปุ่ม <strong>"เจาะลึก"</strong> เพื่อขยายเฉพาะกลุ่มนั้นเป็นศูนย์กลางใหม่</p>
+        <p>• มีปุ่ม <strong>"ย้อนกลับ"</strong> และแถบนำทาง (Breadcrumb) ให้คลิกถอยกลับมาได้ตลอดเวลา</p>
+        
+        <h4 class="font-bold text-white text-sm pt-2">๒. การเลือกเลขไทย หรือ เลขอารบิก:</h4>
+        <p>• คลิกปุ่ม <strong>เลขไทย (๑ ๒ ๓)</strong> หรือ <strong>เลขอารบิก (1 2 3)</strong> ที่มุมบนขวา เพื่อปรับการแสดงผลตัวเลขทั้งระบบตามที่ต้องการนำไปใช้งาน</p>
+
+        <h4 class="font-bold text-white text-sm pt-2">๓. การนำข้อมูลไปใช้ในเอกสาร:</h4>
+        <p>• ในแผงรายละเอียดด้านซ้าย หรือในตารางสืบค้น มีปุ่ม <strong>"คัดลอกตารางลง Word"</strong> และ <strong>"คัดลอกโครงร่างแผน"</strong> สามารถกดแล้วนำไปวาง (Ctrl+V) ใน Microsoft Word ได้ทันที</p>
+      </div>
+      <div class="pt-3 border-t border-slate-800 text-right">
+        <button id="btn-help-understood" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition">
+          เข้าใจแล้ว
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Script -->
+  <script src="kpi_data.js"></script>
+
+  <!-- Application Logic -->
+  <script>
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const DATA = (typeof OPEN_CURRICULUM_DATA !== 'undefined' ? OPEN_CURRICULUM_DATA : (window.OPEN_CURRICULUM_DATA || {}));
+
+    // Thai / Arabic Numeral Conversion System
+    const THAI_DIGITS = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+    const THAI_DIGITS_MAP = {'๐':'0','๑':'1','๒':'2','๓':'3','๔':'4','๕':'5','๖':'6','๗':'7','๘':'8','๙':'9'};
+
+    function toThaiDigits(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/[0-9]/g, d => THAI_DIGITS[parseInt(d)]);
+    }
+
+    function toArabicDigits(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/[๐-๙]/g, d => THAI_DIGITS_MAP[d]);
+    }
+
+    function formatDigits(str) {
+      if (state.numeral === 'thai') return toThaiDigits(str);
+      return toArabicDigits(str);
+    }
+
+    // State Store
+    const state = {
+      viewMode: 'map', // 'map' or 'catalog'
+      graphMode: 'subject', // 'subject' (วิชา ➔ สาระ ➔ มาตรฐาน) or 'grade' (ชั้นปี ➔ วิชา ➔ ตชว.)
+      numeral: localStorage.getItem('curriculum_numeral_pref') || 'thai', // 'thai' or 'arabic'
+      drillNodeId: 'root-curriculum', // Active center of radial tree
+      selectedNodeId: 'root-curriculum',
+      search: '',
+      subject: 'ALL',
+      grade: 'ALL',
+      term: 'ALL',
+      type: 'ALL',
+      school: 'ALL',
+      focusMode: false,
+      showLabels: true,
+      selectedKpiCodes: new Set(),
+      catalogLimit: 150
+    };
+
+    const graphState = {
+      scale: 1,
+      translateX: 0,
+      translateY: 0,
+      isDragging: false,
+      dragStartX: 0,
+      dragStartY: 0
+    };
+
+    const ZOOM_LIMITS = { min: 0.25, max: 8 };
+
+    const GRADE_CONFIG = [
+      { id: 'grade-p1', code: 'ป.1', title: 'ชั้นประถมศึกษาปีที่ ๑ (ป.๑)', shortLabel: 'ชั้น ป.๑', stage: 'ประถมศึกษาตอนต้น', color: '#10b981' },
+      { id: 'grade-p2', code: 'ป.2', title: 'ชั้นประถมศึกษาปีที่ ๒ (ป.๒)', shortLabel: 'ชั้น ป.๒', stage: 'ประถมศึกษาตอนต้น', color: '#0d9488' },
+      { id: 'grade-p3', code: 'ป.3', title: 'ชั้นประถมศึกษาปีที่ ๓ (ป.๓)', shortLabel: 'ชั้น ป.๓', stage: 'ประถมศึกษาตอนต้น', color: '#06b6d4' },
+      { id: 'grade-p4', code: 'ป.4', title: 'ชั้นประถมศึกษาปีที่ ๔ (ป.๔)', shortLabel: 'ชั้น ป.๔', stage: 'ประถมศึกษาตอนปลาย', color: '#0284c7' },
+      { id: 'grade-p5', code: 'ป.5', title: 'ชั้นประถมศึกษาปีที่ ๕ (ป.๕)', shortLabel: 'ชั้น ป.๕', stage: 'ประถมศึกษาตอนปลาย', color: '#2563eb' },
+      { id: 'grade-p6', code: 'ป.6', title: 'ชั้นประถมศึกษาปีที่ ๖ (ป.๖)', shortLabel: 'ชั้น ป.๖', stage: 'ประถมศึกษาตอนปลาย', color: '#4f46e5' },
+      { id: 'grade-m1', code: 'ม.1', title: 'ชั้นมัธยมศึกษาปีที่ ๑ (ม.๑)', shortLabel: 'ชั้น ม.๑', stage: 'มัธยมศึกษาตอนต้น', color: '#f59e0b' },
+      { id: 'grade-m2', code: 'ม.2', title: 'ชั้นมัธยมศึกษาปีที่ ๒ (ม.๒)', shortLabel: 'ชั้น ม.๒', stage: 'มัธยมศึกษาตอนต้น', color: '#ea580c' },
+      { id: 'grade-m3', code: 'ม.3', title: 'ชั้นมัธยมศึกษาปีที่ ๓ (ม.๓)', shortLabel: 'ชั้น ม.๓', stage: 'มัธยมศึกษาตอนต้น', color: '#dc2626' },
+      { id: 'grade-m4-6', code: 'ม.4-6', title: 'ชั้นมัธยมศึกษาตอนปลาย (ม.๔-๖)', shortLabel: 'ชั้น ม.๔-๖', stage: 'มัธยมศึกษาตอนปลาย', color: '#8b5cf6' }
+    ];
+
+    function normalizeGradeKey(g) {
+      if (!g) return 'ม.4-6';
+      const s = toArabicDigits(String(g)).trim();
+      if (s === 'ป.1' || s === 'ป.1/1' || s.startsWith('ป.1')) return 'ป.1';
+      if (s === 'ป.2' || s.startsWith('ป.2')) return 'ป.2';
+      if (s === 'ป.3' || s.startsWith('ป.3')) return 'ป.3';
+      if (s === 'ป.4' || s.startsWith('ป.4')) return 'ป.4';
+      if (s === 'ป.5' || s.startsWith('ป.5')) return 'ป.5';
+      if (s === 'ป.6' || s.startsWith('ป.6')) return 'ป.6';
+      if (s === 'ม.1' || s.startsWith('ม.1')) return 'ม.1';
+      if (s === 'ม.2' || s.startsWith('ม.2')) return 'ม.2';
+      if (s === 'ม.3' || s.startsWith('ม.3')) return 'ม.3';
+      if (s === 'ม.4' || s === 'ม.5' || s === 'ม.6' || s === 'ม.4-6' || s.includes('ม.4')) return 'ม.4-6';
+      return 'ม.4-6';
+    }
+
+    // Elements Lookup
+    const el = {
+      graphSvg: document.getElementById('graphSvg'),
+      graphStage: document.getElementById('graphStage'),
+      graphTooltip: document.getElementById('graphTooltip'),
+      tooltipKind: document.getElementById('tooltipKind'),
+      tooltipTitle: document.getElementById('tooltipTitle'),
+      tooltipSub: document.getElementById('tooltipSub'),
+      drillBreadcrumb: document.getElementById('drillBreadcrumb'),
+      btnDrillUp: document.getElementById('btn-drill-up'),
+      infoContent: document.getElementById('infoContent'),
+      searchInput: document.getElementById('searchInput'),
+      searchMatchChips: document.getElementById('searchMatchChips'),
+      searchMatchCount: document.getElementById('searchMatchCount'),
+      subjectPillGrid: document.getElementById('subjectPillGrid'),
+      filterGrade: document.getElementById('filterGrade'),
+      filterTerm: document.getElementById('filterTerm'),
+      filterType: document.getElementById('filterType'),
+      filterSchool: document.getElementById('filterSchool'),
+      btnToggleFocus: document.getElementById('btn-toggle-focus'),
+      btnToggleLabels: document.getElementById('btn-toggle-labels'),
+      labelToggleText: document.getElementById('label-toggle-text'),
+      btnResetView: document.getElementById('btn-reset-view'),
+      btnZoomIn: document.getElementById('btn-zoom-in'),
+      btnZoomOut: document.getElementById('btn-zoom-out'),
+      btnPanelReset: document.getElementById('btn-panel-reset'),
+      btnClearFilters: document.getElementById('btn-clear-filters'),
+      mainMapView: document.getElementById('main-map-view'),
+      mainCatalogView: document.getElementById('main-catalog-view'),
+      btnViewMap: document.getElementById('btn-view-map'),
+      btnViewCatalog: document.getElementById('btn-view-catalog'),
+      btnNumThai: document.getElementById('btn-num-thai'),
+      btnNumArabic: document.getElementById('btn-num-arabic'),
+      btnTreeSubject: document.getElementById('btn-tree-subject'),
+      btnTreeGrade: document.getElementById('btn-tree-grade'),
+      treePerspectiveDesc: document.getElementById('treePerspectiveDesc'),
+      catalogSearchInput: document.getElementById('catalogSearchInput'),
+      catalogFilterSubject: document.getElementById('catalogFilterSubject'),
+      catalogFilterGrade: document.getElementById('catalogFilterGrade'),
+      catalogFilterType: document.getElementById('catalogFilterType'),
+      catalogResultCount: document.getElementById('catalogResultCount'),
+      btnCatalogClearSearch: document.getElementById('btn-catalog-clear-search'),
+      catalogTbody: document.getElementById('catalog-table-tbody'),
+      catalogPaginationStrip: document.getElementById('catalogPaginationStrip')
+    };
+
+    // SVG Layer Groups
+    const viewportGroup = createSvgElement('g', { class: 'graph-viewport' });
+    const ringsGroup = createSvgElement('g', { class: 'layer-rings' });
+    const edgesGroup = createSvgElement('g', { class: 'layer-edges' });
+    const haloGroup = createSvgElement('g', { class: 'layer-halo' });
+    const nodesGroup = createSvgElement('g', { class: 'layer-nodes' });
+    viewportGroup.append(ringsGroup, edgesGroup, haloGroup, nodesGroup);
+    el.graphSvg.appendChild(viewportGroup);
+
+    let graph = null;
+    let semesterCatalog = null;
+
+    // Helper: Normalize Thai search text (handles both Thai & Arabic digits)
+    function normText(str) {
+      if (!str) return '';
+      let s = toArabicDigits(String(str)).toLowerCase();
+      return s.replace(/\\s+/g, '');
+    }
+
+    function createSvgElement(tag, attrs = {}) {
+      const node = document.createElementNS(SVG_NS, tag);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+      return node;
+    }
+
+    // Initialize application
+    document.addEventListener('DOMContentLoaded', async () => {
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('./semester_catalog.json');
+        if (res.ok) semesterCatalog = await res.json();
+      } catch (err) {
+        console.warn('semester_catalog.json not loaded, falling back to kpi_data.js courses:', err);
+      }
+
+      if (DATA.kpis && DATA.kpis.length > 0) {
+        DATA.kpis.forEach(k => {
+          k.searchIndex = normText(`${k.code} ${k.text} ${k.standard} ${k.type || ''} ${k.standard_desc || ''} ${k.strand || ''} ${k.core_content || ''} ${(k.courses || []).join(' ')}`);
+        });
+      }
+
+      populateControls();
+      bindEvents();
+      updateNumeralToggleUI();
+      loadView('root-curriculum', 'root-curriculum');
+    });
+
+    // Numeral Toggle UI Update
+    function updateNumeralToggleUI() {
+      if (state.numeral === 'thai') {
+        el.btnNumThai.className = 'px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+        el.btnNumArabic.className = 'px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+      } else {
+        el.btnNumArabic.className = 'px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+        el.btnNumThai.className = 'px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+      }
+
+      document.getElementById('stat-total-subjects').textContent = formatDigits('8');
+      document.getElementById('stat-total-strands').textContent = formatDigits('31');
+      document.getElementById('stat-total-standards').textContent = formatDigits('55');
+      document.getElementById('stat-total-kpi').textContent = formatDigits('2,056');
+      document.getElementById('stat-total-formative').textContent = formatDigits('1,285');
+      document.getElementById('stat-total-summative').textContent = formatDigits('771');
+      document.getElementById('stat-total-courses').textContent = formatDigits('548');
+
+      const subDesc = document.getElementById('header-subdesc');
+      if (subDesc) {
+        subDesc.textContent = `${formatDigits('8')} กลุ่มสาระการเรียนรู้ • ${formatDigits('31')} สาระ • ${formatDigits('55')} มาตรฐาน • ${formatDigits('2,056')} ตัวชี้วัด`;
+      }
+
+      if (graph) {
+        renderStaticGraph();
+        renderBreadcrumb();
+        updateInfoPanel(state.selectedNodeId);
+      }
+      if (state.viewMode === 'catalog') {
+        renderCatalogTable();
+      }
+    }
+
+    // View Loader: Re-centers on drillNodeId
+    function loadView(drillNodeId, selectId = null) {
+      state.drillNodeId = drillNodeId;
+      graphState.scale = 1;
+      graphState.translateX = 0;
+      graphState.translateY = 0;
+      updateViewportTransform();
+
+      graph = buildGraphForView(drillNodeId, DATA);
+      renderStaticGraph();
+
+      renderBreadcrumb();
+      applyVisibility();
+
+      const toSelect = selectId || graph.centerNode.id;
+      selectNode(toSelect, false);
+    }
+
+    // =========================================================================
+    // Master Unified Tree Graph Engine (Dual Perspectives: Subject vs Grade)
+    // =========================================================================
+    function buildGraphForView(drillNodeId, DATA) {
+      const subjectOrder = [
+        'ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษา ศาสนา และวัฒนธรรม',
+        'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาต่างประเทศ'
+      ];
+
+      // Pre-group hierarchical tree by Subject -> Strand -> Standard
+      const hierarchy = {};
+      DATA.kpis.forEach(k => {
+        const subj = k.subject;
+        const strand = k.strand || 'สาระทั่วไป';
+        const std = k.standard;
+        if (!hierarchy[subj]) hierarchy[subj] = {};
+        if (!hierarchy[subj][strand]) hierarchy[subj][strand] = {};
+        if (!hierarchy[subj][strand][std]) hierarchy[subj][strand][std] = [];
+        hierarchy[subj][strand][std].push(k);
+      });
+
+      // Pre-group hierarchical tree by Grade -> Subject -> Standard
+      const gradeTree = {};
+      GRADE_CONFIG.forEach(g => { gradeTree[g.code] = {}; });
+      DATA.kpis.forEach(k => {
+        const gk = normalizeGradeKey(k.grade);
+        const s = k.subject;
+        const std = k.standard || 'ทั่วไป';
+        if (!gradeTree[gk]) gradeTree[gk] = {};
+        if (!gradeTree[gk][s]) gradeTree[gk][s] = {};
+        if (!gradeTree[gk][s][std]) gradeTree[gk][s][std] = [];
+        gradeTree[gk][s][std].push(k);
+      });
+
+      const nodes = [];
+      const nodeById = new Map();
+      const edges = [];
+      const neighborMap = new Map();
+
+      function addNode(n) {
+        nodes.push(n);
+        nodeById.set(n.id, n);
+        if (!neighborMap.has(n.id)) neighborMap.set(n.id, new Set([n.id]));
+      }
+
+      function addEdge(sourceId, targetId, color, width) {
+        edges.push({ id: `edge-${sourceId}-${targetId}`, source: sourceId, target: targetId, color, width });
+        if (!neighborMap.has(sourceId)) neighborMap.set(sourceId, new Set([sourceId]));
+        if (!neighborMap.has(targetId)) neighborMap.set(targetId, new Set([targetId]));
+        neighborMap.get(sourceId).add(targetId);
+        neighborMap.get(targetId).add(sourceId);
+      }
+
+      let centerNode = null;
+      let rings = [];
+
+      // =======================================================================
+      // PERSPECTIVE 2: GRADE-FIRST TREE (ระดับชั้น ๑๐ ชั้นปี ➔ ๘ วิชา ➔ ตชว.)
+      // =======================================================================
+      if (state.graphMode === 'grade') {
+        
+        // Root View in Grade Perspective
+        if (!drillNodeId || drillNodeId === 'root-curriculum') {
+          centerNode = {
+            id: 'root-curriculum',
+            kind: 'root',
+            name: 'หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน',
+            code: 'CurriculumMD',
+            shortLabel: 'หลักสูตรแกนกลาง',
+            subLabel: `แบ่งตามระดับชั้น ๑๐ ชั้นปี (ป.๑ – ม.๖) • ๘ กลุ่มสาระ`,
+            x: 0,
+            y: 0,
+            size: 20,
+            color: '#0d3d70'
+          };
+          addNode(centerNode);
+
+          rings = [
+            { r: 160, label: `วงที่ ๑: ระดับชั้นการศึกษา (${formatDigits('10')} ชั้นปี: ป.๑ - ม.๖)` },
+            { r: 350, label: `วงที่ ๒: กลุ่มสาระการเรียนรู้ในแต่ละชั้นเรียน (${formatDigits('80')} กลุ่ม)` },
+            { r: 530, label: `วงที่ ๓: มาตรฐานและสาระสำคัญในชั้นเรียน` }
+          ];
+
+          const totalKpis = DATA.kpis.length;
+          let gradeAngleCursor = -Math.PI / 2;
+
+          GRADE_CONFIG.forEach(gCfg => {
+            const gCode = gCfg.code;
+            const gradeSubjs = gradeTree[gCode] || {};
+            const gradeKpisCount = Object.values(gradeSubjs).reduce((acc, stdDict) => {
+              return acc + Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+            }, 0);
+
+            const gSpan = (Math.PI * 2 * Math.max(gradeKpisCount, 10)) / totalKpis;
+            const gStart = gradeAngleCursor;
+            const gEnd = gradeAngleCursor + gSpan;
+            const gMid = (gStart + gEnd) / 2;
+            gradeAngleCursor = gEnd;
+
+            // 1. Grade Node
+            const gNode = {
+              id: gCfg.id,
+              kind: 'grade',
+              name: gCfg.title,
+              code: gCfg.code,
+              shortLabel: formatDigits(gCfg.shortLabel),
+              stage: gCfg.stage,
+              kpiCount: gradeKpisCount,
+              color: gCfg.color,
+              angle: gMid,
+              x: Math.round(Math.cos(gMid) * 160),
+              y: Math.round(Math.sin(gMid) * 160),
+              size: 15
+            };
+            addNode(gNode);
+            addEdge(centerNode.id, gNode.id, gCfg.color, 2.4);
+
+            // 2. Subject Nodes under this Grade
+            const activeSubjs = subjectOrder.filter(sName => (gradeSubjs[sName] && Object.values(gradeSubjs[sName]).flat().length > 0));
+            const subjStep = gSpan / Math.max(activeSubjs.length, 1);
+
+            activeSubjs.forEach((sName, sIdx) => {
+              const stdDict = gradeSubjs[sName] || {};
+              const sKpis = Object.values(stdDict).flat();
+              const sAngle = gStart + subjStep * (sIdx + 0.5);
+              const sMeta = DATA.subject_meta[sName] || { color: '#10b981' };
+              const sNodeId = `${gCfg.id}-subj-${sMeta.code || sName}`;
+
+              const sNode = {
+                id: sNodeId,
+                kind: 'grade-subject',
+                name: `${sName} (${formatDigits(gCfg.shortLabel)})`,
+                shortLabel: sName.length > 8 ? sName.substring(0, 7) + '…' : sName,
+                subject: sName,
+                grade: gCfg.code,
+                gradeId: gCfg.id,
+                subjectId: sMeta.code || sName,
+                kpiCount: sKpis.length,
+                color: sMeta.color,
+                angle: sAngle,
+                x: Math.round(Math.cos(sAngle) * 350),
+                y: Math.round(Math.sin(sAngle) * 350),
+                size: 9
+              };
+              addNode(sNode);
+              addEdge(gNode.id, sNode.id, sMeta.color, 1.6);
+
+              // 3. Standards in this Grade & Subject
+              const stdEntries = Object.entries(stdDict);
+              const stdStep = subjStep / Math.max(stdEntries.length, 1);
+              stdEntries.forEach(([stdCode, kpiList], stdIdx) => {
+                const stdAngle = (gStart + subjStep * sIdx) + stdStep * (stdIdx + 0.5);
+                const stdDesc = DATA.standards[stdCode] || '';
+                const stdNodeId = `${gCfg.id}-std-${stdCode.replace(/\\s+/g, '_')}`;
+
+                const stdNode = {
+                  id: stdNodeId,
+                  kind: 'grade-standard',
+                  name: `มาตรฐาน ${formatDigits(stdCode)} (${formatDigits(gCfg.shortLabel)})`,
+                  shortLabel: formatDigits(stdCode),
+                  standardCode: stdCode,
+                  desc: stdDesc,
+                  subject: sName,
+                  grade: gCfg.code,
+                  gradeId: gCfg.id,
+                  kpiCount: kpiList.length,
+                  color: sMeta.color,
+                  angle: stdAngle,
+                  x: Math.round(Math.cos(stdAngle) * 530),
+                  y: Math.round(Math.sin(stdAngle) * 530),
+                  size: 6,
+                  formativeCount: kpiList.filter(k => k.type === 'ระหว่างทาง').length,
+                  summativeCount: kpiList.filter(k => k.type === 'ปลายทาง').length
+                };
+                addNode(stdNode);
+                addEdge(sNode.id, stdNode.id, sMeta.color, 1.1);
+              });
+            });
+          });
+
+          return { centerNode, nodes, nodeById, edges, neighborMap, rings };
+        }
+
+        // Drilled into a Specific Grade (e.g. 'grade-p2')
+        if (drillNodeId.startsWith('grade-') && !drillNodeId.includes('-subj-')) {
+          const gCfg = GRADE_CONFIG.find(g => g.id === drillNodeId) || GRADE_CONFIG[0];
+          const gradeSubjs = gradeTree[gCfg.code] || {};
+          const totalGradeKpis = Object.values(gradeSubjs).reduce((acc, stdDict) => {
+            return acc + Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+          }, 0);
+
+          centerNode = {
+            id: gCfg.id,
+            kind: 'grade',
+            name: gCfg.title,
+            shortLabel: formatDigits(gCfg.shortLabel),
+            code: gCfg.code,
+            stage: gCfg.stage,
+            subLabel: `ระดับชั้น ${gCfg.title} (${formatDigits(String(totalGradeKpis))} ตัวชี้วัด)`,
+            color: gCfg.color,
+            x: 0,
+            y: 0,
+            size: 24,
+            isDrillCenter: true
+          };
+          addNode(centerNode);
+
+          rings = [
+            { r: 180, label: `วงที่ ๑: กลุ่มสาระการเรียนรู้ในชั้น ${formatDigits(gCfg.shortLabel)} (๘ กลุ่ม)` },
+            { r: 340, label: `วงที่ ๒: มาตรฐานการเรียนรู้ในชั้น ${formatDigits(gCfg.shortLabel)}` },
+            { r: 500, label: `วงที่ ๓: ตัวชี้วัดทั้งหมดของชั้น ${formatDigits(gCfg.shortLabel)} (${formatDigits(String(totalGradeKpis))} ข้อ)` }
+          ];
+
+          let angleCursor = -Math.PI / 2;
+          subjectOrder.forEach(subjName => {
+            const stdDict = gradeSubjs[subjName];
+            if (!stdDict) return;
+            const sKpis = Object.values(stdDict).flat();
+            if (sKpis.length === 0) return;
+
+            const subjSpan = (sKpis.length / totalGradeKpis) * Math.PI * 2;
+            const subjStart = angleCursor;
+            const subjEnd = angleCursor + subjSpan;
+            const subjMid = (subjStart + subjEnd) / 2;
+            angleCursor = subjEnd;
+
+            const sMeta = DATA.subject_meta[subjName] || { color: '#10b981' };
+            const subjNodeId = `${gCfg.id}-subj-${sMeta.code || subjName}`;
+
+            const sNode = {
+              id: subjNodeId,
+              kind: 'grade-subject',
+              name: `${subjName} (${formatDigits(gCfg.shortLabel)})`,
+              shortLabel: subjName,
+              subject: subjName,
+              grade: gCfg.code,
+              gradeId: gCfg.id,
+              subjectId: sMeta.code || subjName,
+              kpiCount: sKpis.length,
+              color: sMeta.color,
+              angle: subjMid,
+              x: Math.round(Math.cos(subjMid) * 180),
+              y: Math.round(Math.sin(subjMid) * 180),
+              size: 14
+            };
+            addNode(sNode);
+            addEdge(centerNode.id, sNode.id, sMeta.color, 2.4);
+
+            // Ring 2: Standards
+            let stdCursor = subjStart;
+            Object.entries(stdDict).forEach(([stdCode, kpiList]) => {
+              if (kpiList.length === 0) return;
+              const stdSpan = (kpiList.length / sKpis.length) * subjSpan;
+              const stdStart = stdCursor;
+              const stdEnd = stdCursor + stdSpan;
+              const stdMid = (stdStart + stdEnd) / 2;
+              stdCursor = stdEnd;
+
+              const stdDesc = DATA.standards[stdCode] || '';
+              const stdNodeId = `${gCfg.id}-std-${stdCode.replace(/\\s+/g, '_')}`;
+
+              const stdNode = {
+                id: stdNodeId,
+                kind: 'grade-standard',
+                name: `มาตรฐาน ${formatDigits(stdCode)} (${formatDigits(gCfg.shortLabel)})`,
+                shortLabel: formatDigits(stdCode),
+                standardCode: stdCode,
+                desc: stdDesc,
+                subject: subjName,
+                grade: gCfg.code,
+                gradeId: gCfg.id,
+                kpiCount: kpiList.length,
+                color: sMeta.color,
+                angle: stdMid,
+                x: Math.round(Math.cos(stdMid) * 340),
+                y: Math.round(Math.sin(stdMid) * 340),
+                size: 9,
+                formativeCount: kpiList.filter(k => k.type === 'ระหว่างทาง').length,
+                summativeCount: kpiList.filter(k => k.type === 'ปลายทาง').length
+              };
+              addNode(stdNode);
+              addEdge(sNode.id, stdNode.id, sMeta.color, 1.6);
+
+              // Ring 3: KPIs of this Grade
+              const kpiStep = stdSpan / kpiList.length;
+              kpiList.forEach((k, kIdx) => {
+                const kAngle = stdStart + kpiStep * (kIdx + 0.5);
+                const radiusOffset = (kIdx % 3) * 16;
+                const kRadius = 490 + radiusOffset;
+                const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+                const kNodeId = `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`;
+
+                const kNode = {
+                  id: kNodeId,
+                  kind: 'kpi',
+                  code: k.code,
+                  name: formatDigits(k.code),
+                  shortLabel: formatDigits(k.code.split(' ').pop() || k.code),
+                  fullText: k.text,
+                  coreContent: k.core_content || '',
+                  type: k.type,
+                  grade: gCfg.code,
+                  gradeBand: k.grade_band,
+                  strand: k.strand || '',
+                  standard: stdCode,
+                  standardId: stdNode.id,
+                  subject: subjName,
+                  courses: k.courses || [],
+                  searchIndex: k.searchIndex,
+                  angle: kAngle,
+                  x: Math.round(Math.cos(kAngle) * kRadius),
+                  y: Math.round(Math.sin(kAngle) * kRadius),
+                  size: k.type === 'ปลายทาง' ? 6 : 5,
+                  color: kColor
+                };
+                addNode(kNode);
+                addEdge(stdNode.id, kNode.id, kColor, 1);
+              });
+            });
+          });
+
+          return { centerNode, nodes, nodeById, edges, neighborMap, rings };
+        }
+
+        // Drilled into a Specific Grade & Subject (e.g. 'grade-p2-subj-01_TH')
+        if (drillNodeId.startsWith('grade-') && drillNodeId.includes('-subj-')) {
+          const parts = drillNodeId.split('-subj-');
+          const gId = parts[0];
+          const sCode = parts[1];
+          const gCfg = GRADE_CONFIG.find(g => g.id === gId) || GRADE_CONFIG[0];
+          const subjName = subjectOrder.find(s => (DATA.subject_meta[s]?.code || s) === sCode) || 'ภาษาไทย';
+          const sMeta = DATA.subject_meta[subjName] || { color: '#10b981' };
+
+          const stdDict = (gradeTree[gCfg.code] && gradeTree[gCfg.code][subjName]) || {};
+          const sKpis = Object.values(stdDict).flat();
+
+          centerNode = {
+            id: drillNodeId,
+            kind: 'grade-subject',
+            name: `${subjName} ชั้น ${formatDigits(gCfg.code)}`,
+            shortLabel: `${subjName} (${formatDigits(gCfg.code)})`,
+            subject: subjName,
+            grade: gCfg.code,
+            gradeId: gCfg.id,
+            subjectId: sCode,
+            subLabel: `กลุ่มสาระ${subjName} ชั้น ${formatDigits(gCfg.title)} (${formatDigits(String(sKpis.length))} ตัวชี้วัด)`,
+            color: sMeta.color,
+            x: 0,
+            y: 0,
+            size: 24,
+            isDrillCenter: true
+          };
+          addNode(centerNode);
+
+          rings = [
+            { r: 220, label: `วงที่ ๑: มาตรฐานการเรียนรู้ในรายวิชานี้` },
+            { r: 460, label: `วงที่ ๒: ตัวชี้วัดทั้งหมดในชั้นนี้ (${formatDigits(String(sKpis.length))} ข้อ)` }
+          ];
+
+          let angleCursor = -Math.PI / 2;
+          Object.entries(stdDict).forEach(([stdCode, kpiList]) => {
+            if (kpiList.length === 0) return;
+            const stdSpan = (kpiList.length / sKpis.length) * Math.PI * 2;
+            const stdStart = angleCursor;
+            const stdEnd = angleCursor + stdSpan;
+            const stdMid = (stdStart + stdEnd) / 2;
+            angleCursor = stdEnd;
+
+            const stdDesc = DATA.standards[stdCode] || '';
+            const stdNodeId = `${gCfg.id}-std-${stdCode.replace(/\\s+/g, '_')}`;
+
+            const stdNode = {
+              id: stdNodeId,
+              kind: 'grade-standard',
+              name: `มาตรฐาน ${formatDigits(stdCode)}`,
+              shortLabel: formatDigits(stdCode),
+              standardCode: stdCode,
+              desc: stdDesc,
+              subject: subjName,
+              grade: gCfg.code,
+              gradeId: gCfg.id,
+              kpiCount: kpiList.length,
+              color: sMeta.color,
+              angle: stdMid,
+              x: Math.round(Math.cos(stdMid) * 220),
+              y: Math.round(Math.sin(stdMid) * 220),
+              size: 13,
+              formativeCount: kpiList.filter(k => k.type === 'ระหว่างทาง').length,
+              summativeCount: kpiList.filter(k => k.type === 'ปลายทาง').length
+            };
+            addNode(stdNode);
+            addEdge(centerNode.id, stdNode.id, sMeta.color, 2.2);
+
+            // KPIs
+            const kpiStep = stdSpan / kpiList.length;
+            kpiList.forEach((k, kIdx) => {
+              const kAngle = stdStart + kpiStep * (kIdx + 0.5);
+              const radiusOffset = (kIdx % 2) * 20;
+              const kRadius = 450 + radiusOffset;
+              const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+              const kNodeId = `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`;
+
+              const kNode = {
+                id: kNodeId,
+                kind: 'kpi',
+                code: k.code,
+                name: formatDigits(k.code),
+                shortLabel: formatDigits(k.code.split(' ').pop() || k.code),
+                fullText: k.text,
+                coreContent: k.core_content || '',
+                type: k.type,
+                grade: gCfg.code,
+                gradeBand: k.grade_band,
+                strand: k.strand || '',
+                standard: stdCode,
+                standardId: stdNode.id,
+                subject: subjName,
+                courses: k.courses || [],
+                searchIndex: k.searchIndex,
+                angle: kAngle,
+                x: Math.round(Math.cos(kAngle) * kRadius),
+                y: Math.round(Math.sin(kAngle) * kRadius),
+                size: k.type === 'ปลายทาง' ? 8 : 7,
+                color: kColor
+              };
+              addNode(kNode);
+              addEdge(stdNode.id, kNode.id, kColor, 1.2);
+            });
+          });
+
+          return { centerNode, nodes, nodeById, edges, neighborMap, rings };
+        }
+      }
+
+      // =======================================================================
+      // PERSPECTIVE 1: SUBJECT-FIRST TREE (หลักสูตร ➔ ๘ กลุ่มสาระ ➔ สาระ ➔ ตชว.)
+      // =======================================================================
+      if (!drillNodeId || drillNodeId === 'root-curriculum') {
+        centerNode = {
+          id: 'root-curriculum',
+          kind: 'root',
+          name: 'หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน',
+          code: 'CurriculumMD',
+          shortLabel: 'หลักสูตรแกนกลาง',
+          subLabel: `พ.ศ. ๒๕๕๑ (ปรับปรุง ๒๕๖๐) • ๘ กลุ่มสาระ • ๓๑ สาระ • ๕๕ มาตรฐาน`,
+          x: 0,
+          y: 0,
+          size: 20,
+          color: '#0d3d70'
+        };
+        addNode(centerNode);
+
+        rings = [
+          { r: 140, label: `วงที่ ๑: กลุ่มสาระการเรียนรู้ (${formatDigits('8')} กลุ่มสาระ)` },
+          { r: 270, label: `วงที่ ๒: สาระการเรียนรู้ (${formatDigits('31')} สาระ)` },
+          { r: 410, label: `วงที่ ๓: มาตรฐานการเรียนรู้ (${formatDigits('55')} มาตรฐาน)` },
+          { r: 550, label: `วงที่ ๔: ตัวชี้วัดแกนกลาง (${formatDigits('2,056')} ข้อ)` }
+        ];
+
+        const totalKpis = DATA.kpis.length;
+        let angleCursor = -Math.PI / 2;
+
+        subjectOrder.forEach(subj => {
+          const sMeta = DATA.subject_meta[subj] || { color: '#64748b' };
+          const strandsObj = hierarchy[subj] || {};
+          const sKpis = DATA.kpis.filter(k => k.subject === subj);
+          const sSpan = (Math.PI * 2 * sKpis.length) / totalKpis;
+
+          const sStartAngle = angleCursor;
+          const sEndAngle = angleCursor + sSpan;
+          const sMidAngle = (sStartAngle + sEndAngle) / 2;
+
+          const sNode = {
+            id: `subj-${sMeta.code || subj}`,
+            kind: 'subject',
+            name: subj,
+            code: sMeta.code || subj,
+            shortLabel: subj,
+            color: sMeta.color || '#3b82f6',
+            kpiCount: sKpis.length,
+            angle: sMidAngle,
+            x: Math.round(Math.cos(sMidAngle) * 140),
+            y: Math.round(Math.sin(sMidAngle) * 140),
+            size: 15,
+            data: {
+              why: DATA.subject_overviews?.[subj]?.why || '',
+              what: DATA.subject_overviews?.[subj]?.what || '',
+              quality: DATA.subject_overviews?.[subj]?.quality || {}
+            }
+          };
+          addNode(sNode);
+          addEdge(centerNode.id, sNode.id, sNode.color, 2.4);
+
+          // Strands
+          let stAngleCursor = sStartAngle;
+          Object.entries(strandsObj).forEach(([strandName, stdObj], stIdx) => {
+            const stKpis = Object.values(stdObj).flat();
+            const stSpan = (sSpan * stKpis.length) / Math.max(sKpis.length, 1);
+            const stStartAngle = stAngleCursor;
+            const stEndAngle = stAngleCursor + stSpan;
+            const stMidAngle = (stStartAngle + stEndAngle) / 2;
+
+            const strandMatch = strandName.match(/สาระที่\\s*([0-9๑-๙]+)\\s*(.*)/);
+            const strandNum = strandMatch ? strandMatch[1] : String(stIdx + 1);
+            const strandTitle = strandMatch && strandMatch[2] ? strandMatch[2].trim() : strandName;
+
+            const stNode = {
+              id: `strand-${sMeta.code}-${strandNum}`,
+              kind: 'strand',
+              name: strandName,
+              shortLabel: `สาระที่ ${formatDigits(strandNum)}`,
+              subLabel: strandTitle,
+              subject: subj,
+              subjectId: sNode.id,
+              kpiCount: stKpis.length,
+              standardsCount: Object.keys(stdObj).length,
+              color: sNode.color,
+              angle: stMidAngle,
+              x: Math.round(Math.cos(stMidAngle) * 270),
+              y: Math.round(Math.sin(stMidAngle) * 270),
+              size: 10
+            };
+            addNode(stNode);
+            addEdge(sNode.id, stNode.id, sNode.color, 1.8);
+
+            // Standards
+            let stdAngleCursor = stStartAngle;
+            Object.entries(stdObj).forEach(([stdCode, stdKpis]) => {
+              const stdSpan = (stSpan * stdKpis.length) / Math.max(stdKpis.length, 1);
+              const stdStartAngle = stdAngleCursor;
+              const stdEndAngle = stdAngleCursor + stdSpan;
+              const stdMidAngle = (stdStartAngle + stdEndAngle) / 2;
+              const stdDesc = DATA.standards[stdCode] || '';
+
+              const stdNode = {
+                id: `std-${stdCode.replace(/\\s+/g, '_')}`,
+                kind: 'standard',
+                code: stdCode,
+                name: `มาตรฐาน ${formatDigits(stdCode)}`,
+                shortLabel: formatDigits(stdCode),
+                subLabel: stdDesc,
+                desc: stdDesc,
+                strand: strandName,
+                strandId: stNode.id,
+                subject: subj,
+                subjectId: sNode.id,
+                kpiCount: stdKpis.length,
+                color: sNode.color,
+                angle: stdMidAngle,
+                x: Math.round(Math.cos(stdMidAngle) * 410),
+                y: Math.round(Math.sin(stdMidAngle) * 410),
+                size: 7,
+                formativeCount: stdKpis.filter(k => k.type === 'ระหว่างทาง').length,
+                summativeCount: stdKpis.filter(k => k.type === 'ปลายทาง').length
+              };
+              addNode(stdNode);
+              addEdge(stNode.id, stdNode.id, sNode.color, 1.2);
+
+              // KPIs
+              const kpiStep = stdSpan / Math.max(stdKpis.length, 1);
+              stdKpis.forEach((k, kIdx) => {
+                const kAngle = stdStartAngle + kpiStep * (kIdx + 0.5);
+                const radiusOffset = (kIdx % 4) * 12;
+                const kRadius = 540 + radiusOffset;
+                const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+
+                const kNode = {
+                  id: `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`,
+                  kind: 'kpi',
+                  code: k.code,
+                  name: formatDigits(k.code),
+                  shortLabel: formatDigits(k.code.split(' ').pop() || k.code),
+                  fullText: k.text,
+                  coreContent: k.core_content || '',
+                  type: k.type,
+                  grade: k.grade,
+                  gradeBand: k.grade_band,
+                  strand: strandName,
+                  strandId: stNode.id,
+                  standard: stdCode,
+                  standardId: stdNode.id,
+                  subject: subj,
+                  subjectId: sNode.id,
+                  courses: k.courses || [],
+                  searchIndex: k.searchIndex,
+                  angle: kAngle,
+                  x: Math.round(Math.cos(kAngle) * kRadius),
+                  y: Math.round(Math.sin(kAngle) * kRadius),
+                  size: k.type === 'ปลายทาง' ? 5 : 4,
+                  color: kColor
+                };
+                addNode(kNode);
+                addEdge(stdNode.id, kNode.id, kColor, 0.7);
+              });
+              stdAngleCursor = stdEndAngle;
+            });
+            stAngleCursor = stEndAngle;
+          });
+          angleCursor = sEndAngle;
+        });
+
+      } else if (drillNodeId.startsWith('subj-')) {
+        // Subject Drill-down View
+        const targetMetaCode = drillNodeId.replace('subj-', '');
+        const subjEntry = Object.entries(DATA.subject_meta).find(([name, meta]) => (meta.code || name) === targetMetaCode);
+        const subjName = subjEntry ? subjEntry[0] : targetMetaCode;
+        const sMeta = DATA.subject_meta[subjName] || { color: '#3b82f6' };
+        const strandsObj = hierarchy[subjName] || {};
+        const sKpis = DATA.kpis.filter(k => k.subject === subjName);
+
+        centerNode = {
+          id: drillNodeId,
+          kind: 'subject',
+          name: subjName,
+          code: sMeta.code || subjName,
+          shortLabel: subjName,
+          subLabel: `กลุ่มสาระการเรียนรู้ (${formatDigits(String(sKpis.length))} ตัวชี้วัด)`,
+          color: sMeta.color,
+          x: 0,
+          y: 0,
+          size: 24,
+          isDrillCenter: true,
+          data: {
+            why: DATA.subject_overviews?.[subjName]?.why || '',
+            what: DATA.subject_overviews?.[subjName]?.what || '',
+            quality: DATA.subject_overviews?.[subjName]?.quality || {}
+          }
+        };
+        addNode(centerNode);
+
+        const strandEntries = Object.entries(strandsObj);
+        const stdCount = strandEntries.reduce((acc, [, stdObj]) => acc + Object.keys(stdObj).length, 0);
+
+        rings = [
+          { r: 160, label: `วงที่ ๑: สาระการเรียนรู้ (${formatDigits(String(strandEntries.length))} สาระ)` },
+          { r: 310, label: `วงที่ ๒: มาตรฐานการเรียนรู้ (${formatDigits(String(stdCount))} มาตรฐาน)` },
+          { r: 480, label: `วงที่ ๓: ตัวชี้วัดทั้งหมดในวิชานี้ (${formatDigits(String(sKpis.length))} ข้อ)` }
+        ];
+
+        let angleCursor = -Math.PI / 2;
+        strandEntries.forEach(([strandName, stdObj], stIdx) => {
+          const stKpis = Object.values(stdObj).flat();
+          const stSpan = (Math.PI * 2 * stKpis.length) / Math.max(sKpis.length, 1);
+          const stStartAngle = angleCursor;
+          const stEndAngle = angleCursor + stSpan;
+          const stMidAngle = (stStartAngle + stEndAngle) / 2;
+
+          const strandMatch = strandName.match(/สาระที่\\s*([0-9๑-๙]+)\\s*(.*)/);
+          const strandNum = strandMatch ? strandMatch[1] : String(stIdx + 1);
+          const strandTitle = strandMatch && strandMatch[2] ? strandMatch[2].trim() : strandName;
+
+          const stNode = {
+            id: `strand-${sMeta.code}-${strandNum}`,
+            kind: 'strand',
+            name: strandName,
+            shortLabel: `สาระที่ ${formatDigits(strandNum)}`,
+            subLabel: strandTitle,
+            subject: subjName,
+            subjectId: centerNode.id,
+            kpiCount: stKpis.length,
+            standardsCount: Object.keys(stdObj).length,
+            color: sMeta.color,
+            angle: stMidAngle,
+            x: Math.round(Math.cos(stMidAngle) * 160),
+            y: Math.round(Math.sin(stMidAngle) * 160),
+            size: 13
+          };
+          addNode(stNode);
+          addEdge(centerNode.id, stNode.id, sMeta.color, 2.4);
+
+          // Standards
+          let stdAngleCursor = stStartAngle;
+          Object.entries(stdObj).forEach(([stdCode, stdKpis]) => {
+            const stdSpan = (stSpan * stdKpis.length) / Math.max(stKpis.length, 1);
+            const stdStartAngle = stdAngleCursor;
+            const stdEndAngle = stdAngleCursor + stdSpan;
+            const stdMidAngle = (stdStartAngle + stdEndAngle) / 2;
+            const stdDesc = DATA.standards[stdCode] || '';
+
+            const stdNode = {
+              id: `std-${stdCode.replace(/\\s+/g, '_')}`,
+              kind: 'standard',
+              code: stdCode,
+              name: `มาตรฐาน ${formatDigits(stdCode)}`,
+              shortLabel: formatDigits(stdCode),
+              subLabel: stdDesc,
+              desc: stdDesc,
+              strand: strandName,
+              strandId: stNode.id,
+              subject: subjName,
+              subjectId: centerNode.id,
+              kpiCount: stdKpis.length,
+              color: sMeta.color,
+              angle: stdMidAngle,
+              x: Math.round(Math.cos(stdMidAngle) * 310),
+              y: Math.round(Math.sin(stdMidAngle) * 310),
+              size: 10,
+              formativeCount: stdKpis.filter(k => k.type === 'ระหว่างทาง').length,
+              summativeCount: stdKpis.filter(k => k.type === 'ปลายทาง').length
+            };
+            addNode(stdNode);
+            addEdge(stNode.id, stdNode.id, sMeta.color, 1.8);
+
+            // KPIs
+            const kpiStep = stdSpan / Math.max(stdKpis.length, 1);
+            stdKpis.forEach((k, kIdx) => {
+              const kAngle = stdStartAngle + kpiStep * (kIdx + 0.5);
+              const radiusOffset = (kIdx % 3) * 16;
+              const kRadius = 470 + radiusOffset;
+              const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+
+              const kNode = {
+                id: `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`,
+                kind: 'kpi',
+                code: k.code,
+                name: formatDigits(k.code),
+                shortLabel: formatDigits(k.code.split(' ').pop() || k.code),
+                fullText: k.text,
+                coreContent: k.core_content || '',
+                type: k.type,
+                grade: k.grade,
+                gradeBand: k.grade_band,
+                strand: strandName,
+                strandId: stNode.id,
+                standard: stdCode,
+                standardId: stdNode.id,
+                subject: subjName,
+                subjectId: centerNode.id,
+                courses: k.courses || [],
+                searchIndex: k.searchIndex,
+                angle: kAngle,
+                x: Math.round(Math.cos(kAngle) * kRadius),
+                y: Math.round(Math.sin(kAngle) * kRadius),
+                size: k.type === 'ปลายทาง' ? 6 : 5,
+                color: kColor
+              };
+              addNode(kNode);
+              addEdge(stdNode.id, kNode.id, kColor, 1);
+            });
+            stdAngleCursor = stdEndAngle;
+          });
+          angleCursor = stEndAngle;
+        });
+
+      } else if (drillNodeId.startsWith('strand-')) {
+        // Strand Drill-down View
+        const targetStrandKpis = DATA.kpis.filter(k => {
+          const strandMatch = (k.strand || '').match(/สาระที่\\s*([0-9๑-๙]+)/);
+          const strandNum = strandMatch ? strandMatch[1] : '';
+          const sMeta = DATA.subject_meta[k.subject] || {};
+          return `strand-${sMeta.code}-${strandNum}` === drillNodeId;
+        });
+
+        const sampleKpi = targetStrandKpis[0] || {};
+        const strandName = sampleKpi.strand || 'สาระการเรียนรู้';
+        const subjName = sampleKpi.subject || 'กลุ่มสาระ';
+        const sMeta = DATA.subject_meta[subjName] || { color: '#10b981' };
+
+        centerNode = {
+          id: drillNodeId,
+          kind: 'strand',
+          name: strandName,
+          code: drillNodeId,
+          shortLabel: strandName,
+          subLabel: `${subjName} (${formatDigits(String(targetStrandKpis.length))} ตัวชี้วัด)`,
+          color: sMeta.color,
+          subject: subjName,
+          subjectId: `subj-${sMeta.code || subjName}`,
+          x: 0,
+          y: 0,
+          size: 24,
+          isDrillCenter: true
+        };
+        addNode(centerNode);
+
+        const stdGroups = {};
+        targetStrandKpis.forEach(k => {
+          if (!stdGroups[k.standard]) stdGroups[k.standard] = [];
+          stdGroups[k.standard].push(k);
+        });
+
+        const stdEntries = Object.entries(stdGroups);
+        rings = [
+          { r: 200, label: `วงที่ ๑: มาตรฐานในสาระนี้ (${formatDigits(String(stdEntries.length))} มาตรฐาน)` },
+          { r: 440, label: `วงที่ ๒: ตัวชี้วัดทั้งหมดในสาระนี้ (${formatDigits(String(targetStrandKpis.length))} ข้อ)` }
+        ];
+
+        let angleCursor = -Math.PI / 2;
+        stdEntries.forEach(([stdCode, stdKpis]) => {
+          const stdSpan = (Math.PI * 2 * stdKpis.length) / Math.max(targetStrandKpis.length, 1);
+          const stdStartAngle = angleCursor;
+          const stdEndAngle = angleCursor + stdSpan;
+          const stdMidAngle = (stdStartAngle + stdEndAngle) / 2;
+          const stdDesc = DATA.standards[stdCode] || '';
+
+          const stdNode = {
+            id: `std-${stdCode.replace(/\\s+/g, '_')}`,
+            kind: 'standard',
+            code: stdCode,
+            name: `มาตรฐาน ${formatDigits(stdCode)}`,
+            shortLabel: formatDigits(stdCode),
+            subLabel: stdDesc,
+            desc: stdDesc,
+            strand: strandName,
+            strandId: centerNode.id,
+            subject: subjName,
+            subjectId: centerNode.subjectId,
+            kpiCount: stdKpis.length,
+            color: sMeta.color,
+            angle: stdMidAngle,
+            x: Math.round(Math.cos(stdMidAngle) * 200),
+            y: Math.round(Math.sin(stdMidAngle) * 200),
+            size: 13,
+            formativeCount: stdKpis.filter(k => k.type === 'ระหว่างทาง').length,
+            summativeCount: stdKpis.filter(k => k.type === 'ปลายทาง').length
+          };
+          addNode(stdNode);
+          addEdge(centerNode.id, stdNode.id, sMeta.color, 2.2);
+
+          // KPIs
+          const kpiStep = stdSpan / Math.max(stdKpis.length, 1);
+          stdKpis.forEach((k, kIdx) => {
+            const kAngle = stdStartAngle + kpiStep * (kIdx + 0.5);
+            const radiusOffset = (kIdx % 3) * 20;
+            const kRadius = 420 + radiusOffset;
+            const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+
+            const kNode = {
+              id: `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`,
+              kind: 'kpi',
+              code: k.code,
+              name: formatDigits(k.code),
+              shortLabel: formatDigits(k.code.split(' ').pop() || k.code),
+              fullText: k.text,
+              coreContent: k.core_content || '',
+              type: k.type,
+              grade: k.grade,
+              gradeBand: k.grade_band,
+              strand: strandName,
+              strandId: centerNode.id,
+              standard: stdCode,
+              standardId: stdNode.id,
+              subject: subjName,
+              courses: k.courses || [],
+              searchIndex: k.searchIndex,
+              angle: kAngle,
+              x: Math.round(Math.cos(kAngle) * kRadius),
+              y: Math.round(Math.sin(kAngle) * kRadius),
+              size: k.type === 'ปลายทาง' ? 7 : 6,
+              color: kColor
+            };
+            addNode(kNode);
+            addEdge(stdNode.id, kNode.id, kColor, 1.2);
+          });
+          angleCursor = stdEndAngle;
+        });
+
+      } else if (drillNodeId.startsWith('std-')) {
+        // Standard Drill-down View
+        const rawStdCode = drillNodeId.replace('std-', '').replace(/_/g, ' ');
+        const stdKpis = DATA.kpis.filter(k => k.standard === rawStdCode);
+        const sampleKpi = stdKpis[0] || {};
+        const subjName = sampleKpi.subject || 'กลุ่มสาระ';
+        const strandName = sampleKpi.strand || 'สาระ';
+        const stdDesc = DATA.standards[rawStdCode] || '';
+        const sMeta = DATA.subject_meta[subjName] || { color: '#3b82f6' };
+
+        centerNode = {
+          id: drillNodeId,
+          kind: 'standard',
+          name: `มาตรฐาน ${formatDigits(rawStdCode)}`,
+          code: rawStdCode,
+          shortLabel: formatDigits(rawStdCode),
+          subLabel: `${subjName} • ${strandName}`,
+          desc: stdDesc,
+          color: sMeta.color,
+          subject: subjName,
+          subjectId: `subj-${sMeta.code || subjName}`,
+          strand: strandName,
+          x: 0,
+          y: 0,
+          size: 26,
+          isDrillCenter: true
+        };
+        addNode(centerNode);
+
+        rings = [
+          { r: 350, label: `วงตัวชี้วัดทั้งหมดในมาตรฐานนี้ (${formatDigits(String(stdKpis.length))} ข้อ)` }
+        ];
+
+        const kpiStep = (Math.PI * 2) / Math.max(stdKpis.length, 1);
+        stdKpis.forEach((k, kIdx) => {
+          const kAngle = -Math.PI / 2 + kpiStep * kIdx;
+          const kRadius = 350;
+          const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+
+          const kNode = {
+            id: `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`,
+            kind: 'kpi',
+            code: k.code,
+            name: formatDigits(k.code),
+            shortLabel: formatDigits(k.code.split(' ').pop() || k.code),
+            fullText: k.text,
+            coreContent: k.core_content || '',
+            type: k.type,
+            grade: k.grade,
+            gradeBand: k.grade_band,
+            strand: strandName,
+            standard: rawStdCode,
+            standardId: centerNode.id,
+            subject: subjName,
+            courses: k.courses || [],
+            searchIndex: k.searchIndex,
+            angle: kAngle,
+            x: Math.round(Math.cos(kAngle) * kRadius),
+            y: Math.round(Math.sin(kAngle) * kRadius),
+            size: k.type === 'ปลายทาง' ? 8 : 7,
+            color: kColor
+          };
+          addNode(kNode);
+          addEdge(centerNode.id, kNode.id, kColor, 1.5);
+        });
+      }
+
+      return { centerNode, nodes, nodeById, edges, neighborMap, rings };
+    }
+
+    // Render Static SVG Rings, Edges, Nodes
+    function renderStaticGraph() {
+      // 1. Concentric Guideline Rings
+      ringsGroup.replaceChildren();
+      (graph.rings || []).forEach(ring => {
+        ringsGroup.appendChild(createSvgElement('circle', {
+          cx: '0', cy: '0', r: String(ring.r),
+          class: 'graph-ring'
+        }));
+        const txt = createSvgElement('text', {
+          x: '0', y: String(-ring.r - 6),
+          class: 'graph-ring-label'
+        });
+        txt.textContent = ring.label;
+        ringsGroup.appendChild(txt);
+      });
+
+      // 2. Edges
+      edgesGroup.replaceChildren();
+      const edgeFrag = document.createDocumentFragment();
+      graph.edges.forEach(edge => {
+        const s = graph.nodeById.get(edge.source);
+        const t = graph.nodeById.get(edge.target);
+        if (!s || !t) return;
+
+        const path = createSvgElement('path', {
+          d: curvedEdgePath(s, t),
+          class: 'graph-edge',
+          stroke: edge.color,
+          'stroke-width': String(edge.width || 1),
+          opacity: '0.45',
+          'data-edge-id': edge.id,
+          'data-source': edge.source,
+          'data-target': edge.target
+        });
+        edge.element = path;
+        edgeFrag.appendChild(path);
+      });
+      edgesGroup.appendChild(edgeFrag);
+
+      // 3. Nodes with Large Invisible Hitboxes
+      nodesGroup.replaceChildren();
+      const nodeFrag = document.createDocumentFragment();
+
+      graph.nodes.forEach(node => {
+        const g = createSvgElement('g', {
+          class: `node node--${node.kind} ${node.isDrillCenter ? 'node--drill-center' : ''}`,
+          transform: `translate(${node.x} ${node.y})`,
+          'data-node-id': node.id
+        });
+
+        // Large Transparent Hitbox for effortless clicking
+        const hitRadius = Math.max(20, (node.size || 6) * 2.5);
+        const hitbox = createSvgElement('circle', {
+          cx: '0', cy: '0', r: String(hitRadius),
+          class: 'node-hit-area'
+        });
+        g.appendChild(hitbox);
+
+        // Visible Shape
+        if (node.kind === 'root') {
+          g.appendChild(createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size),
+            fill: node.color,
+            stroke: '#38bdf8',
+            'stroke-width': '3',
+            class: 'node-visible-shape'
+          }));
+        } else if (node.kind === 'grade' || node.kind === 'subject') {
+          g.appendChild(createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size),
+            fill: node.color,
+            stroke: node.isDrillCenter ? '#10b981' : '#0f172a',
+            'stroke-width': node.isDrillCenter ? '3' : '2.5',
+            class: 'node-visible-shape'
+          }));
+        } else if (node.kind === 'strand' || node.kind === 'grade-subject') {
+          g.appendChild(createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size),
+            fill: node.color,
+            stroke: node.isDrillCenter ? '#10b981' : '#ffffff',
+            'stroke-width': node.isDrillCenter ? '3' : '1.5',
+            class: 'node-visible-shape'
+          }));
+        } else if (node.kind === 'standard' || node.kind === 'grade-standard') {
+          g.appendChild(createSvgElement('polygon', {
+            points: diamondPoints(node.size),
+            fill: node.color,
+            stroke: node.isDrillCenter ? '#10b981' : '#0f172a',
+            'stroke-width': node.isDrillCenter ? '3' : '1.5',
+            class: 'node-visible-shape'
+          }));
+        } else {
+          // KPI dot
+          g.appendChild(createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size),
+            fill: node.color,
+            stroke: '#0f172a',
+            'stroke-width': '1',
+            class: 'node-visible-shape'
+          }));
+        }
+
+        // Center Halo for Drilled-in Center Node
+        if (node.isDrillCenter && node.id !== 'root-curriculum') {
+          const centerHalo = createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size + 10),
+            fill: 'none',
+            stroke: '#10b981',
+            'stroke-width': '2',
+            class: 'selected-halo'
+          });
+          g.appendChild(centerHalo);
+        }
+
+        // Labels
+        if (node.kind !== 'kpi' || state.drillNodeId.startsWith('std-')) {
+          const lblBg = createSvgElement('text', { class: 'node-label-bg' });
+          const lblFg = createSvgElement('text', { class: 'node-label-fg' });
+          positionNodeLabel(node, lblBg, lblFg);
+          lblBg.textContent = node.shortLabel;
+          lblFg.textContent = node.shortLabel;
+          g.append(lblBg, lblFg);
+        }
+
+        // Interaction
+        g.addEventListener('mouseenter', (e) => {
+          showTooltip(node, e);
+          if (!graphState.isDragging && state.focusMode) {
+            highlightHover(node.id);
+          }
+        });
+        g.addEventListener('mouseleave', () => {
+          hideTooltip();
+        });
+
+        g.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (node.isDrillCenter && node.id !== 'root-curriculum') {
+            drillUp();
+            return;
+          }
+          selectNode(node.id);
+        });
+
+        g.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          if (node.kind === 'grade' || node.kind === 'subject' || node.kind === 'strand' || node.kind === 'standard' || node.kind === 'grade-subject') {
+            drillTo(node.id);
+          }
+        });
+
+        node.element = g;
+        nodeFrag.appendChild(g);
+      });
+
+      nodesGroup.appendChild(nodeFrag);
+      updateViewportTransform();
+    }
+
+    function curvedEdgePath(source, target) {
+      const mx = (source.x + target.x) / 2;
+      const my = (source.y + target.y) / 2;
+      const bend = 0.65;
+      const cx = mx * bend;
+      const cy = my * bend;
+      return `M ${source.x} ${source.y} Q ${cx} ${cy} ${target.x} ${target.y}`;
+    }
+
+    function diamondPoints(size) {
+      return `0,${-size} ${size},0 0,${size} ${-size},0`;
+    }
+
+    function positionNodeLabel(node, bg, fg) {
+      const offset = (node.size || 8) + 9;
+      let angle = node.angle || 0;
+      let cos = Math.cos(angle);
+      let sin = Math.sin(angle);
+
+      let lx = Math.round(cos * offset);
+      let ly = Math.round(sin * offset) + 3;
+
+      let anchor = 'middle';
+      if (cos > 0.3) anchor = 'start';
+      else if (cos < -0.3) anchor = 'end';
+
+      bg.setAttribute('x', String(lx));
+      bg.setAttribute('y', String(ly));
+      bg.setAttribute('text-anchor', anchor);
+
+      fg.setAttribute('x', String(lx));
+      fg.setAttribute('y', String(ly));
+      fg.setAttribute('text-anchor', anchor);
+    }
+
+    // Drill-down Breadcrumb Navigation
+    function renderBreadcrumb() {
+      const parts = [];
+      const current = state.drillNodeId;
+
+      parts.push({
+        id: 'root-curriculum',
+        label: 'หลักสูตรแกนกลางทั้งหมด',
+        icon: 'globe'
+      });
+
+      if (current.startsWith('grade-')) {
+        const gCfg = GRADE_CONFIG.find(g => g.id === current || current.startsWith(g.id + '-'));
+        if (gCfg) {
+          parts.push({ id: gCfg.id, label: formatDigits(gCfg.shortLabel) });
+          if (current.includes('-subj-')) {
+            const target = graph && graph.nodeById.get(current);
+            if (target) parts.push({ id: current, label: target.shortLabel || target.name });
+          }
+        }
+      } else if (current.startsWith('subj-')) {
+        const target = graph.nodeById.get(current) || { name: 'กลุ่มสาระ' };
+        parts.push({ id: current, label: target.name || target.shortLabel });
+      } else if (current.startsWith('strand-')) {
+        const target = graph.nodeById.get(current) || { name: 'สาระ', subject: '' };
+        if (target.subject) {
+          const sMeta = DATA.subject_meta[target.subject] || {};
+          parts.push({ id: `subj-${sMeta.code || target.subject}`, label: target.subject });
+        }
+        parts.push({ id: current, label: target.shortLabel || target.name });
+      } else if (current.startsWith('std-')) {
+        const target = graph.nodeById.get(current) || { name: 'มาตรฐาน', subject: '', strand: '' };
+        if (target.subject) {
+          const sMeta = DATA.subject_meta[target.subject] || {};
+          parts.push({ id: `subj-${sMeta.code || target.subject}`, label: target.subject });
+        }
+        if (target.strand) {
+          const strandMatch = target.strand.match(/สาระที่\\s*([0-9๑-๙]+)/);
+          const strandNum = strandMatch ? strandMatch[1] : '1';
+          const sMeta = DATA.subject_meta[target.subject] || {};
+          parts.push({ id: `strand-${sMeta.code}-${strandNum}`, label: `สาระที่ ${formatDigits(strandNum)}` });
+        }
+        parts.push({ id: current, label: target.code || target.shortLabel });
+      }
+
+      el.drillBreadcrumb.innerHTML = parts.map((p, idx) => {
+        const isLast = idx === parts.length - 1;
+        return `
+          <button onclick="drillTo('${p.id}')" class="flex items-center space-x-1 transition ${isLast ? 'text-emerald-400 font-bold pointer-events-none' : 'hover:text-white text-slate-400'}">
+            ${p.icon ? `<i data-lucide="${p.icon}" class="w-3 h-3 text-emerald-400"></i>` : ''}
+            <span>${p.label}</span>
+          </button>
+          ${!isLast ? '<i data-lucide="chevron-right" class="w-3 h-3 text-slate-600"></i>' : ''}
+        `;
+      }).join('');
+
+      el.btnDrillUp.classList.toggle('hidden', current === 'root-curriculum');
+      lucide.createIcons();
+    }
+
+    function drillTo(nodeId) {
+      loadView(nodeId, nodeId);
+    }
+
+    function drillUp() {
+      const current = state.drillNodeId;
+      if (current.startsWith('grade-') && current.includes('-subj-')) {
+        drillTo(current.split('-subj-')[0]);
+      } else if (current.startsWith('grade-')) {
+        drillTo('root-curriculum');
+      } else if (current.startsWith('std-')) {
+        const stdNode = graph.nodeById.get(current);
+        if (stdNode && stdNode.strandId) drillTo(stdNode.strandId);
+        else if (stdNode && stdNode.subjectId) drillTo(stdNode.subjectId);
+        else drillTo('root-curriculum');
+      } else if (current.startsWith('strand-')) {
+        const strandNode = graph.nodeById.get(current);
+        if (strandNode && strandNode.subjectId) drillTo(strandNode.subjectId);
+        else drillTo('root-curriculum');
+      } else {
+        drillTo('root-curriculum');
+      }
+    }
+
+    // =========================================================================
+    // Filter & Visibility Engine: PRUNE NON-MATCHING LINES & NODES
+    // "ถ้าใช้ตัวกรองก็ตัดเส้นอื่นทิ้งไปด้วยจะได้หาได้ง่าย"
+    // =========================================================================
+    function applyVisibility() {
+      if (!graph || !graph.nodes) return;
+      const activeId = state.selectedNodeId;
+
+      const hasSearch = state.search && state.search.trim().length > 0;
+      const hasSubject = state.subject !== 'ALL';
+      const hasGrade = state.grade !== 'ALL';
+      const hasType = state.type !== 'ALL';
+      const hasSchool = state.school === 'MAPPED';
+      const hasTerm = state.term !== 'ALL';
+      const isFocusing = state.focusMode && activeId && activeId !== graph.centerNode.id;
+
+      const isFiltering = hasSearch || hasSubject || hasGrade || hasType || hasSchool || hasTerm || isFocusing;
+
+      if (!isFiltering) {
+        // Show everything normally
+        graph.nodes.forEach(n => {
+          if (n.element) {
+            n.element.style.display = '';
+            n.element.classList.remove('is-dimmed', 'node-highlighted');
+          }
+        });
+        graph.edges.forEach(e => {
+          if (e.element) {
+            e.element.style.display = '';
+            e.element.classList.remove('edge-dimmed', 'edge-highlighted');
+            e.element.setAttribute('stroke-width', String(e.width || 1));
+            e.element.setAttribute('opacity', '0.45');
+          }
+        });
+        haloGroup.replaceChildren();
+        return;
+      }
+
+      // Calculate which nodes directly match
+      const directlyMatchingIds = new Set();
+      graph.nodes.forEach(node => {
+        if (node.id === graph.centerNode.id) return;
+        if (nodeMatchesFilter(node)) {
+          directlyMatchingIds.add(node.id);
+        }
+      });
+
+      // Calculate complete visible tree: Center + Matched + Ancestors + Descendants
+      const visibleNodeIds = new Set();
+      visibleNodeIds.add(graph.centerNode.id);
+
+      // Focus Branch restriction
+      let focusBranch = null;
+      if (isFocusing) {
+        focusBranch = getBranchNodes(activeId);
+      }
+
+      // 1. For each matching node, walk up parents to centerNode
+      directlyMatchingIds.forEach(id => {
+        if (focusBranch && !focusBranch.has(id)) return;
+        visibleNodeIds.add(id);
+
+        let curr = graph.nodeById.get(id);
+        while (curr) {
+          visibleNodeIds.add(curr.id);
+          if (curr.id === graph.centerNode.id) break;
+          // Find incoming edge
+          const inEdge = graph.edges.find(e => e.target === curr.id);
+          if (inEdge) {
+            visibleNodeIds.add(inEdge.source);
+            curr = graph.nodeById.get(inEdge.source);
+          } else {
+            break;
+          }
+        }
+      });
+
+      // 2. Also keep descendants of directly matched higher-level nodes (e.g. if subject matched)
+      directlyMatchingIds.forEach(id => {
+        const n = graph.nodeById.get(id);
+        if (n && (n.kind === 'grade' || n.kind === 'subject' || n.kind === 'strand')) {
+          const branch = getBranchNodes(id);
+          branch.forEach(bId => {
+            if (nodeMatchesFilter(graph.nodeById.get(bId))) {
+              visibleNodeIds.add(bId);
+            }
+          });
+        }
+      });
+
+      // PRUNE (Cut away unrelated lines and nodes)
+      graph.nodes.forEach(node => {
+        if (!node.element) return;
+        const isVis = visibleNodeIds.has(node.id);
+        if (isVis) {
+          node.element.style.display = '';
+          node.element.classList.remove('is-dimmed');
+          if (node.id === activeId) {
+            node.element.classList.add('node-highlighted');
+          } else {
+            node.element.classList.remove('node-highlighted');
+          }
+        } else {
+          // CUT COMPLETELY
+          node.element.style.display = 'none';
+          node.element.classList.remove('node-highlighted');
+        }
+      });
+
+      graph.edges.forEach(edge => {
+        if (!edge.element) return;
+        const isVis = visibleNodeIds.has(edge.source) && visibleNodeIds.has(edge.target);
+        if (isVis) {
+          edge.element.style.display = '';
+          edge.element.classList.remove('edge-dimmed');
+          edge.element.setAttribute('stroke-width', '2');
+          edge.element.setAttribute('opacity', '0.85');
+        } else {
+          // CUT COMPLETELY
+          edge.element.style.display = 'none';
+        }
+      });
+
+      // Selected Halo
+      haloGroup.replaceChildren();
+      if (activeId !== graph.centerNode.id && visibleNodeIds.has(activeId)) {
+        const activeNode = graph.nodeById.get(activeId);
+        if (activeNode) {
+          const halo = createSvgElement('circle', {
+            cx: String(activeNode.x),
+            cy: String(activeNode.y),
+            r: String((activeNode.size || 6) + 9),
+            class: 'selected-halo',
+            fill: 'none',
+            stroke: '#10b981',
+            'stroke-width': '2.5',
+            'stroke-dasharray': '5 3'
+          });
+          haloGroup.appendChild(halo);
+        }
+      }
+    }
+
+    function nodeMatchesFilter(node) {
+      if (!node) return false;
+      if (node.id === graph.centerNode.id) return true;
+
+      // Realtime Search Text Matching
+      if (state.search && state.search.trim().length > 0) {
+        const qNorm = normText(state.search);
+        if (node.searchIndex) {
+          if (!node.searchIndex.includes(qNorm)) return false;
+        } else {
+          const combined = normText(`${node.name || ''} ${node.code || ''} ${node.shortLabel || ''}`);
+          if (!combined.includes(qNorm)) return false;
+        }
+      }
+
+      // Subject Filter
+      if (state.subject !== 'ALL') {
+        if (node.kind === 'subject' && node.name !== state.subject) return false;
+        if (node.subject && node.subject !== state.subject) return false;
+      }
+
+      // Grade Filter
+      if (state.grade !== 'ALL') {
+        const gNorm = normalizeGradeKey(state.grade);
+        if (node.kind === 'grade') {
+          if (node.code !== gNorm) return false;
+        } else if (node.kind === 'grade-subject' || node.kind === 'grade-standard') {
+          if (node.grade && normalizeGradeKey(node.grade) !== gNorm) return false;
+        } else if (node.kind === 'kpi') {
+          if (state.grade.startsWith('มัธยม') || state.grade.startsWith('ประถม')) {
+            if (node.gradeBand !== state.grade) return false;
+          } else {
+            if (normalizeGradeKey(node.grade) !== gNorm && node.grade !== state.grade) return false;
+          }
+        }
+      }
+
+      // Type Filter
+      if (state.type !== 'ALL' && node.kind === 'kpi') {
+        if (node.type !== state.type) return false;
+      }
+
+      // School courses filter
+      if (state.school === 'MAPPED' && node.kind === 'kpi') {
+        if (!node.courses || node.courses.length === 0) return false;
+      }
+
+      // Term Filter
+      if (state.term !== 'ALL' && node.kind === 'kpi') {
+        const hasTerm = (node.courses || []).some(c => {
+          return state.term === '1' ? c.includes('เทอม 1') || c.endsWith('1') || c.includes('1_') : c.includes('เทอม 2') || c.endsWith('2') || c.includes('2_');
+        });
+        if (!hasTerm) return false;
+      }
+
+      return true;
+    }
+
+    function getBranchNodes(nodeId) {
+      const set = new Set();
+      if (!nodeId || !graph) return set;
+      set.add(nodeId);
+
+      const node = graph.nodeById.get(nodeId);
+      if (!node) return set;
+
+      if (node.kind === 'grade') {
+        graph.nodes.forEach(n => {
+          if (n.gradeId === node.id || n.grade === node.code) set.add(n.id);
+        });
+      } else if (node.kind === 'subject' || node.kind === 'grade-subject') {
+        graph.nodes.forEach(n => {
+          if (n.subject === (node.subject || node.name)) set.add(n.id);
+        });
+      } else if (node.kind === 'strand') {
+        graph.nodes.forEach(n => {
+          if (n.strandId === node.id || (n.subject === node.subject && n.strand === node.name)) set.add(n.id);
+        });
+      } else if (node.kind === 'standard' || node.kind === 'grade-standard') {
+        graph.nodes.forEach(n => {
+          if (n.standard === (node.standardCode || node.code)) set.add(n.id);
+        });
+      }
+
+      return set;
+    }
+
+    function selectNode(nodeId, panTo = true) {
+      state.selectedNodeId = nodeId;
+      updateInfoPanel(nodeId);
+      applyVisibility();
+
+      if (panTo && graph) {
+        const target = graph.nodeById.get(nodeId);
+        if (target && target.x !== undefined && target.y !== undefined) {
+          smoothPanTo(-target.x * graphState.scale, -target.y * graphState.scale);
+        }
+      }
+    }
+
+    function highlightHover(nodeId) {
+      if (!graph || !state.focusMode) return;
+      const branchNodes = getBranchNodes(nodeId);
+      graph.nodes.forEach(node => {
+        if (!node.element || node.element.style.display === 'none') return;
+        if (branchNodes.has(node.id)) {
+          node.element.classList.remove('is-dimmed');
+          node.element.classList.add('node-highlighted');
+        } else {
+          node.element.classList.add('is-dimmed');
+          node.element.classList.remove('node-highlighted');
+        }
+      });
+    }
+
+    function showTooltip(node, e) {
+      if (!node) return;
+      el.tooltipKind.textContent = node.kind;
+      el.tooltipTitle.textContent = node.name || node.shortLabel;
+      el.tooltipSub.textContent = node.subLabel || node.desc || (node.kpiCount ? `${formatDigits(String(node.kpiCount))} ตัวชี้วัด` : '');
+
+      const rect = el.graphStage.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      el.graphTooltip.style.left = `${x}px`;
+      el.graphTooltip.style.top = `${y}px`;
+      el.graphTooltip.style.opacity = '1';
+    }
+
+    function hideTooltip() {
+      el.graphTooltip.style.opacity = '0';
+    }
+
+    // Dynamic Left Info Panel Renderer
+    function updateInfoPanel(nodeId) {
+      const node = graph && graph.nodeById.get(nodeId);
+      if (!node) return;
+
+      let html = '';
+
+      if (node.kind === 'grade') {
+        const isCenter = node.id === state.drillNodeId;
+        const gradeKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.code);
+        const formativeCount = gradeKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = gradeKpis.filter(k => k.type === 'ปลายทาง').length;
+
+        const subjBreakdown = {};
+        gradeKpis.forEach(k => {
+          subjBreakdown[k.subject] = (subjBreakdown[k.subject] || 0) + 1;
+        });
+
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">ระดับชั้นการศึกษา</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${formatDigits(node.name)}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.stage}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${formatDigits(String(gradeKpis.length))} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formatDigits(String(formativeCount))}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${formatDigits(String(summativeCount))}</span>
+              </div>
+            </div>
+
+            <!-- Subjects Breakdown in this Grade -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">๘ กลุ่มสาระในระดับชั้นนี้:</span>
+              <div class="space-y-1.5">
+                ${Object.entries(subjBreakdown).sort((a,b) => b[1] - a[1]).map(([sName, cnt]) => {
+                  const sMeta = DATA.subject_meta[sName] || { color: '#10b981' };
+                  return `
+                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 text-xs transition cursor-pointer" onclick="selectNode('${node.id}-subj-${sMeta.code || sName}')">
+                      <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${sMeta.color}"></span>
+                        <span class="text-slate-300 font-medium">${sName}</span>
+                      </div>
+                      <span class="font-mono text-emerald-400 font-bold">${formatDigits(String(cnt))} ตชว.</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะชั้น ${formatDigits(node.code)}</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadGradeWord('${node.code}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลดเอกสารชั้น ${formatDigits(node.code)} (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'grade-subject') {
+        const isCenter = node.id === state.drillNodeId;
+        const cellKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.subject === node.subject);
+        const formativeCount = cellKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = cellKpis.filter(k => k.type === 'ปลายทาง').length;
+        const sMeta = DATA.subject_meta[node.subject] || { color: '#10b981' };
+
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${sMeta.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">กลุ่มสาระการเรียนรู้</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${node.subject}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">ชั้น ${formatDigits(node.grade)}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${formatDigits(String(cellKpis.length))} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formatDigits(String(formativeCount))}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${formatDigits(String(summativeCount))}</span>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึก ${node.subject} (${formatDigits(node.grade)})</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadSubjectWord('${node.subject}', '${node.grade}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลด ${node.subject} ชั้น ${formatDigits(node.grade)} (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'subject') {
+        const isCenter = node.id === state.drillNodeId;
+        const sKpis = DATA.kpis.filter(k => k.subject === node.name);
+        const formativeCount = sKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = sKpis.filter(k => k.type === 'ปลายทาง').length;
+        const sMeta = DATA.subject_meta[node.name] || { color: '#10b981' };
+
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${sMeta.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">กลุ่มสาระการเรียนรู้</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${node.name}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-emerald-400 font-semibold">${formatDigits(String(sKpis.length))} ตัวชี้วัด</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-sky-400">ป.๑ – ม.๖</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formatDigits(String(formativeCount))}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${formatDigits(String(summativeCount))}</span>
+              </div>
+            </div>
+
+            ${node.data?.why ? `
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                <span class="text-[11px] font-semibold text-slate-300 block mb-1">ทำไมต้องเรียนวิชานี้:</span>
+                <p class="text-slate-400 text-[11px] leading-relaxed line-clamp-4">${node.data.why}</p>
+              </div>
+            ` : ''}
+
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะกลุ่มสาระ${node.name}</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadSubjectWord('${node.name}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลดวิชา${node.name} ทั้งหมด (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'strand') {
+        const isCenter = node.id === state.drillNodeId;
+        const stKpis = DATA.kpis.filter(k => {
+          const strandMatch = (k.strand || '').match(/สาระที่\\s*([0-9๑-๙]+)/);
+          const strandNum = strandMatch ? strandMatch[1] : '';
+          const sMeta = DATA.subject_meta[k.subject] || {};
+          return `strand-${sMeta.code}-${strandNum}` === node.id;
+        });
+
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">สาระการเรียนรู้</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${formatDigits(node.name)}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.subject || ''}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${formatDigits(String(stKpis.length))} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะ${formatDigits(node.name)}</span>
+                </button>
+              ` : ''}
+              <button onclick="copyStrandWordTable('${node.id}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>คัดลอกตารางสาระนี้ลง Word</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'standard' || node.kind === 'grade-standard') {
+        const isCenter = node.id === state.drillNodeId;
+        const rawStdCode = (node.standardCode || node.code || '').replace(/_/g, ' ');
+        const stdKpis = DATA.kpis.filter(k => k.standard === rawStdCode && (!node.grade || normalizeGradeKey(k.grade) === normalizeGradeKey(node.grade)));
+
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">มาตรฐานการเรียนรู้</span>
+              </div>
+              <h2 class="text-base font-bold text-white">มาตรฐาน ${formatDigits(rawStdCode)}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.subject || ''}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${formatDigits(String(stdKpis.length))} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <span class="text-[11px] font-semibold text-slate-300 block mb-1">คำอธิบายมาตรฐาน:</span>
+              <p class="text-slate-300 text-xs leading-relaxed">${node.desc || DATA.standards[rawStdCode] || '-'}</p>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกมาตรฐาน ${formatDigits(rawStdCode)}</span>
+                </button>
+              ` : ''}
+              <button onclick="copyStandardWordTable('${node.id}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>คัดลอกตารางมาตรฐานลง Word</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'kpi') {
+        const kColor = node.type === 'ปลายทาง' ? 'text-amber-400' : 'text-sky-400';
+        const kBg = node.type === 'ปลายทาง' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-sky-500/10 border-sky-500/30';
+
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold ${kColor} ${kBg}">
+                  ตัวชี้วัด${node.type}
+                </span>
+                <span class="text-xs font-mono text-slate-400">ชั้น ${formatDigits(node.grade)}</span>
+              </div>
+              <h2 class="text-base font-bold font-mono text-white mt-2">${formatDigits(node.code)}</h2>
+              <p class="text-xs text-slate-200 mt-2 leading-relaxed">${node.fullText}</p>
+            </div>
+
+            ${node.coreContent ? `
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                <span class="text-[11px] font-semibold text-slate-300 block mb-1">สาระการเรียนรู้แกนกลาง:</span>
+                <p class="text-slate-400 text-xs leading-relaxed">${node.coreContent}</p>
+              </div>
+            ` : ''}
+
+            <!-- School courses -->
+            ${node.courses && node.courses.length > 0 ? `
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                <span class="text-[11px] font-semibold text-purple-400 block mb-1">วิชาโรงเรียนพัฒนานิคมที่นำไปใช้:</span>
+                <div class="flex flex-wrap gap-1.5 mt-1">
+                  ${node.courses.map(c => `
+                    <span class="px-2 py-1 rounded bg-purple-950/60 border border-purple-500/30 text-purple-200 font-mono text-[11px]">${c}</span>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <div class="space-y-2 pt-2">
+              <button onclick="copyKpiWordTable('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+                <span>คัดลอกตารางตัวชี้วัดนี้ลง Word</span>
+              </button>
+              <button onclick="copyKpiPlanTemplate('${node.id}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>คัดลอกข้อความโครงร่างแผน</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        // Root Curriculum Info
+        html = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <span class="text-[10px] font-mono uppercase font-bold text-emerald-400 block mb-1">ภาพรวมหลักสูตร</span>
+              <h2 class="text-base font-bold text-white">หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</h2>
+              <p class="text-xs text-slate-400 mt-1">พุทธศักราช ๒๕๕๑ (ฉบับปรับปรุง พ.ศ. ๒๕๖๐)</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formatDigits('1,285')}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${formatDigits('771')}</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              คลิกที่โหนดบนแผนภาพเพื่อดูรายละเอียด หรือสลับมุมมองระหว่าง <strong>"แตกตามกลุ่มสาระวิชา"</strong> กับ <strong>"แตกตามระดับชั้น"</strong> ได้จากแถบด้านบน
+            </p>
+          </div>
+        `;
+      }
+
+      el.infoContent.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // Populate Sidebar Controls
+    function populateControls() {
+      // 8 Subjects Pills Grid
+      const subjs = [
+        'ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษา ศาสนา และวัฒนธรรม',
+        'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาต่างประเทศ'
+      ];
+      el.subjectPillGrid.innerHTML = subjs.map(s => {
+        const meta = DATA.subject_meta[s] || { color: '#64748b' };
+        return `
+          <button
+            class="px-2 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 text-[11px] font-medium text-slate-300 hover:text-white transition flex items-center space-x-1.5 text-left truncate"
+            onclick="setSubjectFilter('${s}', this)"
+            title="${s}"
+          >
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${meta.color}"></span>
+            <span class="truncate">${s}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setSubjectFilter(subj, activeBtn) {
+      if (state.subject === subj) {
+        state.subject = 'ALL';
+        activeBtn.classList.remove('ring-2', 'ring-emerald-500', 'bg-slate-800');
+      } else {
+        state.subject = subj;
+        Array.from(el.subjectPillGrid.children).forEach(c => c.classList.remove('ring-2', 'ring-emerald-500', 'bg-slate-800'));
+        activeBtn.classList.add('ring-2', 'ring-emerald-500', 'bg-slate-800');
+      }
+      if (el.catalogFilterSubject) el.catalogFilterSubject.value = state.subject;
+      applyFilters();
+    }
+
+    function applyFilters() {
+      applyVisibility();
+      if (state.viewMode === 'catalog') {
+        renderCatalogTable();
+      }
+    }
+
+    // Realtime Catalog Table View Renderer
+    function renderCatalogTable() {
+      const filtered = DATA.kpis.filter(k => {
+        // Search text filter
+        if (state.search && state.search.trim().length > 0) {
+          const qNorm = normText(state.search);
+          if (!k.searchIndex?.includes(qNorm)) return false;
+        }
+
+        // Subject filter
+        if (state.subject !== 'ALL' && k.subject !== state.subject) return false;
+
+        // Grade filter
+        if (state.grade !== 'ALL') {
+          if (state.grade.startsWith('มัธยม') || state.grade.startsWith('ประถม')) {
+            if (k.grade_band !== state.grade) return false;
+          } else {
+            const gNorm = normalizeGradeKey(state.grade);
+            const kNorm = normalizeGradeKey(k.grade);
+            if (gNorm !== kNorm && k.grade !== state.grade) return false;
+          }
+        }
+
+        // Type filter
+        if (state.type !== 'ALL' && k.type !== state.type) return false;
+
+        return true;
+      });
+
+      // Update Result Count Badge
+      const totalMaster = DATA.kpis.length;
+      if (el.catalogResultCount) {
+        if (state.search || state.subject !== 'ALL' || state.grade !== 'ALL' || state.type !== 'ALL') {
+          el.catalogResultCount.innerHTML = `พบ <span class="text-white font-bold">${formatDigits(String(filtered.length))}</span> รายการ จากทั้งหมด ${formatDigits(String(totalMaster))} ข้อ`;
+        } else {
+          el.catalogResultCount.innerHTML = `แสดงทั้งหมด <span class="text-white font-bold">${formatDigits(String(totalMaster))}</span> ตัวชี้วัด`;
+        }
+      }
+
+      const limit = state.catalogLimit || 150;
+      const sliced = filtered.slice(0, limit);
+      let rows = '';
+
+      sliced.forEach(k => {
+        const isChecked = state.selectedKpiCodes.has(k.code);
+        const typeColor = k.type === 'ปลายทาง' ? 'text-amber-400' : 'text-sky-400';
+        const typeBg = k.type === 'ปลายทาง' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-sky-500/10 border-sky-500/30';
+        const courses = (k.courses || []).slice(0, 2).join(', ');
+
+        rows += `
+          <tr class="hover:bg-slate-900/80 transition">
+            <td class="p-3 text-center">
+              <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleKpiSelect('${k.code}')" class="rounded border-slate-700 bg-slate-900 text-emerald-600 focus:ring-0">
+            </td>
+            <td class="p-3 font-mono font-bold text-white whitespace-nowrap">${formatDigits(k.code)}</td>
+            <td class="p-3 whitespace-nowrap">
+              <span class="text-slate-200 font-medium">${k.subject}</span>
+              <span class="text-slate-400 block text-[10px]">${formatDigits(k.strand || '')}</span>
+            </td>
+            <td class="p-3 text-center whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold ${typeColor} ${typeBg}">${k.type}</span>
+            </td>
+            <td class="p-3 leading-relaxed text-slate-200">${k.text}</td>
+            <td class="p-3 text-slate-400 leading-relaxed text-[11px]">${(k.core_content || '-').slice(0, 100)}</td>
+            <td class="p-3 text-[11px] font-mono text-purple-300 whitespace-nowrap">${courses || '<span class="text-slate-600">-</span>'}</td>
+            <td class="p-3 text-center whitespace-nowrap">
+              <button onclick="jumpToKpi('${k.code}', '${k.subject}', '${k.standard}')" class="p-1 rounded bg-slate-800 hover:bg-slate-700 text-emerald-400 transition" title="ดูในแผนภาพ">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      if (sliced.length === 0) {
+        rows = `
+          <tr>
+            <td colspan="8" class="p-8 text-center text-slate-400">
+              ไม่พบตัวชี้วัดที่ตรงกับเงื่อนไขการค้นหา
+              <br>
+              <button onclick="clearCatalogSearch()" class="mt-2 text-xs text-emerald-400 hover:underline">ล้างคำค้นหาทั้งหมด</button>
+            </td>
+          </tr>
+        `;
+      }
+
+      el.catalogTbody.innerHTML = rows;
+
+      // Pagination / Show More
+      if (filtered.length > limit) {
+        el.catalogPaginationStrip.innerHTML = `
+          <span>กำลังแสดง ${formatDigits(String(limit))} จาก ${formatDigits(String(filtered.length))} รายการ</span>
+          <button onclick="expandCatalogLimit()" class="px-3 py-1 rounded-lg bg-emerald-600/30 text-emerald-300 hover:bg-emerald-600 hover:text-white transition text-xs font-semibold">
+            แสดงเพิ่มอีก ๑๕๐ รายการ
+          </button>
+        `;
+      } else {
+        el.catalogPaginationStrip.innerHTML = `<span>แสดงครบทั้งหมด ${formatDigits(String(filtered.length))} รายการ</span>`;
+      }
+
+      lucide.createIcons();
+    }
+
+    function expandCatalogLimit() {
+      state.catalogLimit = (state.catalogLimit || 150) + 150;
+      renderCatalogTable();
+    }
+
+    function clearCatalogSearch() {
+      state.search = '';
+      state.subject = 'ALL';
+      state.grade = 'ALL';
+      state.type = 'ALL';
+      if (el.searchInput) el.searchInput.value = '';
+      if (el.catalogSearchInput) el.catalogSearchInput.value = '';
+      if (el.catalogFilterSubject) el.catalogFilterSubject.value = 'ALL';
+      if (el.catalogFilterGrade) el.catalogFilterGrade.value = 'ALL';
+      if (el.catalogFilterType) el.catalogFilterType.value = 'ALL';
+      Array.from(el.subjectPillGrid.children).forEach(c => c.classList.remove('ring-2', 'ring-emerald-500', 'bg-slate-800'));
+      applyFilters();
+    }
+
+    function toggleKpiSelect(code) {
+      if (state.selectedKpiCodes.has(code)) state.selectedKpiCodes.delete(code);
+      else state.selectedKpiCodes.add(code);
+    }
+
+    function jumpToKpi(kpiCode, subject, standard) {
+      switchToMapView();
+      state.search = kpiCode;
+      el.searchInput.value = kpiCode;
+      applyFilters();
+      const targetKpiId = `kpi-${kpiCode.replace(/\\s+/g, '_')}`;
+      selectNode(targetKpiId, true);
+    }
+
+    // Event Bindings
+    function bindEvents() {
+      // Numeral Switcher Buttons
+      el.btnNumThai.addEventListener('click', () => {
+        state.numeral = 'thai';
+        localStorage.setItem('curriculum_numeral_pref', 'thai');
+        updateNumeralToggleUI();
+      });
+
+      el.btnNumArabic.addEventListener('click', () => {
+        state.numeral = 'arabic';
+        localStorage.setItem('curriculum_numeral_pref', 'arabic');
+        updateNumeralToggleUI();
+      });
+
+      // Tree Perspective Toggle: Same Canvas Instant Switch
+      el.btnTreeSubject.addEventListener('click', () => {
+        if (state.graphMode === 'subject') return;
+        state.graphMode = 'subject';
+        el.btnTreeSubject.className = 'px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+        el.btnTreeGrade.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+        el.treePerspectiveDesc.textContent = 'หลักสูตรแกนกลาง ➔ ๘ กลุ่มสาระ ➔ สาระ ➔ มาตรฐาน ➔ ตัวชี้วัด';
+        loadView('root-curriculum', 'root-curriculum');
+      });
+
+      el.btnTreeGrade.addEventListener('click', () => {
+        if (state.graphMode === 'grade') return;
+        state.graphMode = 'grade';
+        el.btnTreeGrade.className = 'px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+        el.btnTreeSubject.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+        el.treePerspectiveDesc.textContent = 'หลักสูตรแกนกลาง ➔ ๑๐ ระดับชั้น (ป.๑ – ม.๖) ➔ ๘ วิชา ➔ ตัวชี้วัด';
+        loadView('root-curriculum', 'root-curriculum');
+      });
+
+      // View Switcher: Tree Graph vs Catalog Table
+      el.btnViewMap.addEventListener('click', switchToMapView);
+      el.btnViewCatalog.addEventListener('click', switchToCatalogView);
+
+      // Search Inputs
+      el.searchInput.addEventListener('input', (e) => {
+        state.search = e.target.value;
+        if (el.catalogSearchInput) el.catalogSearchInput.value = e.target.value;
+        applyFilters();
+      });
+
+      el.catalogSearchInput.addEventListener('input', (e) => {
+        state.search = e.target.value;
+        if (el.searchInput) el.searchInput.value = e.target.value;
+        renderCatalogTable();
+      });
+
+      el.filterGrade.addEventListener('change', (e) => {
+        state.grade = e.target.value;
+        if (el.catalogFilterGrade) el.catalogFilterGrade.value = e.target.value;
+        applyFilters();
+      });
+
+      el.catalogFilterGrade.addEventListener('change', (e) => {
+        state.grade = e.target.value;
+        if (el.filterGrade) el.filterGrade.value = e.target.value;
+        applyFilters();
+      });
+
+      el.filterType.addEventListener('change', (e) => {
+        state.type = e.target.value;
+        if (el.catalogFilterType) el.catalogFilterType.value = e.target.value;
+        applyFilters();
+      });
+
+      el.catalogFilterType.addEventListener('change', (e) => {
+        state.type = e.target.value;
+        if (el.filterType) el.filterType.value = e.target.value;
+        applyFilters();
+      });
+
+      el.catalogFilterSubject.addEventListener('change', (e) => {
+        state.subject = e.target.value;
+        Array.from(el.subjectPillGrid.children).forEach(c => {
+          c.classList.toggle('ring-2', c.textContent.trim() === e.target.value);
+          c.classList.toggle('ring-emerald-500', c.textContent.trim() === e.target.value);
+        });
+        applyFilters();
+      });
+
+      el.filterTerm.addEventListener('change', (e) => {
+        state.term = e.target.value;
+        applyFilters();
+      });
+
+      el.filterSchool.addEventListener('change', (e) => {
+        state.school = e.target.value;
+        applyFilters();
+      });
+
+      el.btnClearFilters.addEventListener('click', clearCatalogSearch);
+      el.btnCatalogClearSearch.addEventListener('click', clearCatalogSearch);
+
+      // Drill Up & Reset buttons
+      el.btnDrillUp.addEventListener('click', drillUp);
+      el.btnPanelReset.addEventListener('click', () => drillTo('root-curriculum'));
+
+      // Toolbar buttons
+      el.btnToggleFocus.addEventListener('click', () => {
+        state.focusMode = !state.focusMode;
+        el.btnToggleFocus.classList.toggle('bg-emerald-950/60', state.focusMode);
+        el.btnToggleFocus.classList.toggle('text-emerald-400', state.focusMode);
+        applyVisibility();
+      });
+
+      el.btnToggleLabels.addEventListener('click', () => {
+        state.showLabels = !state.showLabels;
+        el.labelToggleText.textContent = state.showLabels ? 'ซ่อนป้ายชื่อ' : 'แสดงป้ายชื่อ';
+        nodesGroup.querySelectorAll('.node-label-bg, .node-label-fg').forEach(l => {
+          l.style.display = state.showLabels ? '' : 'none';
+        });
+      });
+
+      el.btnResetView.addEventListener('click', () => {
+        graphState.scale = 1;
+        graphState.translateX = 0;
+        graphState.translateY = 0;
+        updateViewportTransform();
+      });
+
+      el.btnZoomIn.addEventListener('click', () => {
+        zoom(1.25);
+      });
+
+      el.btnZoomOut.addEventListener('click', () => {
+        zoom(0.8);
+      });
+
+      // Pan & Zoom Stage Handlers
+      setupStageInteractions();
+
+      // Help Modal
+      const helpModal = document.getElementById('helpModal');
+      document.getElementById('btn-open-help').addEventListener('click', () => helpModal.classList.remove('hidden'));
+      document.getElementById('btn-close-help').addEventListener('click', () => helpModal.classList.add('hidden'));
+      document.getElementById('btn-help-understood').addEventListener('click', () => helpModal.classList.add('hidden'));
+
+      // Catalog Table Batch Buttons
+      document.getElementById('btn-catalog-select-all').addEventListener('click', () => {
+        const filtered = DATA.kpis.filter(k => {
+          if (state.search && !k.searchIndex?.includes(normText(state.search))) return false;
+          if (state.subject !== 'ALL' && k.subject !== state.subject) return false;
+          if (state.grade !== 'ALL' && k.grade !== state.grade) return false;
+          if (state.type !== 'ALL' && k.type !== state.type) return false;
+          return true;
+        });
+        filtered.forEach(k => state.selectedKpiCodes.add(k.code));
+        renderCatalogTable();
+        showToast(`เลือกตัวชี้วัด ${formatDigits(String(state.selectedKpiCodes.size))} รายการ`);
+      });
+
+      document.getElementById('btn-catalog-copy-word').addEventListener('click', copyBatchTable);
+      document.getElementById('btn-catalog-copy-plan').addEventListener('click', copyBatchPlan);
+    }
+
+    function switchToMapView() {
+      state.viewMode = 'map';
+      el.mainMapView.classList.remove('hidden');
+      el.mainCatalogView.classList.add('hidden');
+      el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
+      el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      updateViewportTransform();
+      applyVisibility();
+    }
+
+    function switchToCatalogView() {
+      state.viewMode = 'catalog';
+      el.mainMapView.classList.add('hidden');
+      el.mainCatalogView.classList.remove('hidden');
+      el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
+      el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      renderCatalogTable();
+    }
+
+    function updateViewportTransform() {
+      const transformStr = `translate(${graphState.translateX} ${graphState.translateY}) scale(${graphState.scale})`;
+      viewportGroup.setAttribute('transform', transformStr);
+    }
+
+    function zoom(factor) {
+      const newScale = Math.max(ZOOM_LIMITS.min, Math.min(ZOOM_LIMITS.max, graphState.scale * factor));
+      graphState.scale = newScale;
+      updateViewportTransform();
+    }
+
+    function smoothPanTo(targetX, targetY) {
+      graphState.translateX = targetX;
+      graphState.translateY = targetY;
+      updateViewportTransform();
+    }
+
+    function setupStageInteractions() {
+      el.graphStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const factor = e.deltaY < 0 ? 1.15 : 0.85;
+        zoom(factor);
+      }, { passive: false });
+
+      el.graphStage.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('.node')) return;
+        graphState.isDragging = true;
+        graphState.dragStartX = e.clientX - graphState.translateX;
+        graphState.dragStartY = e.clientY - graphState.translateY;
+        el.graphStage.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!graphState.isDragging) return;
+        graphState.translateX = e.clientX - graphState.dragStartX;
+        graphState.translateY = e.clientY - graphState.dragStartY;
+        updateViewportTransform();
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (graphState.isDragging) {
+          graphState.isDragging = false;
+          el.graphStage.style.cursor = 'grab';
+        }
+      });
+    }
+
+    // =========================================================================
+    // Word & Plan Clipboard Exporters
+    // =========================================================================
+    function copyKpiWordTable(kpiId) {
+      const k = DATA.kpis.find(item => `kpi-${item.id || item.code.replace(/\\s+/g, '_')}` === kpiId) || graph.nodeById.get(kpiId);
+      if (!k) return;
+
+      const code = formatDigits(k.code);
+      const stdCode = formatDigits(k.standard);
+      const stdDesc = k.standard_desc || k.standardDesc || DATA.standards[k.standard] || '';
+      const fullText = k.text || k.fullText || '';
+      const coreContent = k.core_content || k.coreContent || '';
+      const type = k.type;
+      const courses = k.courses || [];
+
+      const tsv = `รหัสตัวชี้วัด\\tมาตรฐานการเรียนรู้\\tข้อความตัวชี้วัด\\tสาระการเรียนรู้แกนกลาง\\tประเภทตัวชี้วัด\\tวิชาที่เปิดสอน\\n` +
+        `${code}\\tมาตรฐาน ${stdCode}: ${stdDesc}\\t${fullText}\\t${coreContent.replace(/\\n/g, ' ')}\\tตัวชี้วัด${type}\\t${courses.join('; ')}\\n`;
+
+      const typeColor = type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+      const htmlTable = `
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:Sarabun, sans-serif; font-size:14px; line-height:1.5;">
+          <thead>
+            <tr style="background-color:#f1f5f9; text-align:left;">
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รหัสตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">มาตรฐานการเรียนรู้</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ข้อความตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">สาระการเรียนรู้แกนกลาง</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ประเภท</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รายวิชาที่นำไปใช้</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; font-weight:bold; white-space:nowrap; vertical-align:top;">${code}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;"><strong>มาตรฐาน ${stdCode}:</strong> ${stdDesc}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${fullText}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${coreContent.replace(/\\n/g, ' ')}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${type}</td>
+              <td style="padding:6px 10px; border:1px solid #cbd5e1; font-size:12px; vertical-align:top;">${courses.join('; ')}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+
+      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${code} แล้ว`);
+    }
+
+    function copyStandardWordTable(stdId) {
+      const rawStdCode = stdId.replace(/^grade-[^\\-]+-std-/, '').replace('std-', '').replace(/_/g, ' ');
+      const stdKpis = DATA.kpis.filter(k => k.standard === rawStdCode);
+      if (stdKpis.length === 0) return;
+      const stdDesc = DATA.standards[rawStdCode] || '';
+
+      let tsv = `รหัสตัวชี้วัด\\tมาตรฐานการเรียนรู้\\tข้อความตัวชี้วัด\\tสาระการเรียนรู้แกนกลาง\\tประเภทตัวชี้วัด\\tวิชาที่เปิดสอน\\n`;
+      let htmlRows = '';
+
+      stdKpis.forEach(k => {
+        tsv += `${formatDigits(k.code)}\\tมาตรฐาน ${formatDigits(rawStdCode)}: ${stdDesc}\\t${k.text}\\t${(k.core_content || '').replace(/\\n/g, ' ')}\\tตัวชี้วัด${k.type}\\t${(k.courses || []).join('; ')}\\n`;
+        const typeColor = k.type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+        htmlRows += `
+          <tr>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; font-weight:bold; white-space:nowrap; vertical-align:top;">${formatDigits(k.code)}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;"><strong>มาตรฐาน ${formatDigits(rawStdCode)}:</strong> ${stdDesc}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${k.text}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${(k.core_content || '').replace(/\\n/g, ' ')}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${k.type}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; font-size:12px; vertical-align:top;">${(k.courses || []).join('; ')}</td>
+          </tr>
+        `;
+      });
+
+      const htmlTable = `
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:Sarabun, sans-serif; font-size:14px; line-height:1.5;">
+          <thead>
+            <tr style="background-color:#f1f5f9; text-align:left;">
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รหัสตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">มาตรฐานการเรียนรู้</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ข้อความตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">สาระการเรียนรู้แกนกลาง</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ประเภท</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รายวิชาที่นำไปใช้</th>
+            </tr>
+          </thead>
+          <tbody>${htmlRows}</tbody>
+        </table>
+      `;
+
+      copyRichTable(tsv, htmlTable, `คัดลอกตารางมาตรฐาน ${formatDigits(rawStdCode)} แล้ว`);
+    }
+
+    function copyStrandWordTable(strandId) {
+      const strandKpis = DATA.kpis.filter(k => {
+        const strandMatch = (k.strand || '').match(/สาระที่\\s*([0-9๑-๙]+)/);
+        const strandNum = strandMatch ? strandMatch[1] : '';
+        const sMeta = DATA.subject_meta[k.subject] || {};
+        return `strand-${sMeta.code}-${strandNum}` === strandId;
+      });
+      if (strandKpis.length === 0) return;
+
+      const sample = strandKpis[0];
+      let tsv = `รหัสตัวชี้วัด\\tมาตรฐานการเรียนรู้\\tข้อความตัวชี้วัด\\tสาระการเรียนรู้แกนกลาง\\tประเภทตัวชี้วัด\\tวิชาที่เปิดสอน\\n`;
+      let htmlRows = '';
+
+      strandKpis.forEach(k => {
+        const stdDesc = DATA.standards[k.standard] || '';
+        tsv += `${formatDigits(k.code)}\\tมาตรฐาน ${formatDigits(k.standard)}: ${stdDesc}\\t${k.text}\\t${(k.core_content || '').replace(/\\n/g, ' ')}\\tตัวชี้วัด${k.type}\\t${(k.courses || []).join('; ')}\\n`;
+        const typeColor = k.type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+        htmlRows += `
+          <tr>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; font-weight:bold; white-space:nowrap; vertical-align:top;">${formatDigits(k.code)}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;"><strong>มาตรฐาน ${formatDigits(k.standard)}:</strong> ${stdDesc}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${k.text}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${(k.core_content || '').replace(/\\n/g, ' ')}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${k.type}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; font-size:12px; vertical-align:top;">${(k.courses || []).join('; ')}</td>
+          </tr>
+        `;
+      });
+
+      const htmlTable = `
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:Sarabun, sans-serif; font-size:14px; line-height:1.5;">
+          <thead>
+            <tr style="background-color:#f1f5f9; text-align:left;">
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รหัสตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">มาตรฐานการเรียนรู้</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ข้อความตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">สาระการเรียนรู้แกนกลาง</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ประเภท</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รายวิชาที่นำไปใช้</th>
+            </tr>
+          </thead>
+          <tbody>${htmlRows}</tbody>
+        </table>
+      `;
+
+      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${formatDigits(sample.strand)} แล้ว`);
+    }
+
+    function copyKpiPlanTemplate(kpiId) {
+      const k = DATA.kpis.find(item => `kpi-${item.id || item.code.replace(/\\s+/g, '_')}` === kpiId) || graph.nodeById.get(kpiId);
+      if (!k) return;
+
+      const code = formatDigits(k.code);
+      const stdCode = formatDigits(k.standard);
+      const stdDesc = k.standard_desc || k.standardDesc || DATA.standards[k.standard] || '';
+      const fullText = k.text || k.fullText || '';
+      const coreContent = k.core_content || k.coreContent || '';
+      const type = k.type;
+
+      let planText = `กลุ่มสาระการเรียนรู้${k.subject} • ${formatDigits(k.strand || '')}\\n`;
+      planText += `มาตรฐาน ${stdCode}: ${stdDesc}\\n`;
+      planText += `ตัวชี้วัด ${code}: ${fullText} [ตัวชี้วัด${type}]\\n`;
+      if (coreContent) {
+        planText += `สาระการเรียนรู้แกนกลาง: ${coreContent.replace(/\\n/g, ' ')}\\n`;
+      }
+      planText += `จุดประสงค์การเรียนรู้:\\n`;
+      planText += `1. ด้านความรู้ (K): เข้าใจและอธิบาย...\\n`;
+      planText += `2. ด้านทักษะ/กระบวนการ (P): สามารถปฏิบัติงาน/แก้ปัญหา...\\n`;
+      planText += `3. ด้านคุณลักษณะอันพึงประสงค์ (A): มีวินัย ใฝ่เรียนรู้ มุ่งมั่นในการทำงาน\\n`;
+      planText += `การวัดและประเมินผล: ประเมิน${type === 'ปลายทาง' ? 'ผลลัพธ์การเรียนรู้รวบยอด (Summative Assessment)' : 'ระหว่างกระบวนการจัดการเรียนรู้ (Formative Assessment)'}\\n`;
+
+      navigator.clipboard.writeText(planText).then(() => {
+        showToast(`คัดลอกโครงร่างแผนสำหรับ ${code} แล้ว`);
+      });
+    }
+
+    function copyBatchTable() {
+      if (state.selectedKpiCodes.size === 0) {
+        showToast('กรุณาเลือกตัวชี้วัดในตารางก่อนอย่างน้อย ๑ ข้อ');
+        return;
+      }
+
+      const selected = DATA.kpis.filter(k => state.selectedKpiCodes.has(k.code));
+      let tsv = `รหัสตัวชี้วัด\\tกลุ่มสาระ\\tมาตรฐานการเรียนรู้\\tข้อความตัวชี้วัด\\tสาระการเรียนรู้แกนกลาง\\tประเภทตัวชี้วัด\\tวิชาที่เปิดสอน\\n`;
+      let htmlRows = '';
+
+      selected.forEach(k => {
+        const stdDesc = DATA.standards[k.standard] || '';
+        tsv += `${formatDigits(k.code)}\\t${k.subject}\\tมาตรฐาน ${formatDigits(k.standard)}: ${stdDesc}\\t${k.text}\\t${(k.core_content || '').replace(/\\n/g, ' ')}\\tตัวชี้วัด${k.type}\\t${(k.courses || []).join('; ')}\\n`;
+        const typeColor = k.type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+        htmlRows += `
+          <tr>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; font-weight:bold; white-space:nowrap; vertical-align:top;">${formatDigits(k.code)}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${k.subject}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;"><strong>มาตรฐาน ${formatDigits(k.standard)}:</strong> ${stdDesc}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${k.text}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; vertical-align:top;">${(k.core_content || '').replace(/\\n/g, ' ')}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${k.type}</td>
+            <td style="padding:6px 10px; border:1px solid #cbd5e1; font-size:12px; vertical-align:top;">${(k.courses || []).join('; ')}</td>
+          </tr>
+        `;
+      });
+
+      const htmlTable = `
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:Sarabun, sans-serif; font-size:14px; line-height:1.5;">
+          <thead>
+            <tr style="background-color:#f1f5f9; text-align:left;">
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รหัสตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">กลุ่มสาระ</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">มาตรฐานการเรียนรู้</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ข้อความตัวชี้วัด</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">สาระการเรียนรู้แกนกลาง</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">ประเภท</th>
+              <th style="padding:8px 10px; border:1px solid #cbd5e1;">รายวิชาที่นำไปใช้</th>
+            </tr>
+          </thead>
+          <tbody>${htmlRows}</tbody>
+        </table>
+      `;
+
+      copyRichTable(tsv, htmlTable, `คัดลอกตาราง ${formatDigits(String(selected.length))} ตัวชี้วัดแล้ว`);
+    }
+
+    function copyBatchPlan() {
+      if (state.selectedKpiCodes.size === 0) {
+        showToast('กรุณาเลือกตัวชี้วัดในตารางก่อนอย่างน้อย ๑ ข้อ');
+        return;
+      }
+
+      const selected = DATA.kpis.filter(k => state.selectedKpiCodes.has(k.code));
+      let text = `=== โครงร่างหน่วยการเรียนรู้ / แผนการจัดการเรียนรู้ ===\\n\\n`;
+
+      selected.forEach((k, idx) => {
+        text += `[ตัวชี้วัดที่ ${formatDigits(String(idx + 1))}] ${formatDigits(k.code)} (ตัวชี้วัด${k.type})\\n`;
+        text += `กลุ่มสาระ: ${k.subject} | สาระ: ${formatDigits(k.strand || '-')}\\n`;
+        text += `มาตรฐาน: ${formatDigits(k.standard)} (${DATA.standards[k.standard] || ''})\\n`;
+        text += `ข้อความตัวชี้วัด: ${k.text}\\n`;
+        if (k.core_content) text += `สาระแกนกลาง: ${k.core_content.replace(/\\n/g, ' ')}\\n`;
+        text += `รายวิชาที่ใช้: ${(k.courses || []).join(', ') || '-'}\\n`;
+        text += `แนวทางการจัดกิจกรรมและการประเมิน:\\n`;
+        text += `- กิจกรรม: ให้นักเรียนได้ฝึกทักษะ...\\n`;
+        text += `- การวัดผล: ${k.type === 'ปลายทาง' ? 'ประเมินชิ้นงาน/ภาระงานรวบยอด' : 'สังเกตพฤติกรรม/ตรวจแบบฝึกหัดระหว่างเรียน'}\\n\\n`;
+      });
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`คัดลอกโครงร่างแผน ${formatDigits(String(selected.length))} รายการแล้ว`);
+      });
+    }
+
+    function copyRichTable(tsv, html, successMsg) {
+      if (navigator.clipboard && window.ClipboardItem) {
+        const item = new ClipboardItem({
+          'text/plain': new Blob([tsv], { type: 'text/plain' }),
+          'text/html': new Blob([html], { type: 'text/html' })
+        });
+        navigator.clipboard.write([item]).then(() => {
+          showToast(successMsg);
+        }).catch(() => {
+          navigator.clipboard.writeText(tsv).then(() => showToast(successMsg));
+        });
+      } else {
+        navigator.clipboard.writeText(tsv).then(() => showToast(successMsg));
+      }
+    }
+
+    // HTML-based Word (.doc) Downloader
+    function downloadGradeWord(gradeCode) {
+      const gKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === normalizeGradeKey(gradeCode));
+      if (gKpis.length === 0) {
+        showToast(`ไม่พบข้อมูลตัวชี้วัดสำหรับชั้น ${formatDigits(gradeCode)}`);
+        return;
+      }
+
+      const gCfg = GRADE_CONFIG.find(g => g.code === gradeCode) || { title: `ชั้น ${gradeCode}` };
+      const title = `โครงสร้างตัวชี้วัดหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน ${formatDigits(gCfg.title)}`;
+
+      let rows = '';
+      gKpis.forEach(k => {
+        const stdDesc = DATA.standards[k.standard] || '';
+        const typeColor = k.type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+        rows += `
+          <tr>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; font-weight:bold; white-space:nowrap; vertical-align:top;">${formatDigits(k.code)}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${k.subject}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;"><strong>มาตรฐาน ${formatDigits(k.standard)}:</strong> ${stdDesc}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${k.text}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${(k.core_content || '-').replace(/\\n/g, ' ')}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${k.type}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; font-size:12px; vertical-align:top;">${(k.courses || []).join('; ')}</td>
+          </tr>
+        `;
+      });
+
+      const docHtml = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>${title}</title>
+          <style>
+            body { font-family: 'TH Sarabun PSK', 'Sarabun', 'Cordia New', sans-serif; font-size: 16pt; line-height: 1.25; }
+            table { border-collapse: collapse; width: 100%; font-size: 14pt; }
+            th { background-color: #f1f5f9; border: 1px solid #94a3b8; padding: 8px; font-weight: bold; }
+            td { border: 1px solid #94a3b8; padding: 6px 8px; }
+            h1 { font-size: 20pt; text-align: center; margin-bottom: 4px; }
+            p.sub { font-size: 14pt; text-align: center; color: #475569; margin-top: 0; margin-bottom: 20px; }
+          </style>
+        </head>
+        <body>
+          <h1>${title}</h1>
+          <p class="sub">พุทธศักราช ๒๕๕๑ (ฉบับปรับปรุง พ.ศ. ๒๕๖๐) • รวม ${formatDigits(String(gKpis.length))} ตัวชี้วัด</p>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:120px;">รหัสตัวชี้วัด</th>
+                <th style="width:120px;">กลุ่มสาระ</th>
+                <th style="width:160px;">มาตรฐาน</th>
+                <th>ข้อความตัวชี้วัด</th>
+                <th>สาระการเรียนรู้แกนกลาง</th>
+                <th style="width:90px;">ประเภท</th>
+                <th style="width:120px;">วิชาที่นำไปใช้</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </body>
+        </html>
+      `;
+
+      downloadBlob(docHtml, `โครงสร้างตัวชี้วัด_${gradeCode}.doc`, 'application/msword');
+    }
+
+    function downloadSubjectWord(subjectName, gradeCode = null) {
+      let sKpis = DATA.kpis.filter(k => k.subject === subjectName);
+      if (gradeCode) {
+        sKpis = sKpis.filter(k => normalizeGradeKey(k.grade) === normalizeGradeKey(gradeCode));
+      }
+
+      if (sKpis.length === 0) {
+        showToast(`ไม่พบข้อมูลตัวชี้วัดสำหรับ ${subjectName}`);
+        return;
+      }
+
+      const gradeSuffix = gradeCode ? ` ชั้น ${formatDigits(gradeCode)}` : '';
+      const title = `โครงสร้างตัวชี้วัดกลุ่มสาระการเรียนรู้${subjectName}${gradeSuffix}`;
+
+      let rows = '';
+      sKpis.forEach(k => {
+        const stdDesc = DATA.standards[k.standard] || '';
+        const typeColor = k.type === 'ปลายทาง' ? '#d97706' : '#2563eb';
+        rows += `
+          <tr>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; font-weight:bold; white-space:nowrap; vertical-align:top;">${formatDigits(k.code)}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">ชั้น ${formatDigits(k.grade)}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;"><strong>มาตรฐาน ${formatDigits(k.standard)}:</strong> ${stdDesc}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${k.text}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${(k.core_content || '-').replace(/\\n/g, ' ')}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; color:${typeColor}; font-weight:bold; white-space:nowrap; vertical-align:top;">ตัวชี้วัด${k.type}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; font-size:12px; vertical-align:top;">${(k.courses || []).join('; ')}</td>
+          </tr>
+        `;
+      });
+
+      const docHtml = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>${title}</title>
+          <style>
+            body { font-family: 'TH Sarabun PSK', 'Sarabun', 'Cordia New', sans-serif; font-size: 16pt; line-height: 1.25; }
+            table { border-collapse: collapse; width: 100%; font-size: 14pt; }
+            th { background-color: #f1f5f9; border: 1px solid #94a3b8; padding: 8px; font-weight: bold; }
+            td { border: 1px solid #94a3b8; padding: 6px 8px; }
+            h1 { font-size: 20pt; text-align: center; margin-bottom: 4px; }
+            p.sub { font-size: 14pt; text-align: center; color: #475569; margin-top: 0; margin-bottom: 20px; }
+          </style>
+        </head>
+        <body>
+          <h1>${title}</h1>
+          <p class="sub">พุทธศักราช ๒๕๕๑ (ฉบับปรับปรุง พ.ศ. ๒๕๖๐) • รวม ${formatDigits(String(sKpis.length))} ตัวชี้วัด</p>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:120px;">รหัสตัวชี้วัด</th>
+                <th style="width:100px;">ชั้นเรียน</th>
+                <th style="width:180px;">มาตรฐาน</th>
+                <th>ข้อความตัวชี้วัด</th>
+                <th>สาระการเรียนรู้แกนกลาง</th>
+                <th style="width:90px;">ประเภท</th>
+                <th style="width:120px;">วิชาที่นำไปใช้</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </body>
+        </html>
+      `;
+
+      const filename = `โครงสร้างตัวชี้วัด_${subjectName}${gradeCode ? '_' + gradeCode : ''}.doc`;
+      downloadBlob(docHtml, filename, 'application/msword');
+    }
+
+    function downloadBlob(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`ดาวน์โหลดไฟล์ ${filename} เรียบร้อยแล้ว`);
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = 'toast-animate px-4 py-2.5 rounded-2xl bg-slate-900 border border-emerald-500/50 text-white text-xs shadow-2xl backdrop-blur flex items-center space-x-2.5';
+      t.innerHTML = `
+        <div class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+          <i data-lucide="check" class="w-3 h-3"></i>
+        </div>
+        <span class="font-medium">${message}</span>
+      `;
+      container.appendChild(t);
+      lucide.createIcons();
+      setTimeout(() => {
+        t.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(15px)';
+        setTimeout(() => t.remove(), 250);
+      }, 2400);
+    }
+
+    // Expose interactive functions globally
+    window.selectNode = selectNode;
+    window.drillTo = drillTo;
+    window.drillUp = drillUp;
+    window.downloadGradeWord = downloadGradeWord;
+    window.downloadSubjectWord = downloadSubjectWord;
+    window.copyKpiWordTable = copyKpiWordTable;
+    window.copyStandardWordTable = copyStandardWordTable;
+    window.copyStrandWordTable = copyStrandWordTable;
+    window.copyKpiPlanTemplate = copyKpiPlanTemplate;
+    window.toggleKpiSelect = toggleKpiSelect;
+    window.jumpToKpi = jumpToKpi;
+    window.clearCatalogSearch = clearCatalogSearch;
+    window.expandCatalogLimit = expandCatalogLimit;
+    window.setSubjectFilter = setSubjectFilter;
+  </script>
+</body>
+</html>
+'''
+
+if __name__ == '__main__':
+    html_content = generate_index_html()
+    with open('index.html', 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print(f"Generated index.html successfully. Length: {len(html_content)}")
