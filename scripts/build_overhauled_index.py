@@ -216,6 +216,42 @@ html_template = '''<!DOCTYPE html>
       pointer-events: none;
     }
 
+    /* Sunburst Slices */
+    .sunburst-slice {
+      cursor: pointer;
+      transition: opacity 180ms ease, filter 180ms ease, stroke-width 180ms ease;
+      stroke: #030712;
+      stroke-width: 1px;
+    }
+    .sunburst-slice:hover {
+      filter: brightness(1.28) drop-shadow(0 0 10px currentColor);
+      stroke: #ffffff;
+      stroke-width: 1.8px;
+    }
+    .sunburst-label {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      fill: #ffffff;
+      pointer-events: none;
+      user-select: none;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+    .sunburst-label-bg {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      fill: none;
+      stroke: #030712;
+      stroke-width: 2.8px;
+      stroke-linejoin: round;
+      pointer-events: none;
+      user-select: none;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
     /* Toast animation */
     @keyframes toastSlide {
       from { transform: translateY(20px); opacity: 0; }
@@ -262,7 +298,11 @@ html_template = '''<!DOCTYPE html>
           <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1">
             <button id="btn-view-map" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm">
               <i data-lucide="orbit" class="w-3.5 h-3.5"></i>
-              <span>แผนภาพ</span>
+              <span>แผนภาพโครงข่าย</span>
+            </button>
+            <button id="btn-view-sunburst" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
+              <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
+              <span>วงกลมแบ่งชั้น</span>
             </button>
             <button id="btn-view-catalog" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
               <i data-lucide="table-properties" class="w-3.5 h-3.5"></i>
@@ -399,6 +439,7 @@ html_template = '''<!DOCTYPE html>
           <!-- Stage SVG Container -->
           <div class="graph-stage rounded-t-none" id="graphStage">
             <svg id="graphSvg" viewBox="-750 -750 1500 1500" aria-label="Thailand Curriculum Structure Map" role="img"></svg>
+            <svg id="sunburstSvg" viewBox="-650 -650 1300 1300" aria-label="Thailand Curriculum Sunburst Map" role="img" class="hidden w-full h-full block"></svg>
 
             <!-- Floating Node Tooltip on Map -->
             <div id="graphTooltip" class="absolute pointer-events-none opacity-0 transition-opacity duration-150 z-30 px-3 py-1.5 rounded-xl bg-slate-950/95 border border-slate-700 text-white shadow-2xl text-[11px] backdrop-blur -translate-x-1/2 -translate-y-full mb-2 whitespace-nowrap">
@@ -665,7 +706,10 @@ html_template = '''<!DOCTYPE html>
       </div>
       <div class="space-y-3 text-xs text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <strong class="text-emerald-400 block mb-1">๑. การดูเฉพาะกลุ่ม (เจาะลึกวงย่อย)</strong>
+          <strong class="text-emerald-400 block mb-1">๑. มุมมองวงกลมแบ่งชั้น (Sunburst Chart) และแผนภาพโครงข่าย</strong>
+          <p>• สลับระหว่าง <span class="text-white font-semibold">"แผนภาพโครงข่าย"</span> (จุดเชื่อมโยงรัศมี) และ <span class="text-cyan-400 font-semibold">"วงกลมแบ่งชั้น"</span> (วงแหวนแบ่งชั้น ๔ ระดับซ้อนกัน) ได้จากแถบมุมมองด้านบน</p>
+          <p>• ในวงกลมแบ่งชั้น แต่ละชั้นคือ: ๘ กลุ่มสาระ (วงใน) ➔ ๓๑ สาระ ➔ ๕๕ มาตรฐาน ➔ ตัวชี้วัด (วงนอกสุด)</p>
+          <strong class="text-emerald-400 block mt-2 mb-1">๒. การดูเฉพาะกลุ่ม (เจาะลึกวงย่อย)</strong>
           <p>• คลิกเลือกจุดใดในแผนภาพ (กลุ่มสาระ / สาระ / มาตรฐาน) แล้วกดปุ่ม <span class="text-cyan-400 font-semibold">"ดูเฉพาะ..."</span> หรือ <span class="text-white font-semibold">ดับเบิลคลิกที่โหนดนั้น</span></p>
           <p>• แผนภาพจะแสดงจุดที่เลือกเป็นศูนย์กลาง และกระจายรายการย่อยรอบวง ๓๖๐ องศา เพื่อให้อ่านรายละเอียดได้สะดวก</p>
           <p>• กดปุ่ม <span class="text-emerald-400 font-semibold">"ย้อนกลับ"</span> หรือคลิกที่แถบด้านบนเพื่อกลับสู่วงหลัก</p>
@@ -751,7 +795,9 @@ html_template = '''<!DOCTYPE html>
       mainMapView: document.getElementById('main-map-view'),
       mainCatalogView: document.getElementById('main-catalog-view'),
       btnViewMap: document.getElementById('btn-view-map'),
+      btnViewSunburst: document.getElementById('btn-view-sunburst'),
       btnViewCatalog: document.getElementById('btn-view-catalog'),
+      sunburstSvg: document.getElementById('sunburstSvg'),
       catalogSearchInput: document.getElementById('catalogSearchInput'),
       catalogFilterSubject: document.getElementById('catalogFilterSubject'),
       catalogFilterGrade: document.getElementById('catalogFilterGrade'),
@@ -771,8 +817,16 @@ html_template = '''<!DOCTYPE html>
     viewportGroup.append(ringsGroup, edgesGroup, haloGroup, nodesGroup);
     el.graphSvg.appendChild(viewportGroup);
 
+    // Sunburst SVG Layer Groups
+    const sunburstViewportGroup = createSvgElement('g', { class: 'sunburst-viewport' });
+    const sunburstSlicesGroup = createSvgElement('g', { class: 'sunburst-slices' });
+    const sunburstLabelsGroup = createSvgElement('g', { class: 'sunburst-labels' });
+    sunburstViewportGroup.append(sunburstSlicesGroup, sunburstLabelsGroup);
+    if (el.sunburstSvg) el.sunburstSvg.appendChild(sunburstViewportGroup);
+
     // Global Graph Data Store
     let graph = null;
+    let sunburstData = null;
     let semesterCatalog = null;
 
     // Helper: Normalize Thai search text
@@ -812,6 +866,45 @@ html_template = '''<!DOCTYPE html>
       }
     });
 
+    // Polar Math & SVG Arc Helpers for Sunburst
+    function polarToCartesian(cx, cy, r, angleRad) {
+      return {
+        x: cx + r * Math.cos(angleRad),
+        y: cy + r * Math.sin(angleRad)
+      };
+    }
+
+    function createSunburstArc(cx, cy, rInner, rOuter, startAngle, endAngle) {
+      const diff = endAngle - startAngle;
+      if (diff >= Math.PI * 2 - 0.0001) {
+        const p1 = polarToCartesian(cx, cy, rOuter, 0);
+        const p2 = polarToCartesian(cx, cy, rOuter, Math.PI);
+        const p3 = polarToCartesian(cx, cy, rInner, Math.PI);
+        const p4 = polarToCartesian(cx, cy, rInner, 0);
+        const innerPart = rInner > 0
+          ? `M ${p4.x.toFixed(2)} ${p4.y.toFixed(2)} A ${rInner} ${rInner} 0 1 0 ${p3.x.toFixed(2)} ${p3.y.toFixed(2)} A ${rInner} ${rInner} 0 1 0 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)} Z`
+          : 'Z';
+        return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${rOuter} ${rOuter} 0 1 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} A ${rOuter} ${rOuter} 0 1 1 ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} ${innerPart}`;
+      }
+
+      const pad = (rInner > 0 && diff > 0.035) ? 0.004 : 0.0;
+      let a0 = startAngle + pad;
+      let a1 = endAngle - pad;
+      if (a1 <= a0) { a0 = startAngle; a1 = endAngle; }
+
+      const startOuter = polarToCartesian(cx, cy, rOuter, a0);
+      const endOuter = polarToCartesian(cx, cy, rOuter, a1);
+      const startInner = polarToCartesian(cx, cy, rInner, a1);
+      const endInner = polarToCartesian(cx, cy, rInner, a0);
+      const largeArc = (a1 - a0) > Math.PI ? '1' : '0';
+
+      if (rInner <= 0) {
+        return `M ${cx} ${cy} L ${startOuter.x.toFixed(2)} ${startOuter.y.toFixed(2)} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${endOuter.x.toFixed(2)} ${endOuter.y.toFixed(2)} Z`;
+      }
+
+      return `M ${startOuter.x.toFixed(2)} ${startOuter.y.toFixed(2)} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${endOuter.x.toFixed(2)} ${endOuter.y.toFixed(2)} L ${startInner.x.toFixed(2)} ${startInner.y.toFixed(2)} A ${rInner} ${rInner} 0 ${largeArc} 0 ${endInner.x.toFixed(2)} ${endInner.y.toFixed(2)} Z`;
+    }
+
     // Master View Loader: Re-centers on drillNodeId
     function loadView(drillNodeId, selectId = null) {
       state.drillNodeId = drillNodeId;
@@ -822,6 +915,10 @@ html_template = '''<!DOCTYPE html>
 
       graph = buildGraphForView(drillNodeId, DATA);
       renderStaticGraph();
+
+      sunburstData = buildSunburstForView(drillNodeId, DATA);
+      renderSunburstGraph();
+
       renderBreadcrumb();
       applyFilters();
 
@@ -1636,6 +1733,589 @@ html_template = '''<!DOCTYPE html>
       }
     }
 
+    // ========================================================
+    // Sunburst Radial Partition Engine (4 Concentric Layers)
+    // ========================================================
+    function buildSunburstForView(drillNodeId, DATA) {
+      const subjectOrder = [
+        'ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษา ศาสนา และวัฒนธรรม',
+        'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาต่างประเทศ'
+      ];
+
+      const tree = {};
+      DATA.kpis.forEach(k => {
+        const subj = k.subject;
+        const strand = k.strand || 'สาระทั่วไป';
+        const std = k.standard;
+        if (!tree[subj]) tree[subj] = {};
+        if (!tree[subj][strand]) tree[subj][strand] = {};
+        if (!tree[subj][strand][std]) tree[subj][strand][std] = [];
+        tree[subj][strand][std].push(k);
+      });
+
+      const slices = [];
+      const sliceById = new Map();
+
+      function addSlice(s) {
+        slices.push(s);
+        sliceById.set(s.id, s);
+      }
+
+      if (!drillNodeId || drillNodeId === 'root-curriculum') {
+        const totalKpis = DATA.kpis.length;
+        let angleCursor = -Math.PI / 2;
+
+        const r0 = 0, r1 = 80;
+        const r1_in = 86, r1_out = 175;
+        const r2_in = 182, r2_out = 280;
+        const r3_in = 286, r3_out = 395;
+        const r4_in = 402, r4_out = 520;
+
+        const center = {
+          id: 'root-curriculum',
+          kind: 'root',
+          name: 'หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน',
+          shortLabel: 'หลักสูตรแกนกลาง',
+          rInner: 0, rOuter: 80,
+          startAngle: 0, endAngle: Math.PI * 2,
+          color: '#0d3d70',
+          kpiCount: totalKpis
+        };
+        addSlice(center);
+
+        subjectOrder.forEach(subjName => {
+          if (!tree[subjName]) return;
+          const sMeta = DATA.subject_meta[subjName] || { color: '#10b981', code: subjName };
+          const subjKpisCount = DATA.subject_counts[subjName]?.total || 0;
+          const subjSpan = (Math.PI * 2 * subjKpisCount) / totalKpis;
+          const subjStart = angleCursor;
+          const subjEnd = angleCursor + subjSpan;
+          const subjId = `subj-${sMeta.code || subjName}`;
+
+          addSlice({
+            id: subjId,
+            kind: 'subject',
+            name: subjName,
+            shortLabel: subjName,
+            subject: subjName,
+            subjectId: subjId,
+            rInner: r1_in, rOuter: r1_out,
+            startAngle: subjStart, endAngle: subjEnd,
+            color: sMeta.color,
+            kpiCount: subjKpisCount
+          });
+
+          let strandCursor = subjStart;
+          const strands = Object.entries(tree[subjName]);
+          strands.forEach(([strandName, stdDict], stIdx) => {
+            const strandKpisCount = Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+            const strandSpan = (strandKpisCount / subjKpisCount) * subjSpan;
+            const strandStart = strandCursor;
+            const strandEnd = strandCursor + strandSpan;
+
+            const stMatch = strandName.match(/สาระที่\\s*([0-9๑-๙]+)/);
+            const stNum = stMatch ? stMatch[1] : String(stIdx + 1);
+            const strandId = `strand-${sMeta.code || subjName}-${stNum}`;
+
+            addSlice({
+              id: strandId,
+              kind: 'strand',
+              name: strandName,
+              shortLabel: `สาระที่ ${stNum}`,
+              subject: subjName,
+              subjectId: subjId,
+              strandId: strandId,
+              rInner: r2_in, rOuter: r2_out,
+              startAngle: strandStart, endAngle: strandEnd,
+              color: sMeta.color,
+              kpiCount: strandKpisCount
+            });
+
+            let stdCursor = strandStart;
+            const standards = Object.entries(stdDict);
+            standards.forEach(([stdCode, kList]) => {
+              const stdSpan = (kList.length / strandKpisCount) * strandSpan;
+              const stdStart = stdCursor;
+              const stdEnd = stdCursor + stdSpan;
+              const stdId = `std-${stdCode.replace(/\\s+/g, '_')}`;
+
+              addSlice({
+                id: stdId,
+                kind: 'standard',
+                name: `มาตรฐาน ${stdCode}`,
+                shortLabel: stdCode,
+                code: stdCode,
+                subject: subjName,
+                subjectId: subjId,
+                strand: strandName,
+                strandId: strandId,
+                standardId: stdId,
+                rInner: r3_in, rOuter: r3_out,
+                startAngle: stdStart, endAngle: stdEnd,
+                color: sMeta.color,
+                kpiCount: kList.length,
+                desc: DATA.standards[stdCode] || ''
+              });
+
+              const kpiStep = stdSpan / kList.length;
+              kList.forEach((k, idx) => {
+                const kStart = stdStart + kpiStep * idx;
+                const kEnd = kStart + kpiStep;
+                const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+                const kId = `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`;
+
+                addSlice({
+                  id: kId,
+                  kind: 'kpi',
+                  name: k.code,
+                  shortLabel: k.code.split(' ').pop() || k.code,
+                  code: k.code,
+                  subject: subjName,
+                  subjectId: subjId,
+                  strand: strandName,
+                  strandId: strandId,
+                  standard: stdCode,
+                  standardId: stdId,
+                  type: k.type,
+                  grade: k.grade,
+                  gradeBand: k.grade_band,
+                  fullText: k.text,
+                  coreContent: k.core_content || '',
+                  courses: k.courses || [],
+                  searchIndex: k.searchIndex,
+                  rInner: r4_in, rOuter: r4_out,
+                  startAngle: kStart, endAngle: kEnd,
+                  color: kColor
+                });
+              });
+
+              stdCursor = stdEnd;
+            });
+
+            strandCursor = strandEnd;
+          });
+
+          angleCursor = subjEnd;
+        });
+
+      } else if (drillNodeId.startsWith('subj-')) {
+        const subjCodeOrName = drillNodeId.replace('subj-', '');
+        let targetSubj = Object.keys(DATA.subject_meta).find(s => (DATA.subject_meta[s].code === subjCodeOrName) || (s === subjCodeOrName));
+        if (!targetSubj) targetSubj = subjectOrder[0];
+
+        const sMeta = DATA.subject_meta[targetSubj] || { color: '#10b981', code: targetSubj };
+        const subjDict = tree[targetSubj] || {};
+        const subjKpisCount = Object.values(subjDict).reduce((acc, stdMap) => {
+          return acc + Object.values(stdMap).reduce((s, list) => s + list.length, 0);
+        }, 0);
+
+        const r1_in = 96, r1_out = 220;
+        const r2_in = 228, r2_out = 370;
+        const r3_in = 378, r3_out = 530;
+
+        const center = {
+          id: drillNodeId,
+          kind: 'subject',
+          name: targetSubj,
+          shortLabel: targetSubj,
+          rInner: 0, rOuter: 90,
+          startAngle: 0, endAngle: Math.PI * 2,
+          color: sMeta.color,
+          kpiCount: subjKpisCount,
+          isDrillCenter: true
+        };
+        addSlice(center);
+
+        let strandCursor = -Math.PI / 2;
+        const strands = Object.entries(subjDict);
+        strands.forEach(([strandName, stdDict], stIdx) => {
+          const strandKpisCount = Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+          const strandSpan = (Math.PI * 2 * strandKpisCount) / Math.max(subjKpisCount, 1);
+          const strandStart = strandCursor;
+          const strandEnd = strandCursor + strandSpan;
+
+          const stMatch = strandName.match(/สาระที่\\s*([0-9๑-๙]+)/);
+          const stNum = stMatch ? stMatch[1] : String(stIdx + 1);
+          const strandId = `strand-${sMeta.code || targetSubj}-${stNum}`;
+
+          addSlice({
+            id: strandId,
+            kind: 'strand',
+            name: strandName,
+            shortLabel: strandName,
+            subject: targetSubj,
+            subjectId: drillNodeId,
+            rInner: r1_in, rOuter: r1_out,
+            startAngle: strandStart, endAngle: strandEnd,
+            color: sMeta.color,
+            kpiCount: strandKpisCount
+          });
+
+          let stdCursor = strandStart;
+          const standards = Object.entries(stdDict);
+          standards.forEach(([stdCode, kList]) => {
+            const stdSpan = (kList.length / Math.max(strandKpisCount, 1)) * strandSpan;
+            const stdStart = stdCursor;
+            const stdEnd = stdCursor + stdSpan;
+            const stdId = `std-${stdCode.replace(/\\s+/g, '_')}`;
+
+            addSlice({
+              id: stdId,
+              kind: 'standard',
+              name: `มาตรฐาน ${stdCode}`,
+              shortLabel: stdCode,
+              code: stdCode,
+              subject: targetSubj,
+              subjectId: drillNodeId,
+              strand: strandName,
+              strandId: strandId,
+              rInner: r2_in, rOuter: r2_out,
+              startAngle: stdStart, endAngle: stdEnd,
+              color: sMeta.color,
+              kpiCount: kList.length,
+              desc: DATA.standards[stdCode] || ''
+            });
+
+            const kpiStep = stdSpan / Math.max(kList.length, 1);
+            kList.forEach((k, idx) => {
+              const kStart = stdStart + kpiStep * idx;
+              const kEnd = kStart + kpiStep;
+              const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+              const kId = `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`;
+
+              addSlice({
+                id: kId,
+                kind: 'kpi',
+                name: k.code,
+                shortLabel: k.code.split(' ').pop() || k.code,
+                code: k.code,
+                subject: targetSubj,
+                subjectId: drillNodeId,
+                strand: strandName,
+                strandId: strandId,
+                standard: stdCode,
+                standardId: stdId,
+                type: k.type,
+                grade: k.grade,
+                gradeBand: k.grade_band,
+                fullText: k.text,
+                coreContent: k.core_content || '',
+                courses: k.courses || [],
+                searchIndex: k.searchIndex,
+                rInner: r3_in, rOuter: r3_out,
+                startAngle: kStart, endAngle: kEnd,
+                color: kColor
+              });
+            });
+
+            stdCursor = stdEnd;
+          });
+
+          strandCursor = strandEnd;
+        });
+
+      } else if (drillNodeId.startsWith('strand-')) {
+        const targetStrandKpis = DATA.kpis.filter(k => {
+          const strandMatch = (k.strand || '').match(/สาระที่\\s*([0-9๑-๙]+)/);
+          const strandNum = strandMatch ? strandMatch[1] : '';
+          const sMeta = DATA.subject_meta[k.subject] || {};
+          return `strand-${sMeta.code || k.subject}-${strandNum}` === drillNodeId;
+        });
+
+        const sampleKpi = targetStrandKpis[0] || {};
+        const strandName = sampleKpi.strand || 'สาระการเรียนรู้';
+        const subjName = sampleKpi.subject || 'กลุ่มสาระ';
+        const sMeta = DATA.subject_meta[subjName] || { color: '#10b981' };
+
+        const r1_in = 110, r1_out = 290;
+        const r2_in = 300, r2_out = 530;
+
+        const center = {
+          id: drillNodeId,
+          kind: 'strand',
+          name: strandName,
+          shortLabel: strandName,
+          subject: subjName,
+          subjectId: `subj-${sMeta.code || subjName}`,
+          rInner: 0, rOuter: 100,
+          startAngle: 0, endAngle: Math.PI * 2,
+          color: sMeta.color,
+          kpiCount: targetStrandKpis.length,
+          isDrillCenter: true
+        };
+        addSlice(center);
+
+        const stdGroups = {};
+        targetStrandKpis.forEach(k => {
+          if (!stdGroups[k.standard]) stdGroups[k.standard] = [];
+          stdGroups[k.standard].push(k);
+        });
+
+        let stdCursor = -Math.PI / 2;
+        const stdEntries = Object.entries(stdGroups);
+        stdEntries.forEach(([stdCode, stdKpis]) => {
+          const stdSpan = (Math.PI * 2 * stdKpis.length) / Math.max(targetStrandKpis.length, 1);
+          const stdStart = stdCursor;
+          const stdEnd = stdCursor + stdSpan;
+          const stdId = `std-${stdCode.replace(/\\s+/g, '_')}`;
+
+          addSlice({
+            id: stdId,
+            kind: 'standard',
+            name: `มาตรฐาน ${stdCode}`,
+            shortLabel: stdCode,
+            code: stdCode,
+            subject: subjName,
+            subjectId: center.subjectId,
+            strand: strandName,
+            strandId: drillNodeId,
+            rInner: r1_in, rOuter: r1_out,
+            startAngle: stdStart, endAngle: stdEnd,
+            color: sMeta.color,
+            kpiCount: stdKpis.length,
+            desc: DATA.standards[stdCode] || ''
+          });
+
+          const kpiStep = stdSpan / Math.max(stdKpis.length, 1);
+          stdKpis.forEach((k, idx) => {
+            const kStart = stdStart + kpiStep * idx;
+            const kEnd = kStart + kpiStep;
+            const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+            const kId = `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`;
+
+            addSlice({
+              id: kId,
+              kind: 'kpi',
+              name: k.code,
+              shortLabel: k.code.split(' ').pop() || k.code,
+              code: k.code,
+              subject: subjName,
+              subjectId: center.subjectId,
+              strand: strandName,
+              strandId: drillNodeId,
+              standard: stdCode,
+              standardId: stdId,
+              type: k.type,
+              grade: k.grade,
+              gradeBand: k.grade_band,
+              fullText: k.text,
+              coreContent: k.core_content || '',
+              courses: k.courses || [],
+              searchIndex: k.searchIndex,
+              rInner: r2_in, rOuter: r2_out,
+              startAngle: kStart, endAngle: kEnd,
+              color: kColor
+            });
+          });
+
+          stdCursor = stdEnd;
+        });
+
+      } else if (drillNodeId.startsWith('std-')) {
+        const rawStdCode = drillNodeId.replace('std-', '').replace(/_/g, ' ');
+        const stdKpis = DATA.kpis.filter(k => k.standard === rawStdCode);
+        const sampleKpi = stdKpis[0] || {};
+        const subjName = sampleKpi.subject || 'กลุ่มสาระ';
+        const strandName = sampleKpi.strand || 'สาระ';
+        const stdDesc = DATA.standards[rawStdCode] || '';
+        const sMeta = DATA.subject_meta[subjName] || { color: '#3b82f6' };
+
+        const r1_in = 130, r1_out = 530;
+
+        const center = {
+          id: drillNodeId,
+          kind: 'standard',
+          name: `มาตรฐาน ${rawStdCode}`,
+          shortLabel: rawStdCode,
+          code: rawStdCode,
+          subject: subjName,
+          subjectId: `subj-${sMeta.code || subjName}`,
+          strand: strandName,
+          desc: stdDesc,
+          rInner: 0, rOuter: 120,
+          startAngle: 0, endAngle: Math.PI * 2,
+          color: sMeta.color,
+          kpiCount: stdKpis.length,
+          isDrillCenter: true
+        };
+        addSlice(center);
+
+        const kpiStep = (Math.PI * 2) / Math.max(stdKpis.length, 1);
+        stdKpis.forEach((k, idx) => {
+          const kStart = -Math.PI / 2 + kpiStep * idx;
+          const kEnd = kStart + kpiStep;
+          const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+          const kId = `kpi-${k.id || k.code.replace(/\\s+/g, '_')}`;
+
+          addSlice({
+            id: kId,
+            kind: 'kpi',
+            name: k.code,
+            shortLabel: k.code,
+            code: k.code,
+            subject: subjName,
+            subjectId: center.subjectId,
+            strand: strandName,
+            standard: rawStdCode,
+            standardId: drillNodeId,
+            type: k.type,
+            grade: k.grade,
+            gradeBand: k.grade_band,
+            fullText: k.text,
+            coreContent: k.core_content || '',
+            courses: k.courses || [],
+            searchIndex: k.searchIndex,
+            rInner: r1_in, rOuter: r1_out,
+            startAngle: kStart, endAngle: kEnd,
+            color: kColor
+          });
+        });
+      }
+
+      return { centerNode: slices[0], slices, sliceById };
+    }
+
+    function renderSunburstGraph() {
+      if (!sunburstSlicesGroup || !sunburstLabelsGroup) return;
+      sunburstSlicesGroup.replaceChildren();
+      sunburstLabelsGroup.replaceChildren();
+
+      if (!sunburstData || !sunburstData.slices) return;
+
+      const fragSlices = document.createDocumentFragment();
+      const fragLabels = document.createDocumentFragment();
+
+      sunburstData.slices.forEach(slice => {
+        if (slice.rInner <= 0) {
+          const circle = createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(slice.rOuter),
+            fill: slice.color,
+            class: 'sunburst-slice',
+            'data-slice-id': slice.id
+          });
+          circle.style.cursor = 'pointer';
+
+          circle.addEventListener('mouseenter', (e) => showTooltip(slice, e));
+          circle.addEventListener('mouseleave', hideTooltip);
+          circle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (slice.isDrillCenter && slice.id !== 'root-curriculum') {
+              drillUp();
+            } else {
+              selectNode(slice.id);
+            }
+          });
+          fragSlices.appendChild(circle);
+
+          const txt = createSvgElement('text', {
+            x: '0', y: '0',
+            class: 'sunburst-label',
+            'font-size': '12px',
+            fill: '#ffffff'
+          });
+          txt.textContent = slice.shortLabel || slice.name;
+          fragLabels.appendChild(txt);
+          slice.element = circle;
+          return;
+        }
+
+        const pathD = createSunburstArc(0, 0, slice.rInner, slice.rOuter, slice.startAngle, slice.endAngle);
+        const path = createSvgElement('path', {
+          d: pathD,
+          fill: slice.color,
+          class: 'sunburst-slice',
+          'data-slice-id': slice.id
+        });
+
+        if (slice.kind === 'kpi' && state.drillNodeId === 'root-curriculum') {
+          path.setAttribute('stroke-width', '0.2');
+          path.setAttribute('stroke', '#030712');
+        }
+
+        path.addEventListener('mouseenter', (e) => {
+          showTooltip(slice, e);
+          if (!graphState.isDragging && state.focusMode) {
+            highlightSunburstHover(slice.id);
+          }
+        });
+        path.addEventListener('mouseleave', () => {
+          hideTooltip();
+          resetSunburstHover();
+        });
+
+        path.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectNode(slice.id);
+        });
+
+        path.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          if (slice.kind === 'subject' || slice.kind === 'strand' || slice.kind === 'standard') {
+            drillTo(slice.id);
+          }
+        });
+
+        fragSlices.appendChild(path);
+        slice.element = path;
+
+        const span = slice.endAngle - slice.startAngle;
+        const midAngle = (slice.startAngle + slice.endAngle) / 2;
+        const midR = (slice.rInner + slice.rOuter) / 2;
+        const arcLength = span * midR;
+
+        let showLabel = false;
+        let labelText = slice.shortLabel || slice.name;
+
+        if (slice.kind === 'subject' && span >= 0.15) {
+          showLabel = true;
+        } else if (slice.kind === 'strand' && span >= 0.08 && arcLength >= 26) {
+          showLabel = true;
+        } else if (slice.kind === 'standard' && span >= 0.06 && arcLength >= 22) {
+          showLabel = true;
+        } else if (slice.kind === 'kpi' && span >= 0.08 && arcLength >= 32) {
+          showLabel = true;
+        }
+
+        if (showLabel) {
+          const pos = polarToCartesian(0, 0, midR, midAngle);
+          let rot = (midAngle * 180) / Math.PI;
+          if (rot > 90) rot -= 180;
+          else if (rot < -90) rot += 180;
+
+          const txt = createSvgElement('text', {
+            x: String(pos.x.toFixed(1)),
+            y: String(pos.y.toFixed(1)),
+            class: 'sunburst-label',
+            transform: `rotate(${rot.toFixed(1)} ${pos.x.toFixed(1)} ${pos.y.toFixed(1)})`
+          });
+          txt.textContent = labelText;
+          fragLabels.appendChild(txt);
+        }
+      });
+
+      sunburstSlicesGroup.appendChild(fragSlices);
+      sunburstLabelsGroup.appendChild(fragLabels);
+    }
+
+    function highlightSunburstHover(sliceId) {
+      if (!sunburstData) return;
+      const branchNodes = getBranchNodes(sliceId);
+      sunburstData.slices.forEach(s => {
+        if (!s.element) return;
+        if (branchNodes.has(s.id)) {
+          s.element.style.opacity = '1';
+          s.element.style.filter = 'brightness(1.25)';
+        } else {
+          s.element.style.opacity = '0.2';
+          s.element.style.filter = 'none';
+        }
+      });
+    }
+
+    function resetSunburstHover() {
+      applyVisibility();
+    }
+
     // Floating Tooltip over SVG
     function showTooltip(node, e) {
       if (!el.graphTooltip) return;
@@ -1724,8 +2404,8 @@ html_template = '''<!DOCTYPE html>
       updateInfoPanel(nodeId);
       applyVisibility();
 
-      if (panTo) {
-        const node = graph.nodeById.get(nodeId);
+      if (panTo && state.viewMode === 'map') {
+        const node = graph ? graph.nodeById.get(nodeId) : null;
         if (node && node.kind !== 'root' && !node.isDrillCenter) {
           graphState.translateX = -node.x * graphState.scale * 0.4;
           graphState.translateY = -node.y * graphState.scale * 0.4;
@@ -1746,26 +2426,31 @@ html_template = '''<!DOCTYPE html>
     // Get Branch Ancestors and Descendants
     function getBranchNodes(nodeId) {
       const set = new Set();
-      const node = graph.nodeById.get(nodeId);
+      const node = (graph && graph.nodeById.get(nodeId)) || (sunburstData && sunburstData.sliceById.get(nodeId));
       if (!node) return set;
       set.add(node.id);
 
-      if (node.id === graph.centerNode.id) {
-        graph.nodes.forEach(n => set.add(n.id));
+      const centerId = state.drillNodeId;
+      if (node.id === centerId) {
+        if (graph) graph.nodes.forEach(n => set.add(n.id));
+        if (sunburstData) sunburstData.slices.forEach(s => set.add(s.id));
         return set;
       }
 
-      set.add(graph.centerNode.id);
+      set.add(centerId);
       if (node.subjectId) set.add(node.subjectId);
       if (node.strandId) set.add(node.strandId);
       if (node.standardId) set.add(node.standardId);
 
       if (node.kind === 'subject') {
-        graph.nodes.forEach(n => { if (n.subject === node.name) set.add(n.id); });
+        if (graph) graph.nodes.forEach(n => { if (n.subject === node.name) set.add(n.id); });
+        if (sunburstData) sunburstData.slices.forEach(s => { if (s.subject === node.name) set.add(s.id); });
       } else if (node.kind === 'strand') {
-        graph.nodes.forEach(n => { if (n.subject === node.subject && n.strand === node.name) set.add(n.id); });
+        if (graph) graph.nodes.forEach(n => { if (n.subject === node.subject && n.strand === node.name) set.add(n.id); });
+        if (sunburstData) sunburstData.slices.forEach(s => { if (s.subject === node.subject && s.strand === node.name) set.add(s.id); });
       } else if (node.kind === 'standard') {
-        graph.nodes.forEach(n => { if (n.kind === 'kpi' && n.standard === node.code) set.add(n.id); });
+        if (graph) graph.nodes.forEach(n => { if (n.kind === 'kpi' && n.standard === node.code) set.add(n.id); });
+        if (sunburstData) sunburstData.slices.forEach(s => { if (s.kind === 'kpi' && s.standard === node.code) set.add(s.id); });
       }
 
       return set;
@@ -1812,6 +2497,38 @@ html_template = '''<!DOCTYPE html>
           edge.element.classList.remove('edge-dimmed', 'edge-highlighted');
         }
       });
+
+      // Update Sunburst Slices Visibility
+      if (sunburstData && sunburstData.slices) {
+        sunburstData.slices.forEach(slice => {
+          if (!slice.element) return;
+          const inBranch = branchNodes.has(slice.id);
+          const matchesFilter = nodeMatchesFilter(slice);
+          const isSelected = slice.id === activeId;
+
+          if (state.focusMode && activeId !== sunburstData.centerNode.id) {
+            if (inBranch && matchesFilter) {
+              slice.element.style.opacity = '1';
+              slice.element.style.stroke = isSelected ? '#10b981' : (inBranch ? '#38bdf8' : '#030712');
+              slice.element.style.strokeWidth = isSelected ? '3px' : '1.5px';
+            } else {
+              slice.element.style.opacity = '0.12';
+              slice.element.style.stroke = '#030712';
+              slice.element.style.strokeWidth = '0.5px';
+            }
+          } else {
+            if (matchesFilter) {
+              slice.element.style.opacity = '1';
+              slice.element.style.stroke = isSelected ? '#10b981' : '#030712';
+              slice.element.style.strokeWidth = isSelected ? '3px' : (slice.kind === 'kpi' && state.drillNodeId === 'root-curriculum' ? '0.2px' : '1px');
+            } else {
+              slice.element.style.opacity = '0.12';
+              slice.element.style.stroke = '#030712';
+              slice.element.style.strokeWidth = '0.5px';
+            }
+          }
+        });
+      }
 
       // Update Selected Halo
       haloGroup.replaceChildren();
@@ -1883,7 +2600,7 @@ html_template = '''<!DOCTYPE html>
 
     // Dynamic Left Info Panel Renderer with Drill-Down Actions
     function updateInfoPanel(nodeId) {
-      const node = graph.nodeById.get(nodeId);
+      const node = (graph && graph.nodeById.get(nodeId)) || (sunburstData && sunburstData.sliceById.get(nodeId));
       if (!node) return;
 
       let html = '';
@@ -2412,7 +3129,8 @@ html_template = '''<!DOCTYPE html>
         pointerStart = { x: e.clientX, y: e.clientY, time: Date.now() };
 
         const nodeEl = e.target.closest('.node');
-        targetNodeId = nodeEl ? nodeEl.getAttribute('data-node-id') : null;
+        const sliceEl = e.target.closest('.sunburst-slice');
+        targetNodeId = nodeEl ? nodeEl.getAttribute('data-node-id') : (sliceEl ? sliceEl.getAttribute('data-slice-id') : null);
 
         graphState.dragStartX = e.clientX - graphState.translateX;
         graphState.dragStartY = e.clientY - graphState.translateY;
@@ -2457,9 +3175,10 @@ html_template = '''<!DOCTYPE html>
 
         if (dist <= 6) {
           const nodeEl = e.target.closest('.node');
-          const id = nodeEl ? nodeEl.getAttribute('data-node-id') : targetNodeId;
+          const sliceEl = e.target.closest('.sunburst-slice');
+          const id = nodeEl ? nodeEl.getAttribute('data-node-id') : (sliceEl ? sliceEl.getAttribute('data-slice-id') : targetNodeId);
           if (id) {
-            const targetNode = graph.nodeById.get(id);
+            const targetNode = (graph && graph.nodeById.get(id)) || (sunburstData && sunburstData.sliceById.get(id));
             if (targetNode && targetNode.isDrillCenter && targetNode.id !== 'root-curriculum') {
               drillUp();
             } else {
@@ -2547,6 +3266,7 @@ html_template = '''<!DOCTYPE html>
 
       // View Switcher
       el.btnViewMap.addEventListener('click', switchToMapView);
+      if (el.btnViewSunburst) el.btnViewSunburst.addEventListener('click', switchToSunburstView);
       el.btnViewCatalog.addEventListener('click', switchToCatalogView);
 
       // Help Modal
@@ -2582,8 +3302,26 @@ html_template = '''<!DOCTYPE html>
       state.viewMode = 'map';
       el.mainMapView.classList.remove('hidden');
       el.mainCatalogView.classList.add('hidden');
+      el.graphSvg.classList.remove('hidden');
+      if (el.sunburstSvg) el.sunburstSvg.classList.add('hidden');
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
+      if (el.btnViewSunburst) el.btnViewSunburst.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      updateViewportTransform();
+      applyVisibility();
+    }
+
+    function switchToSunburstView() {
+      state.viewMode = 'sunburst';
+      el.mainMapView.classList.remove('hidden');
+      el.mainCatalogView.classList.add('hidden');
+      el.graphSvg.classList.add('hidden');
+      if (el.sunburstSvg) el.sunburstSvg.classList.remove('hidden');
+      if (el.btnViewSunburst) el.btnViewSunburst.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
+      el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      updateViewportTransform();
+      applyVisibility();
     }
 
     function switchToCatalogView() {
@@ -2592,11 +3330,16 @@ html_template = '''<!DOCTYPE html>
       el.mainCatalogView.classList.remove('hidden');
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      if (el.btnViewSunburst) el.btnViewSunburst.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       renderCatalogTable();
     }
 
     function updateViewportTransform() {
-      viewportGroup.setAttribute('transform', `translate(${graphState.translateX} ${graphState.translateY}) scale(${graphState.scale})`);
+      const transformStr = `translate(${graphState.translateX} ${graphState.translateY}) scale(${graphState.scale})`;
+      viewportGroup.setAttribute('transform', transformStr);
+      if (typeof sunburstViewportGroup !== 'undefined' && sunburstViewportGroup) {
+        sunburstViewportGroup.setAttribute('transform', transformStr);
+      }
     }
 
     // 1-Click Clipboard Actions for Teachers
