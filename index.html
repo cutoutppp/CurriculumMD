@@ -208,6 +208,58 @@
       pointer-events: none;
     }
 
+    /* Radar Wheel & Grade Slices */
+    .radar-cell {
+      cursor: pointer;
+      transition: opacity 180ms ease, filter 180ms ease, stroke-width 180ms ease;
+      stroke: #030712;
+      stroke-width: 1px;
+    }
+    .radar-cell:hover {
+      filter: brightness(1.3) drop-shadow(0 0 10px currentColor);
+      stroke: #ffffff;
+      stroke-width: 1.8px;
+    }
+    .radar-axis-badge {
+      cursor: pointer;
+      transition: transform 150ms ease, filter 150ms ease;
+    }
+    .radar-axis-badge:hover {
+      filter: brightness(1.25);
+    }
+    .radar-axis-bg {
+      fill: #0f172a;
+      stroke: #334155;
+      stroke-width: 1.2px;
+      rx: 6px;
+    }
+    .radar-axis-badge:hover .radar-axis-bg {
+      fill: #1e293b;
+      stroke: #38bdf8;
+    }
+    .radar-axis-text {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      fill: #f8fafc;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+    .radar-subject-label {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      fill: #cbd5e1;
+      text-anchor: middle;
+      dominant-baseline: central;
+      cursor: pointer;
+      transition: fill 150ms ease;
+    }
+    .radar-subject-label:hover {
+      fill: #38bdf8;
+    }
+
     /* Sunburst Slices */
     .sunburst-slice {
       cursor: pointer;
@@ -294,7 +346,7 @@
             </button>
             <button id="btn-view-sunburst" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
               <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
-              <span>วงกลมแบ่งชั้น</span>
+              <span>วงกลมแบ่งตามชั้น</span>
             </button>
             <button id="btn-view-catalog" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
               <i data-lucide="table-properties" class="w-3.5 h-3.5"></i>
@@ -405,6 +457,33 @@
               <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-emerald-400"></i>
               <span>ย้อนกลับ</span>
             </button>
+          </div>
+
+          <!-- Circular View Sub-mode Selector Bar -->
+          <div id="sunburstModeBar" class="hidden bg-slate-950/95 border-x border-b border-slate-800/90 px-4 py-2 flex items-center justify-between text-xs backdrop-blur z-20">
+            <div class="flex items-center space-x-2">
+              <span class="text-slate-400 text-[11px] font-medium flex items-center gap-1">
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="text-slate-300 font-semibold">การจัดชั้น:</span>
+              </span>
+              <div class="bg-slate-900 border border-slate-700/80 p-0.5 rounded-lg flex items-center space-x-0.5">
+                <button id="btn-sunburst-grade" class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm">
+                  <i data-lucide="graduation-cap" class="w-3 h-3"></i>
+                  <span>แบ่งตามชั้น (ป.๑-ม.๖)</span>
+                </button>
+                <button id="btn-sunburst-radar" class="px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1">
+                  <i data-lucide="target" class="w-3 h-3"></i>
+                  <span>วงแหวน ๑๐ ชั้นเรียน (Radar)</span>
+                </button>
+                <button id="btn-sunburst-subj" class="px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1">
+                  <i data-lucide="book-open" class="w-3 h-3"></i>
+                  <span>แบ่งตามกลุ่มสาระ (๘ วิชา)</span>
+                </button>
+              </div>
+            </div>
+            <span id="sunburstModeDesc" class="text-[11px] text-slate-400 font-mono hidden sm:inline">
+              วงในแบ่ง ๑๐ ระดับชั้น (ป.๑ - ม.๖) ➔ ๘ วิชา ➔ ตัวชี้วัด
+            </span>
           </div>
 
           <!-- Floating Toolbar -->
@@ -731,7 +810,8 @@
 
     // State
     const state = {
-      viewMode: 'map', // 'map' or 'catalog'
+      viewMode: 'map', // 'map', 'sunburst', or 'catalog'
+      sunburstMode: 'grade', // 'grade' (ป.๑-ม.๖), 'radar' (10 concentric rings), 'subject' (๘ กลุ่มสาระ)
       drillNodeId: 'root-curriculum', // Active center of radial circle
       selectedNodeId: 'root-curriculum',
       search: '',
@@ -790,6 +870,11 @@
       btnViewSunburst: document.getElementById('btn-view-sunburst'),
       btnViewCatalog: document.getElementById('btn-view-catalog'),
       sunburstSvg: document.getElementById('sunburstSvg'),
+      sunburstModeBar: document.getElementById('sunburstModeBar'),
+      btnSunburstGrade: document.getElementById('btn-sunburst-grade'),
+      btnSunburstRadar: document.getElementById('btn-sunburst-radar'),
+      btnSunburstSubj: document.getElementById('btn-sunburst-subj'),
+      sunburstModeDesc: document.getElementById('sunburstModeDesc'),
       catalogSearchInput: document.getElementById('catalogSearchInput'),
       catalogFilterSubject: document.getElementById('catalogFilterSubject'),
       catalogFilterGrade: document.getElementById('catalogFilterGrade'),
@@ -1521,7 +1606,239 @@
         g.appendChild(hitbox);
 
         // Visible Shape based on kind
-        if (node.kind === 'root') {
+        if (node.kind === 'grade') {
+        const isCenter = node.id === state.drillNodeId;
+        const gradeKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.code);
+        const formativeCount = gradeKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = gradeKpis.filter(k => k.type === 'ปลายทาง').length;
+
+        // Group by subject in this grade
+        const subjBreakdown = {};
+        gradeKpis.forEach(k => {
+          subjBreakdown[k.subject] = (subjBreakdown[k.subject] || 0) + 1;
+        });
+
+        // School courses for this grade
+        const gradeCourses = [];
+        DATA.courses.forEach(c => {
+          if (c.grade === node.code) gradeCourses.push(c);
+        });
+
+        html = `
+          <div class="space-y-4 animate-fadeIn">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">ระดับชั้นการศึกษา</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${node.name}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.stage}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${gradeKpis.length.toLocaleString()} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
+              </div>
+            </div>
+
+            <!-- Subject Distribution in this Grade -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">๘ กลุ่มสาระในระดับชั้นนี้:</span>
+              <div class="space-y-1.5">
+                ${Object.entries(subjBreakdown).sort((a,b) => b[1] - a[1]).map(([sName, cnt]) => {
+                  const sMeta = DATA.subject_meta[sName] || { color: '#10b981' };
+                  return `
+                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 text-xs transition cursor-pointer" onclick="selectNode('${node.id}-subj-${sMeta.code || sName}')">
+                      <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${sMeta.color}"></span>
+                        <span class="text-slate-300 font-medium">${sName}</span>
+                      </div>
+                      <span class="font-mono text-emerald-400 font-bold">${cnt} ตชว.</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- School Courses for this Grade -->
+            ${gradeCourses.length > 0 ? `
+              <div>
+                <span class="text-[11px] font-semibold text-slate-400 block mb-2">รายวิชาของโรงเรียน (${gradeCourses.length} วิชา):</span>
+                <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                  ${gradeCourses.map(c => `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
+                      <div class="flex items-center justify-between">
+                        <span class="font-mono font-bold text-white">${c.code}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">${c.school}</span>
+                      </div>
+                      <p class="text-slate-300 text-[11px] mt-0.5">${c.name}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Action Buttons -->
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะชั้น ${node.code}</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadGradeWord('${node.code}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลดเอกสารชั้น ${node.code} (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'grade-subject' || node.kind === 'radar-cell') {
+        const isCenter = node.id === state.drillNodeId;
+        const cellKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.subject === node.subject);
+        const formativeCount = cellKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = cellKpis.filter(k => k.type === 'ปลายทาง').length;
+        const sMeta = DATA.subject_meta[node.subject] || { color: '#10b981' };
+
+        // Unique standards
+        const uniqueStds = [...new Set(cellKpis.map(k => k.standard))];
+
+        // School courses matching this grade & subject
+        const matchCourses = DATA.courses.filter(c => c.grade === node.grade && c.subject === node.subject);
+
+        html = `
+          <div class="space-y-4 animate-fadeIn">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${sMeta.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">กลุ่มสาระการเรียนรู้</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${node.subject}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">ชั้น ${node.grade}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${cellKpis.length} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
+              </div>
+            </div>
+
+            <!-- Standards list -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">มาตรฐานในระดับชั้นนี้ (${uniqueStds.length} มาตรฐาน):</span>
+              <div class="space-y-1.5">
+                ${uniqueStds.map(stdCode => {
+                  const countInStd = cellKpis.filter(k => k.standard === stdCode).length;
+                  return `
+                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
+                      <span class="font-mono text-cyan-400 font-bold">มาตรฐาน ${stdCode}</span>
+                      <span class="font-mono text-slate-400">${countInStd} ตัวชี้วัด</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- School courses -->
+            ${matchCourses.length > 0 ? `
+              <div>
+                <span class="text-[11px] font-semibold text-slate-400 block mb-2">รายวิชาที่สอนในโรงเรียน (${matchCourses.length} วิชา):</span>
+                <div class="space-y-1.5">
+                  ${matchCourses.map(c => `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
+                      <div class="flex items-center justify-between">
+                        <span class="font-mono font-bold text-white">${c.code}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">${c.school}</span>
+                      </div>
+                      <p class="text-slate-300 text-[11px] mt-0.5">${c.name}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Action Buttons -->
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะ ${node.subject} (${node.grade})</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadGradeWord('${node.grade}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลดเอกสาร (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'grade-standard') {
+        const stdKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.standard === node.standardCode);
+        const formativeCount = stdKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = stdKpis.filter(k => k.type === 'ปลายทาง').length;
+
+        html = `
+          <div class="space-y-4 animate-fadeIn">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <span class="text-[10px] font-mono uppercase font-bold text-slate-400">มาตรฐานการเรียนรู้</span>
+              <h2 class="text-base font-bold text-white mt-1">มาตรฐาน ${node.standardCode}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.subject}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">ชั้น ${node.grade} (${stdKpis.length} ตัวชี้วัด)</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
+              </div>
+            </div>
+
+            <!-- KPIs in this standard -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">ตัวชี้วัดในมาตรฐานนี้:</span>
+              <div class="space-y-2">
+                ${stdKpis.map(k => `
+                  <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 transition cursor-pointer" onclick="selectNode('kpi-${k.id || k.code.replace(/\s+/g, '_')}')">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="font-mono text-xs font-bold text-emerald-400">${k.code}</span>
+                      <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${k.type === 'ปลายทาง' ? 'bg-amber-950/80 text-amber-400 border border-amber-800/60' : 'bg-sky-950/80 text-sky-400 border border-sky-800/60'}">${k.type || 'ตัวชี้วัด'}</span>
+                    </div>
+                    <p class="text-slate-300 text-xs">${k.kpi_text}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'root') {
           g.appendChild(createSvgElement('circle', {
             cx: '0', cy: '0', r: String(node.size),
             fill: node.color,
@@ -1663,7 +1980,18 @@
         icon: 'globe'
       });
 
-      if (current.startsWith('subj-')) {
+      if (current.startsWith('grade-')) {
+        const gCfg = GRADE_CONFIG.find(g => g.id === current || current.startsWith(g.id + '-'));
+        if (gCfg) {
+          parts.push({ id: gCfg.id, label: gCfg.shortLabel });
+          if (current.includes('-subj-')) {
+            const target = (sunburstData && sunburstData.sliceById.get(current)) || (graph && graph.nodeById.get(current));
+            if (target) {
+              parts.push({ id: current, label: target.shortLabel || target.name });
+            }
+          }
+        }
+      } else if (current.startsWith('subj-')) {
         const target = graph.nodeById.get(current) || { name: 'กลุ่มสาระ' };
         parts.push({ id: current, label: target.name || target.shortLabel });
       } else if (current.startsWith('strand-')) {
@@ -1726,14 +2054,516 @@
     }
 
     // ========================================================
-    // Sunburst Radial Partition Engine (4 Concentric Layers)
-    // ========================================================
+    // Sunburst Radial Partition Engine (Grade-First, Radar Wheel & Subject-First)
+    const GRADE_CONFIG = [
+      { id: 'grade-p1', code: 'ป.1', title: 'ชั้นประถมศึกษาปีที่ ๑ (ป.๑)', shortLabel: 'ชั้น ป.๑', stage: 'ประถมศึกษาตอนต้น', color: '#10b981' },
+      { id: 'grade-p2', code: 'ป.2', title: 'ชั้นประถมศึกษาปีที่ ๒ (ป.๒)', shortLabel: 'ชั้น ป.๒', stage: 'ประถมศึกษาตอนต้น', color: '#0d9488' },
+      { id: 'grade-p3', code: 'ป.3', title: 'ชั้นประถมศึกษาปีที่ ๓ (ป.๓)', shortLabel: 'ชั้น ป.๓', stage: 'ประถมศึกษาตอนต้น', color: '#06b6d4' },
+      { id: 'grade-p4', code: 'ป.4', title: 'ชั้นประถมศึกษาปีที่ ๔ (ป.๔)', shortLabel: 'ชั้น ป.๔', stage: 'ประถมศึกษาตอนปลาย', color: '#0284c7' },
+      { id: 'grade-p5', code: 'ป.5', title: 'ชั้นประถมศึกษาปีที่ ๕ (ป.๕)', shortLabel: 'ชั้น ป.๕', stage: 'ประถมศึกษาตอนปลาย', color: '#2563eb' },
+      { id: 'grade-p6', code: 'ป.6', title: 'ชั้นประถมศึกษาปีที่ ๖ (ป.๖)', shortLabel: 'ชั้น ป.๖', stage: 'ประถมศึกษาตอนปลาย', color: '#4f46e5' },
+      { id: 'grade-m1', code: 'ม.1', title: 'ชั้นมัธยมศึกษาปีที่ ๑ (ม.๑)', shortLabel: 'ชั้น ม.๑', stage: 'มัธยมศึกษาตอนต้น', color: '#f59e0b' },
+      { id: 'grade-m2', code: 'ม.2', title: 'ชั้นมัธยมศึกษาปีที่ ๒ (ม.๒)', shortLabel: 'ชั้น ม.๒', stage: 'มัธยมศึกษาตอนต้น', color: '#ea580c' },
+      { id: 'grade-m3', code: 'ม.3', title: 'ชั้นมัธยมศึกษาปีที่ ๓ (ม.๓)', shortLabel: 'ชั้น ม.๓', stage: 'มัธยมศึกษาตอนต้น', color: '#dc2626' },
+      { id: 'grade-m4-6', code: 'ม.4-6', title: 'ชั้นมัธยมศึกษาตอนปลาย (ม.๔-๖)', shortLabel: 'ชั้น ม.๔-๖', stage: 'มัธยมศึกษาตอนปลาย', color: '#8b5cf6' }
+    ];
+
+    function normalizeGradeKey(g) {
+      if (!g) return 'ม.4-6';
+      const s = String(g).trim();
+      if (['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3'].includes(s)) return s;
+      if (['ม.4', 'ม.5', 'ม.6', 'ม.4-6'].includes(s)) return 'ม.4-6';
+      return 'ม.4-6';
+    }
+
     function buildSunburstForView(drillNodeId, DATA) {
       const subjectOrder = [
         'ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษา ศาสนา และวัฒนธรรม',
         'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาต่างประเทศ'
       ];
 
+      const slices = [];
+      const sliceById = new Map();
+      const radarBadges = [];
+      const radarSubjectHeaders = [];
+
+      function addSlice(s) {
+        slices.push(s);
+        sliceById.set(s.id, s);
+      }
+
+      // =====================================================================
+      // MODE 1: RADAR CONCENTRIC WHEEL (10 Concentric Rings x 8 Subjects)
+      // =====================================================================
+      if (state.sunburstMode === 'radar') {
+        const totalKpis = DATA.kpis.length;
+        const center = {
+          id: 'root-curriculum',
+          kind: 'root',
+          name: 'หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน',
+          shortLabel: 'หลักสูตร ๕๑',
+          rInner: 0, rOuter: 72,
+          startAngle: 0, endAngle: Math.PI * 2,
+          color: '#0f172a',
+          kpiCount: totalKpis
+        };
+        addSlice(center);
+
+        // Grade ring radii definitions
+        const gradeRadii = [
+          { rIn: 78, rOut: 116 },   // ป.1
+          { rIn: 120, rOut: 158 },  // ป.2
+          { rIn: 162, rOut: 200 },  // ป.3
+          { rIn: 204, rOut: 242 },  // ป.4
+          { rIn: 246, rOut: 284 },  // ป.5
+          { rIn: 288, rOut: 326 },  // ป.6
+          { rIn: 330, rOut: 370 },  // ม.1
+          { rIn: 374, rOut: 414 },  // ม.2
+          { rIn: 418, rOut: 458 },  // ม.3
+          { rIn: 462, rOut: 510 }   // ม.4-6
+        ];
+
+        // 8 Angular sectors (45 deg each, starting from -Math.PI / 2)
+        const sectorSpan = (Math.PI * 2) / 8;
+
+        // Group KPIs by (Grade, Subject)
+        const cellKpis = {};
+        DATA.kpis.forEach(k => {
+          const gk = normalizeGradeKey(k.grade);
+          const s = k.subject;
+          if (!cellKpis[gk]) cellKpis[gk] = {};
+          if (!cellKpis[gk][s]) cellKpis[gk][s] = [];
+          cellKpis[gk][s].push(k);
+        });
+
+        GRADE_CONFIG.forEach((gCfg, gIdx) => {
+          const radii = gradeRadii[gIdx];
+          const gKpisCount = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === gCfg.code).length;
+
+          // Axis badge for this grade ring
+          radarBadges.push({
+            id: gCfg.id,
+            gradeCode: gCfg.code,
+            shortLabel: gCfg.shortLabel,
+            title: gCfg.title,
+            rMid: (radii.rIn + radii.rOut) / 2,
+            angle: -Math.PI / 2,
+            kpiCount: gKpisCount
+          });
+
+          subjectOrder.forEach((subj, sIdx) => {
+            const startAngle = -Math.PI / 2 + sIdx * sectorSpan;
+            const endAngle = startAngle + sectorSpan;
+            const kpis = (cellKpis[gCfg.code] && cellKpis[gCfg.code][subj]) || [];
+            const sMeta = DATA.subject_meta[subj] || { color: '#10b981', code: subj };
+            const cellId = `${gCfg.id}-subj-${sMeta.code || subj}`;
+
+            addSlice({
+              id: cellId,
+              kind: 'radar-cell',
+              gradeId: gCfg.id,
+              grade: gCfg.code,
+              subject: subj,
+              subjectId: sMeta.code || subj,
+              name: `${subj} ชั้น ${gCfg.code}`,
+              shortLabel: `${kpis.length} ตชว.`,
+              rInner: radii.rIn,
+              rOuter: radii.rOut,
+              startAngle: startAngle,
+              endAngle: endAngle,
+              color: sMeta.color,
+              kpiCount: kpis.length,
+              kpis: kpis
+            });
+          });
+        });
+
+        // Subject rim headers around outer perimeter
+        subjectOrder.forEach((subj, sIdx) => {
+          const midAngle = -Math.PI / 2 + (sIdx + 0.5) * sectorSpan;
+          const sMeta = DATA.subject_meta[subj] || { color: '#10b981', code: subj };
+          radarSubjectHeaders.push({
+            subject: subj,
+            subjectId: sMeta.code || subj,
+            shortLabel: subj.length > 12 ? subj.substring(0, 11) + '…' : subj,
+            angle: midAngle,
+            r: 535,
+            color: sMeta.color
+          });
+        });
+
+        return { slices, sliceById, radarBadges, radarSubjectHeaders, isRadar: true };
+      }
+
+      // =====================================================================
+      // MODE 2: GRADE-FIRST SUNBURST (Grade Levels in Inner Ring) - DEFAULT
+      // =====================================================================
+      if (state.sunburstMode === 'grade') {
+        // Build Grade-first tree: Grade -> Subject -> Standard -> KPIs
+        const gradeTree = {};
+        GRADE_CONFIG.forEach(g => { gradeTree[g.code] = {}; });
+
+        DATA.kpis.forEach(k => {
+          const gk = normalizeGradeKey(k.grade);
+          const s = k.subject;
+          const std = k.standard || 'ทั่วไป';
+          if (!gradeTree[gk]) gradeTree[gk] = {};
+          if (!gradeTree[gk][s]) gradeTree[gk][s] = {};
+          if (!gradeTree[gk][s][std]) gradeTree[gk][s][std] = [];
+          gradeTree[gk][s][std].push(k);
+        });
+
+        // ROOT VIEW (All 10 Grade Levels)
+        if (!drillNodeId || drillNodeId === 'root-curriculum') {
+          const totalKpis = DATA.kpis.length;
+          let angleCursor = -Math.PI / 2;
+
+          const r0 = 0, r1 = 80;
+          const r1_in = 86, r1_out = 185;
+          const r2_in = 192, r2_out = 295;
+          const r3_in = 302, r3_out = 410;
+          const r4_in = 416, r4_out = 530;
+
+          const center = {
+            id: 'root-curriculum',
+            kind: 'root',
+            name: 'หลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน',
+            shortLabel: 'หลักสูตร ๕๑',
+            rInner: 0, rOuter: 80,
+            startAngle: 0, endAngle: Math.PI * 2,
+            color: '#0d3d70',
+            kpiCount: totalKpis
+          };
+          addSlice(center);
+
+          GRADE_CONFIG.forEach(gCfg => {
+            const gCode = gCfg.code;
+            const gradeSubjs = gradeTree[gCode] || {};
+            const gradeKpisCount = Object.values(gradeSubjs).reduce((acc, stdDict) => {
+              return acc + Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+            }, 0);
+
+            if (gradeKpisCount === 0) return;
+            const gradeSpan = (Math.PI * 2 * gradeKpisCount) / totalKpis;
+            const gradeStart = angleCursor;
+            const gradeEnd = angleCursor + gradeSpan;
+            angleCursor = gradeEnd;
+
+            addSlice({
+              id: gCfg.id,
+              kind: 'grade',
+              name: gCfg.title,
+              shortLabel: gCfg.shortLabel,
+              code: gCfg.code,
+              stage: gCfg.stage,
+              gradeId: gCfg.id,
+              rInner: r1_in, rOuter: r1_out,
+              startAngle: gradeStart, endAngle: gradeEnd,
+              color: gCfg.color,
+              kpiCount: gradeKpisCount
+            });
+
+            // Layer 2: 8 Subjects under this grade
+            let subjCursor = gradeStart;
+            subjectOrder.forEach(subjName => {
+              const stdDict = gradeSubjs[subjName];
+              if (!stdDict) return;
+              const subjKpisCount = Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+              if (subjKpisCount === 0) return;
+
+              const subjSpan = (subjKpisCount / gradeKpisCount) * gradeSpan;
+              const subjStart = subjCursor;
+              const subjEnd = subjCursor + subjSpan;
+              subjCursor = subjEnd;
+
+              const sMeta = DATA.subject_meta[subjName] || { color: '#10b981', code: subjName };
+              const subjSliceId = `${gCfg.id}-subj-${sMeta.code || subjName}`;
+
+              addSlice({
+                id: subjSliceId,
+                kind: 'grade-subject',
+                name: `${subjName} (${gCfg.shortLabel})`,
+                shortLabel: subjName.length > 8 ? subjName.substring(0, 7) + '…' : subjName,
+                subject: subjName,
+                grade: gCfg.code,
+                gradeId: gCfg.id,
+                subjectId: sMeta.code || subjName,
+                rInner: r2_in, rOuter: r2_out,
+                startAngle: subjStart, endAngle: subjEnd,
+                color: sMeta.color,
+                kpiCount: subjKpisCount
+              });
+
+              // Layer 3: Standards under this subject in this grade
+              let stdCursor = subjStart;
+              Object.entries(stdDict).forEach(([stdCode, kpiList]) => {
+                if (kpiList.length === 0) return;
+                const stdSpan = (kpiList.length / subjKpisCount) * subjSpan;
+                const stdStart = stdCursor;
+                const stdEnd = stdCursor + stdSpan;
+                stdCursor = stdEnd;
+
+                const stdId = `${gCfg.id}-std-${stdCode.replace(/\s+/g, '_')}`;
+
+                addSlice({
+                  id: stdId,
+                  kind: 'grade-standard',
+                  name: `มาตรฐาน ${stdCode} (${gCfg.shortLabel})`,
+                  shortLabel: stdCode,
+                  standardCode: stdCode,
+                  subject: subjName,
+                  grade: gCfg.code,
+                  gradeId: gCfg.id,
+                  subjectId: sMeta.code || subjName,
+                  standardId: stdId,
+                  rInner: r3_in, rOuter: r3_out,
+                  startAngle: stdStart, endAngle: stdEnd,
+                  color: sMeta.color,
+                  kpiCount: kpiList.length
+                });
+
+                // Layer 4: Individual KPIs in this grade & standard
+                const kpiStep = stdSpan / kpiList.length;
+                kpiList.forEach((k, kIdx) => {
+                  const kStart = stdStart + kIdx * kpiStep;
+                  const kEnd = kStart + kpiStep;
+                  const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+                  const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
+
+                  addSlice({
+                    id: kId,
+                    kind: 'kpi',
+                    name: `${k.code} (${k.type || 'ตัวชี้วัด'})`,
+                    shortLabel: k.code,
+                    code: k.code,
+                    type: k.type,
+                    kpi: k,
+                    subject: subjName,
+                    grade: gCfg.code,
+                    gradeId: gCfg.id,
+                    standardId: stdId,
+                    rInner: r4_in, rOuter: r4_out,
+                    startAngle: kStart, endAngle: kEnd,
+                    color: kColor,
+                    kpiCount: 1
+                  });
+                });
+              });
+            });
+          });
+
+          return { slices, sliceById, isRadar: false };
+        }
+
+        // DRILLED INTO A SPECIFIC GRADE (e.g. 'grade-p2')
+        if (drillNodeId.startsWith('grade-') && !drillNodeId.includes('-subj-')) {
+          const gCfg = GRADE_CONFIG.find(g => g.id === drillNodeId) || GRADE_CONFIG[0];
+          const gradeSubjs = gradeTree[gCfg.code] || {};
+          const totalGradeKpis = Object.values(gradeSubjs).reduce((acc, stdDict) => {
+            return acc + Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+          }, 0);
+
+          let angleCursor = -Math.PI / 2;
+          const r1_in = 95, r1_out = 220;
+          const r2_in = 228, r2_out = 370;
+          const r3_in = 378, r3_out = 530;
+
+          // Center: That Grade Level
+          addSlice({
+            id: gCfg.id,
+            kind: 'grade',
+            name: gCfg.title,
+            shortLabel: gCfg.shortLabel,
+            code: gCfg.code,
+            stage: gCfg.stage,
+            rInner: 0, rOuter: 88,
+            startAngle: 0, endAngle: Math.PI * 2,
+            color: gCfg.color,
+            kpiCount: totalGradeKpis
+          });
+
+          // Ring 1: 8 Subjects in this Grade
+          subjectOrder.forEach(subjName => {
+            const stdDict = gradeSubjs[subjName];
+            if (!stdDict) return;
+            const subjKpisCount = Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+            if (subjKpisCount === 0) return;
+
+            const subjSpan = (subjKpisCount / totalGradeKpis) * Math.PI * 2;
+            const subjStart = angleCursor;
+            const subjEnd = angleCursor + subjSpan;
+            angleCursor = subjEnd;
+
+            const sMeta = DATA.subject_meta[subjName] || { color: '#10b981', code: subjName };
+            const subjSliceId = `${gCfg.id}-subj-${sMeta.code || subjName}`;
+
+            addSlice({
+              id: subjSliceId,
+              kind: 'grade-subject',
+              name: `${subjName} (${gCfg.shortLabel})`,
+              shortLabel: subjName,
+              subject: subjName,
+              grade: gCfg.code,
+              gradeId: gCfg.id,
+              subjectId: sMeta.code || subjName,
+              rInner: r1_in, rOuter: r1_out,
+              startAngle: subjStart, endAngle: subjEnd,
+              color: sMeta.color,
+              kpiCount: subjKpisCount
+            });
+
+            // Ring 2: Standards in this Grade & Subject
+            let stdCursor = subjStart;
+            Object.entries(stdDict).forEach(([stdCode, kpiList]) => {
+              if (kpiList.length === 0) return;
+              const stdSpan = (kpiList.length / subjKpisCount) * subjSpan;
+              const stdStart = stdCursor;
+              const stdEnd = stdCursor + stdSpan;
+              stdCursor = stdEnd;
+
+              const stdId = `${gCfg.id}-std-${stdCode.replace(/\s+/g, '_')}`;
+
+              addSlice({
+                id: stdId,
+                kind: 'grade-standard',
+                name: `มาตรฐาน ${stdCode} (${gCfg.shortLabel})`,
+                shortLabel: stdCode,
+                standardCode: stdCode,
+                subject: subjName,
+                grade: gCfg.code,
+                gradeId: gCfg.id,
+                subjectId: sMeta.code || subjName,
+                standardId: stdId,
+                rInner: r2_in, rOuter: r2_out,
+                startAngle: stdStart, endAngle: stdEnd,
+                color: sMeta.color,
+                kpiCount: kpiList.length
+              });
+
+              // Ring 3: KPIs in this Grade & Standard
+              const kpiStep = stdSpan / kpiList.length;
+              kpiList.forEach((k, kIdx) => {
+                const kStart = stdStart + kIdx * kpiStep;
+                const kEnd = kStart + kpiStep;
+                const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+                const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
+
+                addSlice({
+                  id: kId,
+                  kind: 'kpi',
+                  name: `${k.code} (${k.type || 'ตัวชี้วัด'})`,
+                  shortLabel: k.code,
+                  code: k.code,
+                  type: k.type,
+                  kpi: k,
+                  subject: subjName,
+                  grade: gCfg.code,
+                  gradeId: gCfg.id,
+                  standardId: stdId,
+                  rInner: r3_in, rOuter: r3_out,
+                  startAngle: kStart, endAngle: kEnd,
+                  color: kColor,
+                  kpiCount: 1
+                });
+              });
+            });
+          });
+
+          return { slices, sliceById, isRadar: false };
+        }
+
+        // DRILLED INTO A SPECIFIC GRADE & SUBJECT (e.g. 'grade-p2-subj-tha')
+        if (drillNodeId.startsWith('grade-') && drillNodeId.includes('-subj-')) {
+          const parts = drillNodeId.split('-subj-');
+          const gId = parts[0];
+          const sCode = parts[1];
+          const gCfg = GRADE_CONFIG.find(g => g.id === gId) || GRADE_CONFIG[0];
+          const subjName = subjectOrder.find(s => (DATA.subject_meta[s]?.code || s) === sCode) || 'ภาษาไทย';
+          const sMeta = DATA.subject_meta[subjName] || { color: '#10b981' };
+
+          const stdDict = (gradeTree[gCfg.code] && gradeTree[gCfg.code][subjName]) || {};
+          const totalSubjKpis = Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
+
+          let angleCursor = -Math.PI / 2;
+          const r1_in = 95, r1_out = 260;
+          const r2_in = 270, r2_out = 530;
+
+          // Center: That Subject in that Grade
+          addSlice({
+            id: drillNodeId,
+            kind: 'grade-subject',
+            name: `${subjName} ชั้น ${gCfg.code}`,
+            shortLabel: `${subjName} (${gCfg.code})`,
+            subject: subjName,
+            grade: gCfg.code,
+            gradeId: gCfg.id,
+            subjectId: sCode,
+            rInner: 0, rOuter: 88,
+            startAngle: 0, endAngle: Math.PI * 2,
+            color: sMeta.color,
+            kpiCount: totalSubjKpis
+          });
+
+          // Ring 1: Standards in this Subject & Grade
+          Object.entries(stdDict).forEach(([stdCode, kpiList]) => {
+            if (kpiList.length === 0) return;
+            const stdSpan = (kpiList.length / totalSubjKpis) * Math.PI * 2;
+            const stdStart = angleCursor;
+            const stdEnd = angleCursor + stdSpan;
+            angleCursor = stdEnd;
+
+            const stdId = `${gCfg.id}-std-${stdCode.replace(/\s+/g, '_')}`;
+
+            addSlice({
+              id: stdId,
+              kind: 'grade-standard',
+              name: `มาตรฐาน ${stdCode}`,
+              shortLabel: stdCode,
+              standardCode: stdCode,
+              subject: subjName,
+              grade: gCfg.code,
+              gradeId: gCfg.id,
+              subjectId: sCode,
+              rInner: r1_in, rOuter: r1_out,
+              startAngle: stdStart, endAngle: stdEnd,
+              color: sMeta.color,
+              kpiCount: kpiList.length
+            });
+
+            // Ring 2: KPIs in this Standard
+            const kpiStep = stdSpan / kpiList.length;
+            kpiList.forEach((k, kIdx) => {
+              const kStart = stdStart + kIdx * kpiStep;
+              const kEnd = kStart + kpiStep;
+              const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
+              const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
+
+              addSlice({
+                id: kId,
+                kind: 'kpi',
+                name: `${k.code} (${k.type || 'ตัวชี้วัด'})`,
+                shortLabel: k.code,
+                code: k.code,
+                type: k.type,
+                kpi: k,
+                subject: subjName,
+                grade: gCfg.code,
+                gradeId: gCfg.id,
+                rInner: r2_in, rOuter: r2_out,
+                startAngle: kStart, endAngle: kEnd,
+                color: kColor,
+                kpiCount: 1
+              });
+            });
+          });
+
+          return { slices, sliceById, isRadar: false };
+        }
+      }
+
+      // =====================================================================
+      // MODE 3: SUBJECT-FIRST SUNBURST (8 Subjects in Inner Ring)
+      // =====================================================================
       const tree = {};
       DATA.kpis.forEach(k => {
         const subj = k.subject;
@@ -1744,14 +2574,6 @@
         if (!tree[subj][strand][std]) tree[subj][strand][std] = [];
         tree[subj][strand][std].push(k);
       });
-
-      const slices = [];
-      const sliceById = new Map();
-
-      function addSlice(s) {
-        slices.push(s);
-        sliceById.set(s.id, s);
-      }
 
       if (!drillNodeId || drillNodeId === 'root-curriculum') {
         const totalKpis = DATA.kpis.length;
@@ -1782,8 +2604,9 @@
           const subjSpan = (Math.PI * 2 * subjKpisCount) / totalKpis;
           const subjStart = angleCursor;
           const subjEnd = angleCursor + subjSpan;
-          const subjId = `subj-${sMeta.code || subjName}`;
+          angleCursor = subjEnd;
 
+          const subjId = `subj-${sMeta.code || subjName}`;
           addSlice({
             id: subjId,
             kind: 'subject',
@@ -1825,10 +2648,11 @@
 
             let stdCursor = strandStart;
             const standards = Object.entries(stdDict);
-            standards.forEach(([stdCode, kList]) => {
-              const stdSpan = (kList.length / strandKpisCount) * strandSpan;
+            standards.forEach(([stdCode, kpiList]) => {
+              const stdSpan = (kpiList.length / strandKpisCount) * strandSpan;
               const stdStart = stdCursor;
               const stdEnd = stdCursor + stdSpan;
+
               const stdId = `std-${stdCode.replace(/\s+/g, '_')}`;
 
               addSlice({
@@ -1836,22 +2660,20 @@
                 kind: 'standard',
                 name: `มาตรฐาน ${stdCode}`,
                 shortLabel: stdCode,
-                code: stdCode,
                 subject: subjName,
-                subjectId: subjId,
                 strand: strandName,
+                subjectId: subjId,
                 strandId: strandId,
                 standardId: stdId,
                 rInner: r3_in, rOuter: r3_out,
                 startAngle: stdStart, endAngle: stdEnd,
                 color: sMeta.color,
-                kpiCount: kList.length,
-                desc: DATA.standards[stdCode] || ''
+                kpiCount: kpiList.length
               });
 
-              const kpiStep = stdSpan / kList.length;
-              kList.forEach((k, idx) => {
-                const kStart = stdStart + kpiStep * idx;
+              const kpiStep = stdSpan / kpiList.length;
+              kpiList.forEach((k, kIdx) => {
+                const kStart = stdStart + kIdx * kpiStep;
                 const kEnd = kStart + kpiStep;
                 const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
                 const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
@@ -1859,25 +2681,20 @@
                 addSlice({
                   id: kId,
                   kind: 'kpi',
-                  name: k.code,
-                  shortLabel: k.code.split(' ').pop() || k.code,
+                  name: `${k.code} (${k.type || 'ตัวชี้วัด'})`,
+                  shortLabel: k.code,
                   code: k.code,
-                  subject: subjName,
-                  subjectId: subjId,
-                  strand: strandName,
-                  strandId: strandId,
-                  standard: stdCode,
-                  standardId: stdId,
                   type: k.type,
-                  grade: k.grade,
-                  gradeBand: k.grade_band,
-                  fullText: k.text,
-                  coreContent: k.core_content || '',
-                  courses: k.courses || [],
-                  searchIndex: k.searchIndex,
+                  kpi: k,
+                  subject: subjName,
+                  strand: strandName,
+                  subjectId: subjId,
+                  strandId: strandId,
+                  standardId: stdId,
                   rInner: r4_in, rOuter: r4_out,
                   startAngle: kStart, endAngle: kEnd,
-                  color: kColor
+                  color: kColor,
+                  kpiCount: 1
                 });
               });
 
@@ -1886,328 +2703,249 @@
 
             strandCursor = strandEnd;
           });
-
-          angleCursor = subjEnd;
         });
 
-      } else if (drillNodeId.startsWith('subj-')) {
-        const subjCodeOrName = drillNodeId.replace('subj-', '');
-        let targetSubj = Object.keys(DATA.subject_meta).find(s => (DATA.subject_meta[s].code === subjCodeOrName) || (s === subjCodeOrName));
-        if (!targetSubj) targetSubj = subjectOrder[0];
-
-        const sMeta = DATA.subject_meta[targetSubj] || { color: '#10b981', code: targetSubj };
-        const subjDict = tree[targetSubj] || {};
-        const subjKpisCount = Object.values(subjDict).reduce((acc, stdMap) => {
-          return acc + Object.values(stdMap).reduce((s, list) => s + list.length, 0);
-        }, 0);
-
-        const r1_in = 96, r1_out = 220;
-        const r2_in = 228, r2_out = 370;
-        const r3_in = 378, r3_out = 530;
-
-        const center = {
-          id: drillNodeId,
-          kind: 'subject',
-          name: targetSubj,
-          shortLabel: targetSubj,
-          rInner: 0, rOuter: 90,
-          startAngle: 0, endAngle: Math.PI * 2,
-          color: sMeta.color,
-          kpiCount: subjKpisCount,
-          isDrillCenter: true
-        };
-        addSlice(center);
-
-        let strandCursor = -Math.PI / 2;
-        const strands = Object.entries(subjDict);
-        strands.forEach(([strandName, stdDict], stIdx) => {
-          const strandKpisCount = Object.values(stdDict).reduce((sum, list) => sum + list.length, 0);
-          const strandSpan = (Math.PI * 2 * strandKpisCount) / Math.max(subjKpisCount, 1);
-          const strandStart = strandCursor;
-          const strandEnd = strandCursor + strandSpan;
-
-          const stMatch = strandName.match(/สาระที่\s*([0-9๑-๙]+)/);
-          const stNum = stMatch ? stMatch[1] : String(stIdx + 1);
-          const strandId = `strand-${sMeta.code || targetSubj}-${stNum}`;
-
-          addSlice({
-            id: strandId,
-            kind: 'strand',
-            name: strandName,
-            shortLabel: strandName,
-            subject: targetSubj,
-            subjectId: drillNodeId,
-            rInner: r1_in, rOuter: r1_out,
-            startAngle: strandStart, endAngle: strandEnd,
-            color: sMeta.color,
-            kpiCount: strandKpisCount
-          });
-
-          let stdCursor = strandStart;
-          const standards = Object.entries(stdDict);
-          standards.forEach(([stdCode, kList]) => {
-            const stdSpan = (kList.length / Math.max(strandKpisCount, 1)) * strandSpan;
-            const stdStart = stdCursor;
-            const stdEnd = stdCursor + stdSpan;
-            const stdId = `std-${stdCode.replace(/\s+/g, '_')}`;
-
-            addSlice({
-              id: stdId,
-              kind: 'standard',
-              name: `มาตรฐาน ${stdCode}`,
-              shortLabel: stdCode,
-              code: stdCode,
-              subject: targetSubj,
-              subjectId: drillNodeId,
-              strand: strandName,
-              strandId: strandId,
-              rInner: r2_in, rOuter: r2_out,
-              startAngle: stdStart, endAngle: stdEnd,
-              color: sMeta.color,
-              kpiCount: kList.length,
-              desc: DATA.standards[stdCode] || ''
-            });
-
-            const kpiStep = stdSpan / Math.max(kList.length, 1);
-            kList.forEach((k, idx) => {
-              const kStart = stdStart + kpiStep * idx;
-              const kEnd = kStart + kpiStep;
-              const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
-              const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
-
-              addSlice({
-                id: kId,
-                kind: 'kpi',
-                name: k.code,
-                shortLabel: k.code.split(' ').pop() || k.code,
-                code: k.code,
-                subject: targetSubj,
-                subjectId: drillNodeId,
-                strand: strandName,
-                strandId: strandId,
-                standard: stdCode,
-                standardId: stdId,
-                type: k.type,
-                grade: k.grade,
-                gradeBand: k.grade_band,
-                fullText: k.text,
-                coreContent: k.core_content || '',
-                courses: k.courses || [],
-                searchIndex: k.searchIndex,
-                rInner: r3_in, rOuter: r3_out,
-                startAngle: kStart, endAngle: kEnd,
-                color: kColor
-              });
-            });
-
-            stdCursor = stdEnd;
-          });
-
-          strandCursor = strandEnd;
-        });
-
-      } else if (drillNodeId.startsWith('strand-')) {
-        const targetStrandKpis = DATA.kpis.filter(k => {
-          const strandMatch = (k.strand || '').match(/สาระที่\s*([0-9๑-๙]+)/);
-          const strandNum = strandMatch ? strandMatch[1] : '';
-          const sMeta = DATA.subject_meta[k.subject] || {};
-          return `strand-${sMeta.code || k.subject}-${strandNum}` === drillNodeId;
-        });
-
-        const sampleKpi = targetStrandKpis[0] || {};
-        const strandName = sampleKpi.strand || 'สาระการเรียนรู้';
-        const subjName = sampleKpi.subject || 'กลุ่มสาระ';
-        const sMeta = DATA.subject_meta[subjName] || { color: '#10b981' };
-
-        const r1_in = 110, r1_out = 290;
-        const r2_in = 300, r2_out = 530;
-
-        const center = {
-          id: drillNodeId,
-          kind: 'strand',
-          name: strandName,
-          shortLabel: strandName,
-          subject: subjName,
-          subjectId: `subj-${sMeta.code || subjName}`,
-          rInner: 0, rOuter: 100,
-          startAngle: 0, endAngle: Math.PI * 2,
-          color: sMeta.color,
-          kpiCount: targetStrandKpis.length,
-          isDrillCenter: true
-        };
-        addSlice(center);
-
-        const stdGroups = {};
-        targetStrandKpis.forEach(k => {
-          if (!stdGroups[k.standard]) stdGroups[k.standard] = [];
-          stdGroups[k.standard].push(k);
-        });
-
-        let stdCursor = -Math.PI / 2;
-        const stdEntries = Object.entries(stdGroups);
-        stdEntries.forEach(([stdCode, stdKpis]) => {
-          const stdSpan = (Math.PI * 2 * stdKpis.length) / Math.max(targetStrandKpis.length, 1);
-          const stdStart = stdCursor;
-          const stdEnd = stdCursor + stdSpan;
-          const stdId = `std-${stdCode.replace(/\s+/g, '_')}`;
-
-          addSlice({
-            id: stdId,
-            kind: 'standard',
-            name: `มาตรฐาน ${stdCode}`,
-            shortLabel: stdCode,
-            code: stdCode,
-            subject: subjName,
-            subjectId: center.subjectId,
-            strand: strandName,
-            strandId: drillNodeId,
-            rInner: r1_in, rOuter: r1_out,
-            startAngle: stdStart, endAngle: stdEnd,
-            color: sMeta.color,
-            kpiCount: stdKpis.length,
-            desc: DATA.standards[stdCode] || ''
-          });
-
-          const kpiStep = stdSpan / Math.max(stdKpis.length, 1);
-          stdKpis.forEach((k, idx) => {
-            const kStart = stdStart + kpiStep * idx;
-            const kEnd = kStart + kpiStep;
-            const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
-            const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
-
-            addSlice({
-              id: kId,
-              kind: 'kpi',
-              name: k.code,
-              shortLabel: k.code.split(' ').pop() || k.code,
-              code: k.code,
-              subject: subjName,
-              subjectId: center.subjectId,
-              strand: strandName,
-              strandId: drillNodeId,
-              standard: stdCode,
-              standardId: stdId,
-              type: k.type,
-              grade: k.grade,
-              gradeBand: k.grade_band,
-              fullText: k.text,
-              coreContent: k.core_content || '',
-              courses: k.courses || [],
-              searchIndex: k.searchIndex,
-              rInner: r2_in, rOuter: r2_out,
-              startAngle: kStart, endAngle: kEnd,
-              color: kColor
-            });
-          });
-
-          stdCursor = stdEnd;
-        });
-
-      } else if (drillNodeId.startsWith('std-')) {
-        const rawStdCode = drillNodeId.replace('std-', '').replace(/_/g, ' ');
-        const stdKpis = DATA.kpis.filter(k => k.standard === rawStdCode);
-        const sampleKpi = stdKpis[0] || {};
-        const subjName = sampleKpi.subject || 'กลุ่มสาระ';
-        const strandName = sampleKpi.strand || 'สาระ';
-        const stdDesc = DATA.standards[rawStdCode] || '';
-        const sMeta = DATA.subject_meta[subjName] || { color: '#3b82f6' };
-
-        const r1_in = 130, r1_out = 530;
-
-        const center = {
-          id: drillNodeId,
-          kind: 'standard',
-          name: `มาตรฐาน ${rawStdCode}`,
-          shortLabel: rawStdCode,
-          code: rawStdCode,
-          subject: subjName,
-          subjectId: `subj-${sMeta.code || subjName}`,
-          strand: strandName,
-          desc: stdDesc,
-          rInner: 0, rOuter: 120,
-          startAngle: 0, endAngle: Math.PI * 2,
-          color: sMeta.color,
-          kpiCount: stdKpis.length,
-          isDrillCenter: true
-        };
-        addSlice(center);
-
-        const kpiStep = (Math.PI * 2) / Math.max(stdKpis.length, 1);
-        stdKpis.forEach((k, idx) => {
-          const kStart = -Math.PI / 2 + kpiStep * idx;
-          const kEnd = kStart + kpiStep;
-          const kColor = k.type === 'ปลายทาง' ? '#f59e0b' : '#38bdf8';
-          const kId = `kpi-${k.id || k.code.replace(/\s+/g, '_')}`;
-
-          addSlice({
-            id: kId,
-            kind: 'kpi',
-            name: k.code,
-            shortLabel: k.code,
-            code: k.code,
-            subject: subjName,
-            subjectId: center.subjectId,
-            strand: strandName,
-            standard: rawStdCode,
-            standardId: drillNodeId,
-            type: k.type,
-            grade: k.grade,
-            gradeBand: k.grade_band,
-            fullText: k.text,
-            coreContent: k.core_content || '',
-            courses: k.courses || [],
-            searchIndex: k.searchIndex,
-            rInner: r1_in, rOuter: r1_out,
-            startAngle: kStart, endAngle: kEnd,
-            color: kColor
-          });
-        });
+        return { slices, sliceById, isRadar: false };
       }
 
-      return { centerNode: slices[0], slices, sliceById };
+      // Default fallback
+      return { slices, sliceById, isRadar: false };
     }
 
+    // ========================================================
+    // Sunburst & Radar SVG Renderer
+    // ========================================================
     function renderSunburstGraph() {
-      if (!sunburstSlicesGroup || !sunburstLabelsGroup) return;
-      sunburstSlicesGroup.replaceChildren();
-      sunburstLabelsGroup.replaceChildren();
+      if (!sunburstData) return;
 
-      if (!sunburstData || !sunburstData.slices) return;
+      sunburstRingsGroup.innerHTML = '';
+      sunburstSlicesGroup.innerHTML = '';
+      sunburstLabelsGroup.innerHTML = '';
 
       const fragSlices = document.createDocumentFragment();
       const fragLabels = document.createDocumentFragment();
 
-      sunburstData.slices.forEach(slice => {
-        if (slice.rInner <= 0) {
-          const circle = createSvgElement('circle', {
-            cx: '0', cy: '0', r: String(slice.rOuter),
-            fill: slice.color,
-            class: 'sunburst-slice',
-            'data-slice-id': slice.id
+      // If RADAR WHEEL MODE
+      if (sunburstData.isRadar) {
+        // 1. Concentric Ring Guidelines
+        const gradeRadii = [78, 116, 120, 158, 162, 200, 204, 242, 246, 284, 288, 326, 330, 370, 374, 414, 418, 458, 462, 510];
+        gradeRadii.forEach(r => {
+          const ringCircle = createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(r),
+            fill: 'none',
+            stroke: '#1e293b',
+            'stroke-width': '0.7',
+            'stroke-dasharray': '2 3',
+            'pointer-events': 'none'
           });
-          circle.style.cursor = 'pointer';
+          sunburstRingsGroup.appendChild(ringCircle);
+        });
 
-          circle.addEventListener('mouseenter', (e) => showTooltip(slice, e));
-          circle.addEventListener('mouseleave', hideTooltip);
-          circle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (slice.isDrillCenter && slice.id !== 'root-curriculum') {
-              drillUp();
-            } else {
-              selectNode(slice.id);
+        // 2. Radial Spoke Dividers (8 Subjects)
+        for (let i = 0; i < 8; i++) {
+          const angle = -Math.PI / 2 + i * (Math.PI / 4);
+          const p1 = polarToCartesian(0, 0, 72, angle);
+          const p2 = polarToCartesian(0, 0, 515, angle);
+          const spoke = createSvgElement('line', {
+            x1: String(p1.x.toFixed(1)), y1: String(p1.y.toFixed(1)),
+            x2: String(p2.x.toFixed(1)), y2: String(p2.y.toFixed(1)),
+            stroke: '#334155',
+            'stroke-width': '1.2',
+            'stroke-dasharray': '3 3',
+            'pointer-events': 'none'
+          });
+          sunburstRingsGroup.appendChild(spoke);
+        }
+
+        // 3. Render 80 Cells
+        sunburstData.slices.forEach(slice => {
+          if (slice.kind === 'root') {
+            const centerCircle = createSvgElement('circle', {
+              cx: '0', cy: '0', r: String(slice.rOuter),
+              fill: slice.color,
+              stroke: '#38bdf8',
+              'stroke-width': '1.5',
+              class: 'cursor-pointer transition-all'
+            });
+            centerCircle.addEventListener('click', (e) => {
+              e.stopPropagation();
+              selectNode('root-curriculum');
+            });
+            fragSlices.appendChild(centerCircle);
+
+            const centerText1 = createSvgElement('text', {
+              x: '0', y: '-8',
+              class: 'sunburst-label',
+              style: 'font-size: 13px; font-weight: 700; fill: #38bdf8;'
+            });
+            centerText1.textContent = 'แกนกลาง ๕๑';
+            fragLabels.appendChild(centerText1);
+
+            const centerText2 = createSvgElement('text', {
+              x: '0', y: '12',
+              class: 'sunburst-label',
+              style: 'font-size: 10px; font-weight: 600; fill: #94a3b8;'
+            });
+            centerText2.textContent = '๒,๐๕๖ ตัวชี้วัด';
+            fragLabels.appendChild(centerText2);
+            return;
+          }
+
+          // Radar Cell Arc
+          const pathD = createSunburstArc(0, 0, slice.rInner, slice.rOuter, slice.startAngle, slice.endAngle);
+          const path = createSvgElement('path', {
+            d: pathD,
+            fill: slice.color,
+            class: 'radar-cell',
+            'data-slice-id': slice.id,
+            style: 'fill-opacity: 0.85;'
+          });
+
+          path.addEventListener('mouseenter', (e) => {
+            showTooltip(slice, e);
+            if (!graphState.isDragging && state.focusMode) {
+              highlightSunburstHover(slice.id);
             }
           });
-          fragSlices.appendChild(circle);
-
-          const txt = createSvgElement('text', {
-            x: '0', y: '0',
-            class: 'sunburst-label',
-            'font-size': '12px',
-            fill: '#ffffff'
+          path.addEventListener('mouseleave', () => {
+            hideTooltip();
+            resetSunburstHover();
           });
-          txt.textContent = slice.shortLabel || slice.name;
-          fragLabels.appendChild(txt);
-          slice.element = circle;
+          path.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectNode(slice.id);
+          });
+
+          fragSlices.appendChild(path);
+          slice.element = path;
+
+          // KPI Count inside cell
+          if (slice.kpiCount > 0) {
+            const midAngle = (slice.startAngle + slice.endAngle) / 2;
+            const midR = (slice.rInner + slice.rOuter) / 2;
+            const pos = polarToCartesian(0, 0, midR, midAngle);
+            const txt = createSvgElement('text', {
+              x: String(pos.x.toFixed(1)),
+              y: String(pos.y.toFixed(1)),
+              class: 'sunburst-label',
+              style: 'font-size: 10px; font-weight: 700; fill: #ffffff; pointer-events: none;'
+            });
+            txt.textContent = String(slice.kpiCount);
+            fragLabels.appendChild(txt);
+          }
+        });
+
+        // 4. Grade Axis Badges (along top vertical axis)
+        if (sunburstData.radarBadges) {
+          sunburstData.radarBadges.forEach(badge => {
+            const gBadge = createSvgElement('g', {
+              class: 'radar-axis-badge',
+              transform: `translate(0, ${-badge.rMid.toFixed(1)})`
+            });
+
+            const rect = createSvgElement('rect', {
+              x: '-22', y: '-10',
+              width: '44', height: '20',
+              class: 'radar-axis-bg'
+            });
+
+            const label = createSvgElement('text', {
+              x: '0', y: '0',
+              class: 'radar-axis-text'
+            });
+            label.textContent = badge.gradeCode;
+
+            gBadge.appendChild(rect);
+            gBadge.appendChild(label);
+
+            gBadge.addEventListener('click', (e) => {
+              e.stopPropagation();
+              selectNode(badge.id);
+            });
+            gBadge.addEventListener('mouseenter', (e) => {
+              showTooltip({ name: badge.title, shortLabel: `${badge.kpiCount} ตัวชี้วัด`, kpiCount: badge.kpiCount }, e);
+              highlightSunburstHover(badge.id);
+            });
+            gBadge.addEventListener('mouseleave', () => {
+              hideTooltip();
+              resetSunburstHover();
+            });
+
+            fragLabels.appendChild(gBadge);
+          });
+        }
+
+        // 5. Subject Headers around outer rim
+        if (sunburstData.radarSubjectHeaders) {
+          sunburstData.radarSubjectHeaders.forEach(sh => {
+            const pos = polarToCartesian(0, 0, sh.r, sh.angle);
+            let rot = (sh.angle * 180) / Math.PI;
+            if (rot > 90) rot -= 180;
+            else if (rot < -90) rot += 180;
+
+            const txt = createSvgElement('text', {
+              x: String(pos.x.toFixed(1)),
+              y: String(pos.y.toFixed(1)),
+              class: 'radar-subject-label',
+              transform: `rotate(${rot.toFixed(1)} ${pos.x.toFixed(1)} ${pos.y.toFixed(1)})`
+            });
+            txt.textContent = sh.shortLabel;
+            txt.addEventListener('click', (e) => {
+              e.stopPropagation();
+              selectNode(`subj-${sh.subjectId}`);
+            });
+            txt.addEventListener('mouseenter', (e) => {
+              showTooltip({ name: sh.subject, shortLabel: 'คลิกเพื่อดูวิชานี้ทุกระดับชั้น' }, e);
+              highlightSunburstHover(`subj-${sh.subjectId}`);
+            });
+            txt.addEventListener('mouseleave', () => {
+              hideTooltip();
+              resetSunburstHover();
+            });
+            fragLabels.appendChild(txt);
+          });
+        }
+
+        sunburstSlicesGroup.appendChild(fragSlices);
+        sunburstLabelsGroup.appendChild(fragLabels);
+        return;
+      }
+
+      // =====================================================================
+      // SUNBURST PARTITION RENDERING (Grade-First or Subject-First)
+      // =====================================================================
+      sunburstData.slices.forEach(slice => {
+        if (slice.kind === 'root') {
+          const centerCircle = createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(slice.rOuter),
+            fill: slice.color,
+            stroke: '#1e293b',
+            'stroke-width': '2',
+            class: 'cursor-pointer transition-all'
+          });
+
+          centerCircle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            drillTo('root-curriculum');
+          });
+
+          fragSlices.appendChild(centerCircle);
+
+          const centerText1 = createSvgElement('text', {
+            x: '0', y: '-8',
+            class: 'sunburst-label',
+            style: 'font-size: 13px; font-weight: 700; fill: #38bdf8;'
+          });
+          centerText1.textContent = slice.shortLabel || 'หลักสูตรแกนกลาง';
+          fragLabels.appendChild(centerText1);
+
+          const centerText2 = createSvgElement('text', {
+            x: '0', y: '12',
+            class: 'sunburst-label',
+            style: 'font-size: 10px; font-weight: 600; fill: #94a3b8;'
+          });
+          centerText2.textContent = `${slice.kpiCount.toLocaleString()} ตัวชี้วัด`;
+          fragLabels.appendChild(centerText2);
           return;
         }
 
@@ -2242,7 +2980,7 @@
 
         path.addEventListener('dblclick', (e) => {
           e.stopPropagation();
-          if (slice.kind === 'subject' || slice.kind === 'strand' || slice.kind === 'standard') {
+          if (['grade', 'grade-subject', 'subject', 'strand', 'standard'].includes(slice.kind)) {
             drillTo(slice.id);
           }
         });
@@ -2258,11 +2996,15 @@
         let showLabel = false;
         let labelText = slice.shortLabel || slice.name;
 
-        if (slice.kind === 'subject' && span >= 0.15) {
+        if (slice.kind === 'grade' && span >= 0.12) {
+          showLabel = true;
+        } else if (slice.kind === 'grade-subject' && span >= 0.08 && arcLength >= 24) {
+          showLabel = true;
+        } else if (slice.kind === 'subject' && span >= 0.15) {
           showLabel = true;
         } else if (slice.kind === 'strand' && span >= 0.08 && arcLength >= 26) {
           showLabel = true;
-        } else if (slice.kind === 'standard' && span >= 0.06 && arcLength >= 22) {
+        } else if ((slice.kind === 'standard' || slice.kind === 'grade-standard') && span >= 0.06 && arcLength >= 22) {
           showLabel = true;
         } else if (slice.kind === 'kpi' && span >= 0.08 && arcLength >= 32) {
           showLabel = true;
@@ -2434,7 +3176,18 @@
       if (node.strandId) set.add(node.strandId);
       if (node.standardId) set.add(node.standardId);
 
-      if (node.kind === 'subject') {
+      if (node.gradeId) set.add(node.gradeId);
+
+      if (node.kind === 'grade') {
+        if (graph) graph.nodes.forEach(n => { if (n.grade === node.code || (n.id && n.id.startsWith(node.id))) set.add(n.id); });
+        if (sunburstData) sunburstData.slices.forEach(s => { if (s.grade === node.code || s.gradeId === node.id || (s.id && s.id.startsWith(node.id))) set.add(s.id); });
+      } else if (node.kind === 'grade-subject' || node.kind === 'radar-cell') {
+        if (graph) graph.nodes.forEach(n => { if (n.grade === node.grade && n.subject === node.subject) set.add(n.id); });
+        if (sunburstData) sunburstData.slices.forEach(s => { if (s.grade === node.grade && s.subject === node.subject) set.add(s.id); });
+      } else if (node.kind === 'grade-standard') {
+        if (graph) graph.nodes.forEach(n => { if (n.grade === node.grade && n.standard === node.standardCode) set.add(n.id); });
+        if (sunburstData) sunburstData.slices.forEach(s => { if (s.grade === node.grade && (s.standardCode === node.standardCode || s.standard === node.standardCode)) set.add(s.id); });
+      } else if (node.kind === 'subject') {
         if (graph) graph.nodes.forEach(n => { if (n.subject === node.name) set.add(n.id); });
         if (sunburstData) sunburstData.slices.forEach(s => { if (s.subject === node.name) set.add(s.id); });
       } else if (node.kind === 'strand') {
@@ -3261,6 +4014,40 @@
       if (el.btnViewSunburst) el.btnViewSunburst.addEventListener('click', switchToSunburstView);
       el.btnViewCatalog.addEventListener('click', switchToCatalogView);
 
+      // Sub-mode switchers for Circular View (Sunburst & Radar)
+      if (el.btnSunburstGrade) {
+        el.btnSunburstGrade.addEventListener('click', () => {
+          state.sunburstMode = 'grade';
+          el.btnSunburstGrade.className = 'px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+          if (el.btnSunburstRadar) el.btnSunburstRadar.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+          if (el.btnSunburstSubj) el.btnSunburstSubj.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+          if (el.sunburstModeDesc) el.sunburstModeDesc.textContent = 'วงในแบ่ง ๑๐ ระดับชั้น (ป.๑ - ม.๖) ➔ ๘ วิชา ➔ ตัวชี้วัด';
+          loadView('root-curriculum', 'root-curriculum');
+        });
+      }
+
+      if (el.btnSunburstRadar) {
+        el.btnSunburstRadar.addEventListener('click', () => {
+          state.sunburstMode = 'radar';
+          el.btnSunburstRadar.className = 'px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+          if (el.btnSunburstGrade) el.btnSunburstGrade.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+          if (el.btnSunburstSubj) el.btnSunburstSubj.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+          if (el.sunburstModeDesc) el.sunburstModeDesc.textContent = '๑๐ วงแหวนระดับชั้น (ป.๑ ในสุด ถึง ม.๖ นอกสุด) x ๘ กลุ่มสาระ';
+          loadView('root-curriculum', 'root-curriculum');
+        });
+      }
+
+      if (el.btnSunburstSubj) {
+        el.btnSunburstSubj.addEventListener('click', () => {
+          state.sunburstMode = 'subject';
+          el.btnSunburstSubj.className = 'px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-600 text-white transition flex items-center space-x-1 shadow-sm';
+          if (el.btnSunburstGrade) el.btnSunburstGrade.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+          if (el.btnSunburstRadar) el.btnSunburstRadar.className = 'px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
+          if (el.sunburstModeDesc) el.sunburstModeDesc.textContent = 'วงในแบ่ง ๘ กลุ่มสาระการเรียนรู้ ➔ สาระ ➔ มาตรฐาน ➔ ตัวชี้วัด';
+          loadView('root-curriculum', 'root-curriculum');
+        });
+      }
+
       // Help Modal
       const helpModal = document.getElementById('helpModal');
       document.getElementById('btn-open-help').addEventListener('click', () => helpModal.classList.remove('hidden'));
@@ -3296,6 +4083,10 @@
       el.mainCatalogView.classList.add('hidden');
       el.graphSvg.classList.remove('hidden');
       if (el.sunburstSvg) el.sunburstSvg.classList.add('hidden');
+      if (el.sunburstModeBar) {
+        el.sunburstModeBar.classList.add('hidden');
+        el.sunburstModeBar.classList.remove('flex');
+      }
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
       if (el.btnViewSunburst) el.btnViewSunburst.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
@@ -3309,6 +4100,10 @@
       el.mainCatalogView.classList.add('hidden');
       el.graphSvg.classList.add('hidden');
       if (el.sunburstSvg) el.sunburstSvg.classList.remove('hidden');
+      if (el.sunburstModeBar) {
+        el.sunburstModeBar.classList.remove('hidden');
+        el.sunburstModeBar.classList.add('flex');
+      }
       if (el.btnViewSunburst) el.btnViewSunburst.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
@@ -3320,6 +4115,10 @@
       state.viewMode = 'catalog';
       el.mainMapView.classList.add('hidden');
       el.mainCatalogView.classList.remove('hidden');
+      if (el.sunburstModeBar) {
+        el.sunburstModeBar.classList.add('hidden');
+        el.sunburstModeBar.classList.remove('flex');
+      }
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       if (el.btnViewSunburst) el.btnViewSunburst.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
