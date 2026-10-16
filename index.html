@@ -97,10 +97,13 @@
     }
     .graph-stage:active { cursor: grabbing; }
 
-    #graphSvg {
+    #graphSvg, #sunburstSvg {
       width: 100%;
       height: 100%;
       display: block;
+    }
+    #graphSvg.hidden, #sunburstSvg.hidden {
+      display: none !important;
     }
 
     /* Concentric Guideline Rings */
@@ -896,9 +899,10 @@
 
     // Sunburst SVG Layer Groups
     const sunburstViewportGroup = createSvgElement('g', { class: 'sunburst-viewport' });
+    const sunburstRingsGroup = createSvgElement('g', { class: 'sunburst-rings' });
     const sunburstSlicesGroup = createSvgElement('g', { class: 'sunburst-slices' });
     const sunburstLabelsGroup = createSvgElement('g', { class: 'sunburst-labels' });
-    sunburstViewportGroup.append(sunburstSlicesGroup, sunburstLabelsGroup);
+    sunburstViewportGroup.append(sunburstRingsGroup, sunburstSlicesGroup, sunburstLabelsGroup);
     if (el.sunburstSvg) el.sunburstSvg.appendChild(sunburstViewportGroup);
 
     // Global Graph Data Store
@@ -1606,239 +1610,7 @@
         g.appendChild(hitbox);
 
         // Visible Shape based on kind
-        if (node.kind === 'grade') {
-        const isCenter = node.id === state.drillNodeId;
-        const gradeKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.code);
-        const formativeCount = gradeKpis.filter(k => k.type === 'ระหว่างทาง').length;
-        const summativeCount = gradeKpis.filter(k => k.type === 'ปลายทาง').length;
-
-        // Group by subject in this grade
-        const subjBreakdown = {};
-        gradeKpis.forEach(k => {
-          subjBreakdown[k.subject] = (subjBreakdown[k.subject] || 0) + 1;
-        });
-
-        // School courses for this grade
-        const gradeCourses = [];
-        DATA.courses.forEach(c => {
-          if (c.grade === node.code) gradeCourses.push(c);
-        });
-
-        html = `
-          <div class="space-y-4 animate-fadeIn">
-            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
-              <div class="flex items-center space-x-2 mb-1.5">
-                <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
-                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">ระดับชั้นการศึกษา</span>
-              </div>
-              <h2 class="text-base font-bold text-white">${node.name}</h2>
-              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
-                <span class="text-cyan-400 font-semibold">${node.stage}</span>
-                <span class="text-slate-500">•</span>
-                <span class="text-emerald-400 font-semibold">${gradeKpis.length.toLocaleString()} ตัวชี้วัด</span>
-              </div>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 gap-2 text-center font-mono">
-              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
-                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
-                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
-              </div>
-            </div>
-
-            <!-- Subject Distribution in this Grade -->
-            <div>
-              <span class="text-[11px] font-semibold text-slate-400 block mb-2">๘ กลุ่มสาระในระดับชั้นนี้:</span>
-              <div class="space-y-1.5">
-                ${Object.entries(subjBreakdown).sort((a,b) => b[1] - a[1]).map(([sName, cnt]) => {
-                  const sMeta = DATA.subject_meta[sName] || { color: '#10b981' };
-                  return `
-                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 text-xs transition cursor-pointer" onclick="selectNode('${node.id}-subj-${sMeta.code || sName}')">
-                      <div class="flex items-center space-x-2">
-                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${sMeta.color}"></span>
-                        <span class="text-slate-300 font-medium">${sName}</span>
-                      </div>
-                      <span class="font-mono text-emerald-400 font-bold">${cnt} ตชว.</span>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
-            </div>
-
-            <!-- School Courses for this Grade -->
-            ${gradeCourses.length > 0 ? `
-              <div>
-                <span class="text-[11px] font-semibold text-slate-400 block mb-2">รายวิชาของโรงเรียน (${gradeCourses.length} วิชา):</span>
-                <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
-                  ${gradeCourses.map(c => `
-                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
-                      <div class="flex items-center justify-between">
-                        <span class="font-mono font-bold text-white">${c.code}</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">${c.school}</span>
-                      </div>
-                      <p class="text-slate-300 text-[11px] mt-0.5">${c.name}</p>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-
-            <!-- Action Buttons -->
-            <div class="space-y-2 pt-2">
-              ${!isCenter ? `
-                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
-                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
-                  <span>เจาะลึกเฉพาะชั้น ${node.code}</span>
-                </button>
-              ` : ''}
-              <button onclick="downloadGradeWord('${node.code}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
-                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
-                <span>ดาวน์โหลดเอกสารชั้น ${node.code} (.docx)</span>
-              </button>
-            </div>
-          </div>
-        `;
-      } else if (node.kind === 'grade-subject' || node.kind === 'radar-cell') {
-        const isCenter = node.id === state.drillNodeId;
-        const cellKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.subject === node.subject);
-        const formativeCount = cellKpis.filter(k => k.type === 'ระหว่างทาง').length;
-        const summativeCount = cellKpis.filter(k => k.type === 'ปลายทาง').length;
-        const sMeta = DATA.subject_meta[node.subject] || { color: '#10b981' };
-
-        // Unique standards
-        const uniqueStds = [...new Set(cellKpis.map(k => k.standard))];
-
-        // School courses matching this grade & subject
-        const matchCourses = DATA.courses.filter(c => c.grade === node.grade && c.subject === node.subject);
-
-        html = `
-          <div class="space-y-4 animate-fadeIn">
-            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
-              <div class="flex items-center space-x-2 mb-1.5">
-                <span class="w-3 h-3 rounded-full" style="background-color: ${sMeta.color}"></span>
-                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">กลุ่มสาระการเรียนรู้</span>
-              </div>
-              <h2 class="text-base font-bold text-white">${node.subject}</h2>
-              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
-                <span class="text-cyan-400 font-semibold">ชั้น ${node.grade}</span>
-                <span class="text-slate-500">•</span>
-                <span class="text-emerald-400 font-semibold">${cellKpis.length} ตัวชี้วัด</span>
-              </div>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 gap-2 text-center font-mono">
-              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
-                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
-                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
-              </div>
-            </div>
-
-            <!-- Standards list -->
-            <div>
-              <span class="text-[11px] font-semibold text-slate-400 block mb-2">มาตรฐานในระดับชั้นนี้ (${uniqueStds.length} มาตรฐาน):</span>
-              <div class="space-y-1.5">
-                ${uniqueStds.map(stdCode => {
-                  const countInStd = cellKpis.filter(k => k.standard === stdCode).length;
-                  return `
-                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
-                      <span class="font-mono text-cyan-400 font-bold">มาตรฐาน ${stdCode}</span>
-                      <span class="font-mono text-slate-400">${countInStd} ตัวชี้วัด</span>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
-            </div>
-
-            <!-- School courses -->
-            ${matchCourses.length > 0 ? `
-              <div>
-                <span class="text-[11px] font-semibold text-slate-400 block mb-2">รายวิชาที่สอนในโรงเรียน (${matchCourses.length} วิชา):</span>
-                <div class="space-y-1.5">
-                  ${matchCourses.map(c => `
-                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
-                      <div class="flex items-center justify-between">
-                        <span class="font-mono font-bold text-white">${c.code}</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">${c.school}</span>
-                      </div>
-                      <p class="text-slate-300 text-[11px] mt-0.5">${c.name}</p>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-
-            <!-- Action Buttons -->
-            <div class="space-y-2 pt-2">
-              ${!isCenter ? `
-                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
-                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
-                  <span>เจาะลึกเฉพาะ ${node.subject} (${node.grade})</span>
-                </button>
-              ` : ''}
-              <button onclick="downloadGradeWord('${node.grade}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
-                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
-                <span>ดาวน์โหลดเอกสาร (.docx)</span>
-              </button>
-            </div>
-          </div>
-        `;
-      } else if (node.kind === 'grade-standard') {
-        const stdKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.standard === node.standardCode);
-        const formativeCount = stdKpis.filter(k => k.type === 'ระหว่างทาง').length;
-        const summativeCount = stdKpis.filter(k => k.type === 'ปลายทาง').length;
-
-        html = `
-          <div class="space-y-4 animate-fadeIn">
-            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
-              <span class="text-[10px] font-mono uppercase font-bold text-slate-400">มาตรฐานการเรียนรู้</span>
-              <h2 class="text-base font-bold text-white mt-1">มาตรฐาน ${node.standardCode}</h2>
-              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
-                <span class="text-cyan-400 font-semibold">${node.subject}</span>
-                <span class="text-slate-500">•</span>
-                <span class="text-emerald-400 font-semibold">ชั้น ${node.grade} (${stdKpis.length} ตัวชี้วัด)</span>
-              </div>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 gap-2 text-center font-mono">
-              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
-                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
-                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
-              </div>
-            </div>
-
-            <!-- KPIs in this standard -->
-            <div>
-              <span class="text-[11px] font-semibold text-slate-400 block mb-2">ตัวชี้วัดในมาตรฐานนี้:</span>
-              <div class="space-y-2">
-                ${stdKpis.map(k => `
-                  <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 transition cursor-pointer" onclick="selectNode('kpi-${k.id || k.code.replace(/\s+/g, '_')}')">
-                    <div class="flex items-center justify-between mb-1">
-                      <span class="font-mono text-xs font-bold text-emerald-400">${k.code}</span>
-                      <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${k.type === 'ปลายทาง' ? 'bg-amber-950/80 text-amber-400 border border-amber-800/60' : 'bg-sky-950/80 text-sky-400 border border-sky-800/60'}">${k.type || 'ตัวชี้วัด'}</span>
-                    </div>
-                    <p class="text-slate-300 text-xs">${k.kpi_text}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      } else if (node.kind === 'root') {
+        if (node.kind === 'root') {
           g.appendChild(createSvgElement('circle', {
             cx: '0', cy: '0', r: String(node.size),
             fill: node.color,
@@ -1846,7 +1618,30 @@
             'stroke-width': '3',
             class: 'node-visible-shape'
           }));
-        } else if (node.kind === 'subject') {
+        } else if (node.kind === 'grade' || node.kind === 'subject') {
+          g.appendChild(createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size),
+            fill: node.color,
+            stroke: node.isDrillCenter ? '#10b981' : '#0f172a',
+            'stroke-width': node.isDrillCenter ? '3' : '2.5',
+            class: 'node-visible-shape'
+          }));
+        } else if (node.kind === 'strand' || node.kind === 'grade-subject') {
+          g.appendChild(createSvgElement('circle', {
+            cx: '0', cy: '0', r: String(node.size),
+            fill: node.color,
+            stroke: node.isDrillCenter ? '#10b981' : '#ffffff',
+            'stroke-width': node.isDrillCenter ? '3' : '1.5',
+            class: 'node-visible-shape'
+          }));
+        } else if (node.kind === 'standard' || node.kind === 'grade-standard') {
+          g.appendChild(createSvgElement('polygon', {
+            points: diamondPoints(node.size),
+            fill: node.color,
+            stroke: node.isDrillCenter ? '#10b981' : '#0f172a',
+            'stroke-width': node.isDrillCenter ? '3' : '1.5',
+            class: 'node-visible-shape'
+          }));
           g.appendChild(createSvgElement('circle', {
             cx: '0', cy: '0', r: String(node.size),
             fill: node.color,
@@ -2765,7 +2560,8 @@
               fill: slice.color,
               stroke: '#38bdf8',
               'stroke-width': '1.5',
-              class: 'cursor-pointer transition-all'
+              class: 'sunburst-slice cursor-pointer transition-all',
+              'data-slice-id': slice.id
             });
             centerCircle.addEventListener('click', (e) => {
               e.stopPropagation();
@@ -2921,7 +2717,8 @@
             fill: slice.color,
             stroke: '#1e293b',
             'stroke-width': '2',
-            class: 'cursor-pointer transition-all'
+            class: 'sunburst-slice cursor-pointer transition-all',
+            'data-slice-id': slice.id
           });
 
           centerCircle.addEventListener('click', (e) => {
@@ -3251,7 +3048,8 @@
           const matchesFilter = nodeMatchesFilter(slice);
           const isSelected = slice.id === activeId;
 
-          if (state.focusMode && activeId !== sunburstData.centerNode.id) {
+          const centerId = state.drillNodeId;
+          if (state.focusMode && activeId !== centerId) {
             if (inBranch && matchesFilter) {
               slice.element.style.opacity = '1';
               slice.element.style.stroke = isSelected ? '#10b981' : (inBranch ? '#38bdf8' : '#030712');
@@ -3345,12 +3143,261 @@
 
     // Dynamic Left Info Panel Renderer with Drill-Down Actions
     function updateInfoPanel(nodeId) {
-      const node = (graph && graph.nodeById.get(nodeId)) || (sunburstData && sunburstData.sliceById.get(nodeId));
+      const node = (state.viewMode === 'sunburst' && sunburstData && sunburstData.sliceById.get(nodeId)) ||
+                   (graph && graph.nodeById.get(nodeId)) ||
+                   (sunburstData && sunburstData.sliceById.get(nodeId));
       if (!node) return;
 
       let html = '';
 
-      if (node.kind === 'root') {
+      if (node.kind === 'grade') {
+        const isCenter = node.id === state.drillNodeId;
+        const gradeKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.code);
+        const formativeCount = gradeKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = gradeKpis.filter(k => k.type === 'ปลายทาง').length;
+
+        // Group by subject in this grade
+        const subjBreakdown = {};
+        gradeKpis.forEach(k => {
+          subjBreakdown[k.subject] = (subjBreakdown[k.subject] || 0) + 1;
+        });
+
+        // School courses for this grade
+        const gradeCourses = [];
+        const seenGradeCourses = new Set();
+        gradeKpis.forEach(k => {
+          (k.courses || []).forEach(c => {
+            if (!seenGradeCourses.has(c)) {
+              seenGradeCourses.add(c);
+              gradeCourses.push({ code: c, name: c, school: 'โรงเรียนพัฒนานิคม' });
+            }
+          });
+        });
+
+        html = `
+          <div class="space-y-4 animate-fadeIn">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${node.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">ระดับชั้นการศึกษา</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${node.name}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.stage}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${gradeKpis.length.toLocaleString()} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
+              </div>
+            </div>
+
+            <!-- Subject Distribution in this Grade -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">๘ กลุ่มสาระในระดับชั้นนี้:</span>
+              <div class="space-y-1.5">
+                ${Object.entries(subjBreakdown).sort((a,b) => b[1] - a[1]).map(([sName, cnt]) => {
+                  const sMeta = DATA.subject_meta[sName] || { color: '#10b981' };
+                  return `
+                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 text-xs transition cursor-pointer" onclick="selectNode('${node.id}-subj-${sMeta.code || sName}')">
+                      <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${sMeta.color}"></span>
+                        <span class="text-slate-300 font-medium">${sName}</span>
+                      </div>
+                      <span class="font-mono text-emerald-400 font-bold">${cnt} ตชว.</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- School Courses for this Grade -->
+            ${gradeCourses.length > 0 ? `
+              <div>
+                <span class="text-[11px] font-semibold text-slate-400 block mb-2">รายวิชาของโรงเรียน (${gradeCourses.length} วิชา):</span>
+                <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                  ${gradeCourses.map(c => `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
+                      <div class="flex items-center justify-between">
+                        <span class="font-mono font-bold text-white">${c.code}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">${c.school}</span>
+                      </div>
+                      <p class="text-slate-300 text-[11px] mt-0.5">${c.name}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Action Buttons -->
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะชั้น ${node.code}</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadGradeWord('${node.code}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลดเอกสารชั้น ${node.code} (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'grade-subject' || node.kind === 'radar-cell') {
+        const isCenter = node.id === state.drillNodeId;
+        const cellKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.subject === node.subject);
+        const formativeCount = cellKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = cellKpis.filter(k => k.type === 'ปลายทาง').length;
+        const sMeta = DATA.subject_meta[node.subject] || { color: '#10b981' };
+
+        // Unique standards
+        const uniqueStds = [...new Set(cellKpis.map(k => k.standard))];
+
+        // School courses matching this grade & subject
+        const matchCourses = [];
+        const seenMatchCourses = new Set();
+        cellKpis.forEach(k => {
+          (k.courses || []).forEach(c => {
+            if (!seenMatchCourses.has(c)) {
+              seenMatchCourses.add(c);
+              matchCourses.push({ code: c, name: c, school: 'โรงเรียนพัฒนานิคม' });
+            }
+          });
+        });
+
+        html = `
+          <div class="space-y-4 animate-fadeIn">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <div class="flex items-center space-x-2 mb-1.5">
+                <span class="w-3 h-3 rounded-full" style="background-color: ${sMeta.color}"></span>
+                <span class="text-[10px] font-mono uppercase font-bold text-slate-400">กลุ่มสาระการเรียนรู้</span>
+              </div>
+              <h2 class="text-base font-bold text-white">${node.subject}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">ชั้น ${node.grade}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">${cellKpis.length} ตัวชี้วัด</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
+              </div>
+            </div>
+
+            <!-- Standards list -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">มาตรฐานในระดับชั้นนี้ (${uniqueStds.length} มาตรฐาน):</span>
+              <div class="space-y-1.5">
+                ${uniqueStds.map(stdCode => {
+                  const countInStd = cellKpis.filter(k => k.standard === stdCode).length;
+                  return `
+                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
+                      <span class="font-mono text-cyan-400 font-bold">มาตรฐาน ${stdCode}</span>
+                      <span class="font-mono text-slate-400">${countInStd} ตัวชี้วัด</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- School courses -->
+            ${matchCourses.length > 0 ? `
+              <div>
+                <span class="text-[11px] font-semibold text-slate-400 block mb-2">รายวิชาที่สอนในโรงเรียน (${matchCourses.length} วิชา):</span>
+                <div class="space-y-1.5">
+                  ${matchCourses.map(c => `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80 text-xs">
+                      <div class="flex items-center justify-between">
+                        <span class="font-mono font-bold text-white">${c.code}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">${c.school}</span>
+                      </div>
+                      <p class="text-slate-300 text-[11px] mt-0.5">${c.name}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Action Buttons -->
+            <div class="space-y-2 pt-2">
+              ${!isCenter ? `
+                <button onclick="drillTo('${node.id}')" class="w-full py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  <span>เจาะลึกเฉพาะ ${node.subject} (${node.grade})</span>
+                </button>
+              ` : ''}
+              <button onclick="downloadGradeWord('${node.grade}')" class="w-full py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs transition flex items-center justify-center space-x-2">
+                <i data-lucide="file-down" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>ดาวน์โหลดเอกสาร (.docx)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'grade-standard') {
+        const stdKpis = DATA.kpis.filter(k => normalizeGradeKey(k.grade) === node.grade && k.standard === node.standardCode);
+        const formativeCount = stdKpis.filter(k => k.type === 'ระหว่างทาง').length;
+        const summativeCount = stdKpis.filter(k => k.type === 'ปลายทาง').length;
+
+        html = `
+          <div class="space-y-4 animate-fadeIn">
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+              <span class="text-[10px] font-mono uppercase font-bold text-slate-400">มาตรฐานการเรียนรู้</span>
+              <h2 class="text-base font-bold text-white mt-1">มาตรฐาน ${node.standardCode}</h2>
+              <div class="flex items-center space-x-3 text-xs mt-2 font-mono">
+                <span class="text-cyan-400 font-semibold">${node.subject}</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-emerald-400 font-semibold">ชั้น ${node.grade} (${stdKpis.length} ตัวชี้วัด)</span>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 text-center font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-sky-400 block">ระหว่างทาง</span>
+                <span class="text-base font-bold text-sky-400">${formativeCount}</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-[10px] text-amber-400 block">ปลายทาง</span>
+                <span class="text-base font-bold text-amber-400">${summativeCount}</span>
+              </div>
+            </div>
+
+            <!-- KPIs in this standard -->
+            <div>
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2">ตัวชี้วัดในมาตรฐานนี้:</span>
+              <div class="space-y-2">
+                ${stdKpis.map(k => `
+                  <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-slate-700 transition cursor-pointer" onclick="selectNode('kpi-${k.id || k.code.replace(/\s+/g, '_')}')">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="font-mono text-xs font-bold text-emerald-400">${k.code}</span>
+                      <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${k.type === 'ปลายทาง' ? 'bg-amber-950/80 text-amber-400 border border-amber-800/60' : 'bg-sky-950/80 text-sky-400 border border-sky-800/60'}">${k.type || 'ตัวชี้วัด'}</span>
+                    </div>
+                    <p class="text-slate-300 text-xs">${k.kpi_text}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (node.kind === 'root') {
         html = `
           <div class="space-y-4 animate-fadeIn">
             <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-brand-navy/60 border border-slate-700/80">
@@ -3873,14 +3920,14 @@
         hasDragged = false;
         pointerStart = { x: e.clientX, y: e.clientY, time: Date.now() };
 
-        const nodeEl = e.target.closest('.node');
-        const sliceEl = e.target.closest('.sunburst-slice');
-        targetNodeId = nodeEl ? nodeEl.getAttribute('data-node-id') : (sliceEl ? sliceEl.getAttribute('data-slice-id') : null);
+        const clickable = e.target.closest('.node, .sunburst-slice, .radar-cell, [data-slice-id], [data-node-id]');
+        targetNodeId = clickable ? (clickable.getAttribute('data-node-id') || clickable.getAttribute('data-slice-id')) : null;
 
         graphState.dragStartX = e.clientX - graphState.translateX;
         graphState.dragStartY = e.clientY - graphState.translateY;
 
-        if (!nodeEl) {
+        // Only capture pointer for background panning; do not capture when clicking a node/slice
+        if (!clickable) {
           try { el.graphStage.setPointerCapture(e.pointerId); } catch (_) {}
         }
       });
@@ -3919,16 +3966,10 @@
         const dist = Math.hypot(dx, dy);
 
         if (dist <= 6) {
-          const nodeEl = e.target.closest('.node');
-          const sliceEl = e.target.closest('.sunburst-slice');
-          const id = nodeEl ? nodeEl.getAttribute('data-node-id') : (sliceEl ? sliceEl.getAttribute('data-slice-id') : targetNodeId);
+          const clickable = e.target.closest('.node, .sunburst-slice, .radar-cell, [data-slice-id], [data-node-id]');
+          const id = (clickable ? (clickable.getAttribute('data-node-id') || clickable.getAttribute('data-slice-id')) : null) || targetNodeId;
           if (id) {
-            const targetNode = (graph && graph.nodeById.get(id)) || (sunburstData && sunburstData.sliceById.get(id));
-            if (targetNode && targetNode.isDrillCenter && targetNode.id !== 'root-curriculum') {
-              drillUp();
-            } else {
-              selectNode(id);
-            }
+            selectNode(id);
           }
         }
       });
@@ -4081,8 +4122,12 @@
       state.viewMode = 'map';
       el.mainMapView.classList.remove('hidden');
       el.mainCatalogView.classList.add('hidden');
+      el.graphSvg.style.display = 'block';
       el.graphSvg.classList.remove('hidden');
-      if (el.sunburstSvg) el.sunburstSvg.classList.add('hidden');
+      if (el.sunburstSvg) {
+        el.sunburstSvg.style.display = 'none';
+        el.sunburstSvg.classList.add('hidden');
+      }
       if (el.sunburstModeBar) {
         el.sunburstModeBar.classList.add('hidden');
         el.sunburstModeBar.classList.remove('flex');
@@ -4098,8 +4143,12 @@
       state.viewMode = 'sunburst';
       el.mainMapView.classList.remove('hidden');
       el.mainCatalogView.classList.add('hidden');
+      el.graphSvg.style.display = 'none';
       el.graphSvg.classList.add('hidden');
-      if (el.sunburstSvg) el.sunburstSvg.classList.remove('hidden');
+      if (el.sunburstSvg) {
+        el.sunburstSvg.style.display = 'block';
+        el.sunburstSvg.classList.remove('hidden');
+      }
       if (el.sunburstModeBar) {
         el.sunburstModeBar.classList.remove('hidden');
         el.sunburstModeBar.classList.add('flex');
@@ -4115,6 +4164,12 @@
       state.viewMode = 'catalog';
       el.mainMapView.classList.add('hidden');
       el.mainCatalogView.classList.remove('hidden');
+      el.graphSvg.style.display = 'none';
+      el.graphSvg.classList.add('hidden');
+      if (el.sunburstSvg) {
+        el.sunburstSvg.style.display = 'none';
+        el.sunburstSvg.classList.add('hidden');
+      }
       if (el.sunburstModeBar) {
         el.sunburstModeBar.classList.add('hidden');
         el.sunburstModeBar.classList.remove('flex');
@@ -4408,6 +4463,13 @@
         setTimeout(() => t.remove(), 250);
       }, 2400);
     }
+
+    // Expose interactive functions globally for HTML string event handlers
+    window.selectNode = selectNode;
+    window.drillTo = drillTo;
+    window.drillUp = drillUp;
+    window.downloadGradeWord = downloadGradeWord;
+    window.downloadSubjectWord = downloadSubjectWord;
   </script>
 </body>
 </html>
