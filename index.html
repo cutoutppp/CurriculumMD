@@ -3297,7 +3297,7 @@
         if (state.schoolArea !== 'ALL' && c.area !== state.schoolArea) return false;
         if (state.schoolGrade !== 'ALL') {
           if (state.schoolGrade === 'ม.ต้น') {
-            if (!['ม.1', 'ม.2', 'ม.3', 'ม.0'].includes(c.grade)) return false;
+            if (!['ม.1', 'ม.2', 'ม.3'].includes(c.grade)) return false;
           } else if (state.schoolGrade === 'ม.ปลาย') {
             if (!['ม.4', 'ม.5', 'ม.6', 'ม.4-6'].includes(c.grade)) return false;
           } else if (c.grade !== state.schoolGrade) {
