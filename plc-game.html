@@ -263,33 +263,40 @@
     <!-- ================================================================= -->
     <main class="w-full px-3 sm:px-4 py-2 flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto lg:overflow-hidden">
 
-      <!-- TOP ZONE: KPI Cards + Active Bonus Cards (Side-by-side in 1 compact row) -->
-      <section class="w-full shrink-0 flex flex-col gap-1">
-        <div class="flex items-center justify-between gap-2 px-1">
-          <div class="flex items-center space-x-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <!-- TOP ZONE: KPI Cards + Active Bonus Cards -->
+      <section id="kpiTopSection" class="w-full shrink-0 flex flex-col gap-1.5 transition-all">
+        <div class="flex flex-wrap items-center justify-between gap-2 px-1 shrink-0">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
             <h2 id="kpiZoneHeading" class="text-xs sm:text-sm font-bold text-white">
               โจทย์ตัวชี้วัดกลาง
             </h2>
+            <!-- Toggle Expand KPI Only Full-Screen -->
+            <button onclick="toggleKpiFocusMode()" id="btnToggleKpiExpand" class="px-2.5 py-1 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/40 text-[11px] font-bold transition flex items-center space-x-1 shadow-sm cursor-pointer" title="ขยายเฉพาะโจทย์ตัวชี้วัดให้เต็มหน้าจอ อ่านง่ายชัดเจน">
+              <i data-lucide="maximize-2" id="kpiExpandIcon" class="w-3.5 h-3.5"></i>
+              <span id="kpiExpandLabel">ขยายโจทย์เต็มจอ</span>
+            </button>
+            <!-- Slot switcher tabs when in expanded mode with multiple KPIs -->
+            <div id="kpiFocusTabs" class="hidden items-center space-x-1 bg-slate-900 p-0.5 rounded-xl border border-slate-800"></div>
           </div>
-          <span class="text-[11px] text-slate-400 hidden sm:inline">
-            💡 กด <strong class="text-amber-300">ล็อกใบนี้</strong> เพื่อเก็บตัวชี้วัดไว้ แล้วกดสุ่มเฉพาะใบอื่นหรือสุ่มวิธีสอนใหม่
+          <span class="text-[11px] text-slate-400 hidden md:inline">
+            💡 คลิกที่ข้อความโจทย์ หรือกด <strong class="text-emerald-300">ขยายโจทย์เต็มจอ</strong> เพื่อซูมอ่านตัวชี้วัดขนาดใหญ่ • กด <strong class="text-amber-300">ล็อก</strong> เพื่อเก็บโจทย์ไว้
           </span>
         </div>
 
         <!-- Combined Row: KPI Grid + Optional Bonus Cards -->
-        <div class="flex flex-col lg:flex-row gap-2.5 w-full items-stretch">
+        <div id="kpiAndBonusWrapper" class="flex flex-col lg:flex-row gap-2.5 w-full items-stretch">
           <div id="kpiCardsGrid" class="grid grid-cols-1 gap-2.5 flex-1 min-w-0">
             <!-- Populated via JS -->
           </div>
-          <div id="bonusCardsContainer" class="hidden flex-col sm:flex-row lg:w-[36%] xl:w-[34%] gap-2.5 shrink-0">
+          <div id="bonusCardsContainer" class="hidden flex-col sm:flex-row lg:w-[34%] xl:w-[32%] gap-2.5 shrink-0">
             <!-- Populated via JS when Bonus Media / Bonus Twist is drawn -->
           </div>
         </div>
       </section>
 
-      <!-- BOTTOM ZONE: Pedagogy / Teaching Method Cards (Fills remaining screen height) -->
-      <section class="w-full flex-1 min-h-0 flex flex-col gap-1">
+      <!-- BOTTOM ZONE: Pedagogy / Teaching Method Cards (Fills remaining screen height, or collapses when KPI is expanded) -->
+      <section id="methodBottomSection" class="w-full flex-1 min-h-0 flex flex-col gap-1">
         <div class="flex items-center justify-between gap-2 px-1 shrink-0">
           <div class="flex items-center space-x-1.5">
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
@@ -307,6 +314,15 @@
 
         <div id="methodCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 w-full gap-2.5 flex-1 min-h-0">
           <!-- Populated via JS -->
+        </div>
+
+        <!-- Compact Method Strip shown when KPI is Expanded Full-Screen -->
+        <div id="methodCollapsedBar" class="hidden glass-panel rounded-2xl px-3.5 py-2 border border-amber-500/40 items-center justify-between gap-3 shrink-0">
+          <div id="methodCollapsedChips" class="flex flex-wrap items-center gap-1.5 min-w-0 flex-1"></div>
+          <button onclick="toggleKpiFocusMode(null, false)" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center space-x-1.5 shrink-0 shadow-lg cursor-pointer">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+            <span>ดูการ์ดวิธีสอนเต็มจอ</span>
+          </button>
         </div>
       </section>
 
@@ -816,7 +832,9 @@
       claimedMethodSlots: new Set(),
       bonusMedia: null,
       bonusTwist: null,
-      filterOpen: false
+      filterOpen: false,
+      kpiFocusMode: false,
+      focusedKpiSlot: null
     };
 
     function toThaiDigits(str) {
@@ -1199,6 +1217,31 @@
       }
     }
 
+    function toggleKpiFocusMode(slotIdx = null, forceState = undefined) {
+      if (forceState !== undefined) {
+        gameState.kpiFocusMode = forceState;
+        if (!forceState) gameState.focusedKpiSlot = null;
+      } else if (slotIdx !== null && slotIdx !== undefined) {
+        if (gameState.kpiFocusMode && gameState.focusedKpiSlot === slotIdx) {
+          gameState.kpiFocusMode = false;
+          gameState.focusedKpiSlot = null;
+        } else {
+          gameState.kpiFocusMode = true;
+          gameState.focusedKpiSlot = gameState.kpiCount > 1 ? slotIdx : null;
+        }
+      } else {
+        gameState.kpiFocusMode = !gameState.kpiFocusMode;
+        gameState.focusedKpiSlot = null;
+      }
+      renderAll();
+    }
+
+    function setFocusedKpiSlot(slotIdx) {
+      gameState.kpiFocusMode = true;
+      gameState.focusedKpiSlot = slotIdx;
+      renderAll();
+    }
+
     function renderKpiCards() {
       const heading = document.getElementById('kpiZoneHeading');
       const bonusKpiPts = gameState.kpiCount === 2 ? ' (+๑ แต้มโบนัส)' : gameState.kpiCount === 3 ? ' (+๒ แต้มโบนัส)' : '';
@@ -1206,45 +1249,174 @@
         heading.textContent = formatDigits(`โจทย์ตัวชี้วัดกลาง (${gameState.drawnKpis.length} ข้อ)${bonusKpiPts}`);
       }
 
+      const isExpanded = gameState.kpiFocusMode;
+      const topSec = document.getElementById('kpiTopSection');
+      const wrapper = document.getElementById('kpiAndBonusWrapper');
+      const btnExpand = document.getElementById('btnToggleKpiExpand');
+      const lblExpand = document.getElementById('kpiExpandLabel');
+      const icoExpand = document.getElementById('kpiExpandIcon');
+      const focusTabs = document.getElementById('kpiFocusTabs');
+
+      if (topSec) {
+        topSec.className = isExpanded
+          ? 'w-full flex-1 min-h-0 flex flex-col gap-2 transition-all'
+          : 'w-full shrink-0 flex flex-col gap-1.5 transition-all';
+      }
+      if (wrapper) {
+        wrapper.className = isExpanded
+          ? 'flex flex-col lg:flex-row gap-3 w-full flex-1 min-h-0 items-stretch'
+          : 'flex flex-col lg:flex-row gap-2.5 w-full items-stretch';
+      }
+      if (btnExpand) {
+        btnExpand.className = isExpanded
+          ? 'px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 border border-amber-400 text-xs font-extrabold transition flex items-center space-x-1.5 shadow-lg cursor-pointer'
+          : 'px-2.5 py-1 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/40 text-[11px] font-bold transition flex items-center space-x-1 shadow-sm cursor-pointer';
+      }
+      if (lblExpand) {
+        lblExpand.textContent = isExpanded ? 'ย่อโจทย์ / ดูการ์ดวิธีสอน' : 'ขยายโจทย์เต็มจอ';
+      }
+      if (icoExpand) {
+        icoExpand.setAttribute('data-lucide', isExpanded ? 'minimize-2' : 'maximize-2');
+      }
+
+      // Render focus tabs when expanded and kpiCount > 1
+      if (focusTabs) {
+        if (isExpanded && gameState.drawnKpis.length > 1) {
+          focusTabs.classList.remove('hidden');
+          focusTabs.classList.add('inline-flex');
+          const allActive = gameState.focusedKpiSlot === null;
+          let tabsHtml = `
+            <button onclick="setFocusedKpiSlot(null)" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition ${allActive ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}">
+              ดูครบทั้ง ${formatDigits(String(gameState.drawnKpis.length))} ข้อ
+            </button>
+          `;
+          gameState.drawnKpis.forEach((k, i) => {
+            const active = gameState.focusedKpiSlot === i;
+            tabsHtml += `
+              <button onclick="setFocusedKpiSlot(${i})" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition ${active ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}">
+                ข้อที่ ${formatDigits(String(i + 1))} (${formatDigits(k.code)})
+              </button>
+            `;
+          });
+          focusTabs.innerHTML = tabsHtml;
+        } else {
+          focusTabs.classList.add('hidden');
+          focusTabs.classList.remove('inline-flex');
+        }
+      }
+
       const grid = document.getElementById('kpiCardsGrid');
       if (!grid) return;
 
-      grid.className = gameState.kpiCount === 1
-        ? 'grid grid-cols-1 gap-2.5 flex-1 min-w-0'
-        : gameState.kpiCount === 2
-          ? 'grid grid-cols-1 lg:grid-cols-2 gap-2.5 flex-1 min-w-0'
-          : 'grid grid-cols-1 lg:grid-cols-3 gap-2.5 flex-1 min-w-0';
+      const visibleKpis = (isExpanded && gameState.focusedKpiSlot !== null && gameState.drawnKpis[gameState.focusedKpiSlot])
+        ? [{ k: gameState.drawnKpis[gameState.focusedKpiSlot], idx: gameState.focusedKpiSlot }]
+        : gameState.drawnKpis.map((k, idx) => ({ k, idx }));
 
-      grid.innerHTML = gameState.drawnKpis.map((k, idx) => {
+      const visibleCount = visibleKpis.length;
+      grid.className = visibleCount === 1
+        ? `grid grid-cols-1 gap-3 flex-1 min-w-0 ${isExpanded ? 'min-h-0' : ''}`
+        : visibleCount === 2
+          ? `grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1 min-w-0 ${isExpanded ? 'min-h-0' : ''}`
+          : `grid grid-cols-1 lg:grid-cols-3 gap-3 flex-1 min-w-0 ${isExpanded ? 'min-h-0' : ''}`;
+
+      grid.innerHTML = visibleKpis.map(({ k, idx }) => {
         const isLocked = gameState.lockedKpiSlots.has(idx);
         const meta = (DATA.subject_meta && DATA.subject_meta[k.subject]) || { color: '#10b981' };
         const stdDesc = k.standard_desc || (DATA.standards && DATA.standards[k.standard]) || '';
         const isSummative = String(k.type).includes('ปลายทาง');
         const typeBadge = isSummative
-          ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40">🎯 ${formatDigits(k.type)}</span>`
-          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/40">🛤️ ${formatDigits(k.type)}</span>`;
+          ? `<span class="px-2.5 py-0.5 rounded-full ${isExpanded ? 'text-xs' : 'text-[10px]'} font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40">🎯 ${formatDigits(k.type)}</span>`
+          : `<span class="px-2.5 py-0.5 rounded-full ${isExpanded ? 'text-xs' : 'text-[10px]'} font-bold bg-sky-500/15 text-sky-300 border border-sky-500/40">🛤️ ${formatDigits(k.type)}</span>`;
         const coreClean = k.core_content ? formatDigits(k.core_content.replace(/\n+/g, ' ')) : '';
         const stdClean = stdDesc ? formatDigits(stdDesc) : '';
 
+        if (isExpanded) {
+          // FULL-SCREEN EXPANDED KPI CARD (Huge projector-friendly text & full details)
+          return `
+            <div class="card-animate glass-panel kpi-card-glow rounded-3xl p-5 sm:p-6 h-full min-h-0 flex flex-col justify-between border-2 overflow-y-auto ${isLocked ? 'border-amber-400' : 'border-emerald-500/60'}">
+              <div class="space-y-4 flex-1 flex flex-col justify-between">
+                <!-- Top Header -->
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-3.5 py-1.5 rounded-xl font-mono text-sm sm:text-base font-extrabold text-white shadow-lg" style="background-color:${meta.color}">
+                      ${formatDigits(k.code)}
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-sm sm:text-base font-bold text-white">
+                      ${k.subject} • ชั้น ${formatDigits(k.grade)}
+                    </span>
+                    ${typeBadge}
+                  </div>
+
+                  <div class="flex items-center space-x-2 shrink-0">
+                    <button onclick="toggleLockKpi(${idx})" class="px-3 py-1.5 rounded-xl border text-xs font-bold transition flex items-center space-x-1.5 ${isLocked ? 'bg-amber-500 text-slate-950 border-amber-400' : 'bg-slate-900 hover:bg-slate-800 text-slate-200 border-slate-700'}">
+                      <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-4 h-4"></i>
+                      <span>${isLocked ? 'ล็อกโจทย์นี้แล้ว' : 'ล็อกโจทย์ใบนี้'}</span>
+                    </button>
+                    <button onclick="rerollSingleKpi(${idx})" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition flex items-center space-x-1.5" title="สุ่มเปลี่ยนเฉพาะตัวชี้วัดใบนี้">
+                      <i data-lucide="dices" class="w-4 h-4"></i>
+                      <span>สุ่มใบนี้ใหม่</span>
+                    </button>
+                    <button onclick="toggleKpiFocusMode(null, false)" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 text-xs font-bold transition flex items-center space-x-1.5">
+                      <i data-lucide="minimize-2" class="w-4 h-4"></i>
+                      <span>ย่อกลับ</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Giant Indicator Text Box -->
+                <div class="p-5 sm:p-7 rounded-3xl bg-slate-950/95 border-2 border-emerald-500/30 flex-1 flex flex-col justify-center shadow-inner">
+                  <span class="text-xs sm:text-sm font-mono uppercase text-emerald-400 font-bold block mb-2">
+                    📌 ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
+                  </span>
+                  <p class="${visibleCount === 1 ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-lg sm:text-xl lg:text-2xl'} font-bold text-white leading-relaxed">
+                    ${formatDigits(k.text)}
+                  </p>
+                </div>
+
+                <!-- Full Standard & Core Content Boxes -->
+                <div class="grid grid-cols-1 ${stdClean && coreClean && visibleCount === 1 ? 'lg:grid-cols-2' : ''} gap-3">
+                  ${stdClean ? `
+                    <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 text-sm sm:text-base text-slate-200 leading-relaxed">
+                      <strong class="text-emerald-400 block text-xs uppercase font-mono mb-1">มาตรฐานการเรียนรู้ / คำอธิบายรายวิชา:</strong>
+                      ${stdClean}
+                    </div>
+                  ` : ''}
+                  ${coreClean ? `
+                    <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 text-sm sm:text-base text-slate-200 leading-relaxed">
+                      <strong class="text-sky-400 block text-xs uppercase font-mono mb-1">สาระสำคัญ / สาระการเรียนรู้แกนกลาง:</strong>
+                      ${coreClean}
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // NORMAL SINGLE-SCREEN VIEW (Larger, clearer KPI text + 1-click Expand button)
         return `
-          <div class="card-animate glass-panel kpi-card-glow rounded-2xl p-2.5 sm:p-3 flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/40'}">
-            <div class="space-y-1.5">
+          <div class="card-animate glass-panel kpi-card-glow rounded-2xl p-3 sm:p-3.5 flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/45'}">
+            <div class="space-y-2">
               <!-- Card Top Header -->
               <div class="flex items-center justify-between gap-1.5">
-                <div class="flex flex-wrap items-center gap-1 min-w-0">
-                  <span class="px-2 py-0.5 rounded-lg font-mono text-[11px] font-bold text-white shadow shrink-0" style="background-color:${meta.color}">
+                <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                  <span class="px-2.5 py-0.5 rounded-lg font-mono text-xs font-bold text-white shadow shrink-0" style="background-color:${meta.color}">
                     ${formatDigits(k.code)}
                   </span>
-                  <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-700 text-[11px] font-bold text-white truncate">
+                  <span class="px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white truncate">
                     ${k.subject} • ชั้น ${formatDigits(k.grade)}
                   </span>
                   ${typeBadge}
-                  <span class="text-[10px] font-mono text-emerald-400 font-semibold truncate hidden xl:inline">
+                  <span class="text-[11px] font-mono text-emerald-400 font-semibold truncate hidden xl:inline">
                     • ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
                   </span>
                 </div>
 
                 <div class="flex items-center space-x-1 shrink-0">
+                  <button onclick="toggleKpiFocusMode(${idx})" class="px-2 py-0.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/35 text-[11px] font-bold transition flex items-center space-x-1" title="ขยายโจทย์ใบนี้เต็มจอ">
+                    <i data-lucide="maximize-2" class="w-3 h-3"></i>
+                    <span class="hidden sm:inline">ขยาย</span>
+                  </button>
                   <button onclick="toggleLockKpi(${idx})" class="px-2 py-0.5 rounded-lg border text-[11px] font-semibold transition flex items-center space-x-1 ${isLocked ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'}" title="ล็อกตัวชี้วัดใบนี้ไว้">
                     <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3 h-3"></i>
                     <span class="hidden sm:inline">${isLocked ? 'ล็อกแล้ว' : 'ล็อก'}</span>
@@ -1255,18 +1427,20 @@
                 </div>
               </div>
 
-              <!-- Main Indicator Text + Core Content -->
-              <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'grid grid-cols-1 xl:grid-cols-12 gap-2.5 items-center' : 'space-y-1.5'}">
-                <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'xl:col-span-7' : ''} px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-800">
-                  <p class="text-xs sm:text-sm md:text-[15px] font-bold text-white leading-snug line-clamp-3" title="${formatDigits(k.text)}">
+              <!-- Main Indicator Text + Core Content (Clickable to Expand!) -->
+              <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'grid grid-cols-1 xl:grid-cols-12 gap-2.5 items-stretch' : 'space-y-1.5'}">
+                <div onclick="toggleKpiFocusMode(${idx})" class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'xl:col-span-8' : ''} px-3.5 py-2.5 rounded-xl bg-slate-950/90 hover:bg-slate-950 border border-slate-800 hover:border-emerald-500/50 cursor-pointer transition group flex items-center" title="คลิกเพื่อขยายอ่านโจทย์ตัวชี้วัดเต็มจอ">
+                  <p class="text-sm sm:text-base lg:text-lg font-bold text-white group-hover:text-emerald-200 leading-snug line-clamp-3">
                     ${formatDigits(k.text)}
                   </p>
                 </div>
 
-                <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'xl:col-span-5' : ''} text-[11px] text-slate-300 px-2.5 py-1.5 rounded-xl bg-slate-900/60 border border-slate-800/80 line-clamp-2" title="${coreClean || stdClean}">
-                  ${coreClean
-                    ? `<strong class="text-sky-400">สาระสำคัญ:</strong> ${coreClean}`
-                    : `<strong class="text-slate-400">มาตรฐาน:</strong> ${stdClean}`}
+                <div onclick="toggleKpiFocusMode(${idx})" class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'xl:col-span-4' : ''} text-xs text-slate-300 px-3 py-2 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 line-clamp-2 cursor-pointer transition flex items-center" title="คลิกเพื่อดูรายละเอียดสาระสำคัญและมาตรฐานเต็มจอ">
+                  <span>
+                    ${coreClean
+                      ? `<strong class="text-sky-400">สาระสำคัญ:</strong> ${coreClean}`
+                      : `<strong class="text-slate-400">มาตรฐาน:</strong> ${stdClean}`}
+                  </span>
                 </div>
               </div>
             </div>
@@ -1286,8 +1460,41 @@
         resetBtn.classList.toggle('hidden', gameState.claimedMethodSlots.size === 0);
       }
 
+      const methodSec = document.getElementById('methodBottomSection');
       const grid = document.getElementById('methodCardsGrid');
+      const collapsedBar = document.getElementById('methodCollapsedBar');
+      const collapsedChips = document.getElementById('methodCollapsedChips');
       if (!grid) return;
+
+      if (gameState.kpiFocusMode) {
+        // When KPI is expanded full-screen, collapse Method Section into a sleek 1-line bar at the bottom
+        if (methodSec) methodSec.className = 'w-full shrink-0 flex flex-col gap-1';
+        grid.className = 'hidden';
+        if (collapsedBar) {
+          collapsedBar.classList.remove('hidden');
+          collapsedBar.classList.add('flex');
+        }
+        if (collapsedChips) {
+          collapsedChips.innerHTML = `<span class="text-xs font-bold text-amber-300 mr-1">การ์ดวิธีสอนที่สุ่มไว้:</span>` +
+            gameState.drawnMethods.map((m, idx) => {
+              const isClaimed = gameState.claimedMethodSlots.has(idx);
+              return `
+                <button onclick="toggleKpiFocusMode(null, false)" class="px-2.5 py-1 rounded-xl border text-xs font-semibold transition flex items-center space-x-1 ${isClaimed ? 'bg-slate-900 text-slate-500 border-slate-800 line-through' : 'bg-slate-900 hover:bg-slate-800 text-white border-amber-500/40'}">
+                  <span class="font-mono text-amber-400 font-bold">#${formatDigits(String(idx + 1))}</span>
+                  <span class="truncate max-w-[160px]">${formatDigits(m.name)}</span>
+                  <span class="text-[10px] font-mono text-amber-300">(+${formatDigits(String(m.points))})</span>
+                </button>
+              `;
+            }).join('');
+        }
+        return;
+      }
+
+      if (methodSec) methodSec.className = 'w-full flex-1 min-h-0 flex flex-col gap-1';
+      if (collapsedBar) {
+        collapsedBar.classList.add('hidden');
+        collapsedBar.classList.remove('flex');
+      }
 
       grid.className = gameState.methodCount === 1
         ? 'grid grid-cols-1 w-full gap-2.5 flex-1 min-h-0'
