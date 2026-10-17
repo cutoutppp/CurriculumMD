@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>กระดานสุ่มตัวชี้วัด × การ์ดวิธีสอน (คิดคนเดียว & วง PLC) | โรงเรียนพัฒนานิคม</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 45%, #020617 100%);
+      color: var(--ink);
+      font-family: "IBM Plex Sans Thai", system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    .font-mono { font-family: "JetBrains Mono", "IBM Plex Sans Thai", monospace; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.65);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    @keyframes cardDeal {
+      0% { transform: translateY(18px) scale(0.95); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .card-animate {
+      animation: cardDeal 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .kpi-card-glow {
+      box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .pedagogy-card-glow {
+      box-shadow: 0 12px 30px -10px rgba(245, 158, 11, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .card-claimed {
+      opacity: 0.48;
+      filter: grayscale(45%);
+    }
+
+    @keyframes toastSlide {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .toast-animate {
+      animation: toastSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <div class="min-h-screen flex flex-col">
+    <!-- Top Header -->
+    <header class="border-b border-slate-800/80 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-3">
+      <div class="max-w-[1720px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- Brand & Back Link -->
+        <div class="flex items-center space-x-3">
+          <a href="index.html" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center space-x-1.5 shrink-0" title="กลับหน้าหลักโครงสร้างหลักสูตร">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-emerald-400"></i>
+            <span>หน้าหลักหลักสูตร</span>
+          </a>
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-slate-950 shadow-lg shrink-0">
+            <i data-lucide="dices" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-mono text-[11px] tracking-wider text-amber-400 uppercase font-bold">PLC & Solo Learning Design Deck</span>
+              <span id="poolSummaryBadge" class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">พร้อมสุ่ม</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">
+              กระดานสุ่มตัวชี้วัด × การ์ดวิธีสอน (สุ่มคิดคนเดียว & เล่นในวง PLC)
+            </h1>
+          </div>
+        </div>
+
+        <!-- Quick Action & Numeral Controls -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Numeral Switcher -->
+          <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1">
+            <button id="btn-num-thai" onclick="setNumeral('thai')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition">
+              เลขไทย (๑ ๒ ๓)
+            </button>
+            <button id="btn-num-arabic" onclick="setNumeral('arabic')" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">
+              เลขอารบิก (1 2 3)
+            </button>
+          </div>
+
+          <button onclick="copyAllCurrentCards()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center space-x-1.5">
+            <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>คัดลอกโจทย์ชุดนี้</span>
+          </button>
+
+          <button onclick="toggleRulesModal()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-xs font-semibold transition flex items-center space-x-1.5">
+            <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i>
+            <span>กติกา & แต้มการ์ด</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Single-Screen Workspace -->
+    <main class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 space-y-4 flex-1">
+
+      <!-- ================================================================= -->
+      <!-- 1. TOP CONTROL BAR (ตั้งค่าสั้นๆ หน้าเดียว + พับเก็บตัวกรองชั้น/วิชาได้) -->
+      <!-- ================================================================= -->
+      <section class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4 border border-slate-700/80">
+        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+
+          <!-- Left: Mode Selectors -->
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+            <!-- A. KPI Count (1 / 2 / 3) -->
+            <div class="space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 block">จำนวนตัวชี้วัดกลาง:</span>
+              <div class="inline-flex bg-slate-950 p-1 rounded-2xl border border-slate-800 gap-1">
+                <button onclick="setKpiCount(1)" id="btn-kpi-1" class="px-3 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-600 text-white shadow">
+                  ๑ ตัวชี้วัด
+                </button>
+                <button onclick="setKpiCount(2)" id="btn-kpi-2" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white">
+                  ๒ ตัวชี้วัด (+๑ แต้ม)
+                </button>
+                <button onclick="setKpiCount(3)" id="btn-kpi-3" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white">
+                  ๓ ตัวชี้วัด (+๒ แต้ม)
+                </button>
+              </div>
+            </div>
+
+            <!-- B. Pedagogy Card Count (1 for Solo / 3 or 5 for PLC) -->
+            <div class="space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 block">การ์ดวิธีสอนบนจอ:</span>
+              <div class="inline-flex bg-slate-950 p-1 rounded-2xl border border-slate-800 gap-1">
+                <button onclick="setMethodCount(1)" id="btn-method-1" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white" title="เหมาะสำหรับสุ่มคิดแผนคนเดียว">
+                  ๑ ใบ (คิดคนเดียว)
+                </button>
+                <button onclick="setMethodCount(3)" id="btn-method-3" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white" title="เหมาะสำหรับวงคุยกลุ่มย่อย">
+                  ๓ ใบ (กลุ่มย่อย)
+                </button>
+                <button onclick="setMethodCount(5)" id="btn-method-5" class="px-3 py-1.5 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow" title="หงาย 5 ใบบนจอ ใครตอบก่อนเลือกก่อน ห้ามซ้ำ">
+                  ๕ ใบ (วง PLC)
+                </button>
+              </div>
+            </div>
+
+            <!-- C. Source Pool (Core KPI vs School Courses) -->
+            <div class="space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 block">แหล่งโจทย์ตัวชี้วัด:</span>
+              <select id="sourcePoolSelect" onchange="onSourcePoolChange(this.value)" class="bg-slate-950 border border-slate-800 text-xs text-slate-200 rounded-2xl px-3 py-2 focus:border-emerald-500 focus:outline-none font-medium">
+                <option value="CORE">ตัวชี้วัดแกนกลาง (ป.๑ – ม.๖)</option>
+                <option value="SCHOOL_ALL">คลังวิชา รร. พัฒนานิคม (พื้นฐาน + เพิ่มเติม)</option>
+                <option value="SCHOOL_ELECTIVE">เฉพาะวิชาเพิ่มเติม รร. (ผลการเรียนรู้ ม.๑ – ม.๖)</option>
+              </select>
+            </div>
+
+            <!-- D. Filter Drawer Toggle Button -->
+            <div class="space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 block">ชั้นเรียน & วิชาที่สุ่ม:</span>
+              <button onclick="toggleFilterPanel()" id="btn-toggle-filter" class="px-3.5 py-2 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-sky-300 transition flex items-center space-x-2">
+                <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+                <span id="filterSummaryLabel">ทุกชั้น • ทุกวิชา</span>
+                <i data-lucide="chevron-down" id="filterChevron" class="w-3.5 h-3.5 transition-transform"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Main Draw Action Buttons -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="drawAll()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-sm transition flex items-center space-x-2 shadow-xl shadow-amber-950/50 cursor-pointer">
+              <i data-lucide="dices" class="w-5 h-5"></i>
+              <span>สุ่มโจทย์ใหม่ทั้งหมด!</span>
+            </button>
+            <button onclick="drawKpisOnly()" class="px-3.5 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 text-xs font-semibold transition flex items-center space-x-1.5" title="สุ่มเปลี่ยนเฉพาะการ์ดตัวชี้วัด (ใบที่ไม่ได้ล็อก)">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+              <span>สุ่มเฉพาะตัวชี้วัด</span>
+            </button>
+            <button onclick="drawMethodsOnly()" class="px-3.5 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-xs font-semibold transition flex items-center space-x-1.5" title="สุ่มเปลี่ยนเฉพาะการ์ดวิธีสอนชุดใหม่">
+              <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+              <span>สุ่มเฉพาะการ์ดวิธีสอน</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Collapsible Grade & Multi-Subject Filter Drawer -->
+        <div id="filterDrawer" class="hidden pt-4 border-t border-slate-800/90 grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <!-- Grade Selection (Multi-select) -->
+          <div class="lg:col-span-5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-white flex items-center space-x-1.5">
+                <i data-lucide="graduation-cap" class="w-4 h-4 text-sky-400"></i>
+                <span>เลือกระดับชั้น (เลือกได้หลายชั้น):</span>
+              </span>
+              <div class="flex flex-wrap gap-1 text-[11px]">
+                <button onclick="setGradePreset('ALL')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800">ทุกชั้น</button>
+                <button onclick="setGradePreset('P_EARLY')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">ป.ต้น</button>
+                <button onclick="setGradePreset('P_LATE')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">ป.ปลาย</button>
+                <button onclick="setGradePreset('M_EARLY')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-800">ม.ต้น</button>
+                <button onclick="setGradePreset('M_LATE')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-purple-300 border border-slate-800">ม.ปลาย</button>
+              </div>
+            </div>
+            <div id="gradeChipsContainer" class="grid grid-cols-5 gap-1.5"></div>
+            <div class="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-slate-300">
+              <label class="inline-flex items-center space-x-1.5 cursor-pointer select-none">
+                <input type="checkbox" id="sameGradeToggle" checked onchange="gameState.sameGrade = this.checked" class="rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-0">
+                <span>เมื่อสุ่ม ๒–๓ ตัวชี้วัด ให้ล็อกอยู่ในชั้นปีเดียวกันอัตโนมัติ</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Subject Selection (Multi-select) -->
+          <div class="lg:col-span-7 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-white flex items-center space-x-1.5">
+                <i data-lucide="book-open" class="w-4 h-4 text-pink-400"></i>
+                <span>เลือกวิชา / กลุ่มสาระการเรียนรู้ (เลือก ๑ วิชา หรือหลายวิชาก็ได้):</span>
+              </span>
+              <div class="flex items-center space-x-2 text-[11px]">
+                <button onclick="setSubjectPreset('ALL')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800">เลือกทุกวิชา</button>
+                <label class="inline-flex items-center space-x-1.5 cursor-pointer select-none text-slate-300">
+                  <input type="checkbox" id="crossSubjectToggle" checked onchange="gameState.crossSubject = this.checked" class="rounded border-slate-700 bg-slate-950 text-amber-500 focus:ring-0">
+                  <span>กระจายคนละวิชาเมื่อเลือกหลายวิชา</span>
+                </label>
+              </div>
+            </div>
+            <div id="subjectChipsContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-1.5"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- 2. CENTRAL KPI / LEARNING OUTCOME CARDS (1, 2, or 3 Cards)        -->
+      <!-- ================================================================= -->
+      <section class="space-y-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-2 px-1">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <h2 id="kpiZoneHeading" class="text-sm sm:text-base font-bold text-white">
+              โจทย์ตัวชี้วัดกลาง
+            </h2>
+          </div>
+          <span class="text-xs text-slate-400">
+            💡 กด <strong class="text-amber-300">📌 ล็อกใบนี้</strong> หากต้องการเก็บตัวชี้วัดใบนั้นไว้ แล้วกดสุ่มเฉพาะใบอื่นหรือสุ่มเปลี่ยนการ์ดวิธีสอน
+          </span>
+        </div>
+
+        <div id="kpiCardsGrid" class="grid grid-cols-1 gap-4">
+          <!-- Populated via JS -->
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- 3. PEDAGOGY / TEACHING METHOD CARDS (1, 3, or 5 Cards)            -->
+      <!-- ================================================================= -->
+      <section class="space-y-2.5 pt-1">
+        <div class="flex flex-wrap items-center justify-between gap-2 px-1">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <h2 id="methodZoneHeading" class="text-sm sm:text-base font-bold text-white">
+              การ์ดวิธีสอน / รูปแบบการจัดการเรียนรู้
+            </h2>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <span>🤝 <strong>เล่นกับเพื่อนในวง PLC:</strong> ใครพร้อมก่อนเลือกการ์ดก่อน! คลิกปุ่ม <strong class="text-emerald-400">"เลือกใช้ใบนี้"</strong> เพื่อแปะป้ายว่าใช้แล้ว (ห้ามเลือกซ้ำ)</span>
+            <button onclick="clearAllClaimedMethods()" id="btnResetClaims" class="hidden px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 text-[11px] font-semibold transition">
+              คืนสถานะการ์ดทั้งหมด
+            </button>
+          </div>
+        </div>
+
+        <div id="methodCardsGrid" class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-3.5">
+          <!-- Populated via JS -->
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- 4. OPTIONAL BONUS CARDS (การ์ดสื่อ/ชิ้นงาน & การ์ดเงื่อนไขพิเศษ)    -->
+      <!-- ================================================================= -->
+      <section class="glass-panel rounded-3xl p-4 sm:p-5 border border-slate-800 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+              <span>การ์ดเสริมเพิ่มไอเดีย & โบนัสแต้ม (กดเปิดตามสมัครใจ)</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              ใช้เปิดเพื่อหาไอเดียชิ้นงานเพิ่มตอนคิดคนเดียว หรือเปิดเพื่อชิงแต้มโบนัสเพิ่มในวง PLC (+๑ และ +๒ แต้ม)
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="drawBonusMediaCard()" class="px-3.5 py-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-bold transition flex items-center space-x-1.5">
+              <i data-lucide="palette" class="w-4 h-4"></i>
+              <span>+ สุ่มการ์ดสื่อ / ชิ้นงาน (+๑ แต้ม)</span>
+            </button>
+            <button onclick="drawBonusTwistCard()" class="px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 text-xs font-bold transition flex items-center space-x-1.5">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              <span>+ สุ่มการ์ดเงื่อนไขท้าทาย (+๒ แต้ม)</span>
+            </button>
+            <button onclick="clearBonusCards()" id="btnClearBonus" class="hidden px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 text-xs transition">
+              ปิดการ์ดเสริม
+            </button>
+          </div>
+        </div>
+
+        <div id="bonusCardsContainer" class="hidden grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
+          <!-- Populated via JS when drawn -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Rules & Scoring Quick Guide Modal -->
+  <div id="rulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden" onclick="if(event.target===this) toggleRulesModal()">
+    <div class="glass-panel max-w-xl w-full rounded-3xl p-6 text-xs text-slate-300 space-y-4 border border-slate-700 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white flex items-center space-x-2">
+          <i data-lucide="dices" class="w-5 h-5 text-amber-400"></i>
+          <span>วิธีเล่น & การนับแต้ม (คิดคนเดียว หรือ เล่นกับเพื่อนในวง PLC)</span>
+        </h3>
+        <button onclick="toggleRulesModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 leading-relaxed">
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <h4 class="font-bold text-emerald-400 text-sm mb-1">💡 โหมดที่ ๑: สุ่มไว้คิดออกแบบการสอนคนเดียว</h4>
+          <p>• เลือกชั้นเรียนและวิชาที่สอน ➔ เลือกการ์ดวิธีสอนแบบ <strong>๑ ใบ (คิดคนเดียว)</strong></p>
+          <p>• กดปุ่ม <strong>📌 ล็อกใบนี้</strong> ที่ตัวชี้วัดที่ต้องการสอน แล้วกด <strong>สุ่มเฉพาะการ์ดวิธีสอน</strong> หรือ <strong>+ สุ่มการ์ดสื่อ/ชิ้นงาน</strong> ไปเรื่อยๆ เพื่อหาไอเดียจัดกิจกรรม Active Learning ใหม่ๆ</p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <h4 class="font-bold text-amber-300 text-sm mb-1">🤝 โหมดที่ ๒: เปิดเล่นกับเพื่อนในวง PLC (ไม่ต้องใช้อุปกรณ์เสริม)</h4>
+          <p>• เลือกโหมด <strong>๑, ๒ หรือ ๓ ตัวชี้วัด</strong> คู่กับการ์ดวิธีสอน <strong>๕ ใบ (วง PLC)</strong></p>
+          <p>• <strong>กติกา "ใครพร้อมก่อน เลือกก่อน ห้ามซ้ำ":</strong> ดูตัวชี้วัดกลางเทียบกับการ์ดวิธีสอนทั้ง ๕ ใบบนจอ ใครคิดไอเดียออกก่อน ยกมือเลือกการ์ด ૧ ใบแล้วเล่าแนวทางสอนตามขั้นตอนในการ์ดได้เลย</p>
+          <p>• พูดจบแล้วคลิกปุ่ม <strong>"เลือกใช้ใบนี้"</strong> บนการ์ด เพื่อแปะป้ายว่าใช้แล้ว คนถัดไปต้องเลือกจากใบที่เหลืออยู่!</p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-amber-950/20 border border-amber-500/30">
+          <h4 class="font-bold text-white text-sm mb-1">🏆 วิธีนับแต้มปากเปล่าแบบง่ายๆ (ดูตัวเลขมุมการ์ดได้เลย)</h4>
+          <p>• <strong>แต้มจากการ์ดวิธีสอน:</strong> ⭐ = <strong>๒ แต้ม</strong> | ⭐⭐ = <strong>๓ แต้ม</strong> | ⭐⭐⭐ = <strong>๔ แต้ม</strong></p>
+          <p>• <strong>โบนัสจำนวนตัวชี้วัด:</strong> โหมด ๒ ตัวชี้วัด = <strong>+๑ แต้ม</strong> | โหมด ๓ ตัวชี้วัด = <strong>+๒ แต้ม</strong></p>
+          <p>• <strong>โบนัสเปิดการ์ดเสริม:</strong> กดสุ่มการ์ดสื่อ/ชิ้นงานมาผูกในแผน = <strong>+๑ แต้ม</strong> | กดสุ่มการ์ดเงื่อนไขท้าทาย = <strong>+๒ แต้ม</strong></p>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 text-right">
+        <button onclick="toggleRulesModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition">
+          เข้าใจแล้ว เริ่มสุ่มได้เลย!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Scripts -->
+  <script src="kpi_data.js"></script>
+  <script src="school_courses_data.js"></script>
+
+  <script>
+    const DATA = (typeof OPEN_CURRICULUM_DATA !== 'undefined' ? OPEN_CURRICULUM_DATA : (window.OPEN_CURRICULUM_DATA || {}));
+    const SCHOOL_COURSES = (typeof SCHOOL_COURSES_DATA !== 'undefined' ? SCHOOL_COURSES_DATA : (window.SCHOOL_COURSES_DATA || {}));
+
+    const THAI_DIGITS = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+    const THAI_DIGITS_MAP = {'๐':'0','๑':'1','๒':'2','๓':'3','๔':'4','๕':'5','๖':'6','๗':'7','๘':'8','๙':'9'};
+
+    const ALL_SUBJECTS = [
+      'ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษา ศาสนา และวัฒนธรรม',
+      'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาต่างประเทศ'
+    ];
+    const ALL_GRADES = ['ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.4-6'];
+
+    // =========================================================================
+    // 1. สำรับการ์ดวิธีสอน / รูปแบบการสอน (24 ใบ พร้อมดาวและแต้มกำกับ)
+    // =========================================================================
+    const PEDAGOGY_DECK = [
+      {
+        id: 'pm-01',
+        name: 'การจัดการเรียนรู้แบบสืบเสาะหาความรู้ 5Es (5Es Inquiry)',
+        category: 'สืบเสาะและแก้ปัญหา',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'กระตุ้นให้ผู้เรียนตั้งคำถาม สำรวจ ตรวจสอบ และสรุปองค์ความรู้ด้วยตนเองผ่าน 5 ขั้นตอน',
+        steps: [
+          '1. Engagement: เปิดด้วยคำถามท้าทาย เหตุการณ์ หรือสิ่งเร้าชวนสงสัย',
+          '2. Exploration: ให้ผู้เรียนลงมือสำรวจ ทดลอง หรือสืบค้นข้อมูลเป็นกลุ่ม',
+          '3. Explanation: นำเสนอสิ่งที่ค้นพบและอภิปรายสรุปเป็นหลักการสำคัญ',
+          '4. Elaboration & Evaluation: ประยุกต์ใช้กับโจทย์ใหม่และตรวจสอบความเข้าใจ'
+        ]
+      },
+      {
+        id: 'pm-02',
+        name: 'การเรียนรู้โดยใช้ปัญหาเป็นฐาน (Problem-Based Learning: PBL)',
+        category: 'สืบเสาะและแก้ปัญหา',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'ใช้สถานการณ์ปัญหาจริงที่ใกล้ตัวผู้เรียน เป็นตัวขับเคลื่อนให้ค้นคว้าและออกแบบแนวทางแก้ไข',
+        steps: [
+          '1. เปิดสถานการณ์ปัญหาจริงในชีวิตประจำวันหรือในชุมชน',
+          '2. วิเคราะห์ปัญหา: แยกแยะสิ่งที่รู้แล้ว และสิ่งที่ต้องสืบค้นเพิ่มเติม',
+          '3. ค้นคว้าและเชื่อมโยงความรู้ตามตัวชี้วัดเพื่อหาทางออก',
+          '4. นำเสนอแนวทางแก้ปัญหาพร้อมเหตุผลและหลักฐานรองรับ'
+        ]
+      },
+      {
+        id: 'pm-03',
+        name: 'การเรียนรู้ผ่านปรากฏการณ์เป็นฐาน (Phenomenon-Based Learning)',
+        category: 'สืบเสาะและแก้ปัญหา',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'เริ่มต้นจากข่าว กระแสสังคม หรือปรากฏการณ์จริงในโลก แล้วดึงตัวชี้วัดเข้าไปอธิบายปรากฏการณ์นั้น',
+        steps: [
+          '1. หยิบข่าว/ปรากฏการณ์จริงที่นักเรียนกำลังสนใจขึ้นมาเปิดประเด็น',
+          '2. ตั้งคำถามเชื่อมโยงปรากฏการณ์นั้นเข้ากับเนื้อหาในตัวชี้วัด',
+          '3. วิเคราะห์ข้อมูลจริงและสืบค้นความสัมพันธ์ของเหตุและผล',
+          '4. สรุปองค์ความรู้และสื่อสารข้อค้นพบให้เพื่อนในชั้นเรียน'
+        ]
+      },
+      {
+        id: 'pm-04',
+        name: 'การเรียนรู้แบบกรณีศึกษา (Case-Based Learning)',
+        category: 'สืบเสาะและแก้ปัญหา',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'ใช้เรื่องเล่าหรือเคสตัวอย่างที่มีปมต้องตัดสินใจ ให้ผู้เรียนวิเคราะห์และถกแถลงหาทางเลือกที่ดีที่สุด',
+        steps: [
+          '1. แจกเรื่องราว/กรณีศึกษาสั้นๆ ที่มีสถานการณ์ต้องตัดสินใจ',
+          '2. วิเคราะห์ทางเลือกและผลกระทบโดยใช้ความรู้จากตัวชี้วัด',
+          '3. ถกแถลงแลกเปลี่ยนมุมมองระหว่างกลุ่มพร้อมเหตุผลสนับสนุน',
+          '4. ร่วมกันถอดบทเรียนและสรุปหลักการสำคัญ'
+        ]
+      },
+      {
+        id: 'pm-05',
+        name: 'กระบวนการคิดเชิงออกแบบ (Design Thinking)',
+        category: 'โครงงานและสร้างสรรค์',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'ออกแบบชิ้นงานหรือแนวทางแก้ปัญหาโดยยึดความเข้าใจผู้ใช้ (Empathy) และสร้างต้นแบบทดลอง',
+        steps: [
+          '1. Empathize & Define: ทำความเข้าใจปัญหาและความต้องการของกลุ่มเป้าหมาย',
+          '2. Ideate: ระดมสมองคิดไอเดียแก้ปัญหาโดยใช้ความรู้ตามตัวชี้วัด',
+          '3. Prototype: สร้างชิ้นงานต้นแบบง่ายๆ หรือร่างแบบจำลอง',
+          '4. Test: นำเสนอต้นแบบเพื่อรับฟังข้อเสนอแนะและปรับปรุง'
+        ]
+      },
+      {
+        id: 'pm-06',
+        name: 'การเรียนรู้โดยใช้โครงงานเป็นฐาน (Project-Based Learning: PjBL)',
+        category: 'โครงงานและสร้างสรรค์',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'ผู้เรียนวางแผนและสร้างสรรค์ชิ้นงาน/โครงงานที่มีคุณค่า โดยบูรณาการความรู้และทักษะตามตัวชี้วัด',
+        steps: [
+          '1. กำหนดคำถามขับเคลื่อน (Driving Question) และเป้าหมายชิ้นงาน',
+          '2. วางแผนการทำงานและศึกษาองค์ความรู้ตามตัวชี้วัด',
+          '3. ลงมือสร้างสรรค์ผลงานและแลกเปลี่ยนคำแนะนำกับเพื่อน',
+          '4. จัดแสดงผลงานและสะท้อนคิดสิ่งที่ได้เรียนรู้'
+        ]
+      },
+      {
+        id: 'pm-07',
+        name: 'การเรียนรู้บูรณาการ STEAM Education',
+        category: 'โครงงานและสร้างสรรค์',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'ผสานความรู้วิชาการ เทคโนโลยี วิศวกรรม และศิลปะ เพื่อสร้างชิ้นงานพิชิตโจทย์ที่มีเงื่อนไขท้าทาย',
+        steps: [
+          '1. รับภารกิจท้าทายพร้อมเงื่อนไขจำกัด (Mission & Constraints)',
+          '2. ออกแบบร่างชิ้นงานโดยประยุกต์หลักการตามตัวชี้วัดผสานความคิดสร้างสรรค์',
+          '3. ลงมือสร้าง ทดสอบประสิทธิภาพ และปรับปรุงแก้ไข',
+          '4. นำเสนอผลงานและอธิบายหลักการเบื้องหลังความสำเร็จ'
+        ]
+      },
+      {
+        id: 'pm-08',
+        name: 'เวิร์กชอปลงมือทำและสร้างชิ้นงาน (Maker / Hands-on Workshop)',
+        category: 'โครงงานและสร้างสรรค์',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'เปลี่ยนทฤษฎีเป็นของจริงผ่านการลงมือปฏิบัติ (Learning by Doing) สร้างสื่อหรือชิ้นงานที่จับต้องได้',
+        steps: [
+          '1. ครูสาธิตจุดสำคัญหรือเทคนิคหลักสั้นๆ กระชับ',
+          '2. นักเรียนลงมือปฏิบัติจริงตามขั้นตอนโดยครูเดินโค้ชช่วยเหลือ',
+          '3. เพื่อนช่วยเพื่อนตรวจสอบและแลกเปลี่ยนเทคนิคระหว่างทำ',
+          '4. นำผลงานมาโชว์และสรุปแก่นความรู้ที่ได้จากการลงมือทำ'
+        ]
+      },
+      {
+        id: 'pm-09',
+        name: 'การเรียนรู้แบบร่วมมือเทคนิคจิ๊กซอว์ (Jigsaw Learning)',
+        category: 'ร่วมมือและแลกเปลี่ยน',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'แบ่งหัวข้อย่อยให้ตัวแทนไปศึกษาในกลุ่มผู้เชี่ยวชาญ (Expert) แล้วกลับมาผลัดกันสอนเพื่อนในกลุ่มบ้าน (Home)',
+        steps: [
+          '1. แบ่งกลุ่มบ้าน (Home Group) และแจกประเด็นย่อยให้สมาชิกแต่ละคน',
+          '2. ตัวแทนที่ได้หัวข้อเดียวกันแยกไปรวมกลุ่มผู้เชี่ยวชาญ (Expert Group) เพื่อศึกษาให้ลึกซึ้ง',
+          '3. ผู้เชี่ยวชาญกลับไปผลัดกันสอนเพื่อนในกลุ่มบ้านจนครบทุกหัวข้อ',
+          '4. ทำภารกิจสรุปรวมของกลุ่มบ้านโดยใช้ความรู้จากทุกส่วนประกอบกัน'
+        ]
+      },
+      {
+        id: 'pm-10',
+        name: 'คิดเดี่ยว–จับคู่คุย–แชร์ทั้งห้อง (Think–Pair–Share)',
+        category: 'ร่วมมือและแลกเปลี่ยน',
+        stars: '⭐',
+        points: 2,
+        concept: 'ให้เวลาคิดเองก่อน แล้วจับคู่แลกเปลี่ยนเหตุผลกับเพื่อนข้างๆ ก่อนนำเสนอสู่ชั้นเรียน',
+        steps: [
+          '1. Think (คิดเดี่ยว 1–2 นาที): ตอบคำถามชวนคิดตามตัวชี้วัดด้วยตนเองก่อน',
+          '2. Pair (จับคู่คุย 2–3 นาที): หันไปแลกเปลี่ยนคำตอบและเหตุผลกับคู่ของตน',
+          '3. Share (แชร์ทั้งห้อง): สุ่มคู่ตัวแทนเล่าข้อสรุปที่ได้แลกเปลี่ยนกัน',
+          '4. ครูและนักเรียนร่วมกันสรุปเชื่อมโยงสู่แนวคิดหลัก'
+        ]
+      },
+      {
+        id: 'pm-11',
+        name: 'ฐานกิจกรรมหมุนเวียน (Station Rotation / World Café)',
+        category: 'ร่วมมือและแลกเปลี่ยน',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'จัดมุมห้องเรียนเป็นฐานการเรียนรู้ 3–4 ฐาน ให้แต่ละกลุ่มหมุนเวียนทำภารกิจจนครบทุกมิติ',
+        steps: [
+          '1. จัดห้องเรียนเป็น 3–4 ฐาน (เช่น ฐานสืบค้น, ฐานวิเคราะห์เคส, ฐานลงมือทำ)',
+          '2. แต่ละกลุ่มหมุนเวียนเข้าฐานตามเวลาที่กำหนด (เช่น ฐานละ 8–10 นาที)',
+          '3. ต่อยอดความคิดหรือสะสมแต้มความรู้ครบทุกฐาน',
+          '4. อภิปรายสรุปเชื่อมโยงความรู้จากทุกฐานเข้าด้วยกัน'
+        ]
+      },
+      {
+        id: 'pm-12',
+        name: 'นิทรรศการเดินชมและวิพากษ์ผลงาน (Gallery Walk)',
+        category: 'ร่วมมือและแลกเปลี่ยน',
+        stars: '⭐',
+        points: 2,
+        concept: 'เปลี่ยนห้องเรียนเป็นแกลเลอรีแสดงผลงาน ให้ผู้เรียนเดินชม อ่าน และติดโพสต์อิทชื่นชม/เสนอแนะเพื่อน',
+        steps: [
+          '1. แต่ละกลุ่มสร้างสรรค์ผลงานหรือสรุปแนวคิดลงบนชาร์ตประจำกลุ่ม',
+          '2. จัดแสดงรอบห้อง มีตัวแทนเฝ้าบอร์ด 1 คน ส่วนที่เหลือเดินชมกลุ่มอื่น',
+          '3. เขียนโพสต์อิทชื่นชมและข้อเสนอแนะติดที่ผลงานของเพื่อน',
+          '4. กลับกลุ่มตนเองเพื่ออ่านข้อเสนอแนะและสรุปสิ่งที่ได้เรียนรู้'
+        ]
+      },
+      {
+        id: 'pm-13',
+        name: 'เกมมิฟิเคชันและภารกิจพิชิตด่าน (Gamification & Quest)',
+        category: 'เกมและสถานการณ์จำลอง',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'เปลี่ยนเนื้อหาตัวชี้วัดให้เป็นภารกิจพิชิตด่านย่อย สะสมแต้ม XP แลกคำใบ้ และปราบบอสประจำคาบ',
+        steps: [
+          '1. เปิดภารกิจ (Quest Briefing) และกติกาการสะสมแต้มประสบการณ์',
+          '2. พิชิตด่านย่อย (Mini-Quests) จากง่ายไปยากเพื่อปลดล็อกความรู้',
+          '3. ร่วมมือกันแก้โจทย์ด่านบอส (Boss Challenge) รวบยอดตามตัวชี้วัด',
+          '4. สรุปคะแนนและถอดบทเรียนสาระสำคัญที่ได้จากภารกิจ'
+        ]
+      },
+      {
+        id: 'pm-14',
+        name: 'การแสดงบทบาทสมมติและสถานการณ์จำลอง (Role-Play & Simulation)',
+        category: 'เกมและสถานการณ์จำลอง',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'ให้นักเรียนสวมบทบาทเป็นตัวละคร ผู้เชี่ยวชาญ หรือองค์ประกอบในเนื้อหา เพื่อตัดสินใจในสถานการณ์จำลอง',
+        steps: [
+          '1. กำหนดสถานการณ์จำลองและแจกบทบาทหน้าที่ให้ผู้เรียนแต่ละกลุ่ม',
+          '2. ค้นคว้าความรู้ตามตัวชี้วัดเพื่อเตรียมข้อมูลสำหรับบทบาทของตน',
+          '3. ดำเนินสถานการณ์จำลอง สนทนา แก้ปัญหา หรือเจรจาตามบทบาท',
+          '4. ถอดบทบาท (Debrief) เพื่อสรุปแนวคิดสำคัญที่เกิดขึ้นจากสถานการณ์'
+        ]
+      },
+      {
+        id: 'pm-15',
+        name: 'ห้องเรียนปริศนาไขรหัสลับ (Educational Escape Room)',
+        category: 'เกมและสถานการณ์จำลอง',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'ซ่อนโจทย์ของตัวชี้วัดไว้ในซองปริศนา 3–4 ด่าน นักเรียนต้องแก้โจทย์ให้ถูกเพื่อเอารหัสไปเปิดซองถัดไป',
+        steps: [
+          '1. เปิดภารกิจปริศนาที่ต้องช่วยกันถอดรหัสภายในเวลาที่กำหนด',
+          '2. แก้โจทย์ด่านที่ 1–3 โดยใช้ความรู้และทักษะตามตัวชี้วัดเพื่อรับรหัสผ่าน',
+          '3. มีระบบการ์ดคำใบ้ (Hint) ช่วยชี้แนะเมื่อกลุ่มติดขัด',
+          '4. เฉลยวิธีคิดของแต่ละด่านและสรุปแก่นความรู้ร่วมกันทั้งชั้นเรียน'
+        ]
+      },
+      {
+        id: 'pm-16',
+        name: 'บอร์ดเกมและการ์ดเกมเพื่อการเรียนรู้ (Board & Card Game)',
+        category: 'เกมและสถานการณ์จำลอง',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'ใช้กลไกการ์ดจับคู่ การ์ดเหตุการณ์ หรือบอร์ดเกม เพื่อฝึกทักษะและเชื่อมโยงเนื้อหาอย่างสนุกสนาน',
+        steps: [
+          '1. แนะนำกติกาการเล่นการ์ดหรือบอร์ดเกมสั้นๆ เข้าใจง่าย',
+          '2. ล้อมวงเล่นเกมโดยผู้เล่นต้องอธิบายเหตุผลทุกครั้งที่ลงการ์ด',
+          '3. ให้แต่ละกลุ่มลองสร้าง "การ์ดโจทย์ใบใหม่" เพิ่มเข้าสำรับด้วยตนเอง',
+          '4. ถอดบทเรียนเชื่อมโยงกติกาเกมเข้ากับสาระสำคัญของตัวชี้วัด'
+        ]
+      },
+      {
+        id: 'pm-17',
+        name: 'ห้องเรียนกลับด้าน (Flipped Classroom)',
+        category: 'คิดขั้นสูงและสะท้อนคิด',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'ดูสื่อสรุปสั้นๆ มาก่อนล่วงหน้า แล้วใช้เวลาในห้องเรียนลงมือทำโจทย์ประยุกต์และกิจกรรมกลุ่มอย่างเต็มที่',
+        steps: [
+          '1. ก่อนเข้าเรียน: ดูคลิปสั้น 5 นาทีหรือใบความรู้ภาพ พร้อมคำถามเช็กความเข้าใจ 1 ข้อ',
+          '2. ต้นคาบ: ครูเคลียร์จุดที่นักเรียนยังสงสัยจากภารกิจก่อนเรียน',
+          '3. ในคาบเรียน: ลุยกิจกรรมประยุกต์ วิเคราะห์โจทย์ หรือสร้างชิ้นงานโดยครูเดินโค้ช',
+          '4. ท้ายคาบ: สรุปสิ่งที่ทำได้จริงด้วย Exit Ticket สั้นๆ'
+        ]
+      },
+      {
+        id: 'pm-18',
+        name: 'เสวนาโสกราตีสและโต้วาทีสร้างสรรค์ (Socratic Seminar & Debate)',
+        category: 'คิดขั้นสูงและสะท้อนคิด',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'ฝึกการคิดวิเคราะห์และให้เหตุผลผ่านการตั้งคำถามต่อยอด หรือการโต้วาทีเชิงวิชาการที่มีหลักฐานรองรับ',
+        steps: [
+          '1. เปิดประเด็นคำถามท้าทายหรือญัตติที่มีได้หลายมุมมองจากตัวชี้วัด',
+          '2. แต่ละฝ่ายรวบรวมข้อมูล หลักการ และหลักฐานในวิชามาสนับสนุนจุดยืน',
+          '3. ล้อมวงสนทนาหรือประชันเหตุผลอย่างสร้างสรรค์โดยอ้างอิงหลักฐาน',
+          '4. สรุปมุมมองรอบด้านที่ได้เรียนรู้เพิ่มเติมจากทั้งสองฝ่าย'
+        ]
+      },
+      {
+        id: 'pm-19',
+        name: 'การคิดให้เห็นภาพด้วยผังกราฟิก (Visible Thinking & Graphic Organizer)',
+        category: 'คิดขั้นสูงและสะท้อนคิด',
+        stars: '⭐',
+        points: 2,
+        concept: 'ถ่ายทอดกระบวนการคิดและเชื่อมโยงมโนทัศน์ออกมาเป็นแผนผังความคิดที่มองเห็นโครงสร้างชัดเจน',
+        steps: [
+          '1. สังเกตข้อมูล ตัวบท หรือสถานการณ์ แล้วสกัดประเด็นสำคัญ (See / Observe)',
+          '2. จัดระเบียบความสัมพันธ์ด้วยผังกราฟิก (เช่น Venn, ผังสาเหตุ-ผลลัพธ์, Concept Map)',
+          '3. ตั้งคำถามต่อยอดหรือเชื่อมโยงสู่การนำไปใช้จริง (Wonder / Extend)',
+          '4. นำผังความคิดมาแลกเปลี่ยนเปรียบเทียบมุมมองกับเพื่อน'
+        ]
+      },
+      {
+        id: 'pm-20',
+        name: 'การเรียนรู้จากพื้นที่จริงและชุมชนเป็นฐาน (Place-Based Learning)',
+        category: 'สืบเสาะและแก้ปัญหา',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'เชื่อมโยงตัวชี้วัดในห้องเรียนเข้ากับสถานที่ อาชีพ ภูมิปัญญา หรือสิ่งแวดล้อมจริงในท้องถิ่นพัฒนานิคม/ลพบุรี',
+        steps: [
+          '1. ยกข้อมูลจริง สถานที่จริง หรือเรื่องราวในชุมชนพัฒนานิคมขึ้นมาเป็นโจทย์เปิดคาบ',
+          '2. สำรวจหรือวิเคราะห์ข้อมูลบริบทท้องถิ่นเชื่อมโยงกับเนื้อหาในตัวชี้วัด',
+          '3. ประยุกต์ความรู้เพื่ออธิบายหรือเสนอแนวทางพัฒนาชุมชน',
+          '4. นำเสนอผลงานที่สร้างคุณค่าและความภาคภูมิใจในท้องถิ่น'
+        ]
+      },
+      {
+        id: 'pm-21',
+        name: 'การจัดการเรียนรู้แบบอุปนัย–นิรนัย (Inductive & Deductive Discovery)',
+        category: 'คิดขั้นสูงและสะท้อนคิด',
+        stars: '⭐',
+        points: 2,
+        concept: 'สังเกตตัวอย่างหลากหลายเพื่อค้นหากฎเกณฑ์ด้วยตนเอง (อุปนัย) แล้วนำกฎไปทดลองใช้กับโจทย์ใหม่ (นิรนัย)',
+        steps: [
+          '1. แจกชุดตัวอย่างที่ถูกต้องและตัวอย่างหลอก ให้นักเรียนเปรียบเทียบหาจุดร่วม',
+          '2. นักเรียนช่วยกันสรุปเป็นหลักการ กฎ หรือนิยามด้วยภาษาของตนเอง',
+          '3. ครูช่วยเติมเต็มให้ตรงตามมาตรฐานและสาระสำคัญของตัวชี้วัด',
+          '4. นำหลักการที่ค้นพบไปทดลองแก้โจทย์สถานการณ์ใหม่'
+        ]
+      },
+      {
+        id: 'pm-22',
+        name: 'การเล่าเรื่องและสร้างสื่อสร้างสรรค์ (Storytelling & Infographic)',
+        category: 'โครงงานและสร้างสรรค์',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'ย่อยองค์ความรู้ตามตัวชี้วัดแล้วสื่อสารออกมาเป็นเรื่องเล่า การ์ตูนช่อง คลิปสั้น หรืออินโฟกราฟิกที่เข้าใจง่าย',
+        steps: [
+          '1. สกัดแก่นความรู้สำคัญที่สุดของตัวชี้วัดที่ต้องการสื่อสารให้คนอื่นเข้าใจ',
+          '2. ออกแบบโครงเรื่อง (Storyboard) หรือลำดับภาพประกอบให้น่าสนใจ',
+          '3. ลงมือสร้างสรรค์เป็นอินโฟกราฟิก การ์ตูนช่อง หรือคลิปสั้น',
+          '4. นำเสนอผลงานและแลกเปลี่ยนเสียงสะท้อนกับเพื่อนในชั้นเรียน'
+        ]
+      },
+      {
+        id: 'pm-23',
+        name: 'คลินิกวินิจฉัยความเข้าใจคลาดเคลื่อน (Misconception Clinic)',
+        category: 'คิดขั้นสูงและสะท้อนคิด',
+        stars: '⭐⭐',
+        points: 3,
+        concept: 'เปิดคาบด้วยจุดที่คนมักเข้าใจผิดบ่อยๆ แล้วให้นักเรียนสวมบทคุณหมอวินิจฉัยหาสาเหตุและวิธีแก้ไขที่ถูกต้อง',
+        steps: [
+          '1. เปิดตัวอย่างคำตอบหรือความเชื่อที่ผิดพลาดบ่อยในเรื่องนั้นให้วินิจฉัย',
+          '2. ร่วมกันพิสูจน์และหาหลักฐานว่าผิดพลาดที่จุดใดและเพราะเหตุใด',
+          '3. สรุปวิธีคิดที่ถูกต้องและเทคนิคป้องกันความสับสน',
+          '4. ให้นักเรียนลองตั้งโจทย์หลอกและเขียนเฉลยอธิบายให้เพื่อน'
+        ]
+      },
+      {
+        id: 'pm-24',
+        name: 'วงจรการเรียนรู้ 4MAT (Why ➔ What ➔ How ➔ What If)',
+        category: 'คิดขั้นสูงและสะท้อนคิด',
+        stars: '⭐⭐⭐',
+        points: 4,
+        concept: 'เชื่อมโยงคุณค่าว่าทำไมต้องเรียน (Why) เข้าใจแก่นความรู้ (What) ฝึกปฏิบัติจริง (How) และสร้างสรรค์ต่อยอด (If)',
+        steps: [
+          '1. WHY: เปิดประเด็นเชื่อมโยงประสบการณ์จริงว่าเรื่องนี้สำคัญต่อชีวิตอย่างไร',
+          '2. WHAT: ศึกษาและวิเคราะห์มโนทัศน์สำคัญของตัวชี้วัดให้กระจ่าง',
+          '3. HOW: ลงมือฝึกปฏิบัติหรือแก้โจทย์จนเกิดทักษะความชำนาญ',
+          '4. WHAT IF: ประยุกต์สร้างสรรค์ผลงานใหม่ในแบบฉบับของตนเอง'
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 2. สำรับการ์ดสื่อ / ชิ้นงานเสริม (20 ใบ | +1 แต้ม)
+    // =========================================================================
+    const MEDIA_DECK = [
+      { id: 'md-01', title: 'การ์ดจับคู่ / บอร์ดเกมทำมือ', desc: 'ให้นักเรียนสร้างหรือเล่นการ์ดจับคู่ความสัมพันธ์ของเนื้อหาบนโต๊ะเรียน' },
+      { id: 'md-02', title: 'คลิปสั้น 60 วินาที (Reels / TikTok Style)', desc: 'สรุปแก่นความรู้หรือสาธิตวิธีแก้ปัญหาให้จบภายใน 60 วินาทีแบบเข้าใจง่าย' },
+      { id: 'md-03', title: 'อินโฟกราฟิก 1 หน้ากระดาษ (One-Page Infographic)', desc: 'สรุปข้อมูลสำคัญ แผนภาพ และข้อสรุปลงในกระดาษแผ่นเดียวอย่างสวยงาม' },
+      { id: 'md-04', title: 'การ์ตูน 4 ช่องเล่าเรื่อง (4-Panel Comic Strip)', desc: 'ถ่ายทอดสถานการณ์ปัญหาและการใช้ความรู้แก้ปัญหาผ่านการ์ตูน 4 ช่อง' },
+      { id: 'md-05', title: 'แบบจำลอง 3 มิติจากวัสดุรอบตัว', desc: 'ใช้วัสดุเหลือใช้ ดินน้ำมัน หรือกระดาษ สร้างโมเดลจำลองอธิบายแนวคิด' },
+      { id: 'md-06', title: 'รายการพอดแคสต์ / สัมภาษณ์สดหน้าชั้น', desc: 'จัดรายการสนทนาภาษาผู้เชี่ยวชาญ ถาม-ตอบประเด็นสำคัญของตัวชี้วัด' },
+      { id: 'md-07', title: 'กำแพงโพสต์อิทระดมสมอง (Sticky Note Wall)', desc: 'ใช้โพสต์อิทหลากสีแยกหมวดหมู่ความคิดและจัดกลุ่มความสัมพันธ์บนกระดาน' },
+      { id: 'md-08', title: 'แผนที่เดินสำรวจจริงในโรงเรียน (School Field Map)', desc: 'ออกสำรวจพื้นที่จริงในโรงเรียนเพื่อเก็บข้อมูลมาวิเคราะห์ตามตัวชี้วัด' },
+      { id: 'md-09', title: 'พาดหัวข่าวหน้าหนึ่งหนังสือพิมพ์', desc: 'สรุปเรื่องราวหรือผลลัพธ์การเรียนรู้ในรูปแบบข่าวพาดหัวหน้าหนึ่งพร้อมภาพประกอบ' },
+      { id: 'md-10', title: 'ละครใบ้ / ภาพนิ่งมีชีวิต (Tableau Vivant)', desc: 'ใช้ท่าทางร่างกายจัดเป็นฉากจำลองแนวคิด แล้วให้เพื่อนทายและอธิบายหลักการ' },
+      { id: 'md-11', title: 'แผ่นพับคู่มือเอาตัวรอด (Survival Guidebook)', desc: 'พับกระดาษเป็นคู่มือพกพาสั้นๆ สรุปวิธีปฏิบัติหรือขั้นตอนการแก้ปัญหา' },
+      { id: 'md-12', title: 'กล่องสุ่มคำถามปริศนา (Mystery Question Box)', desc: 'หยิบของจริงหรือบัตรคำจากกล่องทึบ แล้วเชื่อมโยงเข้าสู่สาระการเรียนรู้' },
+      { id: 'md-13', title: 'ผังเปรียบเทียบ 2 มุมมอง (Venn / T-Chart)', desc: 'วิเคราะห์ความเหมือนและความต่างของข้อมูลอย่างชัดเจนบนชาร์ตขนาดใหญ่' },
+      { id: 'md-14', title: 'บัตรผ่านประตูท้ายคาบ (Exit Ticket 3-2-1)', desc: 'เขียน 3 สิ่งที่ได้เรียนรู้, 2 สิ่งที่ประทับใจ และ 1 คำถามที่อยากรู้ต่อก่อนจบคาบ' },
+      { id: 'md-15', title: 'คลินิกรับปรึกษาปัญหา (Peer Help Desk)', desc: 'ตั้งโต๊ะผู้เชี่ยวชาญประจำกลุ่ม ให้เพื่อนต่างกลุ่มเดินมาปรึกษาโจทย์' },
+      { id: 'md-16', title: 'ไทม์ไลน์เชือกราวตากผ้า (Interactive Timeline)', desc: 'ขึงเชือกแล้วนำบัตรขั้นตอน/เหตุการณ์ไปหนีบเรียงลำดับความสัมพันธ์' },
+      { id: 'md-17', title: 'ซองหลักฐานนักสืบ (Detective Evidence File)', desc: 'ใส่ข้อมูลเบาะแสไว้ในซองเอกสาร ให้แต่ละกลุ่มเปิดวิเคราะห์หาข้อสรุป' },
+      { id: 'md-18', title: 'โปสเตอร์รณรงค์เปลี่ยนพฤติกรรม', desc: 'ออกแบบสื่อรณรงค์เพื่อนำไปติดประชาสัมพันธ์ให้ความรู้ในโรงเรียนจริง' },
+      { id: 'md-19', title: 'วงล้อสุ่มโจทย์ / มินิควิซท้าดวล', desc: 'สร้างชุดคำถามสั้นๆ ให้แต่ละกลุ่มท้าดวลตอบคำถามพร้อมอธิบายวิธีคิด' },
+      { id: 'md-20', title: 'สมุดภาพป๊อปอัป (Pop-up Mini Book)', desc: 'สร้างสื่อแผ่นพับยกมิติสำหรับอธิบายองค์ประกอบหรือขั้นตอนสำคัญ' }
+    ];
+
+    // =========================================================================
+    // 3. สำรับการ์ดเงื่อนไขพิเศษ / โจทย์ท้าทาย (20 ใบ | +2 แต้ม)
+    // =========================================================================
+    const TWIST_DECK = [
+      { id: 'tw-01', title: 'ห้ามใช้ใบงานกระดาษแบบเดิม!', desc: 'จัดกิจกรรมและเก็บคะแนนตัวชี้วัดนี้โดยไม่แจกใบงานเติมคำแบบเดิมเลยตลอดคาบ' },
+      { id: 'tw-02', title: 'ใช้สิ่งของที่มีอยู่ในห้องเรียนตอนนี้เท่านั้น', desc: 'ดึงสิ่งของ เครื่องใช้ หรือสภาพแวดล้อมที่มีอยู่แล้วในห้องเรียนมาเป็นสื่อการสอนหลัก' },
+      { id: 'tw-03', title: 'เชื่อมโยงบริบทอำเภอพัฒนานิคม / ลพบุรี', desc: 'ต้องมีเนื้อหา สถานที่ อาชีพ หรือเรื่องราวของอำเภอพัฒนานิคม/เขื่อนป่าสักฯ อยู่ในโจทย์ด้วย' },
+      { id: 'tw-04', title: 'ขยับร่างกายภายใน 10 นาทีแรก!', desc: 'กิจกรรมช่วงเปิดคาบต้องให้นักเรียนได้ลุกเดิน ขยับตัว หรือทำกิจกรรมเคลื่อนไหว' },
+      { id: 'tw-05', title: 'ครูพูดบรรยายรวมกันไม่เกิน 10 นาที', desc: 'จำกัดเวลาครูพูดหน้าชั้นให้น้อยที่สุด แล้วใช้เวลาที่เหลือให้นักเรียนลงมือทำและอภิปราย' },
+      { id: 'tw-06', title: 'ให้นักเรียนเป็นคนออกโจทย์ถามกันเอง', desc: 'แทนที่ครูจะเป็นคนตั้งคำถามฝ่ายเดียว ให้แต่ละกลุ่มสร้างโจทย์ตามตัวชี้วัดมาทายกลุ่มเพื่อน' },
+      { id: 'tw-07', title: 'เตรียมสื่อการสอนภายในเวลาไม่เกิน 10 นาที', desc: 'ออกแบบกิจกรรมที่ครูใช้เวลาเตรียมอุปกรณ์น้อยที่สุด แต่เด็กได้คิดและลงมือทำมากที่สุด' },
+      { id: 'tw-08', title: 'เรียนนอกห้องเรียน (Outdoor / รอบบริเวณโรงเรียน)', desc: 'พานักเรียนออกจากโต๊ะเรียนไปใช้พื้นที่ใต้ร่มไม้ ลานเอนกประสงค์ หรือห้องสมุด' },
+      { id: 'tw-09', title: 'ให้เพื่อนประเมินผลงานเพื่อน (Peer Assessment)', desc: 'ออกแบบเกณฑ์ง่ายๆ ให้นักเรียนมีส่วนร่วมในการตรวจและให้ข้อเสนอแนะผลงานของเพื่อน' },
+      { id: 'tw-10', title: 'เปิดคาบด้วย "คำถามที่ไม่มีคำตอบตายตัว"', desc: 'เริ่มต้นคาบเรียนด้วยคำถามปลายเปิดที่กระตุ้นให้เด็กคิดต่างและถกเถียงด้วยเหตุผล' },
+      { id: 'tw-11', title: 'เชื่อมโยงกับอาชีพในอนาคตของนักเรียน', desc: 'ชี้ให้เห็นว่าความรู้จากตัวชี้วัดนี้ถูกนำไปใช้จริงในอาชีพหรือการทำงานอย่างไร' },
+      { id: 'tw-12', title: 'มีภารกิจสำหรับเด็กที่ทำเสร็จเร็ว (Fast Finisher)', desc: 'คิดโจทย์เสริมท้าทายเตรียมไว้สำหรับกลุ่มหรือนักเรียนที่ทำภารกิจหลักเสร็จก่อนเวลา' },
+      { id: 'tw-13', title: 'ผสมการใช้เทคโนโลยีหรือ AI อย่างสร้างสรรค์', desc: 'เปิดโอกาสให้นักเรียนใช้สมาร์ตโฟน สื่อดิจิทัล หรือ AI เป็นเครื่องมือช่วยสืบค้น/ตรวจสอบ' },
+      { id: 'tw-14', title: '完全ปลอดมือถือ (100% Unplugged Activity)', desc: 'จัดกิจกรรมแบบไม่ต้องพึ่งพาอินเทอร์เน็ตหรือหน้าจอใดๆ เน้นปฏิสัมพันธ์ตรงหน้าล้วนๆ' },
+      { id: 'tw-15', title: 'ทุกคนในกลุ่มต้องมีบทบาทหน้าที่ไม่ซ้ำกัน', desc: 'กำหนดบทบาทสมาชิกในกลุ่มให้ชัดเจน (เช่น ผู้นำเสนอ, ผู้จดบันทึก, ผู้ตรวจสอบเวลา, ผู้ตั้งคำถาม)' },
+      { id: 'tw-16', title: 'ใช้นิทาน เรื่องเล่า หรือข่าวจริงเปิดเรื่อง', desc: 'ห้ามขึ้นต้นคาบด้วยการบอกชื่อเรื่องในหนังสือเรียน แต่ให้เปิดด้วยเรื่องเล่าหรือข่าวจริงก่อน' },
+      { id: 'tw-17', title: 'เปลี่ยนเรื่องยากให้เด็กประถมฟังเข้าใจ', desc: 'ภารกิจท้ายคาบคือให้นักเรียนสรุปความรู้เรื่องนี้แบบที่เอาไปเล่าให้น้องชั้นประถมฟังแล้วเข้าใจได้' },
+      { id: 'tw-18', title: 'ประหยัดงบ 0 บาท (Zero-Budget Classroom)', desc: 'จัดกิจกรรม Active Learning สุดเข้มข้นโดยไม่เสียค่าใช้จ่ายซื้ออุปกรณ์เพิ่มเลย' },
+      { id: 'tw-19', title: 'มีช่วงเงียบคิดทบทวนตนเอง 2 นาที (Silent Reflection)', desc: 'ก่อนจบคาบต้องมีช่วงเวลาให้นักเรียนได้ทบทวนและสรุปสิ่งที่ตนเองได้เรียนรู้เงียบๆ' },
+      { id: 'tw-20', title: 'เชื่อมโยงคุณธรรมหรือการช่วยเหลือสังคม', desc: 'สอดแทรกโจทย์ที่ให้นักเรียนนำความรู้ไปใช้ช่วยเหลือผู้อื่นหรือแก้ปัญหาส่วนรวม' }
+    ];
+
+    // =========================================================================
+    // 4. สร้างคลังโจทย์รวม (Core KPIs + School Courses Outcomes)
+    // =========================================================================
+    function buildSchoolOutcomeItems() {
+      const items = [];
+      Object.values(SCHOOL_COURSES).forEach(c => {
+        (c.units || []).forEach(u => {
+          const inds = u.indicators || [];
+          const cons = (u.concepts || []).join(' ');
+          inds.forEach((indText, idx) => {
+            if (!indText || indText.trim() === '-') return;
+            items.push({
+              id: `sc-${c.code}-${u.no}-${idx}`,
+              code: `${c.code} (${c.name})`,
+              subject: c.area,
+              grade: c.grade || 'ม.4-6',
+              type: c.is_basic ? 'วิชาพื้นฐาน รร.' : 'ผลการเรียนรู้ (วิชาเพิ่มเติม)',
+              strand: `หน่วยที่ ${u.no}: ${u.name}`,
+              standard: `${c.code} ${c.name}`,
+              standard_desc: c.description || '',
+              text: indText.trim(),
+              core_content: cons,
+              courses: [`${c.code}_${c.name}`],
+              is_elective: !c.is_basic
+            });
+          });
+        });
+      });
+      return items;
+    }
+
+    const SCHOOL_OUTCOME_ITEMS = buildSchoolOutcomeItems();
+
+    const gameState = {
+      numeral: localStorage.getItem('curriculum_numeral_pref') || 'thai',
+      sourcePool: 'CORE', // 'CORE', 'SCHOOL_ALL', 'SCHOOL_ELECTIVE'
+      kpiCount: 1, // 1, 2, or 3
+      methodCount: 5, // 1, 3, or 5
+      sameGrade: true,
+      crossSubject: true,
+      selectedGrades: new Set(ALL_GRADES),
+      selectedSubjects: new Set(ALL_SUBJECTS),
+      drawnKpis: [],
+      lockedKpiSlots: new Set(),
+      drawnMethods: [],
+      lockedMethodSlots: new Set(),
+      claimedMethodSlots: new Set(),
+      bonusMedia: null,
+      bonusTwist: null,
+      filterOpen: false
+    };
+
+    function toThaiDigits(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/[0-9]/g, d => THAI_DIGITS[parseInt(d)]);
+    }
+
+    function toArabicDigits(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/[๐-๙]/g, d => THAI_DIGITS_MAP[d]);
+    }
+
+    function formatDigits(str) {
+      if (str === null || str === undefined) return '';
+      return gameState.numeral === 'thai' ? toThaiDigits(str) : toArabicDigits(str);
+    }
+
+    function normalizeGradeKey(g) {
+      if (!g) return 'ม.4-6';
+      const s = toArabicDigits(String(g)).trim();
+      if (s.startsWith('ป.1')) return 'ป.1';
+      if (s.startsWith('ป.2')) return 'ป.2';
+      if (s.startsWith('ป.3')) return 'ป.3';
+      if (s.startsWith('ป.4')) return 'ป.4';
+      if (s.startsWith('ป.5')) return 'ป.5';
+      if (s.startsWith('ป.6')) return 'ป.6';
+      if (s.startsWith('ม.1')) return 'ม.1';
+      if (s.startsWith('ม.2')) return 'ม.2';
+      if (s.startsWith('ม.3')) return 'ม.3';
+      return 'ม.4-6';
+    }
+
+    function getCandidatePool() {
+      let raw = [];
+      if (gameState.sourcePool === 'CORE') {
+        raw = DATA.kpis || [];
+      } else if (gameState.sourcePool === 'SCHOOL_ALL') {
+        raw = SCHOOL_OUTCOME_ITEMS;
+      } else {
+        raw = SCHOOL_OUTCOME_ITEMS.filter(x => x.is_elective);
+      }
+
+      return raw.filter(k => {
+        const gk = normalizeGradeKey(k.grade);
+        if (gameState.selectedGrades.size > 0 && !gameState.selectedGrades.has(gk)) return false;
+        if (gameState.selectedSubjects.size > 0 && !gameState.selectedSubjects.has(k.subject)) return false;
+        return true;
+      });
+    }
+
+    function pickRandom(arr) {
+      if (!arr || arr.length === 0) return null;
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // =========================================================================
+    // 5. ฟังก์ชันสุ่มการ์ด (Draw Engine)
+    // =========================================================================
+    function drawKpisOnly(silent = false) {
+      const pool = getCandidatePool();
+      if (pool.length === 0) {
+        showToast('ไม่พบตัวชี้วัดในชั้น/วิชาที่เลือก กรุณาเลือกชั้นหรือวิชาเพิ่ม');
+        return;
+      }
+
+      const nextKpis = [];
+      const usedCodes = new Set();
+      const usedSubjects = new Set();
+      let lockedGrade = null;
+
+      for (let i = 0; i < gameState.kpiCount; i++) {
+        if (gameState.lockedKpiSlots.has(i) && gameState.drawnKpis[i]) {
+          nextKpis[i] = gameState.drawnKpis[i];
+          usedCodes.add(nextKpis[i].code + nextKpis[i].text);
+          usedSubjects.add(nextKpis[i].subject);
+          if (!lockedGrade) lockedGrade = normalizeGradeKey(nextKpis[i].grade);
+        }
+      }
+
+      for (let i = 0; i < gameState.kpiCount; i++) {
+        if (nextKpis[i]) continue;
+        let subPool = pool.filter(k => !usedCodes.has(k.code + k.text));
+        if (subPool.length === 0) subPool = pool;
+
+        // Same-grade matching for 2-3 KPIs
+        if (gameState.sameGrade && gameState.kpiCount > 1 && lockedGrade) {
+          const sameGradePool = subPool.filter(k => normalizeGradeKey(k.grade) === lockedGrade);
+          if (sameGradePool.length > 0) subPool = sameGradePool;
+        }
+
+        // Cross-subject distribution when multiple subjects are selected
+        if (gameState.crossSubject && gameState.selectedSubjects.size > 1 && usedSubjects.size < gameState.selectedSubjects.size) {
+          const diffSubjPool = subPool.filter(k => !usedSubjects.has(k.subject));
+          if (diffSubjPool.length > 0) subPool = diffSubjPool;
+        }
+
+        const picked = pickRandom(subPool);
+        if (picked) {
+          nextKpis[i] = picked;
+          usedCodes.add(picked.code + picked.text);
+          usedSubjects.add(picked.subject);
+          if (!lockedGrade) lockedGrade = normalizeGradeKey(picked.grade);
+        }
+      }
+
+      gameState.drawnKpis = nextKpis.filter(Boolean);
+      renderAll();
+      if (!silent) showToast('🎲 สุ่มเปลี่ยนการ์ดตัวชี้วัดเรียบร้อย!');
+    }
+
+    function drawMethodsOnly(silent = false) {
+      const nextMethods = [];
+      const usedIds = new Set();
+
+      for (let i = 0; i < gameState.methodCount; i++) {
+        if (gameState.lockedMethodSlots.has(i) && gameState.drawnMethods[i]) {
+          nextMethods[i] = gameState.drawnMethods[i];
+          usedIds.add(nextMethods[i].id);
+        }
+      }
+
+      for (let i = 0; i < gameState.methodCount; i++) {
+        if (nextMethods[i]) continue;
+        let subPool = PEDAGOGY_DECK.filter(m => !usedIds.has(m.id));
+        if (subPool.length === 0) subPool = PEDAGOGY_DECK;
+        const picked = pickRandom(subPool);
+        if (picked) {
+          nextMethods[i] = picked;
+          usedIds.add(picked.id);
+        }
+      }
+
+      gameState.drawnMethods = nextMethods.filter(Boolean);
+      // Clear claimed status on unlocked slots
+      [...gameState.claimedMethodSlots].forEach(idx => {
+        if (!gameState.lockedMethodSlots.has(idx)) {
+          gameState.claimedMethodSlots.delete(idx);
+        }
+      });
+
+      renderAll();
+      if (!silent) showToast('✨ สุ่มการ์ดวิธีสอนชุดใหม่เรียบร้อย!');
+    }
+
+    function drawAll(silent = false) {
+      gameState.claimedMethodSlots.clear();
+      drawKpisOnly(true);
+      drawMethodsOnly(true);
+      if (!silent) showToast('🎲 สุ่มโจทย์ตัวชี้วัดและการ์ดวิธีสอนชุดใหม่แล้ว!');
+    }
+
+    function rerollSingleKpi(idx) {
+      const pool = getCandidatePool();
+      const used = new Set(gameState.drawnKpis.map(k => k.code + k.text));
+      let subPool = pool.filter(k => !used.has(k.code + k.text));
+      if (gameState.sameGrade && gameState.drawnKpis[0] && idx > 0) {
+        const targetG = normalizeGradeKey(gameState.drawnKpis[0].grade);
+        const sameG = subPool.filter(k => normalizeGradeKey(k.grade) === targetG);
+        if (sameG.length > 0) subPool = sameG;
+      }
+      if (subPool.length === 0) subPool = pool;
+      const picked = pickRandom(subPool);
+      if (picked) {
+        gameState.drawnKpis[idx] = picked;
+        renderAll();
+        showToast(`สุ่มเปลี่ยนตัวชี้วัดใบที่ ${formatDigits(String(idx + 1))} แล้ว`);
+      }
+    }
+
+    function toggleLockKpi(idx) {
+      if (gameState.lockedKpiSlots.has(idx)) gameState.lockedKpiSlots.delete(idx);
+      else gameState.lockedKpiSlots.add(idx);
+      renderAll();
+    }
+
+    function rerollSingleMethod(idx) {
+      const used = new Set(gameState.drawnMethods.map(m => m.id));
+      let subPool = PEDAGOGY_DECK.filter(m => !used.has(m.id));
+      if (subPool.length === 0) subPool = PEDAGOGY_DECK;
+      const picked = pickRandom(subPool);
+      if (picked) {
+        gameState.drawnMethods[idx] = picked;
+        gameState.claimedMethodSlots.delete(idx);
+        renderAll();
+        showToast(`สุ่มเปลี่ยนการ์ดวิธีสอนใบที่ ${formatDigits(String(idx + 1))} แล้ว`);
+      }
+    }
+
+    function toggleLockMethod(idx) {
+      if (gameState.lockedMethodSlots.has(idx)) gameState.lockedMethodSlots.delete(idx);
+      else gameState.lockedMethodSlots.add(idx);
+      renderAll();
+    }
+
+    function toggleClaimMethod(idx) {
+      if (gameState.claimedMethodSlots.has(idx)) {
+        gameState.claimedMethodSlots.delete(idx);
+      } else {
+        gameState.claimedMethodSlots.add(idx);
+      }
+      renderAll();
+    }
+
+    function clearAllClaimedMethods() {
+      gameState.claimedMethodSlots.clear();
+      renderAll();
+      showToast('คืนสถานะการ์ดวิธีสอนทุกใบให้พร้อมเลือกใหม่แล้ว');
+    }
+
+    function drawBonusMediaCard() {
+      const currentId = gameState.bonusMedia ? gameState.bonusMedia.id : null;
+      const pool = MEDIA_DECK.filter(m => m.id !== currentId);
+      gameState.bonusMedia = pickRandom(pool);
+      renderBonusCards();
+      showToast('🎨 เปิดการ์ดสื่อ / ชิ้นงานเสริม (+๑ แต้ม)!');
+    }
+
+    function drawBonusTwistCard() {
+      const currentId = gameState.bonusTwist ? gameState.bonusTwist.id : null;
+      const pool = TWIST_DECK.filter(t => t.id !== currentId);
+      gameState.bonusTwist = pickRandom(pool);
+      renderBonusCards();
+      showToast('⚡ เปิดการ์ดเงื่อนไขท้าทาย (+๒ แต้ม)!');
+    }
+
+    function clearBonusCards() {
+      gameState.bonusMedia = null;
+      gameState.bonusTwist = null;
+      renderBonusCards();
+    }
+
+    // =========================================================================
+    // 6. UI Controls & Filter Presets
+    // =========================================================================
+    function setNumeral(mode) {
+      gameState.numeral = mode;
+      localStorage.setItem('curriculum_numeral_pref', mode);
+      const bThai = document.getElementById('btn-num-thai');
+      const bArab = document.getElementById('btn-num-arabic');
+      if (mode === 'thai') {
+        bThai.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition';
+        bArab.className = 'px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition';
+      } else {
+        bArab.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition';
+        bThai.className = 'px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition';
+      }
+      renderAll();
+    }
+
+    function setKpiCount(count) {
+      gameState.kpiCount = count;
+      [1, 2, 3].forEach(n => {
+        const btn = document.getElementById(`btn-kpi-${n}`);
+        if (!btn) return;
+        btn.className = n === count
+          ? 'px-3 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-600 text-white shadow'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white';
+      });
+      [...gameState.lockedKpiSlots].forEach(idx => {
+        if (idx >= count) gameState.lockedKpiSlots.delete(idx);
+      });
+      drawKpisOnly();
+    }
+
+    function setMethodCount(count) {
+      gameState.methodCount = count;
+      [1, 3, 5].forEach(n => {
+        const btn = document.getElementById(`btn-method-${n}`);
+        if (!btn) return;
+        btn.className = n === count
+          ? 'px-3 py-1.5 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white';
+      });
+      [...gameState.lockedMethodSlots].forEach(idx => {
+        if (idx >= count) gameState.lockedMethodSlots.delete(idx);
+      });
+      drawMethodsOnly();
+    }
+
+    function onSourcePoolChange(val) {
+      gameState.sourcePool = val;
+      if (val !== 'CORE') {
+        // School courses are M.1 - M.6
+        const hasSecondary = [...gameState.selectedGrades].some(g => g.startsWith('ม.'));
+        if (!hasSecondary) {
+          gameState.selectedGrades = new Set(['ม.1', 'ม.2', 'ม.3', 'ม.4-6']);
+        }
+      }
+      gameState.lockedKpiSlots.clear();
+      drawKpisOnly();
+    }
+
+    function toggleFilterPanel() {
+      gameState.filterOpen = !gameState.filterOpen;
+      const drawer = document.getElementById('filterDrawer');
+      const chev = document.getElementById('filterChevron');
+      if (drawer) drawer.classList.toggle('hidden', !gameState.filterOpen);
+      if (chev) chev.style.transform = gameState.filterOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    function toggleGrade(code) {
+      if (gameState.selectedGrades.has(code)) {
+        if (gameState.selectedGrades.size > 1) gameState.selectedGrades.delete(code);
+        else showToast('ต้องเลือกอย่างน้อย ๑ ระดับชั้น');
+      } else {
+        gameState.selectedGrades.add(code);
+      }
+      drawKpisOnly();
+    }
+
+    function setGradePreset(preset) {
+      if (preset === 'ALL') gameState.selectedGrades = new Set(ALL_GRADES);
+      else if (preset === 'P_EARLY') gameState.selectedGrades = new Set(['ป.1', 'ป.2', 'ป.3']);
+      else if (preset === 'P_LATE') gameState.selectedGrades = new Set(['ป.4', 'ป.5', 'ป.6']);
+      else if (preset === 'M_EARLY') gameState.selectedGrades = new Set(['ม.1', 'ม.2', 'ม.3']);
+      else if (preset === 'M_LATE') gameState.selectedGrades = new Set(['ม.4-6']);
+      drawKpisOnly();
+    }
+
+    function toggleSubject(subj) {
+      if (gameState.selectedSubjects.has(subj)) {
+        if (gameState.selectedSubjects.size > 1) gameState.selectedSubjects.delete(subj);
+        else showToast('ต้องเลือกอย่างน้อย ๑ วิชา/กลุ่มสาระฯ');
+      } else {
+        gameState.selectedSubjects.add(subj);
+      }
+      drawKpisOnly();
+    }
+
+    function setSubjectPreset(preset) {
+      if (preset === 'ALL') gameState.selectedSubjects = new Set(ALL_SUBJECTS);
+      drawKpisOnly();
+    }
+
+    // =========================================================================
+    // 7. Render Functions
+    // =========================================================================
+    function renderFilterChips() {
+      const pool = getCandidatePool();
+      const badge = document.getElementById('poolSummaryBadge');
+      if (badge) {
+        badge.textContent = formatDigits(`คลังพร้อมสุ่ม ${pool.length.toLocaleString()} รายการ`);
+      }
+
+      const labelEl = document.getElementById('filterSummaryLabel');
+      if (labelEl) {
+        const gTxt = gameState.selectedGrades.size === ALL_GRADES.length
+          ? 'ทุกชั้น'
+          : [...gameState.selectedGrades].join(', ');
+        const sTxt = gameState.selectedSubjects.size === ALL_SUBJECTS.length
+          ? 'ทุกวิชา (8 กลุ่มสาระฯ)'
+          : `${gameState.selectedSubjects.size} วิชา`;
+        labelEl.textContent = formatDigits(`${gTxt} • ${sTxt}`);
+      }
+
+      const gContainer = document.getElementById('gradeChipsContainer');
+      if (gContainer) {
+        gContainer.innerHTML = ALL_GRADES.map(g => {
+          const active = gameState.selectedGrades.has(g);
+          return `
+            <button onclick="toggleGrade('${g}')" class="py-1.5 px-2 rounded-xl border text-xs font-mono font-bold transition ${active ? 'bg-sky-500/20 border-sky-400 text-white shadow-sm' : 'bg-slate-950/60 border-slate-800 text-slate-500 hover:text-slate-300'}">
+              ${formatDigits(g)}
+            </button>
+          `;
+        }).join('');
+      }
+
+      const sContainer = document.getElementById('subjectChipsContainer');
+      if (sContainer) {
+        sContainer.innerHTML = ALL_SUBJECTS.map(s => {
+          const active = gameState.selectedSubjects.has(s);
+          const meta = (DATA.subject_meta && DATA.subject_meta[s]) || { color: '#10b981' };
+          return `
+            <button onclick="toggleSubject('${s}')" class="flex items-center space-x-2 px-2.5 py-1.5 rounded-xl border text-left text-xs transition ${active ? 'bg-slate-900 border-slate-600 text-white shadow-sm' : 'bg-slate-950/50 border-slate-800 text-slate-500 opacity-60 hover:opacity-100'}">
+              <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color:${meta.color}"></span>
+              <span class="truncate font-medium">${s}</span>
+            </button>
+          `;
+        }).join('');
+      }
+    }
+
+    function renderKpiCards() {
+      const heading = document.getElementById('kpiZoneHeading');
+      const bonusKpiPts = gameState.kpiCount === 2 ? ' (+๑ แต้มโบนัส)' : gameState.kpiCount === 3 ? ' (+๒ แต้มโบนัส)' : '';
+      if (heading) {
+        heading.textContent = formatDigits(`โจทย์ตัวชี้วัดกลาง (${gameState.drawnKpis.length} ตัวชี้วัด)${bonusKpiPts}`);
+      }
+
+      const grid = document.getElementById('kpiCardsGrid');
+      if (!grid) return;
+
+      grid.className = gameState.kpiCount === 1
+        ? 'grid grid-cols-1 gap-4'
+        : gameState.kpiCount === 2
+          ? 'grid grid-cols-1 lg:grid-cols-2 gap-4'
+          : 'grid grid-cols-1 lg:grid-cols-3 gap-4';
+
+      grid.innerHTML = gameState.drawnKpis.map((k, idx) => {
+        const isLocked = gameState.lockedKpiSlots.has(idx);
+        const meta = (DATA.subject_meta && DATA.subject_meta[k.subject]) || { color: '#10b981' };
+        const stdDesc = k.standard_desc || (DATA.standards && DATA.standards[k.standard]) || '';
+        const isSummative = String(k.type).includes('ปลายทาง');
+        const typeBadge = isSummative
+          ? `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40">🎯 ${formatDigits(k.type)}</span>`
+          : `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/40">🛤️ ${formatDigits(k.type)}</span>`;
+
+        return `
+          <div class="card-animate glass-panel kpi-card-glow rounded-3xl p-5 flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/40'}">
+            <div class="space-y-3">
+              <!-- Card Top Header -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2.5 py-1 rounded-xl font-mono text-xs font-bold text-white shadow" style="background-color:${meta.color}">
+                    ${formatDigits(k.code)}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                    ${k.subject} • ชั้น ${formatDigits(k.grade)}
+                  </span>
+                  ${typeBadge}
+                </div>
+
+                <div class="flex items-center space-x-1.5 shrink-0">
+                  <button onclick="toggleLockKpi(${idx})" class="px-2.5 py-1 rounded-xl border text-xs font-semibold transition flex items-center space-x-1 ${isLocked ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'}" title="ล็อกตัวชี้วัดใบนี้ไว้">
+                    <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3.5 h-3.5"></i>
+                    <span>${isLocked ? 'ล็อกแล้ว' : 'ล็อกใบนี้'}</span>
+                  </button>
+                  <button onclick="rerollSingleKpi(${idx})" class="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-slate-700 transition" title="สุ่มเปลี่ยนเฉพาะตัวชี้วัดใบนี้">
+                    <i data-lucide="dices" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Main Indicator Text (Projector-Friendly Large Text) -->
+              <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800">
+                <span class="text-[11px] font-mono uppercase text-emerald-400 font-bold block mb-1">
+                  ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
+                </span>
+                <p class="text-base sm:text-lg font-bold text-white leading-relaxed">
+                  ${formatDigits(k.text)}
+                </p>
+              </div>
+
+              <!-- Collapsible / Clean Standard & Core Content -->
+              <div class="grid grid-cols-1 gap-2 text-xs">
+                ${stdDesc ? `
+                  <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
+                    <strong class="text-slate-400">มาตรฐาน/คำอธิบาย:</strong> ${formatDigits(stdDesc.length > 180 ? stdDesc.slice(0, 180) + '…' : stdDesc)}
+                  </div>
+                ` : ''}
+                ${k.core_content ? `
+                  <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
+                    <strong class="text-sky-400">สาระสำคัญ / สาระแกนกลาง:</strong> ${formatDigits(k.core_content.replace(/\n+/g, ' '))}
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMethodCards() {
+      const heading = document.getElementById('methodZoneHeading');
+      if (heading) {
+        heading.textContent = formatDigits(`การ์ดวิธีสอน / รูปแบบการสอน (${gameState.drawnMethods.length} ใบ)`);
+      }
+
+      const resetBtn = document.getElementById('btnResetClaims');
+      if (resetBtn) {
+        resetBtn.classList.toggle('hidden', gameState.claimedMethodSlots.size === 0);
+      }
+
+      const grid = document.getElementById('methodCardsGrid');
+      if (!grid) return;
+
+      grid.className = gameState.methodCount === 1
+        ? 'grid grid-cols-1 max-w-3xl mx-auto gap-4'
+        : gameState.methodCount === 3
+          ? 'grid grid-cols-1 lg:grid-cols-3 gap-4'
+          : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5';
+
+      grid.innerHTML = gameState.drawnMethods.map((m, idx) => {
+        const isLocked = gameState.lockedMethodSlots.has(idx);
+        const isClaimed = gameState.claimedMethodSlots.has(idx);
+        const stepsHtml = (m.steps || []).map(s => `<li class="text-slate-200 text-xs leading-relaxed">${formatDigits(s)}</li>`).join('');
+
+        return `
+          <div class="card-animate glass-panel pedagogy-card-glow rounded-3xl p-4 flex flex-col justify-between border-2 transition ${isClaimed ? 'card-claimed border-slate-700' : isLocked ? 'border-emerald-400' : 'border-amber-500/45'}">
+            <div class="space-y-3">
+              <!-- Card Top Strip: Number + Star Points + Lock/Reroll -->
+              <div class="flex items-center justify-between gap-1.5">
+                <div class="flex items-center space-x-1.5">
+                  <span class="px-2.5 py-0.5 rounded-lg bg-amber-500 text-slate-950 font-mono text-xs font-extrabold">
+                    ใบที่ ${formatDigits(String(idx + 1))}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 font-mono text-[11px] font-bold" title="แต้มประจำการ์ดใบนี้">
+                    ${m.stars} +${formatDigits(String(m.points))} แต้ม
+                  </span>
+                </div>
+
+                <div class="flex items-center space-x-1">
+                  <button onclick="toggleLockMethod(${idx})" class="p-1.5 rounded-lg border text-xs transition ${isLocked ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-400 border-slate-700'}" title="ล็อกการ์ดวิธีสอนใบนี้">
+                    <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3.5 h-3.5"></i>
+                  </button>
+                  <button onclick="rerollSingleMethod(${idx})" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 transition" title="สุ่มเปลี่ยนเฉพาะใบนี้">
+                    <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Method Name & Core Concept -->
+              <div>
+                <span class="text-[10px] font-semibold text-amber-400/90 uppercase tracking-wider block">${m.category}</span>
+                <h3 class="text-base font-bold text-white leading-snug mt-0.5">${formatDigits(m.name)}</h3>
+                <p class="text-xs text-slate-300 mt-1 leading-relaxed">${formatDigits(m.concept)}</p>
+              </div>
+
+              <!-- Activity Steps -->
+              <div class="p-3 rounded-2xl bg-slate-950/90 border border-slate-800/90 space-y-1">
+                <span class="text-[11px] font-bold text-emerald-400 block">แนวทางจัดกิจกรรมตามลำดับขั้น:</span>
+                <ul class="space-y-1">
+                  ${stepsHtml}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Bottom Claim Toggle Button (For PLC Group Play) -->
+            <div class="pt-3 mt-3 border-t border-slate-800/80">
+              <button onclick="toggleClaimMethod(${idx})" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 ${isClaimed ? 'bg-slate-800 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40'}">
+                <i data-lucide="${isClaimed ? 'check-circle-2' : 'hand'}" class="w-4 h-4"></i>
+                <span>${isClaimed ? 'เลือกใช้แล้ว (คลิกเพื่อคืนการ์ด)' : `เลือกใช้ใบนี้ (+${formatDigits(String(m.points))} แต้ม)`}</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderBonusCards() {
+      const container = document.getElementById('bonusCardsContainer');
+      const clearBtn = document.getElementById('btnClearBonus');
+      if (!container) return;
+
+      if (!gameState.bonusMedia && !gameState.bonusTwist) {
+        container.classList.add('hidden');
+        if (clearBtn) clearBtn.classList.add('hidden');
+        return;
+      }
+
+      container.classList.remove('hidden');
+      if (clearBtn) clearBtn.classList.remove('hidden');
+
+      let html = '';
+      if (gameState.bonusMedia) {
+        html += `
+          <div class="card-animate p-4 rounded-2xl bg-sky-950/30 border-2 border-sky-500/40 flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded-lg bg-sky-500 text-slate-950 font-mono text-[11px] font-extrabold">🎨 การ์ดสื่อ / ชิ้นงาน (+${formatDigits('1')} แต้ม)</span>
+              </div>
+              <h4 class="text-sm sm:text-base font-bold text-white pt-1">${formatDigits(gameState.bonusMedia.title)}</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">${formatDigits(gameState.bonusMedia.desc)}</p>
+            </div>
+            <button onclick="drawBonusMediaCard()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-700 shrink-0" title="สุ่มเปลี่ยนการ์ดสื่อ">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        `;
+      }
+
+      if (gameState.bonusTwist) {
+        html += `
+          <div class="card-animate p-4 rounded-2xl bg-purple-950/30 border-2 border-purple-500/40 flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded-lg bg-purple-500 text-white font-mono text-[11px] font-extrabold">⚡ การ์ดเงื่อนไขท้าทาย (+${formatDigits('2')} แต้ม)</span>
+              </div>
+              <h4 class="text-sm sm:text-base font-bold text-white pt-1">${formatDigits(gameState.bonusTwist.title)}</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">${formatDigits(gameState.bonusTwist.desc)}</p>
+            </div>
+            <button onclick="drawBonusTwistCard()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-300 border border-slate-700 shrink-0" title="สุ่มเปลี่ยนการ์ดเงื่อนไข">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function renderAll() {
+      renderFilterChips();
+      renderKpiCards();
+      renderMethodCards();
+      renderBonusCards();
+      lucide.createIcons();
+    }
+
+    function copyAllCurrentCards() {
+      let txt = `🎲 โจทย์สุ่มตัวชี้วัด × การ์ดวิธีสอน\n`;
+      txt += `========================================\n`;
+      gameState.drawnKpis.forEach((k, i) => {
+        txt += `📌 ตัวชี้วัดที่ ${formatDigits(String(i + 1))}: ${formatDigits(k.code)} (${k.subject} ชั้น ${formatDigits(k.grade)})\n`;
+        txt += `   ข้อความ: ${formatDigits(k.text)}\n`;
+        if (k.core_content) txt += `   สาระสำคัญ: ${formatDigits(k.core_content.replace(/\n+/g, ' '))}\n`;
+      });
+      txt += `\n✨ การ์ดวิธีสอนที่สุ่มได้:\n`;
+      gameState.drawnMethods.forEach((m, i) => {
+        txt += `${formatDigits(String(i + 1))}. ${formatDigits(m.name)} (${m.stars} +${formatDigits(String(m.points))} แต้ม)\n`;
+        txt += `   แนวคิด: ${formatDigits(m.concept)}\n`;
+        txt += `   ขั้นตอน: ${formatDigits(m.steps.join(' | '))}\n`;
+      });
+      if (gameState.bonusMedia) {
+        txt += `\n🎨 การ์ดสื่อ/ชิ้นงาน (+${formatDigits('1')} แต้ม): ${formatDigits(gameState.bonusMedia.title)} — ${formatDigits(gameState.bonusMedia.desc)}\n`;
+      }
+      if (gameState.bonusTwist) {
+        txt += `\n⚡ การ์ดเงื่อนไขท้าทาย (+${formatDigits('2')} แต้ม): ${formatDigits(gameState.bonusTwist.title)} — ${formatDigits(gameState.bonusTwist.desc)}\n`;
+      }
+
+      navigator.clipboard.writeText(txt).then(() => {
+        showToast('📋 คัดลอกโจทย์และการ์ดชุดนี้ลง Clipboard แล้ว!');
+      });
+    }
+
+    function toggleRulesModal() {
+      const m = document.getElementById('rulesModal');
+      if (m) m.classList.toggle('hidden');
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = 'toast-animate px-4 py-2.5 rounded-2xl bg-slate-900 border border-amber-500/50 text-white text-xs shadow-2xl backdrop-blur flex items-center space-x-2.5';
+      t.innerHTML = `
+        <div class="w-4 h-4 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+          <i data-lucide="sparkles" class="w-3 h-3"></i>
+        </div>
+        <span class="font-medium">${message}</span>
+      `;
+      container.appendChild(t);
+      lucide.createIcons();
+      setTimeout(() => {
+        t.style.transition = 'opacity 0.22s ease-out, transform 0.22s ease-out';
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(12px)';
+        setTimeout(() => t.remove(), 220);
+      }, 2200);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setNumeral(gameState.numeral);
+      drawAll(true);
+    });
+  </script>
+</body>
+</html>
