@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</title>
-  <meta name="description" content="แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐) จำแนกกลุ่มสาระ สาระ มาตรฐาน และตัวชี้วัดระหว่างทาง-ปลายทาง">
+  <title>แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน • โรงเรียนพัฒนานิคม</title>
+  <meta name="description" content="แผนภาพโครงสร้างหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พ.ศ. ๒๕๕๑ (ฉบับปรับปรุง ๒๕๖๐) และคลังโครงสร้างรายวิชาโรงเรียนพัฒนานิคม ครบ ๖๒๖ รายวิชา">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23059669'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23ffffff'/%3E%3Ccircle cx='7' cy='9' r='2.5' fill='%2338bdf8'/%3E%3Ccircle cx='25' cy='9' r='2.5' fill='%23fbbf24'/%3E%3Ccircle cx='7' cy='23' r='2.5' fill='%23f472b6'/%3E%3Ccircle cx='25' cy='23' r='2.5' fill='%23a78bfa'/%3E%3Cpath d='M12 13L8.5 10.5M20 13l3.5-2.5M12 19l-3.5 2.5M20 19l3.5 2.5' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E">
 
   <!-- Google Fonts: IBM Plex Sans Thai, Prompt & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,11 +253,15 @@
           <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1">
             <button id="btn-view-map" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm">
               <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
-              <span>แผนภาพโครงสร้าง (Tree Graph)</span>
+              <span>แผนภาพโครงสร้าง</span>
             </button>
             <button id="btn-view-catalog" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
               <i data-lucide="table-properties" class="w-3.5 h-3.5"></i>
-              <span>ตารางสืบค้น</span>
+              <span>ตารางสืบค้นตัวชี้วัด</span>
+            </button>
+            <button id="btn-view-school" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5">
+              <i data-lucide="school" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>คลังรายวิชา รร.</span>
             </button>
           </div>
 
@@ -268,7 +273,7 @@
       </div>
     </header>
 
-    <!-- Summary Metrics Strip (6 Key Cards) -->
+    <!-- Summary Metrics Strip (6 Key Cards - Dynamic Real-time) -->
     <section class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
         <!-- 1. Learning Areas -->
@@ -276,7 +281,7 @@
           <span class="text-[11px] font-medium text-slate-400 block mb-0.5">กลุ่มสาระการเรียนรู้</span>
           <div class="flex items-baseline space-x-1.5">
             <span id="stat-total-subjects" class="text-xl sm:text-2xl font-bold font-mono text-white">๘</span>
-            <span class="text-[10px] text-pink-400">กลุ่มสาระฯ</span>
+            <span id="stat-sub-subjects" class="text-[10px] text-pink-400">กลุ่มสาระฯ</span>
           </div>
         </div>
 
@@ -285,7 +290,7 @@
           <span class="text-[11px] font-medium text-slate-400 block mb-0.5">สาระการเรียนรู้</span>
           <div class="flex items-baseline space-x-1.5">
             <span id="stat-total-strands" class="text-xl sm:text-2xl font-bold font-mono text-cyan-400">๓๑</span>
-            <span class="text-[10px] text-cyan-300">สาระ</span>
+            <span id="stat-sub-strands" class="text-[10px] text-cyan-300">สาระ</span>
           </div>
         </div>
 
@@ -294,16 +299,16 @@
           <span class="text-[11px] font-medium text-slate-400 block mb-0.5">มาตรฐานการเรียนรู้</span>
           <div class="flex items-baseline space-x-1.5">
             <span id="stat-total-standards" class="text-xl sm:text-2xl font-bold font-mono text-white">๕๕</span>
-            <span class="text-[10px] text-blue-400">มาตรฐาน</span>
+            <span id="stat-sub-standards" class="text-[10px] text-blue-400">มาตรฐาน</span>
           </div>
         </div>
 
         <!-- 4. Total KPIs -->
         <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-emerald-500 hover:border-slate-700 transition">
-          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">ตัวชี้วัดทั้งหมด</span>
+          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">ตัวชี้วัดที่แสดงผล</span>
           <div class="flex items-baseline space-x-1.5">
             <span id="stat-total-kpi" class="text-xl sm:text-2xl font-bold font-mono text-emerald-400">๒,๐๕๖</span>
-            <span class="text-[10px] text-emerald-400">ตัวชี้วัด</span>
+            <span id="stat-sub-kpi" class="text-[10px] text-emerald-400">ตัวชี้วัด</span>
           </div>
         </div>
 
@@ -318,11 +323,14 @@
         </div>
 
         <!-- 6. School Courses -->
-        <div class="glass-panel p-3 rounded-2xl border-l-4 border-l-purple-500 hover:border-slate-700 transition">
-          <span class="text-[11px] font-medium text-slate-400 block mb-0.5">วิชาโรงเรียนพัฒนานิคม</span>
+        <div onclick="switchToSchoolView()" class="glass-panel p-3 rounded-2xl border-l-4 border-l-purple-500 hover:border-purple-500/60 cursor-pointer transition group" title="คลิกเพื่อเปิดคลังรายวิชาโรงเรียนพัฒนานิคมทั้ง ๖๒๖ วิชา">
+          <span class="text-[11px] font-medium text-slate-400 group-hover:text-purple-300 flex items-center justify-between mb-0.5">
+            <span>วิชาโรงเรียนพัฒนานิคม</span>
+            <i data-lucide="external-link" class="w-3 h-3 text-purple-400 opacity-70 group-hover:opacity-100"></i>
+          </span>
           <div class="flex items-baseline space-x-1.5">
-            <span id="stat-total-courses" class="text-xl sm:text-2xl font-bold font-mono text-purple-400">๕๔๘</span>
-            <span class="text-[10px] text-purple-300">วิชา (ม.๑–๖)</span>
+            <span id="stat-total-courses" class="text-xl sm:text-2xl font-bold font-mono text-purple-400">๖๒๖</span>
+            <span id="stat-sub-courses" class="text-[10px] text-purple-300">วิชา (ครบ ๑๐๐%)</span>
           </div>
         </div>
       </div>
@@ -573,7 +581,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-2.5">
             
             <!-- 1. Search text input -->
-            <div class="md:col-span-5 relative">
+            <div class="md:col-span-3 relative">
               <input
                 id="catalogSearchInput"
                 type="search"
@@ -584,9 +592,9 @@
             </div>
 
             <!-- 2. Subject Filter -->
-            <div class="md:col-span-3">
+            <div class="md:col-span-2">
               <select id="catalogFilterSubject" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
-                <option value="ALL">ทุกกลุ่มสาระการเรียนรู้ (๘ กลุ่ม)</option>
+                <option value="ALL">ทุกกลุ่มสาระฯ (๘ กลุ่ม)</option>
                 <option value="ภาษาไทย">ภาษาไทย</option>
                 <option value="คณิตศาสตร์">คณิตศาสตร์</option>
                 <option value="วิทยาศาสตร์และเทคโนโลยี">วิทยาศาสตร์และเทคโนโลยี</option>
@@ -626,8 +634,25 @@
             <div class="md:col-span-2">
               <select id="catalogFilterType" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
                 <option value="ALL">ทุกประเภทตัวชี้วัด</option>
-                <option value="ระหว่างทาง">ตัวชี้วัดระหว่างทาง (Formative)</option>
-                <option value="ปลายทาง">ตัวชี้วัดปลายทาง (Summative)</option>
+                <option value="ระหว่างทาง">ระหว่างทาง (Formative)</option>
+                <option value="ปลายทาง">ปลายทาง (Summative)</option>
+              </select>
+            </div>
+
+            <!-- 5. Term Filter -->
+            <div class="md:col-span-1">
+              <select id="catalogFilterTerm" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ทุกเทอม</option>
+                <option value="1">เทอม ๑</option>
+                <option value="2">เทอม ๒</option>
+              </select>
+            </div>
+
+            <!-- 6. School Course Filter -->
+            <div class="md:col-span-2">
+              <select id="catalogFilterSchool" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-emerald-500 focus:outline-none">
+                <option value="ALL">ตัวชี้วัดแกนกลางทั้งหมด</option>
+                <option value="MAPPED">เฉพาะที่มีวิชาใน รร.พัฒนานิคม</option>
               </select>
             </div>
           </div>
@@ -652,7 +677,7 @@
                 <th class="p-3 w-28 text-center whitespace-nowrap">ประเภท</th>
                 <th class="p-3 min-w-[280px]">ข้อความตัวชี้วัด</th>
                 <th class="p-3 min-w-[240px]">สาระการเรียนรู้แกนกลาง</th>
-                <th class="p-3 w-44 whitespace-nowrap">วิชาที่เปิดสอน</th>
+                <th class="p-3 w-52 whitespace-nowrap">วิชาที่เปิดสอน (คลิกเพื่อดูหน่วยฯ)</th>
                 <th class="p-3 w-16 text-center">เจาะลึก</th>
               </tr>
             </thead>
@@ -675,6 +700,155 @@
       </div>
     </main>
 
+    <!-- Main View 3: School Courses Explorer (626 Courses - Basic & Elective) -->
+    <main id="main-school-view" class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 flex-1 flex flex-col hidden">
+      <div class="glass-panel rounded-3xl p-5 flex flex-col flex-1">
+        <!-- Header Bar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold text-white flex items-center space-x-2">
+                <i data-lucide="school" class="w-4 h-4 text-purple-400"></i>
+                <span>คลังโครงสร้างรายวิชาโรงเรียนพัฒนานิคม (พ.ศ. ๒๕๖๙–๒๕๗๑)</span>
+              </h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ครบ ๑๐๐% (๖๒๖ รายวิชา)</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">
+              ครอบคลุมทั้งรายวิชาพื้นฐาน (อิงตัวชี้วัดแกนกลาง) และรายวิชาเพิ่มเติม (อิงผลการเรียนรู้) พร้อมโครงสร้างหน่วยการเรียนรู้ เวลาเรียน และสัดส่วนคะแนน K / P / A
+            </p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold transition flex items-center space-x-1.5 shadow-lg">
+              <i data-lucide="file-Spreadsheet" class="w-3.5 h-3.5"></i>
+              <span>เปิดระบบสร้างแผนวัดผล (วผ.๑๙)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Filter Controls for School Courses -->
+        <div class="space-y-3 mb-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-2.5">
+            <!-- 1. Search -->
+            <div class="md:col-span-4 relative">
+              <input
+                id="schoolSearchInput"
+                type="search"
+                placeholder="ค้นหารหัสวิชา (เช่น ท21101, พ22102), ชื่อวิชา, หรือชื่อหน่วยการเรียนรู้..."
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 pl-9 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition shadow-inner"
+              />
+              <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-2.5"></i>
+            </div>
+
+            <!-- 2. Learning Area -->
+            <div class="md:col-span-3">
+              <select id="schoolFilterArea" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-purple-500 focus:outline-none">
+                <option value="ALL">ทุกกลุ่มสาระการเรียนรู้</option>
+                <option value="ภาษาไทย">ภาษาไทย</option>
+                <option value="คณิตศาสตร์">คณิตศาสตร์</option>
+                <option value="วิทยาศาสตร์และเทคโนโลยี">วิทยาศาสตร์และเทคโนโลยี</option>
+                <option value="สังคมศึกษา ศาสนา และวัฒนธรรม">สังคมศึกษา ศาสนา และวัฒนธรรม</option>
+                <option value="สุขศึกษาและพลศึกษา">สุขศึกษาและพลศึกษา</option>
+                <option value="ศิลปะ">ศิลปะ</option>
+                <option value="การงานอาชีพ">การงานอาชีพ</option>
+                <option value="ภาษาต่างประเทศ">ภาษาต่างประเทศ</option>
+              </select>
+            </div>
+
+            <!-- 3. Grade Level -->
+            <div class="md:col-span-2">
+              <select id="schoolFilterGrade" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-purple-500 focus:outline-none">
+                <option value="ALL">ทุกระดับชั้น (ม.๑ - ม.๖)</option>
+                <option value="ม.ต้น">มัธยมศึกษาตอนต้น (ม.๑ - ม.๓)</option>
+                <option value="ม.ปลาย">มัธยมศึกษาตอนปลาย (ม.๔ - ม.๖)</option>
+                <option value="ม.1">ชั้นมัธยมศึกษาปีที่ ๑ (ม.๑)</option>
+                <option value="ม.2">ชั้นมัธยมศึกษาปีที่ ๒ (ม.๒)</option>
+                <option value="ม.3">ชั้นมัธยมศึกษาปีที่ ๓ (ม.๓)</option>
+                <option value="ม.4">ชั้นมัธยมศึกษาปีที่ ๔ (ม.๔)</option>
+                <option value="ม.5">ชั้นมัธยมศึกษาปีที่ ๕ (ม.๕)</option>
+                <option value="ม.6">ชั้นมัธยมศึกษาปีที่ ๖ (ม.๖)</option>
+              </select>
+            </div>
+
+            <!-- 4. Course Type (Basic vs Elective) -->
+            <div class="md:col-span-2">
+              <select id="schoolFilterCourseType" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-purple-500 focus:outline-none">
+                <option value="ALL">ทุกประเภทวิชา (พื้นฐาน + เพิ่มเติม)</option>
+                <option value="BASIC">รายวิชาพื้นฐาน</option>
+                <option value="ELECTIVE">รายวิชาเพิ่มเติม</option>
+              </select>
+            </div>
+
+            <!-- 5. Semester -->
+            <div class="md:col-span-1">
+              <select id="schoolFilterTerm" class="w-full bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl p-2 focus:border-purple-500 focus:outline-none">
+                <option value="ALL">ทุกเทอม</option>
+                <option value="1">เทอม ๑</option>
+                <option value="2">เทอม ๒</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+            <span id="schoolResultCount">กำลังโหลดข้อมูลรายวิชา...</span>
+            <button id="btn-school-clear-search" class="text-purple-400 hover:text-purple-300 font-medium">ล้างตัวกรองรายวิชา</button>
+          </div>
+        </div>
+
+        <!-- School Courses Table -->
+        <div class="overflow-x-auto flex-1 rounded-2xl border border-slate-800 bg-slate-950/60">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-900 text-slate-300 font-semibold sticky top-0 border-b border-slate-800 z-10">
+              <tr>
+                <th class="p-3 w-28 whitespace-nowrap">รหัสวิชา</th>
+                <th class="p-3 min-w-[220px]">ชื่อรายวิชา</th>
+                <th class="p-3 w-28 text-center whitespace-nowrap">ประเภทวิชา</th>
+                <th class="p-3 w-44 whitespace-nowrap">กลุ่มสาระการเรียนรู้</th>
+                <th class="p-3 w-32 text-center whitespace-nowrap">ระดับชั้น / เทอม</th>
+                <th class="p-3 w-28 text-center whitespace-nowrap">หน่วยกิต / เวลา</th>
+                <th class="p-3 w-28 text-center whitespace-nowrap">จำนวนหน่วยฯ</th>
+                <th class="p-3 w-40 text-center whitespace-nowrap">จัดการ / ดูโครงสร้าง</th>
+              </tr>
+            </thead>
+            <tbody id="school-table-tbody" class="divide-y divide-slate-800/60 font-sans">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Strip for School Courses -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 mt-1 text-xs text-slate-400">
+          <div id="schoolPaginationStrip" class="flex items-center space-x-2"></div>
+          <span class="text-[11px] text-slate-500 font-mono">
+            หลักสูตรสถานศึกษาโรงเรียนพัฒนานิคม พ.ศ. ๒๕๖๙–๒๕๗๑
+          </span>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Course Structure & Unit Detail Modal -->
+  <div id="courseModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-sm hidden">
+    <div class="glass-panel max-w-5xl w-full max-h-[90vh] rounded-3xl p-5 sm:p-6 text-xs text-slate-300 flex flex-col border border-slate-700 shadow-2xl overflow-hidden">
+      <div class="flex items-start justify-between gap-4 pb-3 border-b border-slate-800 shrink-0">
+        <div>
+          <div id="courseModalBadges" class="flex flex-wrap items-center gap-1.5 mb-1"></div>
+          <h3 id="courseModalTitle" class="text-base sm:text-lg font-bold font-heading text-white"></h3>
+          <p id="courseModalSub" class="text-xs text-slate-400 mt-0.5"></p>
+        </div>
+        <button onclick="closeCourseModal()" class="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="courseModalBody" class="overflow-y-auto flex-1 py-4 space-y-4 pr-1">
+        <!-- Populated via JS -->
+      </div>
+
+      <div id="courseModalFooter" class="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <!-- Populated via JS -->
+      </div>
+    </div>
   </div>
 
   <!-- Help & Interaction Guide Modal -->
@@ -683,7 +857,7 @@
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <h3 class="text-base font-bold font-heading text-white flex items-center space-x-2">
           <i data-lucide="help-circle" class="w-5 h-5 text-emerald-400"></i>
-          <span>วิธีใช้งานแผนภาพโครงสร้างหลักสูตรแกนกลาง</span>
+          <span>วิธีใช้งานระบบแผนภาพหลักสูตรและคลังรายวิชา</span>
         </h3>
         <button id="btn-close-help" class="text-slate-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -692,16 +866,14 @@
       <div class="space-y-3 leading-relaxed">
         <h4 class="font-bold text-white text-sm">๑. มุมมองโครงสร้าง (Tree Graph):</h4>
         <p>• สลับมุมมองได้ทันทีจากแถบด้านบนแผนภาพ: <strong>แตกตามกลุ่มสาระวิชา</strong> หรือ <strong>แตกตามระดับชั้น (ป.๑ – ม.๖)</strong></p>
-        <p>• ตัวกรองสามารถเลือกได้หลายกลุ่มสาระ หลายระดับชั้น หรือเลือกประเภทระหว่างทาง/ปลายทาง <strong>ระบบจะกระจายโหนดที่เลือกให้เต็มวงกลม ๓๖๐ องศาเสมอ</strong></p>
-        <p>• หากใช้ช่องค้นหา (เช่น พิมพ์ "การอ่าน") <strong>ระบบจะตัดเส้นกิ่งที่ไม่เกี่ยวข้องออกทันที</strong> เพื่อให้เห็นเฉพาะจุดที่ต้องการได้อย่างรวดเร็ว</p>
-        <p>• คลิกที่โหนดเพื่อดูรายละเอียดในแผงด้านซ้าย หรือกดปุ่ม <strong>"เจาะลึก"</strong> เพื่อขยายเฉพาะกลุ่มนั้นเป็นศูนย์กลางใหม่</p>
-        <p>• มีปุ่ม <strong>"ย้อนกลับ"</strong> และแถบนำทาง (Breadcrumb) ให้คลิกถอยกลับมาได้ตลอดเวลา</p>
+        <p>• ตัวกรองสามารถเลือกได้หลายกลุ่มสาระ หลายระดับชั้น หรือเลือกประเภทระหว่างทาง/ปลายทาง <strong>ระบบจะกระจายโหนดที่เลือกให้เต็มวงกลม ๓๖๐ องศาเสมอ</strong> และอัปเดตการ์ดสถิติทั้ง ๖ ใบด้านบนแบบ Real-time</p>
+        <p>• คลิกที่ป้ายรหัสวิชาสีม่วง (เช่น <code>ท21101</code>, <code>พ22102</code>) เพื่อเปิดดู <strong>ตารางโครงสร้างหน่วยการเรียนรู้และสัดส่วนคะแนน K/P/A</strong> ได้ทันที</p>
         
-        <h4 class="font-bold text-white text-sm pt-2">๒. การเลือกเลขไทย หรือ เลขอารบิก:</h4>
-        <p>• คลิกปุ่ม <strong>เลขไทย (๑ ๒ ๓)</strong> หรือ <strong>เลขอารบิก (1 2 3)</strong> ที่มุมบนขวา เพื่อปรับการแสดงผลตัวเลขทั้งระบบ (รวมถึงชื่อวงรอบและป้ายกำกับในกราฟ) ตามที่ต้องการนำไปใช้งาน</p>
+        <h4 class="font-bold text-white text-sm pt-2">๒. คลังรายวิชาโรงเรียนพัฒนานิคม (ครบ ๖๒๖ วิชา):</h4>
+        <p>• คลิกปุ่ม <strong>"คลังรายวิชา รร."</strong> ด้านบน เพื่อค้นหาและเปิดดูโครงสร้างรายวิชาทั้ง <strong>วิชาพื้นฐานและวิชาเพิ่มเติม</strong> พร้อมปุ่มคัดลอกตารางลง Word และปุ่มลัดเชื่อมไประบบสร้างแผนวัดผล (วผ.๑๙)</p>
 
-        <h4 class="font-bold text-white text-sm pt-2">๓. การนำข้อมูลไปใช้ในเอกสาร:</h4>
-        <p>• ในแผงรายละเอียดด้านซ้าย หรือในตารางสืบค้น มีปุ่ม <strong>"คัดลอกตารางลง Word"</strong> และ <strong>"คัดลอกโครงร่างแผน"</strong> สามารถกดแล้วนำไปวาง (Ctrl+V) ใน Microsoft Word ได้ทันที</p>
+        <h4 class="font-bold text-white text-sm pt-2">๓. การเลือกเลขไทย หรือ เลขอารบิก และการส่งออก Word:</h4>
+        <p>• คลิกปุ่ม <strong>เลขไทย (๑ ๒ ๓)</strong> หรือ <strong>เลขอารบิก (1 2 3)</strong> ที่มุมบนขวา เพื่อปรับการแสดงผลตัวเลขทั้งระบบ และกดปุ่มคัดลอกตารางลง Microsoft Word ได้ทุกหน้า</p>
       </div>
       <div class="pt-3 border-t border-slate-800 text-right">
         <button id="btn-help-understood" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition">
@@ -711,13 +883,16 @@
     </div>
   </div>
 
-  <!-- Data Script -->
+  <!-- Data Scripts -->
   <script src="kpi_data.js"></script>
+  <script src="school_courses_data.js"></script>
 
   <!-- Application Logic -->
   <script>
     const SVG_NS = "http://www.w3.org/2000/svg";
     const DATA = (typeof OPEN_CURRICULUM_DATA !== 'undefined' ? OPEN_CURRICULUM_DATA : (window.OPEN_CURRICULUM_DATA || {}));
+    const SCHOOL_COURSES = (typeof SCHOOL_COURSES_DATA !== 'undefined' ? SCHOOL_COURSES_DATA : (window.SCHOOL_COURSES_DATA || {}));
+    const SCHOOL_COURSES_LIST = Object.values(SCHOOL_COURSES);
 
     // Thai / Arabic Numeral Conversion System
     const THAI_DIGITS = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
@@ -778,7 +953,7 @@
 
     // State Store with Multi-Select Sets
     const state = {
-      viewMode: 'map', // 'map' or 'catalog'
+      viewMode: 'map', // 'map', 'catalog', or 'school'
       graphMode: 'subject', // 'subject' (วิชา ➔ สาระ ➔ มาตรฐาน) or 'grade' (ชั้นปี ➔ วิชา ➔ ตชว.)
       numeral: localStorage.getItem('curriculum_numeral_pref') || 'thai', // 'thai' or 'arabic'
       drillNodeId: 'root-curriculum', // Active center of radial tree
@@ -792,7 +967,13 @@
       focusMode: false,
       showLabels: true,
       selectedKpiCodes: new Set(),
-      catalogLimit: 150
+      catalogLimit: 150,
+      schoolSearch: '',
+      schoolArea: 'ALL',
+      schoolGrade: 'ALL',
+      schoolCourseType: 'ALL',
+      schoolTerm: 'ALL',
+      schoolLimit: 100
     };
 
     const graphState = {
@@ -844,8 +1025,10 @@
       btnClearFilters: document.getElementById('btn-clear-filters'),
       mainMapView: document.getElementById('main-map-view'),
       mainCatalogView: document.getElementById('main-catalog-view'),
+      mainSchoolView: document.getElementById('main-school-view'),
       btnViewMap: document.getElementById('btn-view-map'),
       btnViewCatalog: document.getElementById('btn-view-catalog'),
+      btnViewSchool: document.getElementById('btn-view-school'),
       btnNumThai: document.getElementById('btn-num-thai'),
       btnNumArabic: document.getElementById('btn-num-arabic'),
       btnTreeSubject: document.getElementById('btn-tree-subject'),
@@ -855,10 +1038,21 @@
       catalogFilterSubject: document.getElementById('catalogFilterSubject'),
       catalogFilterGrade: document.getElementById('catalogFilterGrade'),
       catalogFilterType: document.getElementById('catalogFilterType'),
+      catalogFilterTerm: document.getElementById('catalogFilterTerm'),
+      catalogFilterSchool: document.getElementById('catalogFilterSchool'),
       catalogResultCount: document.getElementById('catalogResultCount'),
       btnCatalogClearSearch: document.getElementById('btn-catalog-clear-search'),
       catalogTbody: document.getElementById('catalog-table-tbody'),
-      catalogPaginationStrip: document.getElementById('catalogPaginationStrip')
+      catalogPaginationStrip: document.getElementById('catalogPaginationStrip'),
+      schoolSearchInput: document.getElementById('schoolSearchInput'),
+      schoolFilterArea: document.getElementById('schoolFilterArea'),
+      schoolFilterGrade: document.getElementById('schoolFilterGrade'),
+      schoolFilterCourseType: document.getElementById('schoolFilterCourseType'),
+      schoolFilterTerm: document.getElementById('schoolFilterTerm'),
+      schoolResultCount: document.getElementById('schoolResultCount'),
+      btnSchoolClearSearch: document.getElementById('btn-school-clear-search'),
+      schoolTbody: document.getElementById('school-table-tbody'),
+      schoolPaginationStrip: document.getElementById('schoolPaginationStrip')
     };
 
     // SVG Layer Groups
@@ -886,6 +1080,24 @@
       return node;
     }
 
+    // Helper: Check if a course string matches a given semester ('1' or '2')
+    function courseMatchesTerm(courseStr, termVal) {
+      if (!courseStr || termVal === 'ALL') return true;
+      const codeOnly = courseStr.split('_')[0].trim();
+      const semMap = DATA.course_semesters || {};
+      const terms = semMap[courseStr] || semMap[codeOnly] || (SCHOOL_COURSES[codeOnly] && SCHOOL_COURSES[codeOnly].terms);
+      if (terms && Array.isArray(terms) && terms.length > 0) {
+        return terms.includes(String(termVal));
+      }
+      if (semesterCatalog && semesterCatalog.by_course_code && semesterCatalog.by_course_code[codeOnly]) {
+        const sems = semesterCatalog.by_course_code[codeOnly].semesters || [];
+        return sems.some(s => s.includes(`เทอม ${termVal}`) || s.includes(`ภาคเรียนที่ ${termVal}`));
+      }
+      return termVal === '1'
+        ? (courseStr.includes('เทอม 1') || courseStr.endsWith('_1') || courseStr.endsWith(' 1'))
+        : (courseStr.includes('เทอม 2') || courseStr.endsWith('_2') || courseStr.endsWith(' 2'));
+    }
+
     // Filter verification helper for any KPI
     function isKpiActiveInFilter(k) {
       if (state.selectedSubjects.size > 0 && !state.selectedSubjects.has(k.subject)) return false;
@@ -894,9 +1106,7 @@
       if (state.selectedTypes.size > 0 && !state.selectedTypes.has(k.type)) return false;
       if (state.school === 'MAPPED' && (!k.courses || k.courses.length === 0)) return false;
       if (state.term !== 'ALL') {
-        const hasTerm = (k.courses || []).some(c => {
-          return state.term === '1' ? c.includes('เทอม 1') || c.endsWith('1') || c.includes('1_') : c.includes('เทอม 2') || c.endsWith('2') || c.includes('2_');
-        });
+        const hasTerm = (k.courses || []).some(c => courseMatchesTerm(c, state.term));
         if (!hasTerm) return false;
       }
       return true;
@@ -910,7 +1120,7 @@
         const res = await fetch('./semester_catalog.json');
         if (res.ok) semesterCatalog = await res.json();
       } catch (err) {
-        console.warn('semester_catalog.json not loaded, falling back to kpi_data.js courses:', err);
+        console.warn('semester_catalog.json not loaded, using embedded course_semesters in kpi_data.js:', err);
       }
 
       if (DATA.kpis && DATA.kpis.length > 0) {
@@ -919,11 +1129,19 @@
         });
       }
 
+      if (SCHOOL_COURSES_LIST.length > 0) {
+        SCHOOL_COURSES_LIST.forEach(c => {
+          const unitNames = (c.units || []).map(u => `${u.name} ${(u.national_kpis || []).join(' ')} ${(u.indicators || []).join(' ')}`).join(' ');
+          c.searchIndex = normText(`${c.code} ${c.name} ${c.area} ${c.grade} ${c.type} ${(c.semesters || []).join(' ')} ${c.description || ''} ${unitNames}`);
+        });
+      }
+
       renderFilterCheckboxes();
       renderDownloadButtons();
       bindEvents();
       updateNumeralToggleUI();
       loadView('root-curriculum', 'root-curriculum');
+      renderSchoolTable();
     });
 
     // Render Filter Checkboxes
@@ -993,6 +1211,7 @@
     function toggleSubjectFilter(subj, isChecked) {
       if (isChecked) state.selectedSubjects.add(subj);
       else state.selectedSubjects.delete(subj);
+      syncCatalogDropdownsFromState();
       renderFilterCheckboxes();
       onFilterSelectionChanged();
     }
@@ -1000,6 +1219,7 @@
     function toggleGradeFilter(gradeCode, isChecked) {
       if (isChecked) state.selectedGrades.add(gradeCode);
       else state.selectedGrades.delete(gradeCode);
+      syncCatalogDropdownsFromState();
       renderFilterCheckboxes();
       onFilterSelectionChanged();
     }
@@ -1007,14 +1227,77 @@
     function toggleTypeFilter(type, isChecked) {
       if (isChecked) state.selectedTypes.add(type);
       else state.selectedTypes.delete(type);
+      syncCatalogDropdownsFromState();
       renderFilterCheckboxes();
       onFilterSelectionChanged();
     }
 
+    function syncCatalogDropdownsFromState() {
+      if (el.catalogFilterSubject) {
+        el.catalogFilterSubject.value = state.selectedSubjects.size === 1 ? [...state.selectedSubjects][0] : 'ALL';
+      }
+      if (el.catalogFilterGrade) {
+        el.catalogFilterGrade.value = state.selectedGrades.size === 1 ? [...state.selectedGrades][0] : 'ALL';
+      }
+      if (el.catalogFilterType) {
+        el.catalogFilterType.value = state.selectedTypes.size === 1 ? [...state.selectedTypes][0] : 'ALL';
+      }
+      if (el.catalogFilterTerm) el.catalogFilterTerm.value = state.term;
+      if (el.catalogFilterSchool) el.catalogFilterSchool.value = state.school;
+      if (el.filterTerm) el.filterTerm.value = state.term;
+      if (el.filterSchool) el.filterSchool.value = state.school;
+    }
+
     function onFilterSelectionChanged() {
+      syncCatalogDropdownsFromState();
+      updateSummaryMetrics();
       loadView(state.drillNodeId, state.selectedNodeId);
       if (state.viewMode === 'catalog') {
         renderCatalogTable();
+      }
+    }
+
+    // Dynamic Real-time Summary Metrics Strip Updater
+    function updateSummaryMetrics() {
+      const qNorm = state.search && state.search.trim().length > 0 ? normText(state.search) : '';
+      const activeKpis = (DATA.kpis || []).filter(k => {
+        if (!isKpiActiveInFilter(k)) return false;
+        if (qNorm && !k.searchIndex?.includes(qNorm)) return false;
+        return true;
+      });
+
+      const isFiltered = activeKpis.length < (DATA.kpis ? DATA.kpis.length : 2056);
+      const subjSet = new Set(activeKpis.map(k => k.subject));
+      const strandSet = new Set(activeKpis.map(k => `${k.subject}||${k.strand}`));
+      const stdSet = new Set(activeKpis.map(k => k.standard));
+      const formCount = activeKpis.filter(k => k.type === 'ระหว่างทาง').length;
+      const sumCount = activeKpis.filter(k => k.type === 'ปลายทาง').length;
+
+      const totalCoursesNum = SCHOOL_COURSES_LIST.length || (DATA.total_stats && DATA.total_stats.total_courses) || 626;
+      const mappedCoursesSet = new Set();
+      activeKpis.forEach(k => (k.courses || []).forEach(c => mappedCoursesSet.add(c.split('_')[0])));
+
+      document.getElementById('stat-total-subjects').textContent = formatDigits(String(isFiltered ? subjSet.size : 8));
+      document.getElementById('stat-sub-subjects').textContent = isFiltered ? formatDigits(`/ 8 กลุ่มสาระฯ`) : 'กลุ่มสาระฯ';
+
+      document.getElementById('stat-total-strands').textContent = formatDigits(String(isFiltered ? strandSet.size : 31));
+      document.getElementById('stat-sub-strands').textContent = isFiltered ? formatDigits(`/ 31 สาระ`) : 'สาระ';
+
+      document.getElementById('stat-total-standards').textContent = formatDigits(String(isFiltered ? stdSet.size : 55));
+      document.getElementById('stat-sub-standards').textContent = isFiltered ? formatDigits(`/ 55 มาตรฐาน`) : 'มาตรฐาน';
+
+      document.getElementById('stat-total-kpi').textContent = formatDigits(activeKpis.length.toLocaleString());
+      document.getElementById('stat-sub-kpi').textContent = isFiltered ? formatDigits(`/ 2,056 ข้อ`) : 'ตัวชี้วัด';
+
+      document.getElementById('stat-total-formative').textContent = formatDigits(formCount.toLocaleString());
+      document.getElementById('stat-total-summative').textContent = formatDigits(sumCount.toLocaleString());
+
+      document.getElementById('stat-total-courses').textContent = formatDigits(String(totalCoursesNum));
+      const subCoursesEl = document.getElementById('stat-sub-courses');
+      if (subCoursesEl) {
+        subCoursesEl.textContent = isFiltered
+          ? formatDigits(`(ใช้ใน ${mappedCoursesSet.size} วิชาพื้นฐาน)`)
+          : formatDigits(`วิชา (ครบ 100%)`);
       }
     }
 
@@ -1028,17 +1311,12 @@
         el.btnNumThai.className = 'px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1';
       }
 
-      document.getElementById('stat-total-subjects').textContent = formatDigits('8');
-      document.getElementById('stat-total-strands').textContent = formatDigits('31');
-      document.getElementById('stat-total-standards').textContent = formatDigits('55');
-      document.getElementById('stat-total-kpi').textContent = formatDigits('2,056');
-      document.getElementById('stat-total-formative').textContent = formatDigits('1,285');
-      document.getElementById('stat-total-summative').textContent = formatDigits('771');
-      document.getElementById('stat-total-courses').textContent = formatDigits('548');
+      updateSummaryMetrics();
 
+      const totalCoursesNum = SCHOOL_COURSES_LIST.length || (DATA.total_stats && DATA.total_stats.total_courses) || 626;
       const subDesc = document.getElementById('header-subdesc');
       if (subDesc) {
-        subDesc.textContent = `${formatDigits('8')} กลุ่มสาระการเรียนรู้ • ${formatDigits('31')} สาระ • ${formatDigits('55')} มาตรฐาน • ${formatDigits('2,056')} ตัวชี้วัด`;
+        subDesc.textContent = `${formatDigits('8')} กลุ่มสาระการเรียนรู้ • ${formatDigits('31')} สาระ • ${formatDigits('55')} มาตรฐาน • ${formatDigits('2,056')} ตัวชี้วัด • ${formatDigits(String(totalCoursesNum))} รายวิชาโรงเรียนพัฒนานิคม`;
       }
 
       if (el.treePerspectiveDesc) {
@@ -1057,6 +1335,9 @@
       }
       if (state.viewMode === 'catalog') {
         renderCatalogTable();
+      }
+      if (state.viewMode === 'school') {
+        renderSchoolTable();
       }
     }
 
@@ -2806,11 +3087,17 @@
             <!-- School courses -->
             ${node.courses && node.courses.length > 0 ? `
               <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <span class="text-[11px] font-semibold text-purple-400 block mb-1">วิชาโรงเรียนพัฒนานิคมที่นำไปใช้:</span>
+                <span class="text-[11px] font-semibold text-purple-400 block mb-1">วิชาโรงเรียนพัฒนานิคมที่นำไปใช้ (คลิกเพื่อดูหน่วยฯ):</span>
                 <div class="flex flex-wrap gap-1.5 mt-1">
-                  ${node.courses.map(c => `
-                    <span class="px-2 py-1 rounded bg-purple-950/60 border border-purple-500/30 text-purple-200 font-mono text-[11px]">${c}</span>
-                  `).join('')}
+                  ${node.courses.map(c => {
+                    const cCode = c.split('_')[0].trim();
+                    return `
+                      <button onclick="openCourseModal('${cCode}')" class="px-2 py-1 rounded-lg bg-purple-950/70 hover:bg-purple-900/80 border border-purple-500/40 hover:border-purple-400 text-purple-200 font-mono text-[11px] transition flex items-center space-x-1 shadow-sm" title="คลิกเพื่อดูโครงสร้างหน่วยการเรียนรู้วิชา ${c}">
+                        <span>${formatDigits(c)}</span>
+                        <i data-lucide="external-link" class="w-2.5 h-2.5 text-purple-400"></i>
+                      </button>
+                    `;
+                  }).join('')}
                 </div>
               </div>
             ` : ''}
@@ -2862,17 +3149,12 @@
     // Realtime Catalog Table View Renderer
     function renderCatalogTable() {
       const filtered = DATA.kpis.filter(k => {
+        if (!isKpiActiveInFilter(k)) return false;
+
         if (state.search && state.search.trim().length > 0) {
           const qNorm = normText(state.search);
           if (!k.searchIndex?.includes(qNorm)) return false;
         }
-
-        if (state.selectedSubjects.size > 0 && !state.selectedSubjects.has(k.subject)) return false;
-
-        const gk = normalizeGradeKey(k.grade);
-        if (state.selectedGrades.size > 0 && !state.selectedGrades.has(gk)) return false;
-
-        if (state.selectedTypes.size > 0 && !state.selectedTypes.has(k.type)) return false;
 
         return true;
       });
@@ -2880,7 +3162,8 @@
       // Update Result Count Badge
       const totalMaster = DATA.kpis.length;
       if (el.catalogResultCount) {
-        if (state.search || state.selectedSubjects.size < ALL_SUBJECTS.length || state.selectedGrades.size < ALL_GRADES.length || state.selectedTypes.size < ALL_TYPES.length) {
+        const isFiltered = filtered.length < totalMaster;
+        if (isFiltered) {
           el.catalogResultCount.innerHTML = `พบ <span class="text-white font-bold">${formatDigits(String(filtered.length))}</span> รายการ จากทั้งหมด ${formatDigits(String(totalMaster))} ข้อ`;
         } else {
           el.catalogResultCount.innerHTML = `แสดงทั้งหมด <span class="text-white font-bold">${formatDigits(String(totalMaster))}</span> ตัวชี้วัด`;
@@ -2895,7 +3178,16 @@
         const isChecked = state.selectedKpiCodes.has(k.code);
         const typeColor = k.type === 'ปลายทาง' ? 'text-amber-400' : 'text-sky-400';
         const typeBg = k.type === 'ปลายทาง' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-sky-500/10 border-sky-500/30';
-        const courses = (k.courses || []).slice(0, 2).join(', ');
+        const allCourses = k.courses || [];
+        let coursesHtml = '<span class="text-slate-600">-</span>';
+        if (allCourses.length > 0) {
+          coursesHtml = `<div class="flex flex-wrap gap-1 max-w-[240px]">` +
+            allCourses.map(c => {
+              const cCode = c.split('_')[0].trim();
+              return `<button onclick="openCourseModal('${cCode}')" class="px-1.5 py-0.5 rounded bg-purple-950/70 hover:bg-purple-900 border border-purple-500/30 text-purple-200 font-mono text-[10px] transition truncate max-w-[220px]" title="คลิกเพื่อดูโครงสร้างวิชา ${c}">${formatDigits(c)}</button>`;
+            }).join('') +
+            `</div>`;
+        }
 
         rows += `
           <tr class="hover:bg-slate-900/80 transition">
@@ -2911,8 +3203,8 @@
               <span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold ${typeColor} ${typeBg}">${k.type}</span>
             </td>
             <td class="p-3 leading-relaxed text-slate-200">${k.text}</td>
-            <td class="p-3 text-slate-400 leading-relaxed text-[11px]">${(k.core_content || '-').slice(0, 100)}</td>
-            <td class="p-3 text-[11px] font-mono text-purple-300 whitespace-nowrap">${courses || '<span class="text-slate-600">-</span>'}</td>
+            <td class="p-3 text-slate-400 leading-relaxed text-[11px]">${(k.core_content || '-').slice(0, 120)}</td>
+            <td class="p-3 text-[11px] font-mono">${coursesHtml}</td>
             <td class="p-3 text-center whitespace-nowrap">
               <button onclick="jumpToKpi('${k.code}', '${k.subject}', '${k.standard}')" class="p-1 rounded bg-slate-800 hover:bg-slate-700 text-emerald-400 transition" title="ดูในแผนภาพ">
                 <i data-lucide="eye" class="w-4 h-4"></i>
@@ -2969,6 +3261,8 @@
       if (el.catalogFilterSubject) el.catalogFilterSubject.value = 'ALL';
       if (el.catalogFilterGrade) el.catalogFilterGrade.value = 'ALL';
       if (el.catalogFilterType) el.catalogFilterType.value = 'ALL';
+      if (el.catalogFilterTerm) el.catalogFilterTerm.value = 'ALL';
+      if (el.catalogFilterSchool) el.catalogFilterSchool.value = 'ALL';
       if (el.filterTerm) el.filterTerm.value = 'ALL';
       if (el.filterSchool) el.filterSchool.value = 'ALL';
 
@@ -2985,9 +3279,387 @@
       switchToMapView();
       state.search = kpiCode;
       el.searchInput.value = kpiCode;
+      updateSummaryMetrics();
       applyVisibility();
       const targetKpiId = `kpi-${kpiCode.replace(/\s+/g, '_')}`;
       selectNode(targetKpiId, true);
+    }
+
+    // =========================================================================
+    // School Courses Explorer (626 Courses) & Course Detail Modal
+    // =========================================================================
+    function renderSchoolTable() {
+      if (!el.schoolTbody) return;
+      const qNorm = state.schoolSearch && state.schoolSearch.trim().length > 0 ? normText(state.schoolSearch) : '';
+
+      const filtered = SCHOOL_COURSES_LIST.filter(c => {
+        if (qNorm && !c.searchIndex?.includes(qNorm)) return false;
+        if (state.schoolArea !== 'ALL' && c.area !== state.schoolArea) return false;
+        if (state.schoolGrade !== 'ALL') {
+          if (state.schoolGrade === 'ม.ต้น') {
+            if (!['ม.1', 'ม.2', 'ม.3', 'ม.0'].includes(c.grade)) return false;
+          } else if (state.schoolGrade === 'ม.ปลาย') {
+            if (!['ม.4', 'ม.5', 'ม.6', 'ม.4-6'].includes(c.grade)) return false;
+          } else if (c.grade !== state.schoolGrade) {
+            return false;
+          }
+        }
+        if (state.schoolCourseType === 'BASIC' && !c.is_basic) return false;
+        if (state.schoolCourseType === 'ELECTIVE' && c.is_basic) return false;
+        if (state.schoolTerm !== 'ALL') {
+          if (!(c.terms || []).includes(String(state.schoolTerm))) return false;
+        }
+        return true;
+      });
+
+      const totalCourses = SCHOOL_COURSES_LIST.length;
+      const basicCount = filtered.filter(c => c.is_basic).length;
+      const electiveCount = filtered.length - basicCount;
+
+      if (el.schoolResultCount) {
+        el.schoolResultCount.innerHTML = `พบ <span class="text-white font-bold">${formatDigits(String(filtered.length))}</span> รายวิชา จากทั้งหมด ${formatDigits(String(totalCourses))} วิชา ` +
+          `<span class="text-slate-500">•</span> <span class="text-emerald-400">วิชาพื้นฐาน ${formatDigits(String(basicCount))}</span> ` +
+          `<span class="text-slate-500">•</span> <span class="text-purple-400">วิชาเพิ่มเติม ${formatDigits(String(electiveCount))}</span>`;
+      }
+
+      const limit = state.schoolLimit || 100;
+      const sliced = filtered.slice(0, limit);
+      let rows = '';
+
+      sliced.forEach(c => {
+        const typeBadge = c.is_basic
+          ? `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border-emerald-500/30">วิชาพื้นฐาน</span>`
+          : `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 border-purple-500/30">วิชาเพิ่มเติม</span>`;
+        const termStr = (c.terms || []).length > 0 ? `เทอม ${c.terms.join(', ')}` : '-';
+        const unitCount = (c.units || []).length;
+        const unitScores = (c.units || []).reduce((acc, u) => acc + (Number(u.total) || 0), 0);
+
+        rows += `
+          <tr class="hover:bg-slate-900/80 transition">
+            <td class="p-3 font-mono font-bold text-purple-300 whitespace-nowrap">
+              <button onclick="openCourseModal('${c.code}')" class="hover:underline flex items-center space-x-1">
+                <span>${formatDigits(c.code)}</span>
+              </button>
+            </td>
+            <td class="p-3 font-medium text-white">
+              <button onclick="openCourseModal('${c.code}')" class="text-left hover:text-purple-300 transition font-semibold">
+                ${formatDigits(c.name)}
+              </button>
+            </td>
+            <td class="p-3 text-center whitespace-nowrap">${typeBadge}</td>
+            <td class="p-3 text-slate-300 whitespace-nowrap">${c.area}</td>
+            <td class="p-3 text-center font-mono whitespace-nowrap">
+              <span class="text-white font-semibold">${formatDigits(c.grade)}</span>
+              <span class="text-slate-400 text-[10px] block">${formatDigits(termStr)}</span>
+            </td>
+            <td class="p-3 text-center font-mono whitespace-nowrap">
+              <span class="text-slate-200">${formatDigits(String(c.credits))} นก.</span>
+              <span class="text-slate-400 text-[10px] block">${formatDigits(String(c.hours))} ชม.</span>
+            </td>
+            <td class="p-3 text-center font-mono whitespace-nowrap">
+              <span class="text-emerald-400 font-bold">${formatDigits(String(unitCount))} หน่วย</span>
+              <span class="text-slate-400 text-[10px] block">รวม ${formatDigits(String(unitScores))} คะแนน</span>
+            </td>
+            <td class="p-3 text-center whitespace-nowrap">
+              <div class="flex items-center justify-center space-x-1.5">
+                <button onclick="openCourseModal('${c.code}')" class="px-2.5 py-1 rounded-lg bg-purple-600/25 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-500/40 transition text-[11px] font-semibold flex items-center space-x-1">
+                  <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                  <span>ดูหน่วยฯ</span>
+                </button>
+                <button onclick="downloadCourseWord('${c.code}')" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-400 transition" title="ดาวน์โหลดโครงสร้างรายวิชา (.doc)">
+                  <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      if (sliced.length === 0) {
+        rows = `
+          <tr>
+            <td colspan="8" class="p-8 text-center text-slate-400">
+              ไม่พบรายวิชาที่ตรงกับเงื่อนไขการค้นหา
+              <br>
+              <button onclick="clearSchoolSearch()" class="mt-2 text-xs text-purple-400 hover:underline">ล้างตัวกรองรายวิชาทั้งหมด</button>
+            </td>
+          </tr>
+        `;
+      }
+
+      el.schoolTbody.innerHTML = rows;
+
+      if (filtered.length > limit) {
+        el.schoolPaginationStrip.innerHTML = `
+          <span>กำลังแสดง ${formatDigits(String(limit))} จาก ${formatDigits(String(filtered.length))} รายวิชา</span>
+          <button onclick="expandSchoolLimit()" class="px-3 py-1 rounded-lg bg-purple-600/30 text-purple-300 hover:bg-purple-600 hover:text-white transition text-xs font-semibold">
+            แสดงเพิ่มอีก ${formatDigits('100')} วิชา
+          </button>
+        `;
+      } else {
+        el.schoolPaginationStrip.innerHTML = `<span>แสดงครบทั้งหมด ${formatDigits(String(filtered.length))} รายวิชา</span>`;
+      }
+
+      lucide.createIcons();
+    }
+
+    function expandSchoolLimit() {
+      state.schoolLimit = (state.schoolLimit || 100) + 100;
+      renderSchoolTable();
+    }
+
+    function clearSchoolSearch() {
+      state.schoolSearch = '';
+      state.schoolArea = 'ALL';
+      state.schoolGrade = 'ALL';
+      state.schoolCourseType = 'ALL';
+      state.schoolTerm = 'ALL';
+      state.schoolLimit = 100;
+      if (el.schoolSearchInput) el.schoolSearchInput.value = '';
+      if (el.schoolFilterArea) el.schoolFilterArea.value = 'ALL';
+      if (el.schoolFilterGrade) el.schoolFilterGrade.value = 'ALL';
+      if (el.schoolFilterCourseType) el.schoolFilterCourseType.value = 'ALL';
+      if (el.schoolFilterTerm) el.schoolFilterTerm.value = 'ALL';
+      renderSchoolTable();
+    }
+
+    function openCourseModal(rawCode) {
+      if (!rawCode) return;
+      const code = rawCode.split('_')[0].trim();
+      const c = SCHOOL_COURSES[code];
+      if (!c) {
+        showToast(`ไม่พบข้อมูลรายวิชา ${code}`);
+        return;
+      }
+
+      const modal = document.getElementById('courseModal');
+      const badgesEl = document.getElementById('courseModalBadges');
+      const titleEl = document.getElementById('courseModalTitle');
+      const subEl = document.getElementById('courseModalSub');
+      const bodyEl = document.getElementById('courseModalBody');
+      const footerEl = document.getElementById('courseModalFooter');
+
+      const typeBadge = c.is_basic
+        ? `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/15 border-emerald-500/30">รายวิชาพื้นฐาน</span>`
+        : `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-purple-300 bg-purple-500/15 border-purple-500/30">รายวิชาเพิ่มเติม</span>`;
+      const termStr = (c.terms || []).length > 0 ? `ภาคเรียนที่ ${c.terms.join(', ')}` : 'ไม่ระบุภาคเรียน';
+
+      badgesEl.innerHTML = `
+        <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono font-bold text-white text-[11px]">${formatDigits(c.code)}</span>
+        ${typeBadge}
+        <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300 text-[11px]">กลุ่มสาระฯ ${c.area}</span>
+        <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300 font-mono text-[11px]">ชั้น ${formatDigits(c.grade)} (${formatDigits(termStr)})</span>
+      `;
+      titleEl.textContent = formatDigits(`${c.code} ${c.name}`);
+      subEl.textContent = formatDigits(`จำนวน ${c.credits} หน่วยกิต • เวลาเรียน ${c.hours} ชั่วโมง/ภาคเรียน • รวม ${(c.units || []).length} หน่วยการเรียนรู้`);
+
+      const units = c.units || [];
+      const sumHours = units.reduce((a, u) => a + (Number(u.hours) || 0), 0);
+      const sumK = units.reduce((a, u) => a + (Number(u.k) || 0), 0);
+      const sumP = units.reduce((a, u) => a + (Number(u.p) || 0), 0);
+      const sumA = units.reduce((a, u) => a + (Number(u.a) || 0), 0);
+      const sumTotal = units.reduce((a, u) => a + (Number(u.total) || 0), 0);
+
+      let unitRows = '';
+      units.forEach(u => {
+        const kpiBadges = (u.national_kpis && u.national_kpis.length > 0)
+          ? `<div class="flex flex-wrap gap-1 mb-1">${u.national_kpis.map(nk => `<span class="px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-[10px]">${formatDigits(nk)}</span>`).join('')}</div>`
+          : '';
+        const indList = (u.indicators || []).map(ind => `<div class="text-slate-300 text-[11px] leading-relaxed">• ${formatDigits(ind)}</div>`).join('');
+        const conceptList = (u.concepts || []).map(con => `<div class="text-slate-400 text-[11px] leading-relaxed">${formatDigits(con)}</div>`).join('');
+
+        unitRows += `
+          <tr class="hover:bg-slate-900/70 transition align-top">
+            <td class="p-2.5 text-center font-mono font-bold text-white border-b border-slate-800/70">${formatDigits(String(u.no))}</td>
+            <td class="p-2.5 font-semibold text-white border-b border-slate-800/70">${formatDigits(u.name)}</td>
+            <td class="p-2.5 border-b border-slate-800/70">${kpiBadges}${indList || '-'}</td>
+            <td class="p-2.5 border-b border-slate-800/70">${conceptList || '-'}</td>
+            <td class="p-2.5 text-center font-mono text-slate-200 border-b border-slate-800/70">${formatDigits(String(u.hours))}</td>
+            <td class="p-2.5 text-center font-mono text-sky-400 border-b border-slate-800/70">${formatDigits(String(u.k))}</td>
+            <td class="p-2.5 text-center font-mono text-amber-400 border-b border-slate-800/70">${formatDigits(String(u.p))}</td>
+            <td class="p-2.5 text-center font-mono text-pink-400 border-b border-slate-800/70">${formatDigits(String(u.a))}</td>
+            <td class="p-2.5 text-center font-mono font-bold text-emerald-400 border-b border-slate-800/70">${formatDigits(String(u.total))}</td>
+          </tr>
+        `;
+      });
+
+      bodyEl.innerHTML = `
+        ${c.description ? `
+          <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] font-bold text-purple-300 block mb-1">คำอธิบายรายวิชา (Course Description):</span>
+            <p class="text-slate-300 text-xs leading-relaxed whitespace-pre-line">${formatDigits(c.description)}</p>
+          </div>
+        ` : ''}
+
+        <div class="rounded-2xl border border-slate-800 overflow-x-auto bg-slate-950/70">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-900 text-slate-300 font-semibold border-b border-slate-800">
+              <tr>
+                <th class="p-2.5 w-14 text-center">หน่วยที่</th>
+                <th class="p-2.5 min-w-[160px]">ชื่อหน่วยการเรียนรู้</th>
+                <th class="p-2.5 min-w-[240px]">มาตรฐาน/ตัวชี้วัด หรือ ผลการเรียนรู้</th>
+                <th class="p-2.5 min-w-[200px]">สาระสำคัญ / สาระการเรียนรู้</th>
+                <th class="p-2.5 w-16 text-center">เวลา (ชม.)</th>
+                <th class="p-2.5 w-14 text-center text-sky-400">K</th>
+                <th class="p-2.5 w-14 text-center text-amber-400">P</th>
+                <th class="p-2.5 w-14 text-center text-pink-400">A</th>
+                <th class="p-2.5 w-16 text-center text-emerald-400">รวม</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${unitRows}
+            </tbody>
+            <tfoot class="bg-slate-900/95 font-mono font-bold text-white border-t border-slate-700">
+              <tr>
+                <td colspan="4" class="p-2.5 text-right text-slate-300">รวมคะแนนหน่วยการเรียนรู้</td>
+                <td class="p-2.5 text-center">${formatDigits(String(sumHours))}</td>
+                <td class="p-2.5 text-center text-sky-400">${formatDigits(String(sumK))}</td>
+                <td class="p-2.5 text-center text-amber-400">${formatDigits(String(sumP))}</td>
+                <td class="p-2.5 text-center text-pink-400">${formatDigits(String(sumA))}</td>
+                <td class="p-2.5 text-center text-emerald-400">${formatDigits(String(sumTotal))}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      `;
+
+      footerEl.innerHTML = `
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="copyCourseWordTable('${c.code}')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center space-x-1.5 shadow-lg">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>คัดลอกตารางโครงสร้างลง Word</span>
+          </button>
+          <button onclick="downloadCourseWord('${c.code}')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 font-semibold text-xs transition flex items-center space-x-1.5">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>ดาวน์โหลดไฟล์ Word (.doc)</span>
+          </button>
+          <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-500/40 font-semibold text-xs transition flex items-center space-x-1.5">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>เปิดในระบบสร้างแผนวัดผล (วผ.๑๙)</span>
+          </a>
+        </div>
+        <button onclick="closeCourseModal()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-medium transition">
+          ปิดหน้าต่าง
+        </button>
+      `;
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeCourseModal() {
+      document.getElementById('courseModal').classList.add('hidden');
+    }
+
+    function copyCourseWordTable(courseCode) {
+      const c = SCHOOL_COURSES[courseCode];
+      if (!c) return;
+      const units = c.units || [];
+      let tsv = `หน่วยที่\tชื่อหน่วยการเรียนรู้\tมาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้\tสาระสำคัญ\tเวลา (ชม.)\tK\tP\tA\tรวม\n`;
+      let htmlRows = '';
+
+      units.forEach(u => {
+        const inds = (u.indicators || []).join('; ');
+        const cons = (u.concepts || []).join('; ');
+        tsv += `${formatDigits(String(u.no))}\t${formatDigits(u.name)}\t${formatDigits(inds)}\t${formatDigits(cons)}\t${formatDigits(String(u.hours))}\t${formatDigits(String(u.k))}\t${formatDigits(String(u.p))}\t${formatDigits(String(u.a))}\t${formatDigits(String(u.total))}\n`;
+        htmlRows += `
+          <tr>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.no))}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; font-weight:bold; vertical-align:top;">${formatDigits(u.name)}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; vertical-align:top;">${formatDigits(inds)}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; vertical-align:top;">${formatDigits(cons)}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.hours))}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.k))}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.p))}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.a))}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; font-weight:bold; vertical-align:top;">${formatDigits(String(u.total))}</td>
+          </tr>
+        `;
+      });
+
+      const htmlTable = `
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:'TH Sarabun PSK', Sarabun, sans-serif; font-size:14pt;">
+          <thead>
+            <tr style="background-color:#f1f5f9;">
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">หน่วยที่</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">ชื่อหน่วยการเรียนรู้</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">มาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">สาระสำคัญ</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">เวลา (ชม.)</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">K</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">P</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">A</th>
+              <th style="padding:6px 8px; border:1px solid #94a3b8;">รวม</th>
+            </tr>
+          </thead>
+          <tbody>${htmlRows}</tbody>
+        </table>
+      `;
+
+      copyRichTable(tsv, htmlTable, `คัดลอกตารางโครงสร้างวิชา ${formatDigits(c.code)} แล้ว`);
+    }
+
+    function downloadCourseWord(courseCode) {
+      const c = SCHOOL_COURSES[courseCode];
+      if (!c) return;
+      const units = c.units || [];
+      let rows = '';
+      units.forEach(u => {
+        rows += `
+          <tr>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.no))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; font-weight:bold; vertical-align:top;">${formatDigits(u.name)}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${formatDigits((u.indicators || []).join('<br>'))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${formatDigits((u.concepts || []).join('<br>'))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.hours))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.k))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.p))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.a))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; font-weight:bold; vertical-align:top;">${formatDigits(String(u.total))}</td>
+          </tr>
+        `;
+      });
+
+      const title = `โครงสร้างรายวิชา ${formatDigits(c.code)} ${formatDigits(c.name)}`;
+      const docHtml = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>${title}</title>
+          <style>
+            body { font-family: 'TH Sarabun PSK', 'Sarabun', sans-serif; font-size: 16pt; line-height: 1.25; }
+            table { border-collapse: collapse; width: 100%; font-size: 14pt; }
+            th { background-color: #f1f5f9; border: 1px solid #94a3b8; padding: 6px 8px; font-weight: bold; }
+            td { border: 1px solid #94a3b8; padding: 6px 8px; }
+            h1 { font-size: 20pt; text-align: center; margin-bottom: 4px; }
+            p.sub { font-size: 14pt; text-align: center; color: #475569; margin-top: 0; margin-bottom: 16px; }
+          </style>
+        </head>
+        <body>
+          <h1>${title}</h1>
+          <p class="sub">กลุ่มสาระการเรียนรู้${c.area} • ชั้น ${formatDigits(c.grade)} • ${formatDigits(String(c.credits))} หน่วยกิต (${formatDigits(String(c.hours))} ชั่วโมง)</p>
+          ${c.description ? `<p style="margin-bottom:16px;"><strong>คำอธิบายรายวิชา:</strong><br>${formatDigits(c.description).replace(/\n/g, '<br>')}</p>` : ''}
+          <table>
+            <thead>
+              <tr>
+                <th>หน่วยที่</th>
+                <th>ชื่อหน่วยการเรียนรู้</th>
+                <th>มาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้</th>
+                <th>สาระสำคัญ</th>
+                <th>เวลา (ชม.)</th>
+                <th>K</th>
+                <th>P</th>
+                <th>A</th>
+                <th>รวม</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </body>
+        </html>
+      `;
+
+      downloadBlob(docHtml, `โครงสร้างรายวิชา_${c.code}_${c.name}.doc`, 'application/msword');
     }
 
     // Event Bindings
@@ -3080,20 +3752,23 @@
         onFilterSelectionChanged();
       });
 
-      // View Switcher: Tree Graph vs Catalog Table
+      // View Switcher: Tree Graph vs Catalog Table vs School Courses
       el.btnViewMap.addEventListener('click', switchToMapView);
       el.btnViewCatalog.addEventListener('click', switchToCatalogView);
+      if (el.btnViewSchool) el.btnViewSchool.addEventListener('click', switchToSchoolView);
 
       // Search Inputs
       el.searchInput.addEventListener('input', (e) => {
         state.search = e.target.value;
         if (el.catalogSearchInput) el.catalogSearchInput.value = e.target.value;
+        updateSummaryMetrics();
         applyVisibility();
       });
 
       el.catalogSearchInput.addEventListener('input', (e) => {
         state.search = e.target.value;
         if (el.searchInput) el.searchInput.value = e.target.value;
+        updateSummaryMetrics();
         renderCatalogTable();
       });
 
@@ -3126,18 +3801,76 @@
         onFilterSelectionChanged();
       });
 
+      if (el.catalogFilterTerm) {
+        el.catalogFilterTerm.addEventListener('change', (e) => {
+          state.term = e.target.value;
+          if (el.filterTerm) el.filterTerm.value = state.term;
+          onFilterSelectionChanged();
+        });
+      }
+
+      if (el.catalogFilterSchool) {
+        el.catalogFilterSchool.addEventListener('change', (e) => {
+          state.school = e.target.value;
+          if (el.filterSchool) el.filterSchool.value = state.school;
+          onFilterSelectionChanged();
+        });
+      }
+
       el.filterTerm.addEventListener('change', (e) => {
         state.term = e.target.value;
+        if (el.catalogFilterTerm) el.catalogFilterTerm.value = state.term;
         onFilterSelectionChanged();
       });
 
       el.filterSchool.addEventListener('change', (e) => {
         state.school = e.target.value;
+        if (el.catalogFilterSchool) el.catalogFilterSchool.value = state.school;
         onFilterSelectionChanged();
       });
 
       el.btnClearFilters.addEventListener('click', clearCatalogSearch);
       el.btnCatalogClearSearch.addEventListener('click', clearCatalogSearch);
+
+      // School Courses View Filters
+      if (el.schoolSearchInput) {
+        el.schoolSearchInput.addEventListener('input', (e) => {
+          state.schoolSearch = e.target.value;
+          state.schoolLimit = 100;
+          renderSchoolTable();
+        });
+      }
+      if (el.schoolFilterArea) {
+        el.schoolFilterArea.addEventListener('change', (e) => {
+          state.schoolArea = e.target.value;
+          state.schoolLimit = 100;
+          renderSchoolTable();
+        });
+      }
+      if (el.schoolFilterGrade) {
+        el.schoolFilterGrade.addEventListener('change', (e) => {
+          state.schoolGrade = e.target.value;
+          state.schoolLimit = 100;
+          renderSchoolTable();
+        });
+      }
+      if (el.schoolFilterCourseType) {
+        el.schoolFilterCourseType.addEventListener('change', (e) => {
+          state.schoolCourseType = e.target.value;
+          state.schoolLimit = 100;
+          renderSchoolTable();
+        });
+      }
+      if (el.schoolFilterTerm) {
+        el.schoolFilterTerm.addEventListener('change', (e) => {
+          state.schoolTerm = e.target.value;
+          state.schoolLimit = 100;
+          renderSchoolTable();
+        });
+      }
+      if (el.btnSchoolClearSearch) {
+        el.btnSchoolClearSearch.addEventListener('click', clearSchoolSearch);
+      }
 
       // Drill Up & Reset buttons
       el.btnDrillUp.addEventListener('click', drillUp);
@@ -3183,6 +3916,17 @@
       document.getElementById('btn-close-help').addEventListener('click', () => helpModal.classList.add('hidden'));
       document.getElementById('btn-help-understood').addEventListener('click', () => helpModal.classList.add('hidden'));
 
+      // Close Course Modal on backdrop click or Escape
+      const courseModal = document.getElementById('courseModal');
+      if (courseModal) {
+        courseModal.addEventListener('click', (e) => {
+          if (e.target === courseModal) closeCourseModal();
+        });
+      }
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeCourseModal();
+      });
+
       // Catalog Table Batch Buttons
       document.getElementById('btn-catalog-select-all').addEventListener('click', () => {
         const filtered = DATA.kpis.filter(isKpiActiveInFilter);
@@ -3199,8 +3943,10 @@
       state.viewMode = 'map';
       el.mainMapView.classList.remove('hidden');
       el.mainCatalogView.classList.add('hidden');
+      if (el.mainSchoolView) el.mainSchoolView.classList.add('hidden');
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      if (el.btnViewSchool) el.btnViewSchool.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       updateViewportTransform();
       applyVisibility();
     }
@@ -3209,9 +3955,22 @@
       state.viewMode = 'catalog';
       el.mainMapView.classList.add('hidden');
       el.mainCatalogView.classList.remove('hidden');
+      if (el.mainSchoolView) el.mainSchoolView.classList.add('hidden');
       el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition flex items-center space-x-1.5 shadow-sm';
       el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      if (el.btnViewSchool) el.btnViewSchool.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
       renderCatalogTable();
+    }
+
+    function switchToSchoolView() {
+      state.viewMode = 'school';
+      el.mainMapView.classList.add('hidden');
+      el.mainCatalogView.classList.add('hidden');
+      if (el.mainSchoolView) el.mainSchoolView.classList.remove('hidden');
+      if (el.btnViewSchool) el.btnViewSchool.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white transition flex items-center space-x-1.5 shadow-sm';
+      el.btnViewMap.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      el.btnViewCatalog.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition flex items-center space-x-1.5';
+      renderSchoolTable();
     }
 
     function updateViewportTransform() {
@@ -3702,6 +4461,13 @@
     window.toggleSubjectFilter = toggleSubjectFilter;
     window.toggleGradeFilter = toggleGradeFilter;
     window.toggleTypeFilter = toggleTypeFilter;
+    window.switchToSchoolView = switchToSchoolView;
+    window.expandSchoolLimit = expandSchoolLimit;
+    window.clearSchoolSearch = clearSchoolSearch;
+    window.openCourseModal = openCourseModal;
+    window.closeCourseModal = closeCourseModal;
+    window.copyCourseWordTable = copyCourseWordTable;
+    window.downloadCourseWord = downloadCourseWord;
   </script>
 </body>
 </html>
