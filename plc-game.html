@@ -71,13 +71,13 @@
   <!-- Toast Container -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <div class="min-h-screen flex flex-col">
+  <div class="min-h-screen w-full flex flex-col">
     <!-- Top Header -->
-    <header class="border-b border-slate-800/80 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-3">
-      <div class="max-w-[1720px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+    <header class="w-full border-b border-slate-800/80 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5">
+      <div class="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
         <!-- Brand & Back Link -->
         <div class="flex items-center space-x-3">
-          <a href="index.html" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center space-x-1.5 shrink-0" title="กลับหน้าหลักโครงสร้างหลักสูตร">
+          <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center space-x-1.5 shrink-0" title="กลับหน้าหลักโครงสร้างหลักสูตร">
             <i data-lucide="arrow-left" class="w-4 h-4 text-emerald-400"></i>
             <span>หน้าหลักหลักสูตร</span>
           </a>
@@ -107,26 +107,31 @@
             </button>
           </div>
 
-          <button onclick="copyAllCurrentCards()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center space-x-1.5">
+          <button onclick="copyAllCurrentCards()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center space-x-1.5">
             <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
             <span>คัดลอกโจทย์ชุดนี้</span>
           </button>
 
-          <button onclick="toggleRulesModal()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-xs font-semibold transition flex items-center space-x-1.5">
+          <button onclick="toggleRulesModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-xs font-semibold transition flex items-center space-x-1.5">
             <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i>
             <span>กติกา & แต้มการ์ด</span>
+          </button>
+
+          <button onclick="toggleFullscreen()" id="btnFullscreen" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs font-bold transition flex items-center space-x-1.5" title="ขยายเต็มหน้าจอ (Fullscreen)">
+            <i data-lucide="maximize" id="fullscreenIcon" class="w-3.5 h-3.5"></i>
+            <span id="fullscreenLabel">ขยายเต็มจอ</span>
           </button>
         </div>
       </div>
     </header>
 
-    <!-- Main Single-Screen Workspace -->
-    <main class="max-w-[1720px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 space-y-4 flex-1">
+    <!-- Main Single-Screen Full-Bleed Workspace -->
+    <main class="w-full px-3 sm:px-6 py-3 flex-1 flex flex-col justify-between gap-3">
 
       <!-- ================================================================= -->
       <!-- 1. TOP CONTROL BAR (ตั้งค่าสั้นๆ หน้าเดียว + พับเก็บตัวกรองชั้น/วิชาได้) -->
       <!-- ================================================================= -->
-      <section class="glass-panel rounded-3xl p-4 sm:p-5 space-y-4 border border-slate-700/80">
+      <section class="glass-panel rounded-2xl p-3 sm:p-4 space-y-3 border border-slate-700/80 shrink-0">
         <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
 
           <!-- Left: Mode Selectors -->
@@ -250,7 +255,7 @@
       <!-- ================================================================= -->
       <!-- 2. CENTRAL KPI / LEARNING OUTCOME CARDS (1, 2, or 3 Cards)        -->
       <!-- ================================================================= -->
-      <section class="space-y-2.5">
+      <section class="w-full space-y-2 shrink-0">
         <div class="flex flex-wrap items-center justify-between gap-2 px-1">
           <div class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
@@ -263,7 +268,7 @@
           </span>
         </div>
 
-        <div id="kpiCardsGrid" class="grid grid-cols-1 gap-4">
+        <div id="kpiCardsGrid" class="grid grid-cols-1 w-full gap-3.5">
           <!-- Populated via JS -->
         </div>
       </section>
@@ -271,7 +276,7 @@
       <!-- ================================================================= -->
       <!-- 3. PEDAGOGY / TEACHING METHOD CARDS (1, 3, or 5 Cards)            -->
       <!-- ================================================================= -->
-      <section class="space-y-2.5 pt-1">
+      <section class="w-full flex-1 flex flex-col space-y-2">
         <div class="flex flex-wrap items-center justify-between gap-2 px-1">
           <div class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
@@ -287,7 +292,7 @@
           </div>
         </div>
 
-        <div id="methodCardsGrid" class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-3.5">
+        <div id="methodCardsGrid" class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 w-full gap-3.5 flex-1">
           <!-- Populated via JS -->
         </div>
       </section>
@@ -295,8 +300,8 @@
       <!-- ================================================================= -->
       <!-- 4. OPTIONAL BONUS CARDS (การ์ดสื่อ/ชิ้นงาน & การ์ดเงื่อนไขพิเศษ)    -->
       <!-- ================================================================= -->
-      <section class="glass-panel rounded-3xl p-4 sm:p-5 border border-slate-800 space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <section class="w-full glass-panel rounded-2xl p-3 sm:p-4 border border-slate-800 space-y-2.5 shrink-0">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div>
             <h3 class="text-sm font-bold text-white flex items-center space-x-2">
               <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
@@ -321,7 +326,7 @@
           </div>
         </div>
 
-        <div id="bonusCardsContainer" class="hidden grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
+        <div id="bonusCardsContainer" class="hidden grid grid-cols-1 md:grid-cols-2 w-full gap-3.5 pt-1">
           <!-- Populated via JS when drawn -->
         </div>
       </section>
@@ -1226,10 +1231,10 @@
       if (!grid) return;
 
       grid.className = gameState.kpiCount === 1
-        ? 'grid grid-cols-1 gap-4'
+        ? 'grid grid-cols-1 w-full gap-3.5'
         : gameState.kpiCount === 2
-          ? 'grid grid-cols-1 lg:grid-cols-2 gap-4'
-          : 'grid grid-cols-1 lg:grid-cols-3 gap-4';
+          ? 'grid grid-cols-1 lg:grid-cols-2 w-full gap-3.5'
+          : 'grid grid-cols-1 lg:grid-cols-3 w-full gap-3.5';
 
       grid.innerHTML = gameState.drawnKpis.map((k, idx) => {
         const isLocked = gameState.lockedKpiSlots.has(idx);
@@ -1241,8 +1246,8 @@
           : `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/40">🛤️ ${formatDigits(k.type)}</span>`;
 
         return `
-          <div class="card-animate glass-panel kpi-card-glow rounded-3xl p-5 flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/40'}">
-            <div class="space-y-3">
+          <div class="card-animate glass-panel kpi-card-glow rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/40'}">
+            <div class="space-y-2.5">
               <!-- Card Top Header -->
               <div class="flex items-start justify-between gap-2">
                 <div class="flex flex-wrap items-center gap-1.5">
@@ -1266,28 +1271,29 @@
                 </div>
               </div>
 
-              <!-- Main Indicator Text (Projector-Friendly Large Text) -->
-              <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800">
-                <span class="text-[11px] font-mono uppercase text-emerald-400 font-bold block mb-1">
-                  ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
-                </span>
-                <p class="text-base sm:text-lg font-bold text-white leading-relaxed">
-                  ${formatDigits(k.text)}
-                </p>
-              </div>
+              <!-- Main Indicator Text + Core Content (Side-by-side when 1 KPI for full-width balance) -->
+              <div class="${gameState.kpiCount === 1 ? 'grid grid-cols-1 xl:grid-cols-12 gap-3 items-stretch' : 'space-y-2.5'}">
+                <div class="${gameState.kpiCount === 1 ? 'xl:col-span-7' : ''} p-3.5 sm:p-4 rounded-2xl bg-slate-950/90 border border-slate-800 flex flex-col justify-center">
+                  <span class="text-[11px] font-mono uppercase text-emerald-400 font-bold block mb-1">
+                    ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
+                  </span>
+                  <p class="text-base sm:text-lg font-bold text-white leading-relaxed">
+                    ${formatDigits(k.text)}
+                  </p>
+                </div>
 
-              <!-- Collapsible / Clean Standard & Core Content -->
-              <div class="grid grid-cols-1 gap-2 text-xs">
-                ${stdDesc ? `
-                  <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
-                    <strong class="text-slate-400">มาตรฐาน/คำอธิบาย:</strong> ${formatDigits(stdDesc.length > 180 ? stdDesc.slice(0, 180) + '…' : stdDesc)}
-                  </div>
-                ` : ''}
-                ${k.core_content ? `
-                  <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
-                    <strong class="text-sky-400">สาระสำคัญ / สาระแกนกลาง:</strong> ${formatDigits(k.core_content.replace(/\n+/g, ' '))}
-                  </div>
-                ` : ''}
+                <div class="${gameState.kpiCount === 1 ? 'xl:col-span-5' : ''} flex flex-col justify-center gap-2 text-xs">
+                  ${stdDesc ? `
+                    <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
+                      <strong class="text-slate-400">มาตรฐาน/คำอธิบาย:</strong> ${formatDigits(stdDesc.length > 200 ? stdDesc.slice(0, 200) + '…' : stdDesc)}
+                    </div>
+                  ` : ''}
+                  ${k.core_content ? `
+                    <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
+                      <strong class="text-sky-400">สาระสำคัญ / สาระแกนกลาง:</strong> ${formatDigits(k.core_content.replace(/\n+/g, ' '))}
+                    </div>
+                  ` : ''}
+                </div>
               </div>
             </div>
           </div>
@@ -1310,19 +1316,20 @@
       if (!grid) return;
 
       grid.className = gameState.methodCount === 1
-        ? 'grid grid-cols-1 max-w-3xl mx-auto gap-4'
+        ? 'grid grid-cols-1 w-full gap-4 flex-1'
         : gameState.methodCount === 3
-          ? 'grid grid-cols-1 lg:grid-cols-3 gap-4'
-          : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5';
+          ? 'grid grid-cols-1 lg:grid-cols-3 w-full gap-4 flex-1'
+          : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full gap-3.5 flex-1';
 
       grid.innerHTML = gameState.drawnMethods.map((m, idx) => {
         const isLocked = gameState.lockedMethodSlots.has(idx);
         const isClaimed = gameState.claimedMethodSlots.has(idx);
-        const stepsHtml = (m.steps || []).map(s => `<li class="text-slate-200 text-xs leading-relaxed">${formatDigits(s)}</li>`).join('');
+        const isSingle = gameState.methodCount === 1;
+        const stepsHtml = (m.steps || []).map(s => `<li class="text-slate-200 ${isSingle ? 'text-sm' : 'text-xs'} leading-relaxed">${formatDigits(s)}</li>`).join('');
 
         return `
-          <div class="card-animate glass-panel pedagogy-card-glow rounded-3xl p-4 flex flex-col justify-between border-2 transition ${isClaimed ? 'card-claimed border-slate-700' : isLocked ? 'border-emerald-400' : 'border-amber-500/45'}">
-            <div class="space-y-3">
+          <div class="card-animate glass-panel pedagogy-card-glow rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-2 transition ${isClaimed ? 'card-claimed border-slate-700' : isLocked ? 'border-emerald-400' : 'border-amber-500/45'}">
+            <div class="space-y-3 flex-1 flex flex-col">
               <!-- Card Top Strip: Number + Star Points + Lock/Reroll -->
               <div class="flex items-center justify-between gap-1.5">
                 <div class="flex items-center space-x-1.5">
@@ -1344,19 +1351,22 @@
                 </div>
               </div>
 
-              <!-- Method Name & Core Concept -->
-              <div>
-                <span class="text-[10px] font-semibold text-amber-400/90 uppercase tracking-wider block">${m.category}</span>
-                <h3 class="text-base font-bold text-white leading-snug mt-0.5">${formatDigits(m.name)}</h3>
-                <p class="text-xs text-slate-300 mt-1 leading-relaxed">${formatDigits(m.concept)}</p>
-              </div>
+              <!-- Method Body (2-column wide layout when 1 card is selected so it fills the screen) -->
+              <div class="${isSingle ? 'grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-1' : 'space-y-3 flex-1 flex flex-col'}">
+                <!-- Method Name & Core Concept -->
+                <div class="${isSingle ? 'lg:col-span-5 flex flex-col justify-center p-4 rounded-2xl bg-slate-900/50 border border-slate-800/80' : ''}">
+                  <span class="text-[10px] font-semibold text-amber-400/90 uppercase tracking-wider block">${m.category}</span>
+                  <h3 class="${isSingle ? 'text-xl sm:text-2xl' : 'text-base'} font-bold text-white leading-snug mt-0.5">${formatDigits(m.name)}</h3>
+                  <p class="${isSingle ? 'text-sm mt-2' : 'text-xs mt-1'} text-slate-300 leading-relaxed">${formatDigits(m.concept)}</p>
+                </div>
 
-              <!-- Activity Steps -->
-              <div class="p-3 rounded-2xl bg-slate-950/90 border border-slate-800/90 space-y-1">
-                <span class="text-[11px] font-bold text-emerald-400 block">แนวทางจัดกิจกรรมตามลำดับขั้น:</span>
-                <ul class="space-y-1">
-                  ${stepsHtml}
-                </ul>
+                <!-- Activity Steps -->
+                <div class="${isSingle ? 'lg:col-span-7 flex flex-col justify-center p-4' : 'p-3 flex-1'} rounded-2xl bg-slate-950/90 border border-slate-800/90 space-y-1.5">
+                  <span class="${isSingle ? 'text-xs' : 'text-[11px]'} font-bold text-emerald-400 block">แนวทางจัดกิจกรรมตามลำดับขั้น:</span>
+                  <ul class="space-y-1.5">
+                    ${stepsHtml}
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -1463,6 +1473,33 @@
       const m = document.getElementById('rulesModal');
       if (m) m.classList.toggle('hidden');
     }
+
+    function toggleFullscreen() {
+      const label = document.getElementById('fullscreenLabel');
+      const icon = document.getElementById('fullscreenIcon');
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+          if (label) label.textContent = 'ย่อหน้าจอ';
+          if (icon) icon.setAttribute('data-lucide', 'minimize');
+          lucide.createIcons();
+        }).catch(() => {});
+      } else {
+        document.exitFullscreen().then(() => {
+          if (label) label.textContent = 'ขยายเต็มจอ';
+          if (icon) icon.setAttribute('data-lucide', 'maximize');
+          lucide.createIcons();
+        }).catch(() => {});
+      }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const label = document.getElementById('fullscreenLabel');
+      const icon = document.getElementById('fullscreenIcon');
+      const isFull = !!document.fullscreenElement;
+      if (label) label.textContent = isFull ? 'ย่อหน้าจอ' : 'ขยายเต็มจอ';
+      if (icon) icon.setAttribute('data-lucide', isFull ? 'minimize' : 'maximize');
+      lucide.createIcons();
+    });
 
     function showToast(message) {
       const container = document.getElementById('toast-container');
