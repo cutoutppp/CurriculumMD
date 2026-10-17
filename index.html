@@ -713,17 +713,11 @@
               </h2>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ครบ ๑๐๐% (๖๒๖ รายวิชา)</span>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">
-              ครอบคลุมทั้งรายวิชาพื้นฐาน (อิงตัวชี้วัดแกนกลาง) และรายวิชาเพิ่มเติม (อิงผลการเรียนรู้) พร้อมโครงสร้างหน่วยการเรียนรู้ เวลาเรียน และสัดส่วนคะแนน K / P / A
-            </p>
+              <p class="text-xs text-slate-400 mt-0.5">
+                ครอบคลุมทั้งรายวิชาพื้นฐาน (อิงตัวชี้วัดแกนกลาง) และรายวิชาเพิ่มเติม (อิงผลการเรียนรู้) พร้อมโครงสร้างหน่วยการเรียนรู้ มาตรฐาน/ตัวชี้วัด ผลการเรียนรู้ และสาระสำคัญครบทุกหน่วย
+              </p>
+            </div>
           </div>
-          <div class="flex items-center space-x-2">
-            <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold transition flex items-center space-x-1.5 shadow-lg">
-              <i data-lucide="file-Spreadsheet" class="w-3.5 h-3.5"></i>
-              <span>เปิดระบบสร้างแผนวัดผล (วผ.๑๙)</span>
-            </a>
-          </div>
-        </div>
 
         <!-- Filter Controls for School Courses -->
         <div class="space-y-3 mb-4">
@@ -751,6 +745,7 @@
                 <option value="ศิลปะ">ศิลปะ</option>
                 <option value="การงานอาชีพ">การงานอาชีพ</option>
                 <option value="ภาษาต่างประเทศ">ภาษาต่างประเทศ</option>
+                <option value="กิจกรรมพัฒนาผู้เรียน">กิจกรรมพัฒนาผู้เรียน (IS)</option>
               </select>
             </div>
 
@@ -799,14 +794,13 @@
           <table class="w-full text-left text-xs border-collapse">
             <thead class="bg-slate-900 text-slate-300 font-semibold sticky top-0 border-b border-slate-800 z-10">
               <tr>
-                <th class="p-3 w-28 whitespace-nowrap">รหัสวิชา</th>
-                <th class="p-3 min-w-[220px]">ชื่อรายวิชา</th>
-                <th class="p-3 w-28 text-center whitespace-nowrap">ประเภทวิชา</th>
-                <th class="p-3 w-44 whitespace-nowrap">กลุ่มสาระการเรียนรู้</th>
-                <th class="p-3 w-32 text-center whitespace-nowrap">ระดับชั้น / เทอม</th>
-                <th class="p-3 w-28 text-center whitespace-nowrap">หน่วยกิต / เวลา</th>
-                <th class="p-3 w-28 text-center whitespace-nowrap">จำนวนหน่วยฯ</th>
-                <th class="p-3 w-40 text-center whitespace-nowrap">จัดการ / ดูโครงสร้าง</th>
+                <th class="p-3 w-24 whitespace-nowrap">รหัสวิชา</th>
+                <th class="p-3 min-w-[180px]">ชื่อรายวิชา / กลุ่มสาระฯ</th>
+                <th class="p-3 w-28 text-center whitespace-nowrap">ระดับชั้น / เวลา</th>
+                <th class="p-3 min-w-[260px]">มาตรฐาน/ตัวชี้วัด หรือ ผลการเรียนรู้</th>
+                <th class="p-3 min-w-[260px]">สาระสำคัญ / สาระการเรียนรู้</th>
+                <th class="p-3 w-24 text-center whitespace-nowrap">จำนวนหน่วยฯ</th>
+                <th class="p-3 w-32 text-center whitespace-nowrap">จัดการ / ดูโครงสร้าง</th>
               </tr>
             </thead>
             <tbody id="school-table-tbody" class="divide-y divide-slate-800/60 font-sans">
@@ -867,10 +861,10 @@
         <h4 class="font-bold text-white text-sm">๑. มุมมองโครงสร้าง (Tree Graph):</h4>
         <p>• สลับมุมมองได้ทันทีจากแถบด้านบนแผนภาพ: <strong>แตกตามกลุ่มสาระวิชา</strong> หรือ <strong>แตกตามระดับชั้น (ป.๑ – ม.๖)</strong></p>
         <p>• ตัวกรองสามารถเลือกได้หลายกลุ่มสาระ หลายระดับชั้น หรือเลือกประเภทระหว่างทาง/ปลายทาง <strong>ระบบจะกระจายโหนดที่เลือกให้เต็มวงกลม ๓๖๐ องศาเสมอ</strong> และอัปเดตการ์ดสถิติทั้ง ๖ ใบด้านบนแบบ Real-time</p>
-        <p>• คลิกที่ป้ายรหัสวิชาสีม่วง (เช่น <code>ท21101</code>, <code>พ22102</code>) เพื่อเปิดดู <strong>ตารางโครงสร้างหน่วยการเรียนรู้และสัดส่วนคะแนน K/P/A</strong> ได้ทันที</p>
+        <p>• คลิกที่ป้ายรหัสวิชาสีม่วง (เช่น <code>ท21101</code>, <code>พ22102</code>) เพื่อเปิดดู <strong>ตารางโครงสร้างหน่วยการเรียนรู้ มาตรฐาน/ตัวชี้วัด และสาระสำคัญ</strong> ได้ทันที</p>
         
         <h4 class="font-bold text-white text-sm pt-2">๒. คลังรายวิชาโรงเรียนพัฒนานิคม (ครบ ๖๒๖ วิชา):</h4>
-        <p>• คลิกปุ่ม <strong>"คลังรายวิชา รร."</strong> ด้านบน เพื่อค้นหาและเปิดดูโครงสร้างรายวิชาทั้ง <strong>วิชาพื้นฐานและวิชาเพิ่มเติม</strong> พร้อมปุ่มคัดลอกตารางลง Word และปุ่มลัดเชื่อมไประบบสร้างแผนวัดผล (วผ.๑๙)</p>
+        <p>• คลิกปุ่ม <strong>"คลังรายวิชา รร."</strong> ด้านบน เพื่อค้นหาและเปิดดูโครงสร้างรายวิชาทั้ง <strong>วิชาพื้นฐานและวิชาเพิ่มเติม</strong> พร้อมปุ่มคัดลอกตารางลง Word และดาวน์โหลดไฟล์ Word (.doc)</p>
 
         <h4 class="font-bold text-white text-sm pt-2">๓. การเลือกเลขไทย หรือ เลขอารบิก และการส่งออก Word:</h4>
         <p>• คลิกปุ่ม <strong>เลขไทย (๑ ๒ ๓)</strong> หรือ <strong>เลขอารบิก (1 2 3)</strong> ที่มุมบนขวา เพื่อปรับการแสดงผลตัวเลขทั้งระบบ และกดปุ่มคัดลอกตารางลง Microsoft Word ได้ทุกหน้า</p>
@@ -892,7 +886,28 @@
     const SVG_NS = "http://www.w3.org/2000/svg";
     const DATA = (typeof OPEN_CURRICULUM_DATA !== 'undefined' ? OPEN_CURRICULUM_DATA : (window.OPEN_CURRICULUM_DATA || {}));
     const SCHOOL_COURSES = (typeof SCHOOL_COURSES_DATA !== 'undefined' ? SCHOOL_COURSES_DATA : (window.SCHOOL_COURSES_DATA || {}));
-    const SCHOOL_COURSES_LIST = Object.values(SCHOOL_COURSES);
+    const AREA_SORT_ORDER = {
+      'ภาษาไทย': 1,
+      'คณิตศาสตร์': 2,
+      'วิทยาศาสตร์และเทคโนโลยี': 3,
+      'สังคมศึกษา ศาสนา และวัฒนธรรม': 4,
+      'สุขศึกษาและพลศึกษา': 5,
+      'ศิลปะ': 6,
+      'การงานอาชีพ': 7,
+      'ภาษาต่างประเทศ': 8,
+      'กิจกรรมพัฒนาผู้เรียน': 9
+    };
+    const GRADE_SORT_ORDER = { 'ม.1': 1, 'ม.2': 2, 'ม.3': 3, 'ม.4': 4, 'ม.5': 5, 'ม.6': 6, 'ม.4-6': 7 };
+    const SCHOOL_COURSES_LIST = Object.values(SCHOOL_COURSES).sort((a, b) => {
+      const aArea = AREA_SORT_ORDER[a.area] || 99;
+      const bArea = AREA_SORT_ORDER[b.area] || 99;
+      if (aArea !== bArea) return aArea - bArea;
+      if (a.is_basic !== b.is_basic) return a.is_basic ? -1 : 1;
+      const aGrade = GRADE_SORT_ORDER[a.grade] || 99;
+      const bGrade = GRADE_SORT_ORDER[b.grade] || 99;
+      if (aGrade !== bGrade) return aGrade - bGrade;
+      return String(a.code).localeCompare(String(b.code), 'th');
+    });
 
     // Thai / Arabic Numeral Conversion System
     const THAI_DIGITS = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
@@ -1131,7 +1146,7 @@
 
       if (SCHOOL_COURSES_LIST.length > 0) {
         SCHOOL_COURSES_LIST.forEach(c => {
-          const unitNames = (c.units || []).map(u => `${u.name} ${(u.national_kpis || []).join(' ')} ${(u.indicators || []).join(' ')}`).join(' ');
+          const unitNames = (c.units || []).map(u => `${u.name} ${(u.national_kpis || []).join(' ')} ${(u.indicators || []).join(' ')} ${(u.concepts || []).join(' ')}`).join(' ');
           c.searchIndex = normText(`${c.code} ${c.name} ${c.area} ${c.grade} ${c.type} ${(c.semesters || []).join(' ')} ${c.description || ''} ${unitNames}`);
         });
       }
@@ -3383,36 +3398,80 @@
 
       sliced.forEach(c => {
         const typeBadge = c.is_basic
-          ? `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border-emerald-500/30">วิชาพื้นฐาน</span>`
-          : `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 border-purple-500/30">วิชาเพิ่มเติม</span>`;
+          ? `<span class="px-1.5 py-0.5 rounded-full border text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border-emerald-500/30">วิชาพื้นฐาน</span>`
+          : `<span class="px-1.5 py-0.5 rounded-full border text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 border-purple-500/30">วิชาเพิ่มเติม</span>`;
         const termStr = (c.terms || []).length > 0 ? `เทอม ${c.terms.join(', ')}` : '-';
-        const unitCount = (c.units || []).length;
-        const indCount = (c.units || []).reduce((acc, u) => acc + ((u.indicators || []).length), 0);
+        const units = c.units || [];
+        const unitCount = units.length;
+        const allIndicators = [];
+        const allNationalKpis = new Set();
+        const allConcepts = [];
+
+        units.forEach(u => {
+          (u.national_kpis || []).forEach(nk => allNationalKpis.add(nk));
+          (u.indicators || []).forEach(ind => {
+            if (ind && ind.trim() !== '-') allIndicators.push(ind.trim());
+          });
+          (u.concepts || []).forEach(con => {
+            if (con && con.trim() !== '-') allConcepts.push({ unitNo: u.no, unitName: u.name, text: con.trim() });
+          });
+        });
+
+        const indCount = allIndicators.length;
         const indLabel = indCount > 0
           ? `รวม ${formatDigits(String(indCount))} ${c.is_basic ? 'ตัวชี้วัด' : 'ผลการเรียนรู้'}`
           : 'โครงสร้างรายวิชา';
 
+        const kpiBadgeArr = [...allNationalKpis];
+        const kpiBadgesHtml = kpiBadgeArr.length > 0
+          ? `<div class="flex flex-wrap gap-1 mb-1">${kpiBadgeArr.slice(0, 6).map(nk => `<span class="px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-[10px]">${formatDigits(nk)}</span>`).join('')}${kpiBadgeArr.length > 6 ? `<span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono text-[10px]">+${formatDigits(String(kpiBadgeArr.length - 6))}</span>` : ''}</div>`
+          : '';
+
+        const previewInds = allIndicators.slice(0, 2).map(ind => {
+          const shortInd = ind.length > 95 ? ind.slice(0, 95) + '…' : ind;
+          return `<div class="text-slate-300 text-[11px] leading-snug">• ${formatDigits(shortInd)}</div>`;
+        }).join('');
+        const moreIndsHtml = allIndicators.length > 2
+          ? `<span class="text-[10px] text-purple-400 font-medium mt-0.5 inline-block">+ อีก ${formatDigits(String(allIndicators.length - 2))} รายการ (คลิกดูครบทุกหน่วย)</span>`
+          : '';
+
+        const previewConcepts = allConcepts.slice(0, 2).map(item => {
+          const shortCon = item.text.length > 95 ? item.text.slice(0, 95) + '…' : item.text;
+          return `<div class="text-slate-400 text-[11px] leading-snug"><span class="text-slate-200 font-medium">หน่วยที่ ${formatDigits(String(item.unitNo))}:</span> ${formatDigits(shortCon)}</div>`;
+        }).join('');
+        const moreConceptsHtml = allConcepts.length > 2
+          ? `<span class="text-[10px] text-sky-400 font-medium mt-0.5 inline-block">+ อีก ${formatDigits(String(allConcepts.length - 2))} หน่วยการเรียนรู้</span>`
+          : '';
+
         rows += `
-          <tr class="hover:bg-slate-900/80 transition">
+          <tr class="hover:bg-slate-900/80 transition align-top">
             <td class="p-3 font-mono font-bold text-purple-300 whitespace-nowrap">
               <button onclick="openCourseModal('${c.code}')" class="hover:underline flex items-center space-x-1">
                 <span>${formatDigits(c.code)}</span>
               </button>
             </td>
             <td class="p-3 font-medium text-white">
-              <button onclick="openCourseModal('${c.code}')" class="text-left hover:text-purple-300 transition font-semibold">
+              <button onclick="openCourseModal('${c.code}')" class="text-left hover:text-purple-300 transition font-semibold block">
                 ${formatDigits(c.name)}
               </button>
+              <div class="flex flex-wrap items-center gap-1.5 mt-1">
+                ${typeBadge}
+                <span class="text-[10px] text-slate-400">${c.area}</span>
+              </div>
             </td>
-            <td class="p-3 text-center whitespace-nowrap">${typeBadge}</td>
-            <td class="p-3 text-slate-300 whitespace-nowrap">${c.area}</td>
             <td class="p-3 text-center font-mono whitespace-nowrap">
               <span class="text-white font-semibold">${formatDigits(c.grade)}</span>
               <span class="text-slate-400 text-[10px] block">${formatDigits(termStr)}</span>
+              <span class="text-slate-300 text-[10px] block mt-0.5">${formatDigits(String(c.credits))} นก. (${formatDigits(String(c.hours))} ชม.)</span>
             </td>
-            <td class="p-3 text-center font-mono whitespace-nowrap">
-              <span class="text-slate-200">${formatDigits(String(c.credits))} นก.</span>
-              <span class="text-slate-400 text-[10px] block">${formatDigits(String(c.hours))} ชม.</span>
+            <td class="p-3 cursor-pointer" onclick="openCourseModal('${c.code}')">
+              ${kpiBadgesHtml}
+              ${previewInds}
+              ${moreIndsHtml}
+            </td>
+            <td class="p-3 cursor-pointer" onclick="openCourseModal('${c.code}')">
+              ${previewConcepts}
+              ${moreConceptsHtml}
             </td>
             <td class="p-3 text-center font-mono whitespace-nowrap">
               <span class="text-emerald-400 font-bold">${formatDigits(String(unitCount))} หน่วย</span>
@@ -3436,7 +3495,7 @@
       if (sliced.length === 0) {
         rows = `
           <tr>
-            <td colspan="8" class="p-8 text-center text-slate-400">
+            <td colspan="7" class="p-8 text-center text-slate-400">
               ไม่พบรายวิชาที่ตรงกับเงื่อนไขการค้นหา
               <br>
               <button onclick="clearSchoolSearch()" class="mt-2 text-xs text-purple-400 hover:underline">ล้างตัวกรองรายวิชาทั้งหมด</button>
@@ -3575,10 +3634,6 @@
             <i data-lucide="download" class="w-3.5 h-3.5"></i>
             <span>ดาวน์โหลดไฟล์ Word (.doc)</span>
           </button>
-          <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-500/40 font-semibold text-xs transition flex items-center space-x-1.5">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            <span>เปิดในระบบสร้างแผนวัดผล (วผ.๑๙)</span>
-          </a>
         </div>
         <button onclick="closeCourseModal()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-medium transition">
           ปิดหน้าต่าง
