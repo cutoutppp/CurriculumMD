@@ -398,9 +398,9 @@
 
           <!-- Floating Toolbar -->
           <div class="absolute top-24 right-3.5 z-20 flex items-center space-x-1.5">
-            <button id="btn-toggle-focus" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-emerald-400 border border-emerald-500/50 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5">
-              <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
-              <span>โหมดโฟกัส</span>
+            <button id="btn-toggle-focus" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5" title="เปิด/ปิดโหมดโฟกัสเฉพาะกิ่งก้านที่ชี้หรือเลือก">
+              <i data-lucide="crosshair" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span id="focus-toggle-text">โหมดโฟกัส: ปิด</span>
             </button>
             <button id="btn-toggle-labels" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5">
               <i data-lucide="tag" class="w-3.5 h-3.5 text-amber-400"></i>
@@ -2494,12 +2494,19 @@
         });
         g.addEventListener('mouseleave', () => {
           hideTooltip();
+          if (!graphState.isDragging && state.focusMode) {
+            applyVisibility();
+          }
         });
 
         g.addEventListener('click', (e) => {
           e.stopPropagation();
           if (node.isDrillCenter && node.id !== 'root-curriculum') {
             drillUp();
+            return;
+          }
+          if (state.focusMode && state.selectedNodeId === node.id && node.id !== graph.centerNode.id) {
+            selectNode(graph.centerNode.id, false);
             return;
           }
           selectNode(node.id);
@@ -2643,6 +2650,26 @@
     // Filter & Visibility Engine: PRUNE NON-MATCHING LINES ON SEARCH
     // "ถ้าใช้ตัวกรองก็ตัดเส้นอื่นทิ้งไปด้วยจะได้หาได้ง่าย"
     // =========================================================================
+    function renderSelectedHalo(activeId, visibleSet = null) {
+      haloGroup.replaceChildren();
+      if (!graph || !activeId || activeId === graph.centerNode.id) return;
+      if (visibleSet && !visibleSet.has(activeId)) return;
+      const activeNode = graph.nodeById.get(activeId);
+      if (activeNode) {
+        const halo = createSvgElement('circle', {
+          cx: String(activeNode.x),
+          cy: String(activeNode.y),
+          r: String((activeNode.size || 6) + 9),
+          class: 'selected-halo',
+          fill: 'none',
+          stroke: '#10b981',
+          'stroke-width': '2.5',
+          'stroke-dasharray': '5 3'
+        });
+        haloGroup.appendChild(halo);
+      }
+    }
+
     function applyVisibility() {
       if (!graph || !graph.nodes) return;
       const activeId = state.selectedNodeId;
@@ -2652,10 +2679,12 @@
 
       if (!hasSearch && !isFocusing) {
         // Show all nodes and edges in current graph layout normally
+        if (el.searchMatchCount) el.searchMatchCount.textContent = '';
         graph.nodes.forEach(n => {
           if (n.element) {
             n.element.style.display = '';
-            n.element.classList.remove('is-dimmed', 'node-highlighted');
+            n.element.classList.remove('is-dimmed');
+            n.element.classList.toggle('node-highlighted', n.id === activeId && activeId !== graph.centerNode.id);
           }
         });
         graph.edges.forEach(e => {
@@ -2666,7 +2695,41 @@
             e.element.setAttribute('opacity', '0.45');
           }
         });
-        haloGroup.replaceChildren();
+        renderSelectedHalo(activeId);
+        return;
+      }
+
+      // Focus Mode without text search: spotlight the selected node's branch (ancestors + descendants) and dim unrelated branches
+      if (isFocusing && !hasSearch) {
+        if (el.searchMatchCount) el.searchMatchCount.textContent = '';
+        const focusBranch = getBranchNodes(activeId);
+
+        graph.nodes.forEach(node => {
+          if (!node.element) return;
+          node.element.style.display = '';
+          if (focusBranch.has(node.id)) {
+            node.element.classList.remove('is-dimmed');
+            node.element.classList.add('node-highlighted');
+          } else {
+            node.element.classList.add('is-dimmed');
+            node.element.classList.remove('node-highlighted');
+          }
+        });
+
+        graph.edges.forEach(edge => {
+          if (!edge.element) return;
+          edge.element.style.display = '';
+          const inBranch = focusBranch.has(edge.source) && focusBranch.has(edge.target);
+          if (inBranch) {
+            edge.element.classList.remove('edge-dimmed');
+            edge.element.classList.add('edge-highlighted');
+          } else {
+            edge.element.classList.add('edge-dimmed');
+            edge.element.classList.remove('edge-highlighted');
+          }
+        });
+
+        renderSelectedHalo(activeId, focusBranch);
         return;
       }
 
@@ -2699,35 +2762,15 @@
 
       directlyMatchingIds.forEach(id => {
         if (focusBranch && !focusBranch.has(id)) return;
-        visibleNodeIds.add(id);
-
-        let curr = graph.nodeById.get(id);
-        while (curr) {
-          visibleNodeIds.add(curr.id);
-          if (curr.id === graph.centerNode.id) break;
-          const inEdge = graph.edges.find(e => e.target === curr.id);
-          if (inEdge) {
-            visibleNodeIds.add(inEdge.source);
-            curr = graph.nodeById.get(inEdge.source);
-          } else {
-            break;
+        const branch = getBranchNodes(id);
+        branch.forEach(bId => {
+          if (!focusBranch || focusBranch.has(bId)) {
+            visibleNodeIds.add(bId);
           }
-        }
+        });
       });
 
-      directlyMatchingIds.forEach(id => {
-        const n = graph.nodeById.get(id);
-        if (n && (n.kind === 'grade' || n.kind === 'subject' || n.kind === 'strand')) {
-          const branch = getBranchNodes(id);
-          branch.forEach(bId => {
-            if (nodeMatchesFilter(graph.nodeById.get(bId))) {
-              visibleNodeIds.add(bId);
-            }
-          });
-        }
-      });
-
-      // PRUNE (Cut away unrelated lines and nodes)
+      // PRUNE (Cut away unrelated lines and nodes during search)
       graph.nodes.forEach(node => {
         if (!node.element) return;
         const isVis = visibleNodeIds.has(node.id);
@@ -2750,7 +2793,7 @@
         const isVis = visibleNodeIds.has(edge.source) && visibleNodeIds.has(edge.target);
         if (isVis) {
           edge.element.style.display = '';
-          edge.element.classList.remove('edge-dimmed');
+          edge.element.classList.remove('edge-dimmed', 'edge-highlighted');
           edge.element.setAttribute('stroke-width', '2');
           edge.element.setAttribute('opacity', '0.85');
         } else {
@@ -2758,24 +2801,7 @@
         }
       });
 
-      // Selected Halo
-      haloGroup.replaceChildren();
-      if (activeId !== graph.centerNode.id && visibleNodeIds.has(activeId)) {
-        const activeNode = graph.nodeById.get(activeId);
-        if (activeNode) {
-          const halo = createSvgElement('circle', {
-            cx: String(activeNode.x),
-            cy: String(activeNode.y),
-            r: String((activeNode.size || 6) + 9),
-            class: 'selected-halo',
-            fill: 'none',
-            stroke: '#10b981',
-            'stroke-width': '2.5',
-            'stroke-dasharray': '5 3'
-          });
-          haloGroup.appendChild(halo);
-        }
-      }
+      renderSelectedHalo(activeId, visibleNodeIds);
     }
 
     function nodeMatchesFilter(node) {
@@ -2798,27 +2824,41 @@
     function getBranchNodes(nodeId) {
       const set = new Set();
       if (!nodeId || !graph) return set;
+      if (nodeId === graph.centerNode.id) {
+        graph.nodes.forEach(n => set.add(n.id));
+        return set;
+      }
+
+      set.add(graph.centerNode.id);
       set.add(nodeId);
 
-      const node = graph.nodeById.get(nodeId);
-      if (!node) return set;
+      // 1. Walk UPWARD (ancestors from nodeId to centerNode) via graph.edges
+      let currId = nodeId;
+      const visitedUp = new Set([currId]);
+      while (currId && currId !== graph.centerNode.id) {
+        const inEdge = graph.edges.find(e => e.target === currId);
+        if (inEdge && !visitedUp.has(inEdge.source)) {
+          visitedUp.add(inEdge.source);
+          set.add(inEdge.source);
+          currId = inEdge.source;
+        } else {
+          break;
+        }
+      }
 
-      if (node.kind === 'grade') {
-        graph.nodes.forEach(n => {
-          if (n.gradeId === node.id || n.grade === node.code) set.add(n.id);
-        });
-      } else if (node.kind === 'subject' || node.kind === 'grade-subject') {
-        graph.nodes.forEach(n => {
-          if (n.subject === (node.subject || node.name)) set.add(n.id);
-        });
-      } else if (node.kind === 'strand') {
-        graph.nodes.forEach(n => {
-          if (n.strandId === node.id || (n.subject === node.subject && n.strand === node.name)) set.add(n.id);
-        });
-      } else if (node.kind === 'standard' || node.kind === 'grade-standard') {
-        graph.nodes.forEach(n => {
-          if (n.standard === (node.standardCode || node.code)) set.add(n.id);
-        });
+      // 2. Walk DOWNWARD (all descendants in the subtree rooted at nodeId) via graph.edges
+      const queue = [nodeId];
+      const visitedDown = new Set([nodeId]);
+      while (queue.length > 0) {
+        const parentId = queue.shift();
+        for (let i = 0; i < graph.edges.length; i++) {
+          const e = graph.edges[i];
+          if (e.source === parentId && !visitedDown.has(e.target)) {
+            visitedDown.add(e.target);
+            set.add(e.target);
+            queue.push(e.target);
+          }
+        }
       }
 
       return set;
@@ -2839,6 +2879,10 @@
 
     function highlightHover(nodeId) {
       if (!graph || !state.focusMode) return;
+      if (!nodeId || nodeId === graph.centerNode.id) {
+        applyVisibility();
+        return;
+      }
       const branchNodes = getBranchNodes(nodeId);
       graph.nodes.forEach(node => {
         if (!node.element || node.element.style.display === 'none') return;
@@ -2848,6 +2892,17 @@
         } else {
           node.element.classList.add('is-dimmed');
           node.element.classList.remove('node-highlighted');
+        }
+      });
+      graph.edges.forEach(edge => {
+        if (!edge.element || edge.element.style.display === 'none') return;
+        const inBranch = branchNodes.has(edge.source) && branchNodes.has(edge.target);
+        if (inBranch) {
+          edge.element.classList.remove('edge-dimmed');
+          edge.element.classList.add('edge-highlighted');
+        } else {
+          edge.element.classList.add('edge-dimmed');
+          edge.element.classList.remove('edge-highlighted');
         }
       });
     }
@@ -3332,7 +3387,10 @@
           : `<span class="px-2 py-0.5 rounded-full border text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 border-purple-500/30">วิชาเพิ่มเติม</span>`;
         const termStr = (c.terms || []).length > 0 ? `เทอม ${c.terms.join(', ')}` : '-';
         const unitCount = (c.units || []).length;
-        const unitScores = (c.units || []).reduce((acc, u) => acc + (Number(u.total) || 0), 0);
+        const indCount = (c.units || []).reduce((acc, u) => acc + ((u.indicators || []).length), 0);
+        const indLabel = indCount > 0
+          ? `รวม ${formatDigits(String(indCount))} ${c.is_basic ? 'ตัวชี้วัด' : 'ผลการเรียนรู้'}`
+          : 'โครงสร้างรายวิชา';
 
         rows += `
           <tr class="hover:bg-slate-900/80 transition">
@@ -3358,7 +3416,7 @@
             </td>
             <td class="p-3 text-center font-mono whitespace-nowrap">
               <span class="text-emerald-400 font-bold">${formatDigits(String(unitCount))} หน่วย</span>
-              <span class="text-slate-400 text-[10px] block">รวม ${formatDigits(String(unitScores))} คะแนน</span>
+              <span class="text-slate-400 text-[10px] block">${indLabel}</span>
             </td>
             <td class="p-3 text-center whitespace-nowrap">
               <div class="flex items-center justify-center space-x-1.5">
@@ -3455,10 +3513,6 @@
 
       const units = c.units || [];
       const sumHours = units.reduce((a, u) => a + (Number(u.hours) || 0), 0);
-      const sumK = units.reduce((a, u) => a + (Number(u.k) || 0), 0);
-      const sumP = units.reduce((a, u) => a + (Number(u.p) || 0), 0);
-      const sumA = units.reduce((a, u) => a + (Number(u.a) || 0), 0);
-      const sumTotal = units.reduce((a, u) => a + (Number(u.total) || 0), 0);
 
       let unitRows = '';
       units.forEach(u => {
@@ -3474,11 +3528,7 @@
             <td class="p-2.5 font-semibold text-white border-b border-slate-800/70">${formatDigits(u.name)}</td>
             <td class="p-2.5 border-b border-slate-800/70">${kpiBadges}${indList || '-'}</td>
             <td class="p-2.5 border-b border-slate-800/70">${conceptList || '-'}</td>
-            <td class="p-2.5 text-center font-mono text-slate-200 border-b border-slate-800/70">${formatDigits(String(u.hours))}</td>
-            <td class="p-2.5 text-center font-mono text-sky-400 border-b border-slate-800/70">${formatDigits(String(u.k))}</td>
-            <td class="p-2.5 text-center font-mono text-amber-400 border-b border-slate-800/70">${formatDigits(String(u.p))}</td>
-            <td class="p-2.5 text-center font-mono text-pink-400 border-b border-slate-800/70">${formatDigits(String(u.a))}</td>
-            <td class="p-2.5 text-center font-mono font-bold text-emerald-400 border-b border-slate-800/70">${formatDigits(String(u.total))}</td>
+            <td class="p-2.5 text-center font-mono font-bold text-emerald-400 border-b border-slate-800/70">${formatDigits(String(u.hours))}</td>
           </tr>
         `;
       });
@@ -3497,13 +3547,9 @@
               <tr>
                 <th class="p-2.5 w-14 text-center">หน่วยที่</th>
                 <th class="p-2.5 min-w-[160px]">ชื่อหน่วยการเรียนรู้</th>
-                <th class="p-2.5 min-w-[240px]">มาตรฐาน/ตัวชี้วัด หรือ ผลการเรียนรู้</th>
-                <th class="p-2.5 min-w-[200px]">สาระสำคัญ / สาระการเรียนรู้</th>
-                <th class="p-2.5 w-16 text-center">เวลา (ชม.)</th>
-                <th class="p-2.5 w-14 text-center text-sky-400">K</th>
-                <th class="p-2.5 w-14 text-center text-amber-400">P</th>
-                <th class="p-2.5 w-14 text-center text-pink-400">A</th>
-                <th class="p-2.5 w-16 text-center text-emerald-400">รวม</th>
+                <th class="p-2.5 min-w-[260px]">มาตรฐาน/ตัวชี้วัด หรือ ผลการเรียนรู้</th>
+                <th class="p-2.5 min-w-[220px]">สาระสำคัญ / สาระการเรียนรู้</th>
+                <th class="p-2.5 w-20 text-center text-emerald-400">เวลา (ชม.)</th>
               </tr>
             </thead>
             <tbody>
@@ -3511,12 +3557,8 @@
             </tbody>
             <tfoot class="bg-slate-900/95 font-mono font-bold text-white border-t border-slate-700">
               <tr>
-                <td colspan="4" class="p-2.5 text-right text-slate-300">รวมคะแนนหน่วยการเรียนรู้</td>
-                <td class="p-2.5 text-center">${formatDigits(String(sumHours))}</td>
-                <td class="p-2.5 text-center text-sky-400">${formatDigits(String(sumK))}</td>
-                <td class="p-2.5 text-center text-amber-400">${formatDigits(String(sumP))}</td>
-                <td class="p-2.5 text-center text-pink-400">${formatDigits(String(sumA))}</td>
-                <td class="p-2.5 text-center text-emerald-400">${formatDigits(String(sumTotal))}</td>
+                <td colspan="4" class="p-2.5 text-right text-slate-300">รวมเวลาเรียนตามโครงสร้างรายวิชา</td>
+                <td class="p-2.5 text-center text-emerald-400">${formatDigits(String(sumHours))} ชม.</td>
               </tr>
             </tfoot>
           </table>
@@ -3555,24 +3597,20 @@
       const c = SCHOOL_COURSES[courseCode];
       if (!c) return;
       const units = c.units || [];
-      let tsv = `หน่วยที่\tชื่อหน่วยการเรียนรู้\tมาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้\tสาระสำคัญ\tเวลา (ชม.)\tK\tP\tA\tรวม\n`;
+      let tsv = `หน่วยที่\tชื่อหน่วยการเรียนรู้\tมาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้\tสาระสำคัญ\tเวลา (ชม.)\n`;
       let htmlRows = '';
 
       units.forEach(u => {
         const inds = (u.indicators || []).join('; ');
         const cons = (u.concepts || []).join('; ');
-        tsv += `${formatDigits(String(u.no))}\t${formatDigits(u.name)}\t${formatDigits(inds)}\t${formatDigits(cons)}\t${formatDigits(String(u.hours))}\t${formatDigits(String(u.k))}\t${formatDigits(String(u.p))}\t${formatDigits(String(u.a))}\t${formatDigits(String(u.total))}\n`;
+        tsv += `${formatDigits(String(u.no))}\t${formatDigits(u.name)}\t${formatDigits(inds)}\t${formatDigits(cons)}\t${formatDigits(String(u.hours))}\n`;
         htmlRows += `
           <tr>
             <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.no))}</td>
             <td style="padding:6px 8px; border:1px solid #94a3b8; font-weight:bold; vertical-align:top;">${formatDigits(u.name)}</td>
             <td style="padding:6px 8px; border:1px solid #94a3b8; vertical-align:top;">${formatDigits(inds)}</td>
             <td style="padding:6px 8px; border:1px solid #94a3b8; vertical-align:top;">${formatDigits(cons)}</td>
-            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.hours))}</td>
-            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.k))}</td>
-            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.p))}</td>
-            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; vertical-align:top;">${formatDigits(String(u.a))}</td>
-            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; font-weight:bold; vertical-align:top;">${formatDigits(String(u.total))}</td>
+            <td style="padding:6px 8px; border:1px solid #94a3b8; text-align:center; font-weight:bold; vertical-align:top;">${formatDigits(String(u.hours))}</td>
           </tr>
         `;
       });
@@ -3586,10 +3624,6 @@
               <th style="padding:6px 8px; border:1px solid #94a3b8;">มาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้</th>
               <th style="padding:6px 8px; border:1px solid #94a3b8;">สาระสำคัญ</th>
               <th style="padding:6px 8px; border:1px solid #94a3b8;">เวลา (ชม.)</th>
-              <th style="padding:6px 8px; border:1px solid #94a3b8;">K</th>
-              <th style="padding:6px 8px; border:1px solid #94a3b8;">P</th>
-              <th style="padding:6px 8px; border:1px solid #94a3b8;">A</th>
-              <th style="padding:6px 8px; border:1px solid #94a3b8;">รวม</th>
             </tr>
           </thead>
           <tbody>${htmlRows}</tbody>
@@ -3611,11 +3645,7 @@
             <td style="border:1px solid #94a3b8; padding:6px 8px; font-weight:bold; vertical-align:top;">${formatDigits(u.name)}</td>
             <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${formatDigits((u.indicators || []).join('<br>'))}</td>
             <td style="border:1px solid #94a3b8; padding:6px 8px; vertical-align:top;">${formatDigits((u.concepts || []).join('<br>'))}</td>
-            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.hours))}</td>
-            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.k))}</td>
-            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.p))}</td>
-            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; vertical-align:top;">${formatDigits(String(u.a))}</td>
-            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; font-weight:bold; vertical-align:top;">${formatDigits(String(u.total))}</td>
+            <td style="border:1px solid #94a3b8; padding:6px 8px; text-align:center; font-weight:bold; vertical-align:top;">${formatDigits(String(u.hours))}</td>
           </tr>
         `;
       });
@@ -3647,10 +3677,6 @@
                 <th>มาตรฐาน/ตัวชี้วัด/ผลการเรียนรู้</th>
                 <th>สาระสำคัญ</th>
                 <th>เวลา (ชม.)</th>
-                <th>K</th>
-                <th>P</th>
-                <th>A</th>
-                <th>รวม</th>
               </tr>
             </thead>
             <tbody>${rows}</tbody>
@@ -3879,8 +3905,21 @@
       // Toolbar buttons
       el.btnToggleFocus.addEventListener('click', () => {
         state.focusMode = !state.focusMode;
-        el.btnToggleFocus.classList.toggle('bg-emerald-950/60', state.focusMode);
-        el.btnToggleFocus.classList.toggle('text-emerald-400', state.focusMode);
+        const focusTextEl = document.getElementById('focus-toggle-text');
+        if (focusTextEl) {
+          focusTextEl.textContent = state.focusMode ? 'โหมดโฟกัส: เปิด' : 'โหมดโฟกัส: ปิด';
+        }
+        if (state.focusMode) {
+          el.btnToggleFocus.className = 'px-2.5 py-1.5 rounded-xl bg-emerald-950/90 text-emerald-300 border border-emerald-500/70 text-xs font-semibold backdrop-blur shadow-md hover:bg-emerald-900/80 transition flex items-center space-x-1.5';
+          if (graph && state.selectedNodeId && state.selectedNodeId !== graph.centerNode.id) {
+            showToast('เปิดโหมดโฟกัส: เน้นเฉพาะกิ่งก้านที่เลือก (คลิกพื้นหลังเพื่อดูทั้งหมด)');
+          } else {
+            showToast('เปิดโหมดโฟกัส: ชี้เมาส์หรือคลิกที่โหนดใดก็ได้เพื่อเน้นเฉพาะกิ่งก้านนั้น');
+          }
+        } else {
+          el.btnToggleFocus.className = 'px-2.5 py-1.5 rounded-xl bg-slate-900/90 text-slate-200 border border-slate-700 text-xs font-medium backdrop-blur shadow-md hover:bg-slate-800 transition flex items-center space-x-1.5';
+          showToast('ปิดโหมดโฟกัส: แสดงแผนภาพโครงสร้างทั้งหมด');
+        }
         applyVisibility();
       });
 
@@ -3991,6 +4030,9 @@
     }
 
     function setupStageInteractions() {
+      let downClientX = 0;
+      let downClientY = 0;
+
       el.graphStage.addEventListener('wheel', (e) => {
         e.preventDefault();
         const factor = e.deltaY < 0 ? 1.15 : 0.85;
@@ -3998,8 +4040,10 @@
       }, { passive: false });
 
       el.graphStage.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('.node')) return;
+        if (e.target.closest('.node') || e.target.closest('button')) return;
         graphState.isDragging = true;
+        downClientX = e.clientX;
+        downClientY = e.clientY;
         graphState.dragStartX = e.clientX - graphState.translateX;
         graphState.dragStartY = e.clientY - graphState.translateY;
         el.graphStage.style.cursor = 'grabbing';
@@ -4012,10 +4056,14 @@
         updateViewportTransform();
       });
 
-      window.addEventListener('pointerup', () => {
+      window.addEventListener('pointerup', (e) => {
         if (graphState.isDragging) {
           graphState.isDragging = false;
           el.graphStage.style.cursor = 'grab';
+          const movedDist = Math.hypot(e.clientX - downClientX, e.clientY - downClientY);
+          if (movedDist < 5 && graph && state.selectedNodeId !== graph.centerNode.id) {
+            selectNode(graph.centerNode.id, false);
+          }
         }
       });
     }
