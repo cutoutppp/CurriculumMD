@@ -263,9 +263,9 @@
               <i data-lucide="school" class="w-3.5 h-3.5 text-purple-400"></i>
               <span>คลังรายวิชา รร.</span>
             </button>
-            <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-500/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 transition flex items-center space-x-1.5" title="เข้าสู่ตารางยืนยันสัดส่วนคะแนน SGS (9 ช่อง) และระบบจัดทำแผนวัดผล วผ.19">
-              <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
-              <span>ยืนยันสัดส่วน SGS & แผนวัดผล (วผ.19)</span>
+            <a href="https://cutoutppp.github.io/AssessmentHub/sgs-confirm.html" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 transition flex items-center space-x-1.5" title="ระบบยืนยันสัดส่วนคะแนน SGS (9 ช่อง) ภาคเรียนที่ 2/2569">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+              <span>ยืนยันสัดส่วน SGS (2/2569)</span>
             </a>
             <a href="plc-game.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 transition flex items-center space-x-1.5">
               <i data-lucide="dices" class="w-3.5 h-3.5"></i>
@@ -725,10 +725,14 @@
                 ครอบคลุมทั้งรายวิชาพื้นฐาน (อิงตัวชี้วัดแกนกลาง) และรายวิชาเพิ่มเติม (อิงผลการเรียนรู้) ปรับสมดุลคะแนน 50:50 (ก่อนกลางภาค 35+15 | หลังกลางภาค 35+15 และทุกช่อง ≤ 15 คะแนน) ครบทุกวิชา
               </p>
             </div>
-            <div class="shrink-0">
-              <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-950/50 transition">
+            <div class="shrink-0 flex items-center gap-2">
+              <a href="https://cutoutppp.github.io/AssessmentHub/sgs-confirm.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-950/50 transition">
                 <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                <span>เปิดตารางยืนยันสัดส่วนคะแนน SGS (9 ช่อง) & วผ.19</span>
+                <span>ยืนยันสัดส่วนคะแนน SGS (ทุกคนต้องกด)</span>
+              </a>
+              <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 text-xs font-semibold transition" title="ระบบจัดทำแผนวัดผล วผ.19 ฉบับเต็ม (ใครไม่ใช้ไม่เป็นไร)">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>แผน วผ.19</span>
               </a>
             </div>
           </div>
@@ -3640,9 +3644,13 @@
 
       footerEl.innerHTML = `
         <div class="flex flex-wrap items-center gap-2">
-          <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html?code=${encodeURIComponent(c.code)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-lg">
+          <a href="https://cutoutppp.github.io/AssessmentHub/sgs-confirm.html?code=${encodeURIComponent(c.code)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-lg">
             <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-            <span>ยืนยันสัดส่วน SGS & ออกแผนวัดผล วผ.19 วิชานี้</span>
+            <span>ยืนยันสัดส่วน SGS วิชานี้ (ทุกคนต้องกด)</span>
+          </a>
+          <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html?code=${encodeURIComponent(c.code)}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 font-semibold text-xs transition flex items-center space-x-1.5" title="ทำแผนวัดผล วผ.19 ฉบับเต็ม">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span>แผน วผ.19</span>
           </a>
           <button onclick="copyCourseWordTable('${c.code}')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center space-x-1.5 shadow-lg">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
