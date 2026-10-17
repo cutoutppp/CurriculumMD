@@ -71,144 +71,151 @@
   <!-- Toast Container -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <div class="min-h-screen w-full flex flex-col">
-    <!-- Top Header -->
-    <header class="w-full border-b border-slate-800/80 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5">
-      <div class="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-        <!-- Brand & Back Link -->
-        <div class="flex items-center space-x-3">
-          <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center space-x-1.5 shrink-0" title="กลับหน้าหลักโครงสร้างหลักสูตร">
-            <i data-lucide="arrow-left" class="w-4 h-4 text-emerald-400"></i>
-            <span>หน้าหลักหลักสูตร</span>
+  <div class="min-h-screen lg:h-screen lg:overflow-hidden w-full flex flex-col">
+    <!-- ================================================================= -->
+    <!-- UNIFIED COMPACT TOP BAR (รวมทุกปุ่มในแถบเดียว ไม่กินพื้นที่แนวตั้ง)     -->
+    <!-- ================================================================= -->
+    <header class="w-full border-b border-slate-800/90 bg-slate-950/95 z-40 backdrop-blur-md px-3 py-1.5 shrink-0">
+      <div class="w-full flex flex-wrap items-center justify-between gap-2">
+
+        <!-- Left: Back + Title + Filter Trigger -->
+        <div class="flex items-center space-x-2">
+          <a href="index.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center space-x-1 shrink-0" title="กลับหน้าหลักโครงสร้างหลักสูตร">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="hidden sm:inline">หน้าหลัก</span>
           </a>
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-slate-950 shadow-lg shrink-0">
-            <i data-lucide="dices" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="font-mono text-[11px] tracking-wider text-amber-400 uppercase font-bold">PLC & Solo Learning Design Deck</span>
-              <span id="poolSummaryBadge" class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">พร้อมสุ่ม</span>
+
+          <div class="flex items-center space-x-1.5">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-slate-950 shadow shrink-0">
+              <i data-lucide="dices" class="w-4 h-4"></i>
             </div>
-            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">
-              กระดานสุ่มตัวชี้วัด × การ์ดวิธีสอน (สุ่มคิดคนเดียว & เล่นในวง PLC)
+            <h1 class="text-xs sm:text-sm font-bold text-white tracking-tight whitespace-nowrap">
+              สุ่มตัวชี้วัด × การ์ดวิธีสอน
             </h1>
           </div>
+
+          <!-- Filter Modal Trigger Button (Opens floating modal instead of pushing layout down) -->
+          <button onclick="toggleFilterPanel()" id="btn-toggle-filter" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-sky-500/40 text-xs font-semibold text-sky-300 transition flex items-center space-x-1.5 shrink-0" title="ตั้งค่าแหล่งโจทย์ ชั้นเรียน และกลุ่มสาระวิชา">
+            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+            <span id="filterSummaryLabel" class="max-w-[180px] sm:max-w-[240px] truncate">ทุกชั้น • ทุกวิชา</span>
+            <span id="poolSummaryBadge" class="hidden xl:inline px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">พร้อมสุ่ม</span>
+            <i data-lucide="chevron-down" id="filterChevron" class="w-3.5 h-3.5 transition-transform"></i>
+          </button>
         </div>
 
-        <!-- Quick Action & Numeral Controls -->
-        <div class="flex flex-wrap items-center gap-2">
-          <!-- Numeral Switcher -->
-          <div class="bg-slate-900 border border-slate-800 p-1 rounded-xl flex items-center space-x-1">
-            <button id="btn-num-thai" onclick="setNumeral('thai')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition">
-              เลขไทย (๑ ๒ ๓)
+        <!-- Center: Mode Selectors (KPI 1/2/3 + Method 1/3/5 + Bonus Cards) -->
+        <div class="flex flex-wrap items-center gap-1.5">
+          <!-- KPI Count (1 / 2 / 3) -->
+          <div class="inline-flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-800 gap-0.5">
+            <span class="text-[10px] font-semibold text-slate-400 px-1.5 hidden md:inline">ตัวชี้วัด:</span>
+            <button onclick="setKpiCount(1)" id="btn-kpi-1" class="px-2 py-1 rounded-lg text-[11px] font-bold transition bg-emerald-600 text-white shadow">
+              ๑ ข้อ
             </button>
-            <button id="btn-num-arabic" onclick="setNumeral('arabic')" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">
-              เลขอารบิก (1 2 3)
+            <button onclick="setKpiCount(2)" id="btn-kpi-2" class="px-2 py-1 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-white" title="เชื่อมโยง 2 ตัวชี้วัด รับโบนัส +1 แต้ม">
+              ๒ ข้อ (+๑)
+            </button>
+            <button onclick="setKpiCount(3)" id="btn-kpi-3" class="px-2 py-1 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-white" title="เชื่อมโยง 3 ตัวชี้วัด รับโบนัส +2 แต้ม">
+              ๓ ข้อ (+๒)
             </button>
           </div>
 
-          <button onclick="copyAllCurrentCards()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center space-x-1.5">
+          <!-- Pedagogy Card Count (1 / 3 / 5) -->
+          <div class="inline-flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-800 gap-0.5">
+            <span class="text-[10px] font-semibold text-slate-400 px-1.5 hidden md:inline">การ์ดวิธีสอน:</span>
+            <button onclick="setMethodCount(1)" id="btn-method-1" class="px-2 py-1 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-white" title="เหมาะสำหรับสุ่มคิดแผนคนเดียว">
+              ๑ ใบ
+            </button>
+            <button onclick="setMethodCount(3)" id="btn-method-3" class="px-2 py-1 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-white" title="เหมาะสำหรับวงคุยกลุ่มย่อย">
+              ๓ ใบ
+            </button>
+            <button onclick="setMethodCount(5)" id="btn-method-5" class="px-2 py-1 rounded-lg text-[11px] font-bold transition bg-amber-500 text-slate-950 shadow" title="หงาย 5 ใบบนจอ ใครตอบก่อนเลือกก่อน ห้ามซ้ำ">
+              ๕ ใบ (PLC)
+            </button>
+          </div>
+
+          <!-- Optional Bonus Card Triggers (Inline in Top Bar!) -->
+          <div class="inline-flex items-center gap-1">
+            <button onclick="drawBonusMediaCard()" class="px-2.5 py-1 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-[11px] font-bold transition flex items-center space-x-1" title="สุ่มการ์ดสื่อ/ชิ้นงานเพิ่ม (+1 แต้ม)">
+              <i data-lucide="palette" class="w-3.5 h-3.5"></i>
+              <span>+สื่อ (+๑)</span>
+            </button>
+            <button onclick="drawBonusTwistCard()" class="px-2.5 py-1 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 text-[11px] font-bold transition flex items-center space-x-1" title="สุ่มการ์ดเงื่อนไขท้าทายเพิ่ม (+2 แต้ม)">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+              <span>+เงื่อนไข (+๒)</span>
+            </button>
+            <button onclick="clearBonusCards()" id="btnClearBonus" class="hidden px-2 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 text-[11px] transition" title="ปิดการ์ดเสริม">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Main Draw Buttons & Quick Tools -->
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button onclick="drawAll()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs transition flex items-center space-x-1.5 shadow-lg shadow-amber-950/50 cursor-pointer">
+            <i data-lucide="dices" class="w-4 h-4"></i>
+            <span>สุ่มใหม่ทั้งหมด!</span>
+          </button>
+          <button onclick="drawKpisOnly()" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 text-[11px] font-semibold transition flex items-center space-x-1" title="สุ่มเปลี่ยนเฉพาะการ์ดตัวชี้วัด (ใบที่ไม่ได้ล็อก)">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">สุ่มตัวชี้วัด</span>
+          </button>
+          <button onclick="drawMethodsOnly()" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-[11px] font-semibold transition flex items-center space-x-1" title="สุ่มเปลี่ยนเฉพาะการ์ดวิธีสอนชุดใหม่">
+            <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">สุ่มวิธีสอน</span>
+          </button>
+
+          <!-- Numeral Switcher -->
+          <div class="bg-slate-900 border border-slate-800 p-0.5 rounded-xl flex items-center">
+            <button id="btn-num-thai" onclick="setNumeral('thai')" class="px-1.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-600 text-white transition" title="เลขไทย">
+              ๑๒๓
+            </button>
+            <button id="btn-num-arabic" onclick="setNumeral('arabic')" class="px-1.5 py-1 rounded-lg text-[11px] font-medium text-slate-400 hover:text-white transition" title="เลขอารบิก">
+              123
+            </button>
+          </div>
+
+          <button onclick="copyAllCurrentCards()" class="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs transition" title="คัดลอกโจทย์ชุดนี้">
             <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
-            <span>คัดลอกโจทย์ชุดนี้</span>
           </button>
 
-          <button onclick="toggleRulesModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-xs font-semibold transition flex items-center space-x-1.5">
+          <button onclick="toggleRulesModal()" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-[11px] font-semibold transition flex items-center space-x-1" title="ดูกติกาและแต้มการ์ด">
             <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i>
-            <span>กติกา & แต้มการ์ด</span>
+            <span class="hidden xl:inline">กติกา</span>
           </button>
 
-          <button onclick="toggleFullscreen()" id="btnFullscreen" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs font-bold transition flex items-center space-x-1.5" title="ขยายเต็มหน้าจอ (Fullscreen)">
+          <button onclick="toggleFullscreen()" id="btnFullscreen" class="px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-[11px] font-bold transition flex items-center space-x-1" title="ขยายเต็มหน้าจอ (Fullscreen)">
             <i data-lucide="maximize" id="fullscreenIcon" class="w-3.5 h-3.5"></i>
-            <span id="fullscreenLabel">ขยายเต็มจอ</span>
+            <span id="fullscreenLabel" class="hidden xl:inline">เต็มจอ</span>
           </button>
         </div>
+
       </div>
     </header>
 
-    <!-- Main Single-Screen Full-Bleed Workspace -->
-    <main class="w-full px-3 sm:px-6 py-3 flex-1 flex flex-col justify-between gap-3">
-
-      <!-- ================================================================= -->
-      <!-- 1. TOP CONTROL BAR (ตั้งค่าสั้นๆ หน้าเดียว + พับเก็บตัวกรองชั้น/วิชาได้) -->
-      <!-- ================================================================= -->
-      <section class="glass-panel rounded-2xl p-3 sm:p-4 space-y-3 border border-slate-700/80 shrink-0">
-        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
-
-          <!-- Left: Mode Selectors -->
-          <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-            <!-- A. KPI Count (1 / 2 / 3) -->
-            <div class="space-y-1">
-              <span class="text-[11px] font-semibold text-slate-400 block">จำนวนตัวชี้วัดกลาง:</span>
-              <div class="inline-flex bg-slate-950 p-1 rounded-2xl border border-slate-800 gap-1">
-                <button onclick="setKpiCount(1)" id="btn-kpi-1" class="px-3 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-600 text-white shadow">
-                  ๑ ตัวชี้วัด
-                </button>
-                <button onclick="setKpiCount(2)" id="btn-kpi-2" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white">
-                  ๒ ตัวชี้วัด (+๑ แต้ม)
-                </button>
-                <button onclick="setKpiCount(3)" id="btn-kpi-3" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white">
-                  ๓ ตัวชี้วัด (+๒ แต้ม)
-                </button>
-              </div>
-            </div>
-
-            <!-- B. Pedagogy Card Count (1 for Solo / 3 or 5 for PLC) -->
-            <div class="space-y-1">
-              <span class="text-[11px] font-semibold text-slate-400 block">การ์ดวิธีสอนบนจอ:</span>
-              <div class="inline-flex bg-slate-950 p-1 rounded-2xl border border-slate-800 gap-1">
-                <button onclick="setMethodCount(1)" id="btn-method-1" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white" title="เหมาะสำหรับสุ่มคิดแผนคนเดียว">
-                  ๑ ใบ (คิดคนเดียว)
-                </button>
-                <button onclick="setMethodCount(3)" id="btn-method-3" class="px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white" title="เหมาะสำหรับวงคุยกลุ่มย่อย">
-                  ๓ ใบ (กลุ่มย่อย)
-                </button>
-                <button onclick="setMethodCount(5)" id="btn-method-5" class="px-3 py-1.5 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow" title="หงาย 5 ใบบนจอ ใครตอบก่อนเลือกก่อน ห้ามซ้ำ">
-                  ๕ ใบ (วง PLC)
-                </button>
-              </div>
-            </div>
-
-            <!-- C. Source Pool (Core KPI vs School Courses) -->
-            <div class="space-y-1">
-              <span class="text-[11px] font-semibold text-slate-400 block">แหล่งโจทย์ตัวชี้วัด:</span>
-              <select id="sourcePoolSelect" onchange="onSourcePoolChange(this.value)" class="bg-slate-950 border border-slate-800 text-xs text-slate-200 rounded-2xl px-3 py-2 focus:border-emerald-500 focus:outline-none font-medium">
-                <option value="CORE">ตัวชี้วัดแกนกลาง (ป.๑ – ม.๖)</option>
-                <option value="SCHOOL_ALL">คลังวิชา รร. พัฒนานิคม (พื้นฐาน + เพิ่มเติม)</option>
-                <option value="SCHOOL_ELECTIVE">เฉพาะวิชาเพิ่มเติม รร. (ผลการเรียนรู้ ม.๑ – ม.๖)</option>
-              </select>
-            </div>
-
-            <!-- D. Filter Drawer Toggle Button -->
-            <div class="space-y-1">
-              <span class="text-[11px] font-semibold text-slate-400 block">ชั้นเรียน & วิชาที่สุ่ม:</span>
-              <button onclick="toggleFilterPanel()" id="btn-toggle-filter" class="px-3.5 py-2 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-sky-300 transition flex items-center space-x-2">
-                <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-                <span id="filterSummaryLabel">ทุกชั้น • ทุกวิชา</span>
-                <i data-lucide="chevron-down" id="filterChevron" class="w-3.5 h-3.5 transition-transform"></i>
-              </button>
-            </div>
+    <!-- ================================================================= -->
+    <!-- FLOATING FILTER DRAWER MODAL (ไม่ดันหน้าจอลง เปิด-ปิดทับได้เลย)      -->
+    <!-- ================================================================= -->
+    <div id="filterDrawer" class="fixed inset-0 z-50 flex items-start justify-center pt-14 p-4 bg-slate-950/75 backdrop-blur-sm hidden" onclick="if(event.target===this) toggleFilterPanel()">
+      <div class="glass-panel max-w-5xl w-full rounded-3xl p-5 border border-slate-700 shadow-2xl space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center space-x-3">
+            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-sky-400"></i>
+              <span>ตั้งค่าแหล่งโจทย์ ชั้นเรียน และกลุ่มสาระวิชาที่ต้องการสุ่ม</span>
+            </h3>
+            <select id="sourcePoolSelect" onchange="onSourcePoolChange(this.value)" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl px-3 py-1.5 focus:border-emerald-500 focus:outline-none font-medium">
+              <option value="CORE">ตัวชี้วัดแกนกลาง (ป.๑ – ม.๖)</option>
+              <option value="SCHOOL_ALL">คลังวิชา รร. พัฒนานิคม (พื้นฐาน + เพิ่มเติม)</option>
+              <option value="SCHOOL_ELECTIVE">เฉพาะวิชาเพิ่มเติม รร. (ผลการเรียนรู้ ม.๑ – ม.๖)</option>
+            </select>
           </div>
-
-          <!-- Right: Main Draw Action Buttons -->
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="drawAll()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-sm transition flex items-center space-x-2 shadow-xl shadow-amber-950/50 cursor-pointer">
-              <i data-lucide="dices" class="w-5 h-5"></i>
-              <span>สุ่มโจทย์ใหม่ทั้งหมด!</span>
-            </button>
-            <button onclick="drawKpisOnly()" class="px-3.5 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 text-xs font-semibold transition flex items-center space-x-1.5" title="สุ่มเปลี่ยนเฉพาะการ์ดตัวชี้วัด (ใบที่ไม่ได้ล็อก)">
-              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-              <span>สุ่มเฉพาะตัวชี้วัด</span>
-            </button>
-            <button onclick="drawMethodsOnly()" class="px-3.5 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 text-xs font-semibold transition flex items-center space-x-1.5" title="สุ่มเปลี่ยนเฉพาะการ์ดวิธีสอนชุดใหม่">
-              <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
-              <span>สุ่มเฉพาะการ์ดวิธีสอน</span>
-            </button>
-          </div>
+          <button onclick="toggleFilterPanel()" class="px-3 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+            เสร็จสิ้น
+          </button>
         </div>
 
-        <!-- Collapsible Grade & Multi-Subject Filter Drawer -->
-        <div id="filterDrawer" class="hidden pt-4 border-t border-slate-800/90 grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <!-- Grade Selection (Multi-select) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <!-- Grade Selection -->
           <div class="lg:col-span-5 space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-white flex items-center space-x-1.5">
@@ -224,20 +231,18 @@
               </div>
             </div>
             <div id="gradeChipsContainer" class="grid grid-cols-5 gap-1.5"></div>
-            <div class="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-slate-300">
-              <label class="inline-flex items-center space-x-1.5 cursor-pointer select-none">
-                <input type="checkbox" id="sameGradeToggle" checked onchange="gameState.sameGrade = this.checked" class="rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-0">
-                <span>เมื่อสุ่ม ๒–๓ ตัวชี้วัด ให้ล็อกอยู่ในชั้นปีเดียวกันอัตโนมัติ</span>
-              </label>
-            </div>
+            <label class="inline-flex items-center space-x-1.5 cursor-pointer select-none text-[11px] text-slate-300 pt-1">
+              <input type="checkbox" id="sameGradeToggle" checked onchange="gameState.sameGrade = this.checked" class="rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-0">
+              <span>เมื่อสุ่ม ๒–๓ ตัวชี้วัด ให้ล็อกอยู่ในชั้นปีเดียวกันอัตโนมัติ</span>
+            </label>
           </div>
 
-          <!-- Subject Selection (Multi-select) -->
+          <!-- Subject Selection -->
           <div class="lg:col-span-7 space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-white flex items-center space-x-1.5">
                 <i data-lucide="book-open" class="w-4 h-4 text-pink-400"></i>
-                <span>เลือกวิชา / กลุ่มสาระการเรียนรู้ (เลือก ๑ วิชา หรือหลายวิชาก็ได้):</span>
+                <span>เลือกวิชา / กลุ่มสาระฯ (เลือก ๑ หรือหลายวิชาก็ได้):</span>
               </span>
               <div class="flex items-center space-x-2 text-[11px]">
                 <button onclick="setSubjectPreset('ALL')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800">เลือกทุกวิชา</button>
@@ -250,84 +255,58 @@
             <div id="subjectChipsContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-1.5"></div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- ================================================================= -->
-      <!-- 2. CENTRAL KPI / LEARNING OUTCOME CARDS (1, 2, or 3 Cards)        -->
-      <!-- ================================================================= -->
-      <section class="w-full space-y-2 shrink-0">
-        <div class="flex flex-wrap items-center justify-between gap-2 px-1">
-          <div class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-            <h2 id="kpiZoneHeading" class="text-sm sm:text-base font-bold text-white">
+    <!-- ================================================================= -->
+    <!-- SINGLE-SCREEN MAIN BOARD (พอดี 1 หน้าจอ 100vh ไม่ต้องเลื่อนขึ้นลง)   -->
+    <!-- ================================================================= -->
+    <main class="w-full px-3 sm:px-4 py-2 flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto lg:overflow-hidden">
+
+      <!-- TOP ZONE: KPI Cards + Active Bonus Cards (Side-by-side in 1 compact row) -->
+      <section class="w-full shrink-0 flex flex-col gap-1">
+        <div class="flex items-center justify-between gap-2 px-1">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <h2 id="kpiZoneHeading" class="text-xs sm:text-sm font-bold text-white">
               โจทย์ตัวชี้วัดกลาง
             </h2>
           </div>
-          <span class="text-xs text-slate-400">
-            💡 กด <strong class="text-amber-300">📌 ล็อกใบนี้</strong> หากต้องการเก็บตัวชี้วัดใบนั้นไว้ แล้วกดสุ่มเฉพาะใบอื่นหรือสุ่มเปลี่ยนการ์ดวิธีสอน
+          <span class="text-[11px] text-slate-400 hidden sm:inline">
+            💡 กด <strong class="text-amber-300">ล็อกใบนี้</strong> เพื่อเก็บตัวชี้วัดไว้ แล้วกดสุ่มเฉพาะใบอื่นหรือสุ่มวิธีสอนใหม่
           </span>
         </div>
 
-        <div id="kpiCardsGrid" class="grid grid-cols-1 w-full gap-3.5">
-          <!-- Populated via JS -->
+        <!-- Combined Row: KPI Grid + Optional Bonus Cards -->
+        <div class="flex flex-col lg:flex-row gap-2.5 w-full items-stretch">
+          <div id="kpiCardsGrid" class="grid grid-cols-1 gap-2.5 flex-1 min-w-0">
+            <!-- Populated via JS -->
+          </div>
+          <div id="bonusCardsContainer" class="hidden flex-col sm:flex-row lg:w-[36%] xl:w-[34%] gap-2.5 shrink-0">
+            <!-- Populated via JS when Bonus Media / Bonus Twist is drawn -->
+          </div>
         </div>
       </section>
 
-      <!-- ================================================================= -->
-      <!-- 3. PEDAGOGY / TEACHING METHOD CARDS (1, 3, or 5 Cards)            -->
-      <!-- ================================================================= -->
-      <section class="w-full flex-1 flex flex-col space-y-2">
-        <div class="flex flex-wrap items-center justify-between gap-2 px-1">
-          <div class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-            <h2 id="methodZoneHeading" class="text-sm sm:text-base font-bold text-white">
+      <!-- BOTTOM ZONE: Pedagogy / Teaching Method Cards (Fills remaining screen height) -->
+      <section class="w-full flex-1 min-h-0 flex flex-col gap-1">
+        <div class="flex items-center justify-between gap-2 px-1 shrink-0">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <h2 id="methodZoneHeading" class="text-xs sm:text-sm font-bold text-white">
               การ์ดวิธีสอน / รูปแบบการจัดการเรียนรู้
             </h2>
           </div>
-          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-            <span>🤝 <strong>เล่นกับเพื่อนในวง PLC:</strong> ใครพร้อมก่อนเลือกการ์ดก่อน! คลิกปุ่ม <strong class="text-emerald-400">"เลือกใช้ใบนี้"</strong> เพื่อแปะป้ายว่าใช้แล้ว (ห้ามเลือกซ้ำ)</span>
-            <button onclick="clearAllClaimedMethods()" id="btnResetClaims" class="hidden px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 text-[11px] font-semibold transition">
+          <div class="flex items-center gap-2 text-[11px] text-slate-400">
+            <span class="hidden sm:inline">🤝 <strong>วง PLC:</strong> ใครพร้อมก่อนเลือกก่อน! คลิก <strong class="text-emerald-400">"เลือกใช้ใบนี้"</strong> เพื่อแปะป้ายว่าใช้แล้ว</span>
+            <button onclick="clearAllClaimedMethods()" id="btnResetClaims" class="hidden px-2 py-0.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 text-[11px] font-semibold transition">
               คืนสถานะการ์ดทั้งหมด
             </button>
           </div>
         </div>
 
-        <div id="methodCardsGrid" class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 w-full gap-3.5 flex-1">
+        <div id="methodCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 w-full gap-2.5 flex-1 min-h-0">
           <!-- Populated via JS -->
-        </div>
-      </section>
-
-      <!-- ================================================================= -->
-      <!-- 4. OPTIONAL BONUS CARDS (การ์ดสื่อ/ชิ้นงาน & การ์ดเงื่อนไขพิเศษ)    -->
-      <!-- ================================================================= -->
-      <section class="w-full glass-panel rounded-2xl p-3 sm:p-4 border border-slate-800 space-y-2.5 shrink-0">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-          <div>
-            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-              <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
-              <span>การ์ดเสริมเพิ่มไอเดีย & โบนัสแต้ม (กดเปิดตามสมัครใจ)</span>
-            </h3>
-            <p class="text-xs text-slate-400 mt-0.5">
-              ใช้เปิดเพื่อหาไอเดียชิ้นงานเพิ่มตอนคิดคนเดียว หรือเปิดเพื่อชิงแต้มโบนัสเพิ่มในวง PLC (+๑ และ +๒ แต้ม)
-            </p>
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="drawBonusMediaCard()" class="px-3.5 py-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-bold transition flex items-center space-x-1.5">
-              <i data-lucide="palette" class="w-4 h-4"></i>
-              <span>+ สุ่มการ์ดสื่อ / ชิ้นงาน (+๑ แต้ม)</span>
-            </button>
-            <button onclick="drawBonusTwistCard()" class="px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 text-xs font-bold transition flex items-center space-x-1.5">
-              <i data-lucide="zap" class="w-4 h-4"></i>
-              <span>+ สุ่มการ์ดเงื่อนไขท้าทาย (+๒ แต้ม)</span>
-            </button>
-            <button onclick="clearBonusCards()" id="btnClearBonus" class="hidden px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 text-xs transition">
-              ปิดการ์ดเสริม
-            </button>
-          </div>
-        </div>
-
-        <div id="bonusCardsContainer" class="hidden grid grid-cols-1 md:grid-cols-2 w-full gap-3.5 pt-1">
-          <!-- Populated via JS when drawn -->
         </div>
       </section>
 
@@ -1078,11 +1057,11 @@
       const bThai = document.getElementById('btn-num-thai');
       const bArab = document.getElementById('btn-num-arabic');
       if (mode === 'thai') {
-        bThai.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition';
-        bArab.className = 'px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition';
+        bThai.className = 'px-1.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-600 text-white transition';
+        bArab.className = 'px-1.5 py-1 rounded-lg text-[11px] font-medium text-slate-400 hover:text-white transition';
       } else {
-        bArab.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white transition';
-        bThai.className = 'px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition';
+        bArab.className = 'px-1.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-600 text-white transition';
+        bThai.className = 'px-1.5 py-1 rounded-lg text-[11px] font-medium text-slate-400 hover:text-white transition';
       }
       renderAll();
     }
@@ -1093,8 +1072,8 @@
         const btn = document.getElementById(`btn-kpi-${n}`);
         if (!btn) return;
         btn.className = n === count
-          ? 'px-3 py-1.5 rounded-xl text-xs font-bold transition bg-emerald-600 text-white shadow'
-          : 'px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white';
+          ? 'px-2 py-1 rounded-lg text-[11px] font-bold transition bg-emerald-600 text-white shadow'
+          : 'px-2 py-1 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-white';
       });
       [...gameState.lockedKpiSlots].forEach(idx => {
         if (idx >= count) gameState.lockedKpiSlots.delete(idx);
@@ -1108,8 +1087,8 @@
         const btn = document.getElementById(`btn-method-${n}`);
         if (!btn) return;
         btn.className = n === count
-          ? 'px-3 py-1.5 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow'
-          : 'px-3 py-1.5 rounded-xl text-xs font-bold transition text-slate-300 hover:text-white';
+          ? 'px-2 py-1 rounded-lg text-[11px] font-bold transition bg-amber-500 text-slate-950 shadow'
+          : 'px-2 py-1 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-white';
       });
       [...gameState.lockedMethodSlots].forEach(idx => {
         if (idx >= count) gameState.lockedMethodSlots.delete(idx);
@@ -1179,16 +1158,16 @@
       const pool = getCandidatePool();
       const badge = document.getElementById('poolSummaryBadge');
       if (badge) {
-        badge.textContent = formatDigits(`คลังพร้อมสุ่ม ${pool.length.toLocaleString()} รายการ`);
+        badge.textContent = formatDigits(`${pool.length.toLocaleString()} ข้อ`);
       }
 
       const labelEl = document.getElementById('filterSummaryLabel');
       if (labelEl) {
         const gTxt = gameState.selectedGrades.size === ALL_GRADES.length
           ? 'ทุกชั้น'
-          : [...gameState.selectedGrades].join(', ');
+          : [...gameState.selectedGrades].join(',');
         const sTxt = gameState.selectedSubjects.size === ALL_SUBJECTS.length
-          ? 'ทุกวิชา (8 กลุ่มสาระฯ)'
+          ? 'ทุกวิชา'
           : `${gameState.selectedSubjects.size} วิชา`;
         labelEl.textContent = formatDigits(`${gTxt} • ${sTxt}`);
       }
@@ -1224,17 +1203,17 @@
       const heading = document.getElementById('kpiZoneHeading');
       const bonusKpiPts = gameState.kpiCount === 2 ? ' (+๑ แต้มโบนัส)' : gameState.kpiCount === 3 ? ' (+๒ แต้มโบนัส)' : '';
       if (heading) {
-        heading.textContent = formatDigits(`โจทย์ตัวชี้วัดกลาง (${gameState.drawnKpis.length} ตัวชี้วัด)${bonusKpiPts}`);
+        heading.textContent = formatDigits(`โจทย์ตัวชี้วัดกลาง (${gameState.drawnKpis.length} ข้อ)${bonusKpiPts}`);
       }
 
       const grid = document.getElementById('kpiCardsGrid');
       if (!grid) return;
 
       grid.className = gameState.kpiCount === 1
-        ? 'grid grid-cols-1 w-full gap-3.5'
+        ? 'grid grid-cols-1 gap-2.5 flex-1 min-w-0'
         : gameState.kpiCount === 2
-          ? 'grid grid-cols-1 lg:grid-cols-2 w-full gap-3.5'
-          : 'grid grid-cols-1 lg:grid-cols-3 w-full gap-3.5';
+          ? 'grid grid-cols-1 lg:grid-cols-2 gap-2.5 flex-1 min-w-0'
+          : 'grid grid-cols-1 lg:grid-cols-3 gap-2.5 flex-1 min-w-0';
 
       grid.innerHTML = gameState.drawnKpis.map((k, idx) => {
         const isLocked = gameState.lockedKpiSlots.has(idx);
@@ -1242,57 +1221,52 @@
         const stdDesc = k.standard_desc || (DATA.standards && DATA.standards[k.standard]) || '';
         const isSummative = String(k.type).includes('ปลายทาง');
         const typeBadge = isSummative
-          ? `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40">🎯 ${formatDigits(k.type)}</span>`
-          : `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/40">🛤️ ${formatDigits(k.type)}</span>`;
+          ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40">🎯 ${formatDigits(k.type)}</span>`
+          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/40">🛤️ ${formatDigits(k.type)}</span>`;
+        const coreClean = k.core_content ? formatDigits(k.core_content.replace(/\n+/g, ' ')) : '';
+        const stdClean = stdDesc ? formatDigits(stdDesc) : '';
 
         return `
-          <div class="card-animate glass-panel kpi-card-glow rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/40'}">
-            <div class="space-y-2.5">
+          <div class="card-animate glass-panel kpi-card-glow rounded-2xl p-2.5 sm:p-3 flex flex-col justify-between border-2 ${isLocked ? 'border-amber-400' : 'border-emerald-500/40'}">
+            <div class="space-y-1.5">
               <!-- Card Top Header -->
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex flex-wrap items-center gap-1.5">
-                  <span class="px-2.5 py-1 rounded-xl font-mono text-xs font-bold text-white shadow" style="background-color:${meta.color}">
+              <div class="flex items-center justify-between gap-1.5">
+                <div class="flex flex-wrap items-center gap-1 min-w-0">
+                  <span class="px-2 py-0.5 rounded-lg font-mono text-[11px] font-bold text-white shadow shrink-0" style="background-color:${meta.color}">
                     ${formatDigits(k.code)}
                   </span>
-                  <span class="px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-700 text-[11px] font-bold text-white truncate">
                     ${k.subject} • ชั้น ${formatDigits(k.grade)}
                   </span>
                   ${typeBadge}
+                  <span class="text-[10px] font-mono text-emerald-400 font-semibold truncate hidden xl:inline">
+                    • ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
+                  </span>
                 </div>
 
-                <div class="flex items-center space-x-1.5 shrink-0">
-                  <button onclick="toggleLockKpi(${idx})" class="px-2.5 py-1 rounded-xl border text-xs font-semibold transition flex items-center space-x-1 ${isLocked ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'}" title="ล็อกตัวชี้วัดใบนี้ไว้">
-                    <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3.5 h-3.5"></i>
-                    <span>${isLocked ? 'ล็อกแล้ว' : 'ล็อกใบนี้'}</span>
+                <div class="flex items-center space-x-1 shrink-0">
+                  <button onclick="toggleLockKpi(${idx})" class="px-2 py-0.5 rounded-lg border text-[11px] font-semibold transition flex items-center space-x-1 ${isLocked ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'}" title="ล็อกตัวชี้วัดใบนี้ไว้">
+                    <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3 h-3"></i>
+                    <span class="hidden sm:inline">${isLocked ? 'ล็อกแล้ว' : 'ล็อก'}</span>
                   </button>
-                  <button onclick="rerollSingleKpi(${idx})" class="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-slate-700 transition" title="สุ่มเปลี่ยนเฉพาะตัวชี้วัดใบนี้">
-                    <i data-lucide="dices" class="w-4 h-4"></i>
+                  <button onclick="rerollSingleKpi(${idx})" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-slate-700 transition" title="สุ่มเปลี่ยนเฉพาะตัวชี้วัดใบนี้">
+                    <i data-lucide="dices" class="w-3.5 h-3.5"></i>
                   </button>
                 </div>
               </div>
 
-              <!-- Main Indicator Text + Core Content (Side-by-side when 1 KPI for full-width balance) -->
-              <div class="${gameState.kpiCount === 1 ? 'grid grid-cols-1 xl:grid-cols-12 gap-3 items-stretch' : 'space-y-2.5'}">
-                <div class="${gameState.kpiCount === 1 ? 'xl:col-span-7' : ''} p-3.5 sm:p-4 rounded-2xl bg-slate-950/90 border border-slate-800 flex flex-col justify-center">
-                  <span class="text-[11px] font-mono uppercase text-emerald-400 font-bold block mb-1">
-                    ${formatDigits(k.strand || `มาตรฐาน ${k.standard}`)}
-                  </span>
-                  <p class="text-base sm:text-lg font-bold text-white leading-relaxed">
+              <!-- Main Indicator Text + Core Content -->
+              <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'grid grid-cols-1 xl:grid-cols-12 gap-2.5 items-center' : 'space-y-1.5'}">
+                <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'xl:col-span-7' : ''} px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-800">
+                  <p class="text-xs sm:text-sm md:text-[15px] font-bold text-white leading-snug line-clamp-3" title="${formatDigits(k.text)}">
                     ${formatDigits(k.text)}
                   </p>
                 </div>
 
-                <div class="${gameState.kpiCount === 1 ? 'xl:col-span-5' : ''} flex flex-col justify-center gap-2 text-xs">
-                  ${stdDesc ? `
-                    <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
-                      <strong class="text-slate-400">มาตรฐาน/คำอธิบาย:</strong> ${formatDigits(stdDesc.length > 200 ? stdDesc.slice(0, 200) + '…' : stdDesc)}
-                    </div>
-                  ` : ''}
-                  ${k.core_content ? `
-                    <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-300">
-                      <strong class="text-sky-400">สาระสำคัญ / สาระแกนกลาง:</strong> ${formatDigits(k.core_content.replace(/\n+/g, ' '))}
-                    </div>
-                  ` : ''}
+                <div class="${gameState.kpiCount === 1 && !gameState.bonusMedia && !gameState.bonusTwist ? 'xl:col-span-5' : ''} text-[11px] text-slate-300 px-2.5 py-1.5 rounded-xl bg-slate-900/60 border border-slate-800/80 line-clamp-2" title="${coreClean || stdClean}">
+                  ${coreClean
+                    ? `<strong class="text-sky-400">สาระสำคัญ:</strong> ${coreClean}`
+                    : `<strong class="text-slate-400">มาตรฐาน:</strong> ${stdClean}`}
                 </div>
               </div>
             </div>
@@ -1316,54 +1290,54 @@
       if (!grid) return;
 
       grid.className = gameState.methodCount === 1
-        ? 'grid grid-cols-1 w-full gap-4 flex-1'
+        ? 'grid grid-cols-1 w-full gap-2.5 flex-1 min-h-0'
         : gameState.methodCount === 3
-          ? 'grid grid-cols-1 lg:grid-cols-3 w-full gap-4 flex-1'
-          : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full gap-3.5 flex-1';
+          ? 'grid grid-cols-1 lg:grid-cols-3 w-full gap-2.5 flex-1 min-h-0'
+          : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 w-full gap-2.5 flex-1 min-h-0';
 
       grid.innerHTML = gameState.drawnMethods.map((m, idx) => {
         const isLocked = gameState.lockedMethodSlots.has(idx);
         const isClaimed = gameState.claimedMethodSlots.has(idx);
         const isSingle = gameState.methodCount === 1;
-        const stepsHtml = (m.steps || []).map(s => `<li class="text-slate-200 ${isSingle ? 'text-sm' : 'text-xs'} leading-relaxed">${formatDigits(s)}</li>`).join('');
+        const stepsHtml = (m.steps || []).map(s => `<li class="text-slate-200 ${isSingle ? 'text-sm' : 'text-[11px] sm:text-xs'} leading-snug">${formatDigits(s)}</li>`).join('');
 
         return `
-          <div class="card-animate glass-panel pedagogy-card-glow rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-2 transition ${isClaimed ? 'card-claimed border-slate-700' : isLocked ? 'border-emerald-400' : 'border-amber-500/45'}">
-            <div class="space-y-3 flex-1 flex flex-col">
+          <div class="card-animate glass-panel pedagogy-card-glow rounded-2xl p-2.5 sm:p-3 h-full min-h-0 flex flex-col justify-between border-2 transition overflow-hidden ${isClaimed ? 'card-claimed border-slate-700' : isLocked ? 'border-emerald-400' : 'border-amber-500/45'}">
+            <div class="space-y-1.5 flex-1 min-h-0 flex flex-col">
               <!-- Card Top Strip: Number + Star Points + Lock/Reroll -->
-              <div class="flex items-center justify-between gap-1.5">
-                <div class="flex items-center space-x-1.5">
-                  <span class="px-2.5 py-0.5 rounded-lg bg-amber-500 text-slate-950 font-mono text-xs font-extrabold">
+              <div class="flex items-center justify-between gap-1 shrink-0">
+                <div class="flex items-center space-x-1">
+                  <span class="px-2 py-0.5 rounded-lg bg-amber-500 text-slate-950 font-mono text-[11px] font-extrabold">
                     ใบที่ ${formatDigits(String(idx + 1))}
                   </span>
-                  <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 font-mono text-[11px] font-bold" title="แต้มประจำการ์ดใบนี้">
+                  <span class="px-1.5 py-0.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 font-mono text-[10px] font-bold" title="แต้มประจำการ์ดใบนี้">
                     ${m.stars} +${formatDigits(String(m.points))} แต้ม
                   </span>
                 </div>
 
                 <div class="flex items-center space-x-1">
-                  <button onclick="toggleLockMethod(${idx})" class="p-1.5 rounded-lg border text-xs transition ${isLocked ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-400 border-slate-700'}" title="ล็อกการ์ดวิธีสอนใบนี้">
-                    <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3.5 h-3.5"></i>
+                  <button onclick="toggleLockMethod(${idx})" class="p-1 rounded-lg border text-xs transition ${isLocked ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-bold' : 'bg-slate-900 hover:bg-slate-800 text-slate-400 border-slate-700'}" title="ล็อกการ์ดวิธีสอนใบนี้">
+                    <i data-lucide="${isLocked ? 'lock' : 'unlock'}" class="w-3 h-3"></i>
                   </button>
-                  <button onclick="rerollSingleMethod(${idx})" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 transition" title="สุ่มเปลี่ยนเฉพาะใบนี้">
-                    <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+                  <button onclick="rerollSingleMethod(${idx})" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 transition" title="สุ่มเปลี่ยนเฉพาะใบนี้">
+                    <i data-lucide="wand-2" class="w-3 h-3"></i>
                   </button>
                 </div>
               </div>
 
-              <!-- Method Body (2-column wide layout when 1 card is selected so it fills the screen) -->
-              <div class="${isSingle ? 'grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-1' : 'space-y-3 flex-1 flex flex-col'}">
+              <!-- Method Body -->
+              <div class="${isSingle ? 'grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch flex-1 min-h-0' : 'space-y-1.5 flex-1 min-h-0 flex flex-col'}">
                 <!-- Method Name & Core Concept -->
-                <div class="${isSingle ? 'lg:col-span-5 flex flex-col justify-center p-4 rounded-2xl bg-slate-900/50 border border-slate-800/80' : ''}">
-                  <span class="text-[10px] font-semibold text-amber-400/90 uppercase tracking-wider block">${m.category}</span>
-                  <h3 class="${isSingle ? 'text-xl sm:text-2xl' : 'text-base'} font-bold text-white leading-snug mt-0.5">${formatDigits(m.name)}</h3>
-                  <p class="${isSingle ? 'text-sm mt-2' : 'text-xs mt-1'} text-slate-300 leading-relaxed">${formatDigits(m.concept)}</p>
+                <div class="${isSingle ? 'lg:col-span-5 flex flex-col justify-center p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80' : 'shrink-0'}">
+                  <span class="text-[9px] font-semibold text-amber-400/90 uppercase tracking-wider block truncate">${m.category}</span>
+                  <h3 class="${isSingle ? 'text-lg sm:text-xl' : 'text-xs sm:text-sm'} font-bold text-white leading-tight mt-0.5">${formatDigits(m.name)}</h3>
+                  <p class="${isSingle ? 'text-xs sm:text-sm mt-1.5' : 'text-[11px] mt-0.5 line-clamp-2'} text-slate-300 leading-snug" title="${formatDigits(m.concept)}">${formatDigits(m.concept)}</p>
                 </div>
 
-                <!-- Activity Steps -->
-                <div class="${isSingle ? 'lg:col-span-7 flex flex-col justify-center p-4' : 'p-3 flex-1'} rounded-2xl bg-slate-950/90 border border-slate-800/90 space-y-1.5">
-                  <span class="${isSingle ? 'text-xs' : 'text-[11px]'} font-bold text-emerald-400 block">แนวทางจัดกิจกรรมตามลำดับขั้น:</span>
-                  <ul class="space-y-1.5">
+                <!-- Activity Steps (Scrollable inside card if screen is very short) -->
+                <div class="${isSingle ? 'lg:col-span-7 flex flex-col justify-center p-3.5' : 'p-2 flex-1 min-h-0 overflow-y-auto'} rounded-xl bg-slate-950/90 border border-slate-800/90 space-y-1">
+                  <span class="${isSingle ? 'text-xs' : 'text-[10px]'} font-bold text-emerald-400 block">แนวทางจัดกิจกรรมตามลำดับขั้น:</span>
+                  <ul class="space-y-1">
                     ${stepsHtml}
                   </ul>
                 </div>
@@ -1371,10 +1345,10 @@
             </div>
 
             <!-- Bottom Claim Toggle Button (For PLC Group Play) -->
-            <div class="pt-3 mt-3 border-t border-slate-800/80">
-              <button onclick="toggleClaimMethod(${idx})" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 ${isClaimed ? 'bg-slate-800 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40'}">
-                <i data-lucide="${isClaimed ? 'check-circle-2' : 'hand'}" class="w-4 h-4"></i>
-                <span>${isClaimed ? 'เลือกใช้แล้ว (คลิกเพื่อคืนการ์ด)' : `เลือกใช้ใบนี้ (+${formatDigits(String(m.points))} แต้ม)`}</span>
+            <div class="pt-1.5 mt-1.5 border-t border-slate-800/80 shrink-0">
+              <button onclick="toggleClaimMethod(${idx})" class="w-full py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition flex items-center justify-center space-x-1 ${isClaimed ? 'bg-slate-800 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40'}">
+                <i data-lucide="${isClaimed ? 'check-circle-2' : 'hand'}" class="w-3.5 h-3.5"></i>
+                <span>${isClaimed ? 'เลือกใช้แล้ว (คลิกเพื่อคืน)' : `เลือกใช้ใบนี้ (+${formatDigits(String(m.points))} แต้ม)`}</span>
               </button>
             </div>
           </div>
@@ -1389,26 +1363,26 @@
 
       if (!gameState.bonusMedia && !gameState.bonusTwist) {
         container.classList.add('hidden');
+        container.classList.remove('flex');
         if (clearBtn) clearBtn.classList.add('hidden');
         return;
       }
 
       container.classList.remove('hidden');
+      container.classList.add('flex');
       if (clearBtn) clearBtn.classList.remove('hidden');
 
       let html = '';
       if (gameState.bonusMedia) {
         html += `
-          <div class="card-animate p-4 rounded-2xl bg-sky-950/30 border-2 border-sky-500/40 flex items-start justify-between gap-3">
-            <div class="space-y-1">
-              <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded-lg bg-sky-500 text-slate-950 font-mono text-[11px] font-extrabold">🎨 การ์ดสื่อ / ชิ้นงาน (+${formatDigits('1')} แต้ม)</span>
-              </div>
-              <h4 class="text-sm sm:text-base font-bold text-white pt-1">${formatDigits(gameState.bonusMedia.title)}</h4>
-              <p class="text-xs text-slate-300 leading-relaxed">${formatDigits(gameState.bonusMedia.desc)}</p>
+          <div class="card-animate flex-1 p-2.5 sm:p-3 rounded-2xl bg-sky-950/40 border-2 border-sky-500/40 flex items-start justify-between gap-2 min-w-0">
+            <div class="space-y-0.5 min-w-0">
+              <span class="inline-block px-2 py-0.5 rounded-md bg-sky-500 text-slate-950 font-mono text-[10px] font-extrabold">🎨 สื่อ/ชิ้นงาน (+${formatDigits('1')} แต้ม)</span>
+              <h4 class="text-xs sm:text-sm font-bold text-white truncate" title="${formatDigits(gameState.bonusMedia.title)}">${formatDigits(gameState.bonusMedia.title)}</h4>
+              <p class="text-[11px] text-slate-300 leading-snug line-clamp-2" title="${formatDigits(gameState.bonusMedia.desc)}">${formatDigits(gameState.bonusMedia.desc)}</p>
             </div>
-            <button onclick="drawBonusMediaCard()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-700 shrink-0" title="สุ่มเปลี่ยนการ์ดสื่อ">
-              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            <button onclick="drawBonusMediaCard()" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-700 shrink-0" title="สุ่มเปลี่ยนการ์ดสื่อ">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
             </button>
           </div>
         `;
@@ -1416,16 +1390,14 @@
 
       if (gameState.bonusTwist) {
         html += `
-          <div class="card-animate p-4 rounded-2xl bg-purple-950/30 border-2 border-purple-500/40 flex items-start justify-between gap-3">
-            <div class="space-y-1">
-              <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded-lg bg-purple-500 text-white font-mono text-[11px] font-extrabold">⚡ การ์ดเงื่อนไขท้าทาย (+${formatDigits('2')} แต้ม)</span>
-              </div>
-              <h4 class="text-sm sm:text-base font-bold text-white pt-1">${formatDigits(gameState.bonusTwist.title)}</h4>
-              <p class="text-xs text-slate-300 leading-relaxed">${formatDigits(gameState.bonusTwist.desc)}</p>
+          <div class="card-animate flex-1 p-2.5 sm:p-3 rounded-2xl bg-purple-950/40 border-2 border-purple-500/40 flex items-start justify-between gap-2 min-w-0">
+            <div class="space-y-0.5 min-w-0">
+              <span class="inline-block px-2 py-0.5 rounded-md bg-purple-500 text-white font-mono text-[10px] font-extrabold">⚡ เงื่อนไขท้าทาย (+${formatDigits('2')} แต้ม)</span>
+              <h4 class="text-xs sm:text-sm font-bold text-white truncate" title="${formatDigits(gameState.bonusTwist.title)}">${formatDigits(gameState.bonusTwist.title)}</h4>
+              <p class="text-[11px] text-slate-300 leading-snug line-clamp-2" title="${formatDigits(gameState.bonusTwist.desc)}">${formatDigits(gameState.bonusTwist.desc)}</p>
             </div>
-            <button onclick="drawBonusTwistCard()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-300 border border-slate-700 shrink-0" title="สุ่มเปลี่ยนการ์ดเงื่อนไข">
-              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            <button onclick="drawBonusTwistCard()" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-300 border border-slate-700 shrink-0" title="สุ่มเปลี่ยนการ์ดเงื่อนไข">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
             </button>
           </div>
         `;
