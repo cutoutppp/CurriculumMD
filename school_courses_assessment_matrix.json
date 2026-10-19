@@ -340,173 +340,6 @@
     "ratio_formative": 70,
     "ratio_summative": 30
   },
-  "ค2010": {
-    "course_code": "ค2010",
-    "course_name": "เทคนิคการจัดรูปและแยกตัวประกอบพหุนาม",
-    "learning_area": "คณิตศาสตร์",
-    "grade_level": "ม.2",
-    "credits": 0.5,
-    "total_hours": 20,
-    "is_basic": true,
-    "target_pre_hours": 9,
-    "target_post_hours": 9,
-    "teachers": [
-      "....................................................."
-    ],
-    "units": [
-      {
-        "unit_no": "1",
-        "unit_name": "เอกนามและพหุนาม",
-        "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 1"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 1"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
-          }
-        ]
-      },
-      {
-        "unit_no": "2",
-        "unit_name": "การบวกและลบพหุนาม",
-        "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 2"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 2"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
-      },
-      {
-        "unit_no": "3",
-        "unit_name": "การคูณพหุนาม",
-        "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 3"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 3"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
-          }
-        ]
-      },
-      {
-        "unit_no": "4",
-        "unit_name": "การหารพหุนาม",
-        "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 4"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 4"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
-      }
-    ],
-    "indicators": [
-      "ผลการเรียนรู้ที่ 1",
-      "ผลการเรียนรู้ที่ 2",
-      "ผลการเรียนรู้ที่ 3",
-      "ผลการเรียนรู้ที่ 4"
-    ],
-    "is_scheduled_term2": true,
-    "classrooms": "ม.2",
-    "midterm_cutoff": 2,
-    "midExamScores": [
-      8,
-      7
-    ],
-    "finExamScores": [
-      8,
-      7
-    ],
-    "sgs_pre_slots": [
-      15,
-      10,
-      10
-    ],
-    "sgs_post_slots": [
-      15,
-      10,
-      10
-    ],
-    "midterm_score": 15,
-    "final_score": 15,
-    "exam_duration_mid": 60,
-    "exam_duration_fin": 60,
-    "ratio_formative": 70,
-    "ratio_summative": 30
-  },
   "ค20201": {
     "course_code": "ค20201",
     "course_name": "คณิตศาสตร์เพิ่มพูนประสบการณ์ 1",
@@ -11890,7 +11723,7 @@
   },
   "ง21102": {
     "course_code": "ง21102",
-    "course_name": "การงานอาชีพ 2",
+    "course_name": "การงานอาชีพ 1",
     "learning_area": "การงานอาชีพ",
     "grade_level": "ม.1",
     "credits": 0.5,
@@ -16486,11 +16319,11 @@
     "course_name": "ธุรกิจการท่องเที่ยว",
     "learning_area": "การงานอาชีพ",
     "grade_level": "ม.5",
-    "credits": 1.0,
-    "total_hours": 40,
+    "credits": 0.5,
+    "total_hours": 20,
     "is_basic": false,
-    "target_pre_hours": 19,
-    "target_post_hours": 19,
+    "target_pre_hours": 9,
+    "target_post_hours": 9,
     "teachers": [
       "....................................................."
     ],
@@ -16498,7 +16331,7 @@
       {
         "unit_no": "1",
         "unit_name": "ธุรกิจท่องเที่ยว",
-        "hours": 3,
+        "hours": 4,
         "score_k": 6,
         "score_p": 3,
         "score_a": 1,
@@ -16554,7 +16387,7 @@
       {
         "unit_no": "3",
         "unit_name": "โครงสร้างบริษัทนำเที่ยว",
-        "hours": 8,
+        "hours": 4,
         "score_k": 6,
         "score_p": 3,
         "score_a": 1,
@@ -16582,7 +16415,7 @@
       {
         "unit_no": "4",
         "unit_name": "มัคคุเทศก์และจรรยาบรรณในการประกอบอาชีพ",
-        "hours": 3,
+        "hours": 5,
         "score_k": 3,
         "score_p": 1,
         "score_a": 1,
@@ -16692,11 +16525,11 @@
     "course_name": "ธุรกิจการบริการ",
     "learning_area": "การงานอาชีพ",
     "grade_level": "ม.5",
-    "credits": 1.0,
-    "total_hours": 40,
+    "credits": 0.5,
+    "total_hours": 20,
     "is_basic": false,
-    "target_pre_hours": 19,
-    "target_post_hours": 19,
+    "target_pre_hours": 9,
+    "target_post_hours": 9,
     "teachers": [
       "....................................................."
     ],
@@ -16704,7 +16537,7 @@
       {
         "unit_no": "1",
         "unit_name": "ความรู้พื้นฐานธุรกิจบริการ",
-        "hours": 3,
+        "hours": 4,
         "score_k": 3,
         "score_p": 1,
         "score_a": 1,
@@ -16760,7 +16593,7 @@
       {
         "unit_no": "3",
         "unit_name": "หลักการให้บริการที่ดี",
-        "hours": 6,
+        "hours": 4,
         "score_k": 6,
         "score_p": 3,
         "score_a": 1,
@@ -19086,194 +18919,6 @@
       10,
       15,
       10
-    ],
-    "sgs_post_slots": [
-      10,
-      10,
-      15
-    ],
-    "midterm_score": 15,
-    "final_score": 15,
-    "exam_duration_mid": 60,
-    "exam_duration_fin": 60,
-    "ratio_formative": 70,
-    "ratio_summative": 30
-  },
-  "งง30226": {
-    "course_code": "งง30226",
-    "course_name": "โครงงานอุตสาหกรรม",
-    "learning_area": "การงานอาชีพ",
-    "grade_level": "ม.6",
-    "credits": 0.5,
-    "total_hours": 20,
-    "is_basic": false,
-    "target_pre_hours": 9,
-    "target_post_hours": 9,
-    "teachers": [
-      "....................................................."
-    ],
-    "units": [
-      {
-        "unit_no": "1",
-        "unit_name": "ความรู้พื้นฐานเกี่ยวกับโครงงานอุตสาหกรรม",
-        "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 1"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 1"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
-      },
-      {
-        "unit_no": "2",
-        "unit_name": "การเลือกหัวข้อและการวางแผนโครงงาน",
-        "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 2"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 2"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
-          }
-        ]
-      },
-      {
-        "unit_no": "3",
-        "unit_name": "การออกแบบและพัฒนาโครงงาน",
-        "hours": 3,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 3"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 3"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
-      },
-      {
-        "unit_no": "4",
-        "unit_name": "การดำเนินงานและการแก้ปัญหา",
-        "hours": 2,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 4"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 4"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
-      },
-      {
-        "unit_no": "5",
-        "unit_name": "การนำเสนอและประเมินผลโครงงาน",
-        "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ผลการเรียนรู้ที่ 5"
-        ],
-        "indicators": [
-          "ผลการเรียนรู้ที่ 5"
-        ],
-        "concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
-          }
-        ]
-      }
-    ],
-    "indicators": [
-      "ผลการเรียนรู้ที่ 1",
-      "ผลการเรียนรู้ที่ 2",
-      "ผลการเรียนรู้ที่ 3",
-      "ผลการเรียนรู้ที่ 4",
-      "ผลการเรียนรู้ที่ 5"
-    ],
-    "is_scheduled_term2": false,
-    "classrooms": "ม.6",
-    "midterm_cutoff": 2,
-    "midExamScores": [
-      8,
-      7
-    ],
-    "finExamScores": [
-      5,
-      5,
-      5
-    ],
-    "sgs_pre_slots": [
-      10,
-      10,
-      15
     ],
     "sgs_post_slots": [
       10,
@@ -25740,7 +25385,7 @@
   },
   "ช2551": {
     "course_code": "ช2551",
-    "course_name": "กิจกรรมแนะแนว (ม.ปลาย)",
+    "course_name": "กิจกรรมแนะแนว",
     "learning_area": "กลุ่มสาระการเรียนรู้",
     "grade_level": "ม.4",
     "credits": 0.5,
@@ -26007,7 +25652,7 @@
   },
   "ช2560": {
     "course_code": "ช2560",
-    "course_name": "กิจกรรมแนะแนว (ม.ต้น)",
+    "course_name": "กิจกรรมแนะแนว",
     "learning_area": "วิชาอื่นๆ",
     "grade_level": "ม.1",
     "credits": 0.5,
@@ -30769,7 +30414,7 @@
   },
   "ท31101": {
     "course_code": "ท31101",
-    "course_name": "ภาษาไทย",
+    "course_name": "ภาษาไทย 1",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.4",
     "credits": 1.0,
@@ -35000,7 +34645,7 @@
   },
   "พ21102": {
     "course_code": "พ21102",
-    "course_name": "พลศึกษา 1 (ฟุตบอล)",
+    "course_name": "พลศึกษา 1",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.1",
     "credits": 0.5,
@@ -35311,7 +34956,7 @@
   },
   "พ22101": {
     "course_code": "พ22101",
-    "course_name": "สุขศึกษา 3",
+    "course_name": "สุขศึกษาและพลศึกษา 3",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.2",
     "credits": 0.5,
@@ -35555,7 +35200,7 @@
   },
   "พ22102": {
     "course_code": "พ22102",
-    "course_name": "พลศึกษา 3 (กรีฑา)",
+    "course_name": "พลศึกษา 3",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.2",
     "credits": 0.5,
@@ -35779,7 +35424,7 @@
   },
   "พ23101": {
     "course_code": "พ23101",
-    "course_name": "สุขศึกษา 5",
+    "course_name": "สุขศึกษาและพลศึกษา 5",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.3",
     "credits": 0.5,
@@ -36016,7 +35661,7 @@
   },
   "พ23102": {
     "course_code": "พ23102",
-    "course_name": "พลศึกษา 5 (บาสเกตบอล 1)",
+    "course_name": "พลศึกษา 5",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.3",
     "credits": 0.5,
@@ -67679,11 +67324,11 @@
     "course_name": "ปฏิบัติดนตรีไทย 3",
     "learning_area": "ศิลปะ",
     "grade_level": "ม.5",
-    "credits": 1.5,
-    "total_hours": 60,
+    "credits": 1.0,
+    "total_hours": 40,
     "is_basic": false,
-    "target_pre_hours": 29,
-    "target_post_hours": 29,
+    "target_pre_hours": 19,
+    "target_post_hours": 19,
     "teachers": [
       "....................................................."
     ],
@@ -67719,7 +67364,7 @@
       {
         "unit_no": "2",
         "unit_name": "ปฏิบัติเพลงสามชั้น",
-        "hours": 20,
+        "hours": 10,
         "score_k": 12,
         "score_p": 6,
         "score_a": 2,
@@ -67754,7 +67399,7 @@
       {
         "unit_no": "3",
         "unit_name": "ลุ่มลึกในท่วงทำนอง",
-        "hours": 27,
+        "hours": 9,
         "score_k": 12,
         "score_p": 6,
         "score_a": 2,
@@ -67789,7 +67434,7 @@
       {
         "unit_no": "4",
         "unit_name": "สมาธิแห่งศิลป์",
-        "hours": 2,
+        "hours": 10,
         "score_k": 8,
         "score_p": 5,
         "score_a": 2,
@@ -103797,7 +103442,7 @@
   },
   "อ20228": {
     "course_code": "อ20228",
-    "course_name": "ภาษาอังกฤษเพื่อการเข้าสังคม",
+    "course_name": "ภาษาอังกฤษเพื่อการเข้าสังคม 1",
     "learning_area": "ภาษาต่างประเทศ",
     "grade_level": "ม.1",
     "credits": 1.0,
@@ -117684,7 +117329,7 @@
   },
   "พ21104": {
     "course_code": "พ21104",
-    "course_name": "พลศึกษา 2 (ฟุตซอล)",
+    "course_name": "พลศึกษา 2",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.1",
     "credits": 0.5,
@@ -117837,7 +117482,7 @@
   },
   "พ22104": {
     "course_code": "พ22104",
-    "course_name": "พลศึกษา 4 (ปิงปอง)",
+    "course_name": "พลศึกษา 4",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.2",
     "credits": 0.5,
@@ -118000,7 +117645,7 @@
   },
   "พ23104": {
     "course_code": "พ23104",
-    "course_name": "พลศึกษา 6 (บาสเกตบอล 2)",
+    "course_name": "พลศึกษา 6",
     "learning_area": "สุขศึกษาและพลศึกษา",
     "grade_level": "ม.3",
     "credits": 0.5,
@@ -118689,7 +118334,7 @@
   },
   "ศ22101": {
     "course_code": "ศ22101",
-    "course_name": "ศิลปะพื้นฐาน 3 (ทัศนศิลป์)",
+    "course_name": "ศิลปะพื้นฐาน 3",
     "learning_area": "ศิลปะ",
     "grade_level": "ม.2",
     "credits": 1.0,
@@ -118897,7 +118542,7 @@
   },
   "ศ23102": {
     "course_code": "ศ23102",
-    "course_name": "ศิลปะพื้นฐาน 6 (ทัศนศิลป์)",
+    "course_name": "ศิลปะพื้นฐาน 6",
     "learning_area": "ศิลปะ",
     "grade_level": "ม.3",
     "credits": 1.0,
@@ -120629,107 +120274,67 @@
     "course_name": "เคมี 1",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.4",
-    "credits": 1.0,
-    "total_hours": 40,
+    "credits": 1.5,
+    "total_hours": 60,
     "is_basic": false,
-    "target_pre_hours": 19,
-    "target_post_hours": 19,
+    "target_pre_hours": 29,
+    "target_post_hours": 29,
     "teachers": [
       "นางสาวลัดดา ปริยาปัญจางค์"
     ],
     "units": [
       {
         "unit_no": "1",
-        "unit_name": "หน่วยการเรียนรู้ที่ 1",
-        "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
+        "unit_name": "ความปลอดภัยและทักษะในปฏิบัติการเคมี",
+        "hours": 10,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
         "score_total": 15,
-        "indicators_raw": [],
-        "key_concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
-          }
+        "indicators_raw": [
+          "ผลการเรียนรู้ 1",
+          "ผลการเรียนรู้ 2",
+          "ผลการเรียนรู้ 3",
+          "ผลการเรียนรู้ 4"
+        ],
+        "key_concepts": [
+          "ความปลอดภัยในการทำงานกับสารเคมี อุบัติเหตุจากสารเคมี การวัดปริมาณสาร อุปกรณ์วัดปริมาตรและวัดมวล เลขนัยสำคัญ หน่วยวัดในระบบเอสไอ แฟกเตอร์เปลี่ยนหน่วย และวิธีการทางวิทยาศาสตร์"
         ]
       },
       {
         "unit_no": "2",
-        "unit_name": "หน่วยการเรียนรู้ที่ 2",
-        "hours": 10,
-        "score_k": 12,
+        "unit_name": "อะตอมและสมบัติของธาตุ",
+        "hours": 19,
+        "score_k": 10,
         "score_p": 6,
-        "score_a": 2,
+        "score_a": 4,
         "score_total": 20,
-        "indicators_raw": [],
-        "key_concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
+        "indicators_raw": [
+          "ผลการเรียนรู้ 5",
+          "ผลการเรียนรู้ 6",
+          "ผลการเรียนรู้ 7",
+          "ผลการเรียนรู้ 8-10",
+          "ผลการเรียนรู้ 11-12"
+        ],
+        "key_concepts": [
+          "แบบจำลองอะตอม สัญลักษณ์นิวเคลียร์ ไอโซโทป การจัดเรียงอิเล็กตรอนในอะตอม แนวโน้มสมบัติของธาตุตามหมู่และตามคาบ สมบัติของธาตุแทรนซิชัน การสลายตัวและครึ่งชีวิตของธาตุกัมมันตรังสี"
         ]
       },
       {
         "unit_no": "3",
-        "unit_name": "หน่วยการเรียนรู้ที่ 3",
-        "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "indicators_raw": [],
-        "key_concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
-          }
-        ]
-      },
-      {
-        "unit_no": "4",
-        "unit_name": "หน่วยการเรียนรู้ที่ 4",
-        "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "indicators_raw": [],
-        "key_concepts": [],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
+        "unit_name": "พันธะเคมี",
+        "hours": 29,
+        "score_k": 20,
+        "score_p": 11,
+        "score_a": 4,
+        "score_total": 35,
+        "indicators_raw": [
+          "ผลการเรียนรู้ 13-17",
+          "ผลการเรียนรู้ 18-23",
+          "ผลการเรียนรู้ 24-25"
+        ],
+        "key_concepts": [
+          "สัญลักษณ์แบบจุดของลิวอิสและกฎออกเตต พันธะไอออนิก วัฏจักรบอร์น-ฮาเบอร์ สมการไอออนิก พันธะโคเวเลนต์ พลังงานพันธะ รูปร่างและสภาพขั้วโมเลกุล แรงยึดเหนี่ยวระหว่างโมเลกุล พันธะโลหะ และการนำสารประกอบไปใช้ประโยชน์"
         ]
       }
     ],
@@ -120767,11 +120372,11 @@
     "course_name": "Ai for Smart leaning",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.5",
-    "credits": 1.0,
-    "total_hours": 40,
+    "credits": 0.5,
+    "total_hours": 20,
     "is_basic": false,
-    "target_pre_hours": 19,
-    "target_post_hours": 19,
+    "target_pre_hours": 9,
+    "target_post_hours": 9,
     "teachers": [
       "....................................................."
     ],
@@ -120779,7 +120384,7 @@
       {
         "unit_no": "1",
         "unit_name": "หน่วยการเรียนรู้ที่ 1",
-        "hours": 9,
+        "hours": 4,
         "score_k": 8,
         "score_p": 5,
         "score_a": 2,
@@ -120799,7 +120404,7 @@
       {
         "unit_no": "2",
         "unit_name": "หน่วยการเรียนรู้ที่ 2",
-        "hours": 10,
+        "hours": 5,
         "score_k": 12,
         "score_p": 6,
         "score_a": 2,
@@ -120826,7 +120431,7 @@
       {
         "unit_no": "3",
         "unit_name": "หน่วยการเรียนรู้ที่ 3",
-        "hours": 9,
+        "hours": 4,
         "score_k": 8,
         "score_p": 5,
         "score_a": 2,
@@ -120846,7 +120451,7 @@
       {
         "unit_no": "4",
         "unit_name": "หน่วยการเรียนรู้ที่ 4",
-        "hours": 10,
+        "hours": 5,
         "score_k": 12,
         "score_p": 6,
         "score_a": 2,
@@ -120905,11 +120510,11 @@
     "course_name": "Ai for Communication",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.5",
-    "credits": 1.0,
-    "total_hours": 40,
+    "credits": 0.5,
+    "total_hours": 20,
     "is_basic": false,
-    "target_pre_hours": 19,
-    "target_post_hours": 19,
+    "target_pre_hours": 9,
+    "target_post_hours": 9,
     "teachers": [
       "....................................................."
     ],
@@ -120917,7 +120522,7 @@
       {
         "unit_no": "1",
         "unit_name": "หน่วยการเรียนรู้ที่ 1",
-        "hours": 9,
+        "hours": 4,
         "score_k": 8,
         "score_p": 5,
         "score_a": 2,
@@ -120937,7 +120542,7 @@
       {
         "unit_no": "2",
         "unit_name": "หน่วยการเรียนรู้ที่ 2",
-        "hours": 10,
+        "hours": 5,
         "score_k": 12,
         "score_p": 6,
         "score_a": 2,
@@ -120964,7 +120569,7 @@
       {
         "unit_no": "3",
         "unit_name": "หน่วยการเรียนรู้ที่ 3",
-        "hours": 9,
+        "hours": 4,
         "score_k": 8,
         "score_p": 5,
         "score_a": 2,
@@ -120984,7 +120589,7 @@
       {
         "unit_no": "4",
         "unit_name": "หน่วยการเรียนรู้ที่ 4",
-        "hours": 10,
+        "hours": 5,
         "score_k": 12,
         "score_p": 6,
         "score_a": 2,
@@ -121730,7 +121335,7 @@
   },
   "ว30287": {
     "course_code": "ว30287",
-    "course_name": "คอมพิวเตอร์กราฟิก",
+    "course_name": "คอมพิวเตอร์กราฟิก 1",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.5",
     "credits": 1.0,
@@ -121868,7 +121473,7 @@
   },
   "ว30288": {
     "course_code": "ว30288",
-    "course_name": "คอมพิวเตอร์กราฟิก",
+    "course_name": "คอมพิวเตอร์กราฟิก 2",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.5",
     "credits": 1.0,
@@ -122007,7 +121612,7 @@
   },
   "ว30289": {
     "course_code": "ว30289",
-    "course_name": "การเขียนโปรแกรมเบื้องต้น",
+    "course_name": "การเขียนโปรแกรมเบื้องต้น 1",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.6",
     "credits": 1.0,
@@ -122145,7 +121750,7 @@
   },
   "ว30290": {
     "course_code": "ว30290",
-    "course_name": "การเขียนโปรแกรมเบื้องต้น",
+    "course_name": "การเขียนโปรแกรมเบื้องต้น 2",
     "learning_area": "วิทยาศาสตร์และเทคโนโลยี",
     "grade_level": "ม.6",
     "credits": 1.0,
@@ -124081,7 +123686,7 @@
   },
   "ท31201": {
     "course_code": "ท31201",
-    "course_name": "การเขียน",
+    "course_name": "การเขียน 1",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.4",
     "credits": 1.0,
@@ -124219,7 +123824,7 @@
   },
   "ท31203": {
     "course_code": "ท31203",
-    "course_name": "การเขียน",
+    "course_name": "การเขียน 2",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.4",
     "credits": 1.0,
@@ -124633,7 +124238,7 @@
   },
   "ท33201": {
     "course_code": "ท33201",
-    "course_name": "ภาษาไทยเพื่อการศึกษาต่อ",
+    "course_name": "ภาษาไทยเพื่อการศึกษาต่อ 1",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.6",
     "credits": 1.0,
@@ -124771,7 +124376,7 @@
   },
   "ท33203": {
     "course_code": "ท33203",
-    "course_name": "ภาษาไทยเพื่อการศึกษาต่อ",
+    "course_name": "ภาษาไทยเพื่อการศึกษาต่อ 2",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.6",
     "credits": 1.0,
@@ -125186,7 +124791,7 @@
   },
   "ท32203": {
     "course_code": "ท32203",
-    "course_name": "ประวัติวรรณคดี",
+    "course_name": "ประวัติวรรณคดี 1",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.5",
     "credits": 1.0,
@@ -125324,7 +124929,7 @@
   },
   "ท32204": {
     "course_code": "ท32204",
-    "course_name": "ประวัติวรรณคดี",
+    "course_name": "ประวัติวรรณคดี 2",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.5",
     "credits": 1.0,
@@ -125462,7 +125067,7 @@
   },
   "ท30201": {
     "course_code": "ท30201",
-    "course_name": "ภาษาไทยเพื่อกิจกรรมการแสดง",
+    "course_name": "ภาษาไทยเพื่อกิจกรรมการแสดง 1",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.6",
     "credits": 1.0,
@@ -125600,7 +125205,7 @@
   },
   "ท30202": {
     "course_code": "ท30202",
-    "course_name": "ภาษาไทยเพื่อกิจกรรมการแสดง",
+    "course_name": "ภาษาไทยเพื่อกิจกรรมการแสดง 2",
     "learning_area": "ภาษาไทย",
     "grade_level": "ม.6",
     "credits": 1.0,
@@ -125876,7 +125481,7 @@
   },
   "ค31203": {
     "course_code": "ค31203",
-    "course_name": "คณิตศาสตร์อุตสาหกรรม",
+    "course_name": "คณิตศาสตร์อุตสาหกรรม 1",
     "learning_area": "คณิตศาสตร์",
     "grade_level": "ม.4",
     "credits": 1.0,
@@ -126014,7 +125619,7 @@
   },
   "ค31204": {
     "course_code": "ค31204",
-    "course_name": "คณิตศาสตร์อุตสาหกรรม",
+    "course_name": "คณิตศาสตร์อุตสาหกรรม 2",
     "learning_area": "คณิตศาสตร์",
     "grade_level": "ม.4",
     "credits": 1.0,
@@ -126152,7 +125757,7 @@
   },
   "ค33204": {
     "course_code": "ค33204",
-    "course_name": "คณิตศาสตร์อุตสาหกรรม",
+    "course_name": "คณิตศาสตร์อุตสาหกรรม 6",
     "learning_area": "คณิตศาสตร์",
     "grade_level": "ม.6",
     "credits": 1.0,

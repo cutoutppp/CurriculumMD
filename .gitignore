@@ -19,6 +19,7 @@ env/
 !build_assessment_hubs.py
 !generate_assessment_plan_docx.py
 !scripts/*.py
+!compile_assessment_hub_data.py
 !reports/*.md
 *.json
 !all_kpi_master.json
