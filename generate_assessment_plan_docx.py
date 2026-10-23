@@ -68,10 +68,19 @@ class OfficialAssessmentPlanGenerator:
             t = self.teachers_map[course_code].get("teachers", [])
             if t:
                 return t
+        c = self.get_course_data(course_code)
+        if c and c.get("teachers"):
+            return c["teachers"]
         return ["....................................................."]
 
     def extract_kpis_from_vault_md(self, course_code, folder_name):
         """Read detailed KPIs from existing vault without modifying it"""
+        c_data = self.get_course_data(course_code)
+        if c_data and c_data.get("learning_outcomes"):
+            return c_data["learning_outcomes"]
+        if c_data and c_data.get("indicators"):
+            return c_data["indicators"]
+
         vault_dir = r"Curriculum_Vault/09_หลักสูตรสถานศึกษา"
         target_dir = os.path.join(vault_dir, folder_name) if folder_name else vault_dir
         if not os.path.exists(target_dir):
@@ -93,28 +102,19 @@ class OfficialAssessmentPlanGenerator:
         try:
             with open(md_file, "r", encoding="utf-8") as f:
                 text = f.read()
-            # extract KPI descriptions
             lines = text.splitlines()
             in_blueprint = False
             for line in lines:
-                if "## 📋 รายละเอียดตัวชี้วัด" in line:
+                if "## 📋 รายละเอียดตัวชี้วัด" in line or "## 📋 รายละเอียดผลการเรียนรู้" in line:
                     in_blueprint = True
                     continue
-                if in_blueprint and re.match(r'^\s*\d+\.\s+(ตัวชี้วัด.*|[ก-ฮ]\s*\d+\.\d+.*)', line):
+                if in_blueprint and re.match(r'^\s*\d+\.\s+(ตัวชี้วัด.*|[ก-ฮ]\s*\d+\.\d+.*|มีความรู้.*|ปฏิบัติตน.*|ตระหนัก.*)', line):
                     clean_kpi = re.sub(r'^\s*\d+\.\s*', '', line)
                     clean_kpi = clean_kpi.split('(เวลา')[0].strip()
                     if clean_kpi and clean_kpi not in kpis:
                         kpis.append(clean_kpi)
         except Exception:
             pass
-
-        # Fallback 1: Extract from course indicators in matrix
-        if not kpis:
-            c_data = self.get_course_data(course_code)
-            if c_data and c_data.get("indicators"):
-                for ind in c_data["indicators"]:
-                    if ind and ind not in kpis and not ind.startswith("สาระ") and not ind.startswith("กลุ่มสาระ"):
-                        kpis.append(ind)
 
         return kpis
 
@@ -127,21 +127,22 @@ class OfficialAssessmentPlanGenerator:
         teachers = self.get_teachers(course_code)
         doc = docx.Document()
 
-        # Set Margins matching template (Top=54pt, Bottom=54pt, Left=54pt, Right=40pt)
+        # Set Margins matching template (Top=37.85pt, Bottom=29.1pt, Left=72pt, Right=42.45pt)
         section = doc.sections[0]
-        section.top_margin = Pt(54)
-        section.bottom_margin = Pt(54)
-        section.left_margin = Pt(54)
-        section.right_margin = Pt(40)
+        section.top_margin = Pt(38)
+        section.bottom_margin = Pt(30)
+        section.left_margin = Pt(72)
+        section.right_margin = Pt(42.5)
 
         course_name = course.get("course_name", "")
         learning_area = course.get("learning_area", "")
         level = course.get("grade_level") or course.get("level") or "มัธยมศึกษาปีที่ 1"
         if not level.startswith("มัธยมศึกษา") and not level.startswith("ม."):
             level = f"มัธยมศึกษาปีที่ {level}"
-        credit = course.get("credits") or course.get("credit") or 1.0
-        total_hours = course.get("hours") or course.get("hours_total") or int(credit * 40)
+        credit = course.get("credits") or course.get("credit") or 0.5
+        total_hours = course.get("hours") or course.get("hours_total") or course.get("total_hours") or int(credit * 40)
         is_basic = (len(course_code) > 2 and course_code[2] == '1') or "พื้นฐาน" in course.get("course_type", "")
+        is_corruption = "การป้องกันการทุจริต" in course_name or course.get("score_ratio") == "80:20"
 
         # -----------------------------------------------------------------
         # HEADER
@@ -151,92 +152,102 @@ class OfficialAssessmentPlanGenerator:
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p.paragraph_format.space_after = Pt(2)
-        r = p.add_run(f"รหัสวิชา {course_code} รายวิชา {course_name}")
+        r = p.add_run(f"รหัสวิชา {course_code} รายวิชา {course_name}      กลุ่มสาระการเรียนรู้{learning_area}")
         format_run(r, size_pt=16, bold=True)
-        r2 = p.add_run(f"\tกลุ่มสาระการเรียนรู้{learning_area}")
-        format_run(r2, size_pt=16, bold=True)
 
         p2 = doc.add_paragraph()
         p2.paragraph_format.space_after = Pt(2)
-        r = p2.add_run(f"ระดับชั้น{level} ภาคเรียนที่ {semester} ปีการศึกษา {academic_year} \tเวลา {total_hours} คาบ/ภาคเรียน จำนวน {credit:.1f} หน่วยกิต")
+        r = p2.add_run(f"ระดับชั้น{level}  ภาคเรียนที่ {semester}  ปีการศึกษา {academic_year}   เวลา {total_hours} คาบ/ภาคเรียน  จำนวน {credit:.1f} หน่วยกิต")
         format_run(r, size_pt=16, bold=False)
 
-        t_str = ", ".join([f"{idx+1}. {t}" if len(teachers)>1 else t for idx, t in enumerate(teachers)])
-        p3 = doc.add_paragraph()
-        p3.paragraph_format.space_after = Pt(4)
-        r = p3.add_run(f"ครูผู้สอน {t_str}")
-        format_run(r, size_pt=16, bold=False)
+        # Teachers: if > 2, group 3 per line
+        if len(teachers) > 2:
+            p3 = doc.add_paragraph()
+            p3.paragraph_format.space_after = Pt(1)
+            pPr = p3._p.get_or_add_pPr()
+            pPr.append(parse_xml(f'<w:tabs {nsdecls("w")}><w:tab w:val="left" w:pos="851"/></w:tabs>'))
+            line1_teachers = ", ".join([f"{idx+1}. {t}" for idx, t in enumerate(teachers[:3])]) + (", " if len(teachers) > 3 else "")
+            r = p3.add_run(f"ครูผู้สอน \t{line1_teachers}")
+            format_run(r, size_pt=16, bold=False)
+
+            for idx in range(3, len(teachers), 3):
+                p_sub = doc.add_paragraph()
+                p_sub.paragraph_format.space_after = Pt(1)
+                pPr_sub = p_sub._p.get_or_add_pPr()
+                pPr_sub.append(parse_xml(f'<w:tabs {nsdecls("w")}><w:tab w:val="left" w:pos="851"/></w:tabs>'))
+                chunk = ", ".join([f"{idx+c_idx+1}. {t}" for c_idx, t in enumerate(teachers[idx:idx+3])])
+                if idx + 3 < len(teachers):
+                    chunk += ","
+                r = p_sub.add_run(f"\t{chunk}")
+                format_run(r, size_pt=16, bold=False)
+        else:
+            t_str = ", ".join([f"{idx+1}. {t}" if len(teachers)>1 else t for idx, t in enumerate(teachers)])
+            p3 = doc.add_paragraph()
+            p3.paragraph_format.space_after = Pt(4)
+            r = p3.add_run(f"ครูผู้สอน \t{t_str}")
+            format_run(r, size_pt=16, bold=False)
 
         add_p(doc, "……………………………………………………………………………………………………………", size_pt=14, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=4)
 
         # -----------------------------------------------------------------
-        # 1. มาตรฐานการเรียนรู้ / ตัวชี้วัด หรือ ผลการเรียนรู้
+        # 1. ผลการเรียนรู้ / ตัวชี้วัด
         # -----------------------------------------------------------------
         kpis = self.extract_kpis_from_vault_md(course_code, course.get("folder_name", ""))
         if is_basic:
             add_p(doc, "1. มาตรฐานการเรียนรู้ / ตัวชี้วัด", size_pt=16, bold=True, space_after=2)
-            if kpis:
-                for k in kpis:
-                    p = doc.add_paragraph()
-                    p.paragraph_format.left_indent = Pt(20)
-                    p.paragraph_format.space_after = Pt(1)
-                    r = p.add_run(k)
-                    format_run(r, size_pt=15)
-            else:
-                p = doc.add_paragraph()
-                p.paragraph_format.left_indent = Pt(20)
-                r = p.add_run("(ระบุมาตรฐานและตัวชี้วัดตามหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน)")
-                format_run(r, size_pt=15)
-        else:
-            add_p(doc, "1. ผลการเรียนรู้", size_pt=16, bold=True, space_after=2)
-            outcomes = [k for k in kpis if not k.startswith("ตัวชี้วัด")] if kpis else []
-            if not outcomes:
-                outcomes = [
-                    "1. มีความรู้ความเข้าใจในเนื้อหาและหลักการสำคัญตามโครงสร้างรายวิชา",
-                    "2. สามารถสืบค้น วิเคราะห์ และประยุกต์ใช้ทักษะกระบวนการในการปฏิบัติงานได้อย่างมีประสิทธิภาพ",
-                    "3. ตระหนักและเห็นคุณค่า นำความรู้ไปประยุกต์ใช้ในชีวิตประจำวันอย่างมีคุณธรรมและจริยธรรม"
-                ]
-            for o in outcomes:
+            for k in kpis:
                 p = doc.add_paragraph()
                 p.paragraph_format.left_indent = Pt(20)
                 p.paragraph_format.space_after = Pt(1)
-                r = p.add_run(o)
+                r = p.add_run(k)
                 format_run(r, size_pt=15)
+        else:
+            add_p(doc, "1. ผลการเรียนรู้", size_pt=16, bold=True, space_after=2)
+            for idx, o in enumerate(kpis):
+                clean_o = re.sub(r'^\s*\d+\.\s*', '', o)
+                p = doc.add_paragraph()
+                p.paragraph_format.left_indent = Pt(36)
+                p.paragraph_format.first_line_indent = Pt(-18)
+                p.paragraph_format.space_after = Pt(1)
+                r = p.add_run(f"\t{idx+1}. {clean_o}")
+                format_run(r, size_pt=16)
 
         # -----------------------------------------------------------------
         # 2. การวัดและประเมินผลการเรียนรู้
         # -----------------------------------------------------------------
         add_p(doc, "2. การวัดและประเมินผลการเรียนรู้", size_pt=16, bold=True, space_before=4, space_after=2)
-        ratio_overall = "70 : 30"
-        ratio_breakdown = "70 : 15 : 15"
-        kpa_str = "60 : 25 : 15"
-        if "วิทย์" in learning_area or "คณิต" in learning_area:
-            kpa_str = "70 : 20 : 10"
-        elif "สังคม" in learning_area or "ไทย" in learning_area:
-            kpa_str = "55 : 30 : 15"
-        elif "ศิลปะ" in learning_area or "การงาน" in learning_area or "สุขศึกษา" in learning_area:
-            kpa_str = "40 : 50 : 10"
+        if is_corruption:
+            ratio_overall = "80 : 20"
+            ratio_breakdown = "80 : 10 : 10"
+            kpa_str = "100 : - : -"
+        else:
+            ratio_overall = course.get("score_ratio", "70 : 30")
+            ratio_breakdown = "70 : 15 : 15"
+            kpa_str = "60 : 25 : 15"
+            if "วิทย์" in learning_area or "คณิต" in learning_area:
+                kpa_str = "70 : 20 : 10"
+            elif "สังคม" in learning_area or "ไทย" in learning_area:
+                kpa_str = "55 : 30 : 15"
+            elif "ศิลปะ" in learning_area or "การงาน" in learning_area or "สุขศึกษา" in learning_area:
+                kpa_str = "40 : 50 : 10"
 
-        add_p(doc, f"อัตราส่วนการประเมินคะแนน\t\t= {ratio_overall}", size_pt=16, space_after=1)
+        add_p(doc, f"    อัตราส่วนการประเมินคะแนน\t\t\t= {ratio_overall}", size_pt=16, space_after=1)
         add_p(doc, f"ระหว่างภาค : กลางภาค : ปลายภาค \t= {ratio_breakdown}", size_pt=16, space_after=1)
-        add_p(doc, f"K : P : A \t\t\t\t= {kpa_str}", size_pt=16, space_after=2)
-        
-        p_note = doc.add_paragraph()
-        p_note.paragraph_format.space_after = Pt(3)
-        r = p_note.add_run("หมายเหตุ คะแนน sgs ในแต่ละหน่วยช่องแบ่งได้มากที่สุด 9 ช่อง เพื่อให้สามารถกรอกคะแนนใน SGS การวัดผลก่อนสอบกลางภาคและการวัดผลหลังสอบกลางภาคได้ ในแผนวัดผลฯและ SGS จะต้องตรงกันและหากสอนรหัสเดียวกันครูผู้สอนทุกคนจะต้องแบ่งคะแนนเท่ากัน / ในแต่ละหน่วยการเรียนรู้ควรมีวิธีการประเมินผลที่หลากหลาย")
-        format_run(r, size_pt=14, italic=True)
+        add_p(doc, f"\tK : P : A \t\t\t\t= {kpa_str}", size_pt=16, space_after=2)
 
         # -----------------------------------------------------------------
         # 3. เวลาในการสอบ
         # -----------------------------------------------------------------
         add_p(doc, "3. เวลาในการสอบ", size_pt=16, bold=True, space_before=2, space_after=1)
-        add_p(doc, "กลางภาค 60 นาที\tปลายภาค 60 นาที", size_pt=16, space_after=2)
+        if is_corruption or course.get("exam_schedule") == "สอบนอกตาราง":
+            add_p(doc, "สอบนอกตาราง", size_pt=16, space_after=2)
+        else:
+            add_p(doc, "กลางภาค 60 นาที\tปลายภาค 60 นาที", size_pt=16, space_after=2)
 
         # -----------------------------------------------------------------
         # 4. เกณฑ์การให้ระดับคะแนน
         # -----------------------------------------------------------------
         add_p(doc, "4. เกณฑ์การให้ระดับคะแนน", size_pt=16, bold=True, space_before=2, space_after=1)
-        add_p(doc, "(ดูตารางที่ 2 เกณฑ์การให้ระดับคะแนนตามระเบียบกระทรวงศึกษาธิการ)", size_pt=15, space_after=2)
 
         # -----------------------------------------------------------------
         # 5. เวลาเรียน
@@ -246,22 +257,22 @@ class OfficialAssessmentPlanGenerator:
         miss_80 = total_hours - h_80
         h_60 = int(total_hours * 0.6)
         miss_60 = total_hours - h_60
-        add_p(doc, f"จำนวนคาบเรียนตามหลักสูตร 20 สัปดาห์ \t\t= {total_hours} คาบ/ภาคเรียน", size_pt=16, space_after=1)
-        add_p(doc, f"จำนวนคาบเรียน  80% (ขาดได้ {miss_80} คาบ) \t\t= {h_80} คาบ/ภาคเรียน", size_pt=16, space_after=1)
-        add_p(doc, f"จำนวนคาบเรียน  60% (ขาดได้ {miss_60} คาบ)\t\t= {h_60} คาบ/ภาคเรียน", size_pt=16, space_after=2)
+        add_p(doc, f"จำนวนคาบเรียนตามหลักสูตร 20 สัปดาห์ \t= {total_hours} คาบ/ภาคเรียน", size_pt=16, space_after=1)
+        add_p(doc, f"จำนวนคาบเรียน  80% (ขาดได้ {miss_80} คาบ) \t= {h_80} คาบ/ภาคเรียน", size_pt=16, space_after=1)
+        add_p(doc, f"จำนวนคาบเรียน  60% (ขาดได้ {miss_60} คาบ)\t= {h_60} คาบ/ภาคเรียน", size_pt=16, space_after=2)
 
         # -----------------------------------------------------------------
         # 6. การให้ผลการเรียน "0" "ร" และ "มส"
         # -----------------------------------------------------------------
-        add_p(doc, "6. การให้ผลการเรียน  “0”  “ร”  และ “มส”  เป็นดังนี้", size_pt=16, bold=True, space_before=2, space_after=1)
-        add_p(doc, "6.1 ได้ผลการเรียน “0” เนื่องจาก มีคะแนนรวมไม่ถึง 50 คะแนน และมีวิธีแก้ผลการเรียน “0” โดยทำแบบทดสอบตามตัวชี้วัด/ผลการเรียนรู้ที่ไม่ผ่านและส่งงานซ่อมเสริม", size_pt=15, space_after=1)
+        add_p(doc, "6. การให้ผลการเรียน “0” “ร” และ “มส” เป็นดังนี้", size_pt=16, bold=True, space_before=2, space_after=1)
+        add_p(doc, "6.1 ได้ผลการเรียน “0” เนื่องจาก มีคะแนนรวมไม่ถึง 50 และมีวิธีแก้ผลการเรียน “0” โดยทำงานซ่อมเสริม จากนั้นทำแบบทดสอบโดยต้องได้คะแนนเกินครึ่งหนึ่ง หากผู้เรียนดำเนินการสอบแก้ตัวผ่านและส่งงานเพิ่มเติมแล้ว จะเปลี่ยนผลการเรียนได้ไม่เกิน 1", size_pt=15, space_after=1)
         add_p(doc, "6.2 ได้ผลการเรียน “ร” เนื่องจาก", size_pt=15, space_after=1)
         
-        key_task_name = f"ชิ้นงานสำคัญเรื่องการประยุกต์ใช้ความรู้รายวิชา{course_name}"
+        key_task_name = "-" if is_corruption or course.get("key_task") == "-" else (course.get("key_task") or f"ชิ้นงานสำคัญเรื่องการประยุกต์ใช้ความรู้รายวิชา{course_name}")
         add_p(doc, f"     1. ไม่ส่งชิ้นงานสำคัญ คือ {key_task_name}", size_pt=15, space_after=1)
-        add_p(doc, "     2. ผู้เรียนไม่ได้รับการประเมินผลตามหน่วยเรียนรู้ ในช่องของคะแนนวัดผลระหว่างเรียน", size_pt=15, space_after=1)
-        add_p(doc, "     3. ผู้เรียนไม่ได้วัดผลกลางภาคเรียนหรือปลายภาคเรียน", size_pt=15, space_after=1)
-        add_p(doc, "ได้ผลการเรียน “มส” เนื่องจาก มีเวลาเรียนไม่ถึง 80%", size_pt=15, space_after=6)
+        add_p(doc, "2. ผู้เรียนไม่ได้รับการประเมินผลตัวชี้วัด/ผลการเรียนรู้ ในช่องของคะแนนวัดระหว่างเรียน", size_pt=15, space_after=1)
+        add_p(doc, "3. ผู้เรียนไม่ได้สอบวัดผลกลางภาคเรียนหรือปลายภาคเรียน", size_pt=15, space_after=1)
+        add_p(doc, "6.3 ได้ผลการเรียน “มส” เนื่องจาก เวลาเรียนไม่ถึง 80%", size_pt=15, space_after=6)
 
         # -----------------------------------------------------------------
         # TABLE 1: ตารางโครงสร้างการวัดและประเมินผล (แบบ วผ.19)
@@ -271,13 +282,9 @@ class OfficialAssessmentPlanGenerator:
         units = course.get("units", [])
         if not units:
             units = [
-                {"unit_no": 1, "unit_name": "หน่วยการเรียนรู้ที่ 1", "hours": (total_hours//2)-1, "score": 35},
-                {"unit_no": 2, "unit_name": "หน่วยการเรียนรู้ที่ 2", "hours": (total_hours//2)-1, "score": 35}
+                {"unit_no": 1, "unit_name": "หน่วยการเรียนรู้ที่ 1", "hours": 9, "score": 35},
+                {"unit_no": 2, "unit_name": "หน่วยการเรียนรู้ที่ 2", "hours": 9, "score": 35}
             ]
-
-        # 50:50 rule for hours:
-        target_pre_mid_hours = (total_hours // 2) - 1
-        target_post_mid_hours = (total_hours // 2) - 1
 
         table = doc.add_table(rows=2, cols=8)
         table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -285,8 +292,8 @@ class OfficialAssessmentPlanGenerator:
 
         col_widths = [Inches(0.6), Inches(2.2), Inches(1.1), Inches(1.8), Inches(0.45), Inches(0.45), Inches(0.45), Inches(0.55)]
 
-        headers_r1 = ["หน่วยที่", "ชื่อหน่วยการเรียนรู้ (จำนวนชั่วโมง)", "ตัวชี้วัด / ผลการเรียนรู้", "วิธีการประเมินผล", "คะแนน", "", "", ""]
-        headers_r2 = ["หน่วยที่", "ชื่อหน่วยการเรียนรู้ (จำนวนชั่วโมง)", "ตัวชี้วัด / ผลการเรียนรู้", "วิธีการประเมินผล", "K", "P", "A", "รวม"]
+        headers_r1 = ["หน่วยที่", "ชื่อหน่วยการเรียนรู้\n(จำนวนชั่วโมง)", "ผลการเรียนรู้", "วิธีการประเมินผล", "คะแนน", "", "", ""]
+        headers_r2 = ["หน่วยที่", "ชื่อหน่วยการเรียนรู้\n(จำนวนชั่วโมง)", "ผลการเรียนรู้", "วิธีการประเมินผล", "K", "P", "A", "รวม"]
 
         for i in range(8):
             cell = table.cell(0, i)
@@ -376,105 +383,53 @@ class OfficialAssessmentPlanGenerator:
                 if p.runs:
                     format_run(p.runs[0], size_pt=14, bold=True)
 
-        def split_score_to_rows(total_score, max_per_slot=15):
-            """Split score so no row exceeds 15 points"""
-            if total_score <= max_per_slot:
-                return [total_score]
-            parts = []
-            rem = total_score
-            while rem > 0:
-                chunk = min(max_per_slot, rem)
-                if rem - chunk < 5 and rem - chunk > 0:
-                    chunk = rem // 2
-                parts.append(chunk)
-                rem -= chunk
-            return parts
+        if is_corruption:
+            # 1. การวัดผลก่อนสอบกลางภาค
+            add_cycle_header(table, "1. การวัดผลก่อนสอบกลางภาค")
+            eval_methods_def = "- การสังเกตพฤติกรรม\n- การถาม - ตอบ ในชั้นเรียน\n- แบบทดสอบก่อนเรียน-หลังเรียน"
+            add_data_row(table, "1", "STRONG /\nจิตพอเพียงต้านทุจริต\n(5 ชั่วโมง)", "ข้อที่ 1-2", eval_methods_def, 20, "-", "-", 20)
+            add_data_row(table, "2", "พลเมืองกับความรับผิดชอบต่อสังคม\n(4 ชั่วโมง)", "ข้อที่ 3-4", eval_methods_def, 20, "-", "-", 20)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลก่อนสอบกลางภาค", 40, "-", "-", 40)
 
-        # 1. การวัดผลก่อนสอบกลางภาค (เป้าหมาย 35 คะแนน, 19 ชั่วโมงสำหรับ 40 ชม.)
-        add_cycle_header(table, "1. การวัดผลก่อนสอบกลางภาค")
-        pre_scores = split_score_to_rows(35, max_per_slot=15) # e.g. [12, 12, 11] or [15, 10, 10]
-        # Distribute hours
-        pre_hours_dist = []
-        rem_hrs = target_pre_mid_hours
-        for i in range(len(pre_scores)):
-            hrs = rem_hrs // (len(pre_scores) - i)
-            pre_hours_dist.append(hrs)
-            rem_hrs -= hrs
+            # 2. การวัดผลกลางภาค
+            add_cycle_header(table, "2. การวัดผลกลางภาค")
+            add_data_row(table, "1", "STRONG /\nจิตพอเพียงต้านทุจริต", "ข้อที่ 1-2", "- แบบทดสอบวัดผลกลางภาคเรียน", 5, "-", "-", 10)
+            add_data_row(table, "2", "พลเมืองกับความรับผิดชอบต่อสังคม\n(1 ชั่วโมง)", "ข้อที่ 3-4", "- แบบทดสอบวัดผลกลางภาคเรียน", 5, "-", "-", 10)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลกลางภาค", 10, "-", "-", 10)
 
-        tot_pre_k, tot_pre_p, tot_pre_a, tot_pre_score = 0, 0, 0, 0
-        for i, sc in enumerate(pre_scores):
-            u_idx = min(i, len(pre_units)-1)
-            u = pre_units[u_idx]
-            u_no = u.get("unit_no", i+1)
-            u_name = u.get("unit_name", f"หน่วยการเรียนรู้ที่ {u_no}")
-            u_hrs = pre_hours_dist[i]
-            
-            k_val = int(sc * 0.6)
-            p_val = int(sc * 0.25)
-            a_val = sc - k_val - p_val
-            tot_pre_k += k_val
-            tot_pre_p += p_val
-            tot_pre_a += a_val
-            kpi_txt = f"ตัวชี้วัดหน่วยที่ {u_no}" if is_basic else f"ข้อที่ {u_no}"
-            methods = "- กิจกรรม/ใบงาน\n- การสังเกตพฤติกรรม"
-            if i == 0:
-                methods += "\n- ชิ้นงานสำคัญ"
-            else:
-                methods += "\n- แบบทดสอบย่อย"
-            add_data_row(table, u_no, f"{u_name} ({u_hrs} ชั่วโมง)", kpi_txt, methods, k_val, p_val, a_val, sc)
+            # 3. การวัดผลหลังสอบกลางภาค
+            add_cycle_header(table, "3. การวัดผลหลังสอบกลางภาค")
+            add_data_row(table, "3", "ความสำคัญของการต่อต้านและป้องกันการทุจริต\n(4 ชั่วโมง)", "ข้อที่ 5", eval_methods_def, 20, "-", "-", 20)
+            add_data_row(table, "4", "บูรณาการความรู้\nสู่การป้องกันการทุจริต\n(5 ชั่วโมง)", "ข้อที่ 1-5", eval_methods_def, 20, "-", "-", 20)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลหลังสอบกลางภาค", 40, "-", "-", 40)
 
-        add_subtotal_row(table, "รวมคะแนนการวัดผลก่อนสอบกลางภาค", tot_pre_k, tot_pre_p, tot_pre_a, tot_pre_score)
+            # 4. การวัดผลปลายภาค
+            add_cycle_header(table, "4. การวัดผลปลายภาค")
+            add_data_row(table, "3", "ความสำคัญของการต่อต้านและป้องกันการทุจริต", "ข้อที่ 5", "- แบบทดสอบวัดผลปลายภาคเรียน", 5, "-", "-", 10)
+            add_data_row(table, "4", "บูรณาการความรู้\nสู่การป้องกันการทุจริต\n(1 ชั่วโมง)", "ข้อที่ 1-5", "- แบบทดสอบวัดผลปลายภาคเรียน", 5, "-", "-", 10)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลปลายภาค", 10, "-", "-", 10)
 
-        # 2. การวัดผลกลางภาค (15 คะแนน, 1 ชั่วโมง)
-        add_cycle_header(table, "2. การวัดผลกลางภาค")
-        mid_kpi = f"ข้อที่ 1-{len(pre_units)}" if not is_basic else "ตัวชี้วัดหน่วยที่ 1-2"
-        add_data_row(table, "-", "ทดสอบวัดผลกลางภาคเรียน (1 ชั่วโมง)", mid_kpi, "- การทดสอบวัดผลกลางภาคเรียน", 15, 0, 0, 15)
-        add_subtotal_row(table, "รวมคะแนนการวัดผลกลางภาค", 15, 0, 0, 15)
+            # Grand Total
+            add_subtotal_row(table, "รวมคะแนนทั้งหมด", 100, "-", "-", 100)
+        else:
+            # General courses split logic
+            add_cycle_header(table, "1. การวัดผลก่อนสอบกลางภาค")
+            add_data_row(table, "1", f"{pre_units[0].get('unit_name', 'หน่วยที่ 1')} (19 ชั่วโมง)", "ข้อที่ 1-2", "- กิจกรรม/ใบงาน\n- การสังเกตพฤติกรรม", 20, 10, 5, 35)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลก่อนสอบกลางภาค", 20, 10, 5, 35)
 
-        # 3. การวัดผลหลังสอบกลางภาค (เป้าหมาย 35 คะแนน, 19 ชั่วโมงสำหรับ 40 ชม.)
-        add_cycle_header(table, "3. การวัดผลหลังสอบกลางภาค")
-        post_scores = split_score_to_rows(35, max_per_slot=15)
-        post_hours_dist = []
-        rem_post_hrs = target_post_mid_hours
-        for i in range(len(post_scores)):
-            hrs = rem_post_hrs // (len(post_scores) - i)
-            post_hours_dist.append(hrs)
-            rem_post_hrs -= hrs
+            add_cycle_header(table, "2. การวัดผลกลางภาค (1 ชั่วโมง)")
+            add_data_row(table, "-", "ทดสอบวัดผลกลางภาคเรียน (1 ชั่วโมง)", "ข้อที่ 1-2", "- การทดสอบวัดผลกลางภาคเรียน", 15, "-", "-", 15)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลกลางภาค", 15, "-", "-", 15)
 
-        tot_post_k, tot_post_p, tot_post_a, tot_post_score = 0, 0, 0, 0
-        for i, sc in enumerate(post_scores):
-            u_idx = min(i, len(post_units)-1)
-            u = post_units[u_idx]
-            u_no = u.get("unit_no", len(pre_units) + i + 1)
-            u_name = u.get("unit_name", f"หน่วยการเรียนรู้ที่ {u_no}")
-            u_hrs = post_hours_dist[i]
-            
-            k_val = int(sc * 0.6)
-            p_val = int(sc * 0.25)
-            a_val = sc - k_val - p_val
-            tot_post_k += k_val
-            tot_post_p += p_val
-            tot_post_a += a_val
-            tot_post_score += sc
+            add_cycle_header(table, "3. การวัดผลหลังสอบกลางภาค")
+            add_data_row(table, "2", f"{post_units[0].get('unit_name', 'หน่วยที่ 2')} (19 ชั่วโมง)", "ข้อที่ 3-4", "- กิจกรรม/ใบงาน\n- การสังเกตพฤติกรรม", 20, 10, 5, 35)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลหลังสอบกลางภาค", 20, 10, 5, 35)
 
-            kpi_txt = f"ตัวชี้วัดหน่วยที่ {u_no}" if is_basic else f"ข้อที่ {u_no}"
-            methods = "- กิจกรรม/ใบงาน\n- การสังเกตพฤติกรรม\n- การอภิปรายกลุ่ม"
-            add_data_row(table, u_no, f"{u_name} ({u_hrs} ชั่วโมง)", kpi_txt, methods, k_val, p_val, a_val, sc)
+            add_cycle_header(table, "4. การวัดผลปลายภาค (1 ชั่วโมง)")
+            add_data_row(table, "-", "ทดสอบวัดผลปลายภาคเรียน (1 ชั่วโมง)", "ข้อที่ 3-4", "- การทดสอบวัดผลปลายภาคเรียน", 15, "-", "-", 15)
+            add_subtotal_row(table, "รวมคะแนนการวัดผลปลายภาค", 15, "-", "-", 15)
 
-        add_subtotal_row(table, "รวมคะแนนการวัดผลหลังสอบกลางภาค", tot_post_k, tot_post_p, tot_post_a, tot_post_score)
-
-        # 4. การวัดผลปลายภาค (15 คะแนน, 1 ชั่วโมง)
-        add_cycle_header(table, "4. การวัดผลปลายภาค")
-        final_kpi = f"ข้อที่ {len(pre_units)+1}-{len(units)}" if not is_basic else "ตัวชี้วัดหน่วยที่ 3-4"
-        add_data_row(table, "-", "ทดสอบวัดผลปลายภาคเรียน (1 ชั่วโมง)", final_kpi, "- การทดสอบวัดผลปลายภาคเรียน", 15, 0, 0, 15)
-        add_subtotal_row(table, "รวมคะแนนการวัดผลปลายภาค", 15, 0, 0, 15)
-
-        # GRAND TOTAL
-        grand_k = tot_pre_k + 15 + tot_post_k + 15
-        grand_p = tot_pre_p + tot_post_p
-        grand_a = tot_pre_a + tot_post_a
-        grand_tot = grand_k + grand_p + grand_a
-        add_subtotal_row(table, "รวมคะแนนทั้งหมด", grand_k, grand_p, grand_a, grand_tot)
+            add_subtotal_row(table, "รวมคะแนนทั้งหมด", 70, 20, 10, 100)
 
         # -----------------------------------------------------------------
         # TABLE 2: เกณฑ์การให้ระดับคะแนน (ตารางตัดเกรด 8 ระดับ)
@@ -485,14 +440,14 @@ class OfficialAssessmentPlanGenerator:
         t2_widths = [Inches(2.5), Inches(2.5)]
         grades_data = [
             ("ระดับผลการเรียน", "ช่วงคะแนน"),
-            ("4", "80 – 100"),
-            ("3.5", "75 – 79"),
-            ("3", "70 – 74"),
-            ("2.5", "65 – 69"),
-            ("2", "60 – 64"),
-            ("1.5", "55 – 59"),
-            ("1", "50 – 54"),
-            ("0", "0 – 49")
+            ("4", "80 - 100"),
+            ("3.5", "75 - 79"),
+            ("3", "70 - 74"),
+            ("2.5", "65 - 69"),
+            ("2", "60 - 64"),
+            ("1.5", "55 - 59"),
+            ("1", "50 - 54"),
+            ("0", "0 - 49")
         ]
         for r_idx, (g_lvl, g_range) in enumerate(grades_data):
             for c_idx, val in enumerate([g_lvl, g_range]):
@@ -528,37 +483,72 @@ class OfficialAssessmentPlanGenerator:
             if p.runs:
                 format_run(p.runs[0], size_pt=14, bold=True)
 
-        t3_row1 = ["1.1", key_task_name, mid_kpi, "สัปดาห์ที่ 3 (พ.ย. 69)", "สัปดาห์ที่ 8 (ธ.ค. 69)"]
-        for c_idx, val in enumerate(t3_row1):
-            cell = t3.cell(1, c_idx)
-            cell.text = val
-            cell.width = t3_widths[c_idx]
-            set_cell_margins(cell, top=60, bottom=60, left=80, right=80)
-            set_cell_border(cell, top={"sz": 4}, bottom={"sz": 4}, left={"sz": 4}, right={"sz": 4})
-            p = cell.paragraphs[0]
-            p.alignment = WD_ALIGN_PARAGRAPH.CENTER if c_idx in [0, 2, 3, 4] else WD_ALIGN_PARAGRAPH.LEFT
-            if p.runs:
-                format_run(p.runs[0], size_pt=13)
+        if key_task_name == "-":
+            for c_idx in range(5):
+                cell = t3.cell(1, c_idx)
+                cell.text = "-"
+                cell.width = t3_widths[c_idx]
+                set_cell_margins(cell, top=60, bottom=60, left=80, right=80)
+                set_cell_border(cell, top={"sz": 4}, bottom={"sz": 4}, left={"sz": 4}, right={"sz": 4})
+                p = cell.paragraphs[0]
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                if p.runs:
+                    format_run(p.runs[0], size_pt=13)
+        else:
+            t3_row1 = ["1.1", key_task_name, "ข้อที่ 1-2", "สัปดาห์ที่ 3 (พ.ย. 69)", "สัปดาห์ที่ 8 (ธ.ค. 69)"]
+            for c_idx, val in enumerate(t3_row1):
+                cell = t3.cell(1, c_idx)
+                cell.text = val
+                cell.width = t3_widths[c_idx]
+                set_cell_margins(cell, top=60, bottom=60, left=80, right=80)
+                set_cell_border(cell, top={"sz": 4}, bottom={"sz": 4}, left={"sz": 4}, right={"sz": 4})
+                p = cell.paragraphs[0]
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER if c_idx in [0, 2, 3, 4] else WD_ALIGN_PARAGRAPH.LEFT
+                if p.runs:
+                    format_run(p.runs[0], size_pt=13)
 
         # -----------------------------------------------------------------
-        # SIGN-OFF BLOCK (5 Officials)
+        # SIGN-OFF BLOCK
         # -----------------------------------------------------------------
         add_p(doc, "\n", size_pt=14, space_after=4)
-        for t_name in teachers:
-            add_p(doc, f"ลงชื่อ..................................................ครูผู้สอน", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
-            add_p(doc, f"({t_name})\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
+        if len(teachers) > 2:
+            for i in range(0, len(teachers), 2):
+                t1 = teachers[i]
+                t2 = teachers[i+1] if i+1 < len(teachers) else ""
+                
+                p_dots = doc.add_paragraph()
+                p_dots.paragraph_format.space_before = Pt(4)
+                p_dots.paragraph_format.space_after = Pt(1)
+                pPr1 = p_dots._p.get_or_add_pPr()
+                tabs1 = parse_xml(f'<w:tabs {nsdecls("w")}><w:tab w:val="center" w:pos="2400"/><w:tab w:val="center" w:pos="7200"/></w:tabs>')
+                pPr1.append(tabs1)
+                txt_dots = f"\tลงชื่อ..................................................ครูผู้สอน" + (f"\tลงชื่อ..................................................ครูผู้สอน" if t2 else "")
+                r1 = p_dots.add_run(txt_dots)
+                format_run(r1, size_pt=15)
 
-        add_p(doc, "ลงชื่อ..................................................หัวหน้างานวัดผลและประเมินผลการเรียนรู้", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
-        add_p(doc, "(นางสาวอโรชา  สลุงใหญ่)\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
+                p_name = doc.add_paragraph()
+                p_name.paragraph_format.space_before = Pt(0)
+                p_name.paragraph_format.space_after = Pt(3)
+                pPr2 = p_name._p.get_or_add_pPr()
+                tabs2 = parse_xml(f'<w:tabs {nsdecls("w")}><w:tab w:val="center" w:pos="2400"/><w:tab w:val="center" w:pos="7200"/></w:tabs>')
+                pPr2.append(tabs2)
+                txt_name = f"\t({t1})" + (f"\t({t2})" if t2 else "")
+                r2 = p_name.add_run(txt_name)
+                format_run(r2, size_pt=15)
+        else:
+            for t_name in teachers:
+                add_p(doc, f"ลงชื่อ..................................................ครูผู้สอน", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
+                add_p(doc, f"({t_name})\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
 
-        add_p(doc, "ลงชื่อ..................................................หัวหน้ากลุ่มบริหารวิชาการ", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
-        add_p(doc, "(นายพงศธร  แสนเมือง)\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
-
-        add_p(doc, "ลงชื่อ..................................................รองผู้อำนวยการกลุ่มบริหารวิชาการ", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
-        add_p(doc, "(นางสาวกมลชนก สุวรรณประเวก)\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
-
-        add_p(doc, "ลงชื่อ..................................................ผู้อำนวยการโรงเรียนพัฒนานิคม", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
-        add_p(doc, "(นายธีรพงษ์  ภูธร)\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
+        admins = [
+            ("หัวหน้างานวัดและประเมินผลการเรียนรู้", "นางสาวอโรชา สลุงใหญ่"),
+            ("หัวหน้ากลุ่มบริหารวิชาการ", "นายพงศธร แสนเมือง"),
+            ("รองผู้อำนวยการกลุ่มบริหารวิชาการ", "นางสาวกมลชนก สุวรรณประเวก"),
+            ("ผู้อำนวยการโรงเรียนพัฒนานิคม", "นายธีรพงษ์ ภูธร")
+        ]
+        for role, name in admins:
+            add_p(doc, f"ลงชื่อ..................................................{role}", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
+            add_p(doc, f"({name})\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
 
         os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
         doc.save(output_path)
@@ -567,8 +557,8 @@ class OfficialAssessmentPlanGenerator:
 
 if __name__ == '__main__':
     gen = OfficialAssessmentPlanGenerator()
-    out_dir = r"C:\Users\peera\Desktop\พัฒนานิคม_69\แผนวัด_2-69_generated"
-    test_courses = ["ท21102", "ค21102", "ว21102", "ส21103"]
+    out_dir = r"C:\Users\peera\Desktop\AntigravityProject\CurriculumMD\test_generated"
+    test_courses = ["ส30248", "ส20224"]
     for tc in test_courses:
         out_file = os.path.join(out_dir, f"วผ19_{tc}_แผนการวัดและประเมินผล_2-2569.docx")
         gen.generate_docx(tc, out_file, semester="2", academic_year="2569")

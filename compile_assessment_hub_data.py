@@ -23,9 +23,9 @@ with open(schedule_path, "r", encoding="utf-8") as f:
 compiled_courses = {}
 
 for code, c in curriculum.items():
-    # Teacher from schedule if available
+    # Teacher from schedule or course itself
     sch_entry = schedule.get(code, {})
-    teachers = sch_entry.get("teachers", [])
+    teachers = sch_entry.get("teachers", []) or c.get("teachers", [])
     if not teachers:
         teachers = ["....................................................."]
     
@@ -71,6 +71,17 @@ for code, c in curriculum.items():
             # Indicators
             kpis = u.get("indicators_raw", [])
             concepts = u.get("key_concepts", [])
+            eval_method = u.get("eval_method", "")
+
+            u_assessments = u.get("assessments")
+            if not u_assessments and (c.get("score_ratio") == "80:20" or "การป้องกันการทุจริต" in c.get("course_name", "")):
+                u_assessments = [{
+                    "eval_methods": eval_method or "- การสังเกตพฤติกรรม\n- การถาม - ตอบ ในชั้นเรียน\n- แบบทดสอบก่อนเรียน-หลังเรียน",
+                    "score_k": sk,
+                    "score_p": "-",
+                    "score_a": "-",
+                    "score_total": stot
+                }]
 
             clean_units.append({
                 "unit_no": u_no,
@@ -81,7 +92,9 @@ for code, c in curriculum.items():
                 "score_a": sa,
                 "score_total": stot,
                 "indicators": kpis,
-                "concepts": concepts
+                "concepts": concepts,
+                "eval_method": eval_method,
+                "assessments": u_assessments
             })
     else:
         # Fallback 4 units
@@ -92,19 +105,22 @@ for code, c in curriculum.items():
             {"unit_no": "4", "unit_name": "หน่วยการเรียนรู้ที่ 4", "hours": target_post_h - (target_post_h // 2), "score_k": 6, "score_p": 2, "score_a": 2, "score_total": 10, "indicators": ["ผลการเรียนรู้ที่ 4"], "concepts": []}
         ]
 
-    # Overall KPIs
+    # Overall KPIs: Prefer course-level indicators if provided and non-empty
     all_kpis = []
-    for u in clean_units:
-        for ind in u.get("indicators", []):
-            if ind and ind not in all_kpis:
-                all_kpis.append(ind)
-    
-    if not all_kpis:
-        all_kpis = [
-            "1. มีความรู้ความเข้าใจในเนื้อหาและหลักการสำคัญตามโครงสร้างรายวิชา",
-            "2. สามารถสืบค้น วิเคราะห์ และประยุกต์ใช้ทักษะกระบวนการในการปฏิบัติงานได้อย่างมีประสิทธิภาพ",
-            "3. ตระหนักและเห็นคุณค่า นำความรู้ไปประยุกต์ใช้ในชีวิตประจำวันอย่างมีคุณธรรมและจริยธรรม"
-        ]
+    if c.get("indicators") and isinstance(c.get("indicators"), list) and len(c.get("indicators")) > 0:
+        all_kpis = c.get("indicators")
+    else:
+        for u in clean_units:
+            for ind in u.get("indicators", []):
+                if ind and ind not in all_kpis:
+                    all_kpis.append(ind)
+        
+        if not all_kpis:
+            all_kpis = [
+                "1. มีความรู้ความเข้าใจในเนื้อหาและหลักการสำคัญตามโครงสร้างรายวิชา",
+                "2. สามารถสืบค้น วิเคราะห์ และประยุกต์ใช้ทักษะกระบวนการในการปฏิบัติงานได้อย่างมีประสิทธิภาพ",
+                "3. ตระหนักและเห็นคุณค่า นำความรู้ไปประยุกต์ใช้ในชีวิตประจำวันอย่างมีคุณธรรมและจริยธรรม"
+            ]
 
     compiled_courses[code] = {
         "course_code": code,
@@ -119,7 +135,21 @@ for code, c in curriculum.items():
         "teachers": teachers,
         "units": clean_units,
         "indicators": all_kpis,
-        "is_scheduled_term2": code in schedule
+        "is_scheduled_term2": code in schedule,
+        "score_ratio": c.get("score_ratio", "70:30"),
+        "ratio_display": c.get("ratio_display", ""),
+        "kpa_ratio": c.get("kpa_ratio", ""),
+        "score_pre_mid": c.get("score_pre_mid"),
+        "score_mid": c.get("score_mid"),
+        "score_post_mid": c.get("score_post_mid"),
+        "score_final": c.get("score_final"),
+        "target_mid_score": c.get("target_mid_score"),
+        "target_fin_score": c.get("target_fin_score"),
+        "midExamScores": c.get("midExamScores", []),
+        "finExamScores": c.get("finExamScores", []),
+        "exam_schedule": c.get("exam_schedule", ""),
+        "exam_duration_text": c.get("exam_duration_text", ""),
+        "key_task": c.get("key_task", "")
     }
 
 # Write courses_2_2569.json
