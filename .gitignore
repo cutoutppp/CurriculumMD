@@ -55,3 +55,4 @@ Curriculum_Vault/CurriculumMD/
 # System
 .DS_Store
 Thumbs.db
+!semester2_teachers_mapping.json
