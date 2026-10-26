@@ -904,10 +904,10 @@
         "unit_no": "1",
         "unit_name": "เอกนามและพหุนาม",
         "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 5,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "1. จําแนกนิพจน์ที่กําหนดให้ เป็นเอกนาม หรือพหุนาม 2. บอกสัมประสิทธิ์ ดีกรีของเอกนาม และระบุเอกนามที่คล้ายกัน"
@@ -921,10 +921,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -932,10 +932,10 @@
         "unit_no": "2",
         "unit_name": "การบวกและลบพหุนาม",
         "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 13,
+        "score_p": 8,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "3. หาผลบวก ผลลบของเอกนามและ เขียนพหุนามในรูปผลสำเร็จ 4. หาผลบวกและผลลบของพหุนาม"
@@ -949,16 +949,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -967,10 +967,10 @@
         "unit_no": "3",
         "unit_name": "การคูณพหุนาม",
         "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 5,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "5. หาผลคูณระหว่างเอกนามกับ เอกนาม เอกนามกับพหุนาม และ พหุนามกับพหุนาม"
@@ -984,10 +984,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -995,10 +995,10 @@
         "unit_no": "4",
         "unit_name": "การหารพหุนาม",
         "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 13,
+        "score_p": 8,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "6. หาผลหารของเอกนามด้วยเอกนาม และผลหารของพหุนามด้วยเอกนาม 7. ใช้ความรู้เกี่ยวกับพหุนามในการแก้ปัญหาทางคณิตศาสตร์"
@@ -1012,16 +1012,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -1405,10 +1405,10 @@
         "unit_no": "1",
         "unit_name": "เศษส่วนและ การเปรียบเทียบเศษส่วน",
         "hours": 2,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 4,
+        "score_p": 4,
+        "score_a": 0,
+        "score_total": 8,
         "national_kpis": [],
         "kpis": [
           "เปรียบเทียบเศษส่วนและทศนิยมได้"
@@ -1422,10 +1422,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 4,
+            "score_p": 4,
+            "score_a": 0,
+            "score_total": 8
           }
         ]
       },
@@ -1433,10 +1433,10 @@
         "unit_no": "2",
         "unit_name": "การบวกลบ คูณ หาร เศษส่วน",
         "hours": 5,
-        "score_k": 8,
+        "score_k": 14,
         "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_a": 1,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "หาคำตอบการบวกลบ คูณ หาร เศษส่วนและทศนิยมได้"
@@ -1450,10 +1450,17 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 7,
+            "score_p": 2,
+            "score_a": 1,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 7,
+            "score_p": 3,
+            "score_a": 0,
+            "score_total": 10
           }
         ]
       },
@@ -1461,10 +1468,10 @@
         "unit_no": "3",
         "unit_name": "ทศนิยมและ การเปรียบเทียบทศนิยม",
         "hours": 2,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 5,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 7,
         "national_kpis": [],
         "kpis": [
           "เปรียบเทียบเศษส่วนและทศนิยมได้"
@@ -1478,10 +1485,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 5,
+            "score_p": 2,
+            "score_a": 0,
+            "score_total": 7
           }
         ]
       },
@@ -1489,9 +1496,9 @@
         "unit_no": "4",
         "unit_name": "การบวกลบ คูณ หาร ทศนิยม",
         "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
+        "score_k": 14,
+        "score_p": 5,
+        "score_a": 1,
         "score_total": 20,
         "national_kpis": [],
         "kpis": [
@@ -1506,16 +1513,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 7,
+            "score_p": 2,
             "score_a": 1,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -1524,9 +1531,9 @@
         "unit_no": "5",
         "unit_name": "ความสัมพันธ์ของทศนิยมและเศษส่วน",
         "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_k": 10,
+        "score_p": 4,
+        "score_a": 1,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -1541,9 +1548,9 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
+            "score_k": 10,
+            "score_p": 4,
+            "score_a": 1,
             "score_total": 15
           }
         ]
@@ -2406,9 +2413,9 @@
         "unit_no": "1",
         "unit_name": "การสร้างพื้นฐานทางเรขาคณิต",
         "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_k": 6,
+        "score_p": 8,
+        "score_a": 1,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -2423,9 +2430,9 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
+            "score_k": 6,
+            "score_p": 8,
+            "score_a": 1,
             "score_total": 15
           }
         ]
@@ -2434,9 +2441,9 @@
         "unit_no": "2",
         "unit_name": "พื้นฐานมิติสัมพันธ์และมุมมองทางวิศวกรรม",
         "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
+        "score_k": 9,
+        "score_p": 10,
+        "score_a": 1,
         "score_total": 20,
         "national_kpis": [],
         "kpis": [
@@ -2451,17 +2458,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 4,
+            "score_p": 4,
+            "score_a": 0,
+            "score_total": 8
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 5,
+            "score_p": 6,
             "score_a": 1,
-            "score_total": 10
+            "score_total": 12
           }
         ]
       },
@@ -2469,10 +2476,10 @@
         "unit_no": "3",
         "unit_name": "การวัดและการออกแบบเชิงวิศวกรรม",
         "hours": 3,
-        "score_k": 8,
+        "score_k": 4,
         "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_a": 1,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "3. ใช้หน่วยวัดและการแปลงหน่วยในการแก้ปัญหาที่เกี่ยวข้องกับความยาว พื้นที่ และปริมาตร จากสถานการณ์ในชีวิตจริงได้อย่างเหมาะสม"
@@ -2486,10 +2493,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
+            "score_k": 4,
             "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_a": 1,
+            "score_total": 10
           }
         ]
       },
@@ -2497,10 +2504,10 @@
         "unit_no": "4",
         "unit_name": "โครงงานมิติสัมพันธ์เชิงวิศวกรรม",
         "hours": 6,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 9,
+        "score_p": 13,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "4. ออกแบบและสร้างชิ้นงานอย่างง่ายโดยใช้รูปทรงเรขาคณิต พร้อมทั้งอธิบายเหตุผลในการเลือกใช้รูปทรงและขนาดโดยอ้างอิงหลักคณิตศาสตร์ 5. ประยุกต์ใช้กระบวนการออกแบบเชิงวิศวกรรม (Engineering Design Process) ในการวางแผน สร้าง ทดสอบ และปรับปรุงชิ้นงาน โดยแสดงหลักฐานการคิดอย่างเป็นลำดับขั้น"
@@ -2514,17 +2521,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 4,
+            "score_p": 5,
             "score_a": 1,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 5,
+            "score_p": 8,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       }
@@ -4294,9 +4301,9 @@
         "unit_no": "2",
         "unit_name": "ความเท่ากันทุกประการ",
         "hours": 9,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [
           "ค 2.2 ม.2/4"
@@ -4316,9 +4323,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -4327,9 +4334,9 @@
         "unit_no": "3",
         "unit_name": "เส้นขนาน",
         "hours": 8,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [
           "ค 2.2 ม.2/2"
@@ -4349,9 +4356,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -4360,10 +4367,10 @@
         "unit_no": "4",
         "unit_name": "เส้นขนาน 2",
         "hours": 4,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 3,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 5,
         "national_kpis": [
           "ค 2.2 ม.2/2",
           "ค 2.2 ม.2/1"
@@ -4383,10 +4390,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 3,
+            "score_p": 2,
+            "score_a": 0,
+            "score_total": 5
           }
         ]
       },
@@ -4394,9 +4401,9 @@
         "unit_no": "5",
         "unit_name": "การให้เหตุผลทางเรขาคณิต",
         "hours": 10,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [
           "ค 2.2 ม.2/1",
@@ -4417,9 +4424,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -4428,10 +4435,10 @@
         "unit_no": "6",
         "unit_name": "การแยกตัวประกอบของพหุนามดีกรีสอง",
         "hours": 15,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 10,
+        "score_p": 6,
+        "score_a": 4,
+        "score_total": 20,
         "national_kpis": [
           "ค 1.2 ม.2/2"
         ],
@@ -4448,10 +4455,17 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 3,
+            "score_a": 2,
+            "score_total": 10
           }
         ]
       }
@@ -5485,10 +5499,10 @@
         "unit_no": "1",
         "unit_name": "ระบบสมการดีกรีสอง",
         "hours": 13,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 15,
+        "score_p": 8,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "1. เข้าใจและแก้ระบบสมการสองตัวแปรที่มีดีกรีไม่เกินสองได้"
@@ -5502,17 +5516,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 10,
+            "score_p": 5,
+            "score_a": 0,
+            "score_total": 15
           }
         ]
       },
@@ -5520,10 +5534,10 @@
         "unit_no": "2",
         "unit_name": "การประยุกต์ของระบบสมการ",
         "hours": 6,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 5,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "2. ประยุกต์ใช้ระบบสมการสองตัวแปรในการแก้ปัญหาคณิตศาสตร์และปัญหาในชีวิตจริงได้"
@@ -5537,10 +5551,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -5548,10 +5562,10 @@
         "unit_no": "3",
         "unit_name": "อัตราส่วนตรีโกณมิติ",
         "hours": 11,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 15,
+        "score_p": 8,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "3. เข้าใจความสัมพันธ์และหาค่าของอัตราส่วนตรีโกณมิติของมุม 30, 45 และ 60 องศาได้"
@@ -5565,16 +5579,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -5583,10 +5597,10 @@
         "unit_no": "4",
         "unit_name": "การประยุกต์ของอัตราส่วนตรีโกณมิติ",
         "hours": 8,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 5,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "4. ใช้ความรู้เรื่องอัตราส่วนตรีโกณมิติในการแก้ปัญหาคณิตศาสตร์และปัญหาในชีวิตจริง ได้อย่างเหมาะสม"
@@ -5600,10 +5614,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       }
@@ -6093,8 +6107,8 @@
         "unit_name": "กระบวนการโครงงานคณิตศาสตร์",
         "hours": 4,
         "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
+        "score_p": 2,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -6110,8 +6124,8 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_p": 2,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -6120,8 +6134,8 @@
         "unit_no": "2",
         "unit_name": "การออกแบบและการเขียนเค้าโครงโครงงาน",
         "hours": 5,
-        "score_k": 6,
-        "score_p": 3,
+        "score_k": 4,
+        "score_p": 5,
         "score_a": 1,
         "score_total": 10,
         "national_kpis": [],
@@ -6137,8 +6151,8 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 4,
+            "score_p": 5,
             "score_a": 1,
             "score_total": 10
           }
@@ -6148,10 +6162,10 @@
         "unit_no": "3",
         "unit_name": "การดำเนินการโครงงานอย่างเป็นระบบ",
         "hours": 10,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 9,
+        "score_p": 12,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "3. ดำเนินการศึกษาค้นคว้า เก็บรวบรวมข้อมูล ทดลอง วิเคราะห์ และสรุปผลโครงงานตามแผนที่กำหนดได้อย่างเป็นขั้นตอน"
@@ -6165,8 +6179,15 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
+            "score_k": 3,
             "score_p": 5,
+            "score_a": 2,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 6,
+            "score_p": 7,
             "score_a": 2,
             "score_total": 15
           }
@@ -6176,10 +6197,10 @@
         "unit_no": "4",
         "unit_name": "การจัดทำรายงานโครงงานฉบับสมบูรณ์",
         "hours": 11,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 5,
+        "score_p": 8,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "4. เขียนรายงานโครงงานคณิตศาสตร์ฉบับสมบูรณ์ โดยใช้รูปแบบและภาษาทางวิชาการได้ถูกต้องและเป็นระบบ"
@@ -6193,17 +6214,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 5,
+            "score_p": 8,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -6211,10 +6225,10 @@
         "unit_no": "5",
         "unit_name": "การนำเสนอโครงงานคณิตศาสตร์และการประยุกต์ใช้ความรู้",
         "hours": 8,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 4,
+        "score_p": 4,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "5. นำเสนอผลงานโครงงานโดยใช้การสื่อสารทางคณิตศาสตร์ได้อย่างเหมาะสม และสามารถเชื่อมโยงความรู้ไปประยุกต์ใช้ในชีวิตประจำวันและบริบทท้องถิ่นได้"
@@ -6228,10 +6242,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 4,
+            "score_p": 4,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       }
@@ -7571,10 +7585,10 @@
         "unit_no": "1",
         "unit_name": "เวกเตอร์ในสามมิติ",
         "hours": 24,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 14,
+        "score_p": 8,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "1. มีความคิดรวบยอดเกี่ยวกับเวกเตอร์ในระบบสามมิติได้ 2. หาผลคูณเชิงสเกล่าร์และผลคูณเชิงเวกเตอร์เพื่อแก้ปัญหาได้ 3. หาขนาดและทิศทางของ เวกเตอร์ที่กำหนดให้"
@@ -7588,16 +7602,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 7,
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -7606,10 +7620,10 @@
         "unit_no": "2",
         "unit_name": "ความน่าจะเป็นของการเรียงสับเปลี่ยน",
         "hours": 15,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 6,
+        "score_p": 2,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "4. หาปริภูมิตัวอย่างและเหตุการณ์ 5. ใช้ความรู้เกี่ยวกับความน่าจะเป็นในการแก้ปัญหา"
@@ -7623,10 +7637,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 6,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -7634,10 +7648,10 @@
         "unit_no": "3",
         "unit_name": "ความน่าจะเป็นของการจัดหมู่",
         "hours": 15,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 6,
+        "score_p": 2,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "4. หาปริภูมิตัวอย่างและเหตุการณ์ 5. ใช้ความรู้เกี่ยวกับความน่าจะเป็นในการแก้ปัญหา"
@@ -7651,10 +7665,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 6,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -7662,10 +7676,10 @@
         "unit_no": "4",
         "unit_name": "จำนวนเชิงซ้อน",
         "hours": 24,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 14,
+        "score_p": 8,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "4. มีความคิดรวบยอดเกี่ยวกับจำนวนเชิงซ้อนและจำนวนเชิงซ้อนในรูปเชิงขั่วได้ 5. หารากที่ n ของจำนวนเชิงซ้อน เมื่อ n เป็นจำนวนเต็มบวกได้"
@@ -7679,16 +7693,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 7,
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -7920,10 +7934,10 @@
         "unit_no": "1",
         "unit_name": "เวกเตอร์ในสามมิติ",
         "hours": 12,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 14,
+        "score_p": 8,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "1. มีความคิดรวบยอดเกี่ยวกับเวกเตอร์ในระบบสามมิติได้ 2. หาผลคูณเชิงสเกล่าร์และผลคูณเชิงเวกเตอร์เพื่อแก้ปัญหาได้ 3. หาขนาดและทิศทางของ เวกเตอร์ที่กำหนดให้"
@@ -7937,16 +7951,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 7,
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -7955,10 +7969,10 @@
         "unit_no": "2",
         "unit_name": "ความน่าจะเป็นของการเรียงสับเปลี่ยน",
         "hours": 7,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 6,
+        "score_p": 2,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "4. หาปริภูมิตัวอย่างและเหตุการณ์ 5. ใช้ความรู้เกี่ยวกับความน่าจะเป็นในการแก้ปัญหา"
@@ -7972,10 +7986,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 6,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -7983,10 +7997,10 @@
         "unit_no": "3",
         "unit_name": "ความน่าจะเป็นของการจัดหมู่",
         "hours": 7,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 6,
+        "score_p": 2,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "4. หาปริภูมิตัวอย่างและเหตุการณ์ 5. ใช้ความรู้เกี่ยวกับความน่าจะเป็นในการแก้ปัญหา"
@@ -8000,10 +8014,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 6,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -8011,10 +8025,10 @@
         "unit_no": "4",
         "unit_name": "จำนวนเชิงซ้อน",
         "hours": 12,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 14,
+        "score_p": 8,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "6. มีความคิดรวบยอดเกี่ยวกับจำนวนเชิงซ้อน 7.นำสมบัติต่าง ๆ เกี่ยวกับจำนวนเชิงซ้อนและการดำเนินการไปในงานไฟฟ้าได้ 7. หารากที่ n ของจำนวนเชิงซ้อน เมื่อ n เป็นจำนวนเต็มบวกได้"
@@ -8028,16 +8042,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 7,
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -8648,10 +8662,10 @@
         "unit_no": "1",
         "unit_name": "ความหมายของสถิติศาสตร์ และข้อมูล",
         "hours": 10,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 5,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "1. วิเคราะห์และนำเสนอข้อมูลเชิงคุณภาพและเชิงปริมาณ พร้อมแปลความหมายค่าวัดทางสถิติเพื่อใช้ประกอบการตัดสินใจ"
@@ -8665,10 +8679,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 5,
+            "score_p": 4,
+            "score_a": 1,
+            "score_total": 10
           }
         ]
       },
@@ -8676,10 +8690,10 @@
         "unit_no": "2",
         "unit_name": "การวิเคราะห์และนำเสนอข้อมูลเชิงปริมาณ",
         "hours": 29,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 15,
+        "score_p": 8,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "2. วิเคราะห์และนำเสนอข้อมูลเชิงปริมาณ และแปลความหมายผ่านการหาค่ากลาง ค่าวัดการกระจาย และค่าวัดตำแหน่งที่ของข้อมูล"
@@ -8693,17 +8707,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 10,
+            "score_p": 5,
+            "score_a": 0,
+            "score_total": 15
           }
         ]
       },
@@ -8739,8 +8753,8 @@
         "unit_no": "4",
         "unit_name": "ตัวแปรสุ่ม และการแจกแจงความน่าจะเป็น",
         "hours": 21,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 10,
+        "score_p": 8,
         "score_a": 2,
         "score_total": 20,
         "national_kpis": [],
@@ -8756,16 +8770,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 5,
+            "score_p": 5,
+            "score_a": 0,
             "score_total": 10
           }
         ]
@@ -21860,10 +21874,10 @@
         "unit_no": "1",
         "unit_name": "ด่านกำแพงมังกร (长城关卡)",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 5,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 1: ระบุความหมายของป้ายสัญลักษณ์ ทิศทาง และบอกสภาพอากาศให้เหมาะสมกับสถานการณ์ได้ ใช้ทักษะภาษาจีนในการซื้อขายสินค้า การถามราคา และการระบุจำนวนเงินได้อย่างถูกต้อง อธิบายประวัติศาสตร์ ตำนานสัตว์มงคล และความสำคัญของเทศกาลจีนที่สนใจได้อย่างถูกต้อง สาธิตขั้นตอนพื้นฐานของการชงชาและปฏิบัติตามมารยาททางสังคมของชาวจีนได้อย่างเหมาะสม ระบุชื่อยานพาหนะ บอกเวลา และอธิบายลักษณะการใช้ชีวิตในสังคมไร้เงินสดของจีนในปัจจุบันได้ เลือกใช้คำศัพท์และสำนวนภาษาจีนเพื่อการสื่อสารในสถานการณ์จำลองหรือชีวิตประจำวันได้อย่าง เหมาะสมตามบริบท รวม 6 ผลการเรียนรู้"
@@ -21877,10 +21891,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 5,
+            "score_p": 4,
+            "score_a": 1,
+            "score_total": 10
           }
         ]
       },
@@ -21888,10 +21902,10 @@
         "unit_no": "2",
         "unit_name": "เส้นทางสายไหม (丝绸之路)",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 10,
+        "score_p": 12,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 2 ผลการเรียนรู้ที่ 6"
@@ -21905,17 +21919,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 5,
+            "score_p": 4,
             "score_a": 1,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 5,
+            "score_p": 8,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -21923,10 +21937,10 @@
         "unit_no": "3",
         "unit_name": "ความลับวังต้องห้าม (紫禁城的秘密)",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 9,
+        "score_p": 14,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 3 ผลการเรียนรู้ที่ 4 ผลการเรียนรู้ที่ 6"
@@ -21940,10 +21954,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
+            "score_k": 6,
+            "score_p": 8,
+            "score_a": 1,
             "score_total": 15
+          },
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 6,
+            "score_a": 1,
+            "score_total": 10
           }
         ]
       },
@@ -21951,10 +21972,10 @@
         "unit_no": "4",
         "unit_name": "มหานครเซี่ยงไฮ้ (大都市上海)",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 4,
+        "score_p": 4,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 5 ผลการเรียนรู้ที่ 6"
@@ -21968,16 +21989,9 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 4,
+            "score_p": 4,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -38004,109 +38018,152 @@
       {
         "unit_no": "1",
         "unit_name": "รู้จักสิทธิผู้บริโภค",
-        "hours": 9,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
-        "national_kpis": [
-          "พ 4.1 ม.4-6/3",
-          "พ 4.1 ม.4-6/2",
-          "พ 3.2 ม.4-6/1",
-          "พ 3.2 ม.4-6/2"
-        ],
-        "kpis": [
-          "พ 4.1 ม.4-6/3 (ปลายทาง): ปฏิบัติตนตามสิทธิ ของผู้บริโภค"
-        ],
         "indicators": [
-          "พ 4.1 ม.4-6/3 (ปลายทาง): ปฏิบัติตนตามสิทธิ ของผู้บริโภค"
+          "ตัวชี้วัดปลายทาง พ 4.1 ม.4-6/3 ปฏิบัติตนตามสิทธิ ของผู้บริโภค"
         ],
         "concepts": [
-          "การบริโภคสินค้าและผลิตภัณฑ์สุขภาพ มีแนวโน้มความเสี่ยง ต่ออันตรายมากขึ้น ผู้บริโภค จึงควรเรียนรู้สิทธิพื้นฐานของผู้บริโภค เพราะหากถูกละเมิดสิทธิจะได้ทำการร้องเรียน ได้ถูกต้อง"
+          "การบริโภคสินค้าและผลิตภัณฑ์สุขภาพ มีแนวโน้มความเสี่ยง    ต่ออันตรายมากขึ้น ผู้บริโภค    จึงควรเรียนรู้สิทธิพื้นฐานของผู้บริโภค เพราะหากถูกละเมิดสิทธิจะได้ทำการร้องเรียน        ได้ถูกต้อง"
         ],
-        "indicators_raw": [
-          "พ 4.1 ม.4-6/3 (ปลายทาง): ปฏิบัติตนตามสิทธิ ของผู้บริโภค",
-          "พ 4.1 ม.4-6/2 (ระหว่างทาง): วิเคราะห์อิทธิพลของสื่อโฆษณา เกี่ยวกับสุขภาพเพื่อการเลือกบริโภค",
-          "พ 3.2 ม.4-6/1 (ระหว่างทาง): ออกกำลังกายและเล่นกีฬาที่ เหมาะสมกับตนเองอย่างสม่ำเสมอ และใช้ความสามารถ ของตนเองเพิ่มศักยภาพของทีม ลดความเป็นตัวตน คำนึงถึงผลที่เกิดต่อสังคม",
-          "พ 3.2 ม.4-6/2 (ระหว่างทาง): อธิบายและปฏิบัติเกี่ยวกับสิทธิ กฎ กติกา กลวิธีต่าง ๆ ในระหว่างการเล่น การแข่งขัน กีฬากับผู้อื่นและนำไปสรุปเป็นแนวปฏิบัติและ ใช้ในชีวิตประจำวันอย่างต่อเนื่อง"
-        ],
+        "eval_method": "",
+        "hours": 3,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
+            "eval_methods": "",
+            "score_k": 4,
+            "score_p": 4,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
-        ]
+        ],
+        "score_k": 4,
+        "score_p": 4,
+        "score_a": 2,
+        "score_total": 10
       },
       {
         "unit_no": "2",
         "unit_name": "รู้ทันสื่อโฆษณา",
-        "hours": 9,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
-        "national_kpis": [
-          "พ 4.1 ม.4-6/2",
-          "พ 3.2 ม.4-6/3",
-          "พ 3.2 ม.4-6/4",
-          "พ 4.1 ม.4-6/7",
-          "พ 5.1 ม.4-6/3"
-        ],
-        "kpis": [
-          "พ 4.1 ม.4-6/2 (ระหว่างทาง): วิเคราะห์อิทธิพลของสื่อโฆษณา เกี่ยวกับสุขภาพเพื่อการเลือกบริโภค"
-        ],
         "indicators": [
-          "พ 4.1 ม.4-6/2 (ระหว่างทาง): วิเคราะห์อิทธิพลของสื่อโฆษณา เกี่ยวกับสุขภาพเพื่อการเลือกบริโภค"
+          "ตัวชี้วัดระหว่างทาง พ 4.1 ม.4-6/2 วิเคราะห์อิทธิพลของสื่อโฆษณา เกี่ยวกับสุขภาพเพื่อการเลือกบริโภค"
         ],
         "concepts": [
-          "ในยุคสื่อหลอมรวมอยู่ใน สมาร์ทโฟนเพียงเครื่องเดียว ที่รองรับทั้งสื่อภาพ เสียง คลิป สื่อออนไลน์ โซเชียลมีเดียที่ตื่นและหลับไปพร้อมกับใครหลาย ๆ คน การใช้ชีวิตจึงต้องทันข้อมูลสินค้า ผลิตภัณฑ์ บริการต่างๆ ตลอดจนต้องเท่าทันความเชื่อค่านิยม ที่ส่งผ่านสื่ออย่างแนบเนียน อย่างเรื่องค่านิยมความสวย ที่ต้องผอม ขาว ผมยาว สูง หุ่นดีสมส่วน สร้างสื่อโฆษณาทำให้ความปกติของแต่ละคนกลายเป็นปมด้อยและกลายเป็นปัญหา และผลิตภัณฑ์ต่างๆ จะช่วยแก้ปัญหาเหล่านั้นได้ การรับข่าวสารและสื่อ เราจะต้องมี \"สติและปัญญา\" ไตร่ตรอง และใช้ข้อมูล เหล่านั้นให้เกิดประโยชน์"
+          "ในยุคสื่อหลอมรวมอยู่ใน      สมาร์ทโฟนเพียงเครื่องเดียว         ที่รองรับทั้งสื่อภาพ เสียง คลิป สื่อออนไลน์ โซเชียลมีเดียที่ตื่นและหลับไปพร้อมกับใครหลาย ๆ คน การใช้ชีวิตจึงต้องทันข้อมูลสินค้า ผลิตภัณฑ์ บริการต่างๆ ตลอดจนต้องเท่าทันความเชื่อค่านิยม      ที่ส่งผ่านสื่ออย่างแนบเนียน    อย่างเรื่องค่านิยมความสวย ที่ต้องผอม ขาว ผมยาว สูง หุ่นดีสมส่วน สร้างสื่อโฆษณาทำให้ความปกติของแต่ละคนกลายเป็นปมด้อยและกลายเป็นปัญหา และผลิตภัณฑ์ต่างๆ จะช่วยแก้ปัญหาเหล่านั้นได้ การรับข่าวสารและสื่อ เราจะต้องมี \"สติและปัญญา\" ไตร่ตรอง และใช้ข้อมูล เหล่านั้นให้เกิดประโยชน์"
         ],
-        "indicators_raw": [
-          "พ 3.2 ม.4-6/3 (ระหว่างทาง): แสดงออกถึงการมีมารยาทในการดู การเล่น และการแข่งขันกีฬาด้วยความมีน้ำใจนักกีฬา และนำไปใช้ปฏิบัติทุกโอกาสจนเป็นบุคลิกภาพที่ดี",
-          "พ 3.2 ม.4-6/4 (ปลายทาง): รว่ มกิจกรรมทางกาย และเล่นกีฬาอย่างมีความสุข ชื่นชม ในคุณค่าและความงามของการกีฬา",
-          "พ 4.1 ม.4-6/7 (ระหว่างทาง): วางแผนและปฏิบัติตามแผนการ พัฒนาสมรรถภาพกายและสมรรถภาพกลไก",
-          "พ 5.1 ม.4-6/3 (ระหว่างทาง): วิเคราะห์ปัจจัยที่มีผลต่อสุขภาพ หรือความรุนแรงของคนไทย และเสนอแนวทางป้องกัน"
-        ],
+        "eval_method": "",
+        "hours": 2,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "eval_methods": "",
+            "score_k": 4,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 3,
             "score_total": 10
-          },
+          }
+        ],
+        "score_k": 4,
+        "score_p": 3,
+        "score_a": 3,
+        "score_total": 10
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "การสร้างเสริมและพัฒนาสุขภาพในชุมชน",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง พ 4.1 ม.4-6/1 วิเคราะห์บทบาทและความรับผิดชอบ ของบุคคลที่มีต่อการสร้างเสริมสุขภาพและการ ป้องกันโรคในชุมชน  พ 4.1 ม.4-6/4 วิเคราะห์สาเหตุและเสนอแนวทาง การป้องกันการเจ็บป่วยและการตายของคนไทย ตัวชี้วัดปลายทาง พ 4.1 ม.4-6/6  มีส่วนร่วมในการ ส่งเสริมและพัฒนาสุขภาพของบุคคล ในชุมชน"
+        ],
+        "concepts": [
+          "การสร้างเสริมสุขภาพในชุมชน ต้องมีความรู้ ความเข้าใจในเบื้องต้นเกี่ยวกับชุมชนของตนก่อน เพราะชุมชนที่มีความแตกต่างกัน มีสภาพและความเหมาะสมที่แตกต่างกันออกไป โดยในการ สร้างเสริมสุขภาพในชุมชนจะต้องดำเนินการสร้างเสริม สุขภาพในชุมชน ดำเนินงาน    เป็นระบบ เน้นการจัดการที่สุขภาพโดยรวม ดำเนินงานโดยชุมชนเอง ออกแบบการจัดการสุขภาพให้มี ประสิทธิภาพและเกิดประโยชน์แก่ ประชาชนทุก”ครัวเรือน” ทุก “บ้าน” ไม่ใช่เกิดผลต่อสุขภาพของบุคคลใด บุคคลหนึ่งเพียงลำพัง  การรวมเอาสุขภาวะทางด้านร่างกายจิตใจ อารมณ์ สังคม และสติปัญญาตลอดจนสิ่งแวดล้อมเข้าไว้ด้วยกัน การเปิดโอกาสให้ประชาชนในชุมชนมีส่วนร่วมและเป็นผู้กระทำส่วนใหญ่  หรือมีบทบาทหน้าที่ในการจัดการแก้ไขปัญหาสุขภาพในชุมชนด้วยตนเอง"
+        ],
+        "eval_method": "",
+        "hours": 4,
+        "assessments": [
           {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
+            "eval_methods": "",
+            "score_k": 5,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 5,
             "score_total": 15
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 5,
+        "score_a": 5,
+        "score_total": 15
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "การช่วยฟื้นคืนชีพขั้นพื้นฐาน",
+        "indicators": [
+          "ตัวชี้วัดปลายทาง พ 5.1 ม.4-6/7 แสดงวิธีการช่วยฟื้น คืนชีพ อย่างถูกวิธี"
+        ],
+        "concepts": [
+          "จากภาวะความเจ็บป่วยและโรคประจำตัวในปัจจุบันที่เพิ่มมากขึ้นในประชากรทั่วโลก ส่งผลให้เกิดภาวะผู้ป่วยหมดสติหัวใจหยุดเต้นเฉียบพลันมากขึ้น โดยสิ่งที่มีความสำคัญเร่งด่วนในการรักษาเบื้องต้นของผู้ป่วยหัวใจหยุดเต้นเฉียบพลัน คือการทำ CPR (Cardiopulmonary resuscitation) หรือที่เรียกว่า “การปั๊มหัวใจ” ที่มีความรวดเร็ว แม่นยำ และปฏิบัติถูกต้อง เพื่อช่วยให้ผู้ป่วยที่หยุดหายใจ หัวใจหยุดเต้นจากภาวะฉุกเฉินต่างๆ เช่น ภาวะหัวใจวายเฉียบพลัน กล้ามเนื้อหัวใจขาดเลือดเฉียบพลัน ไฟฟ้าช็อต จมน้ำ เป็นต้น ซึ่งเมื่อเกิดภาวะหัวใจหยุดเต้นเฉียบพลัน เป็นช่วงเวลาที่มีความสำคัญมาก ผู้ป่วยจะมีการขาดออกซิเจนไปเลี้ยงที่สมอง ซึ่งส่งผลให้มีภาวะสมองตายได้ เพียงขาดออกซิเจน 4 นาทีการช่วยชีวิตอย่างถูกต้องและรวดเร็ว จะช่วยเพิ่มโอกาสให้ผู้ป่วยรอดชีวิต มีหัวใจกลับมาเต้นดังเดิม  หรือยืดระยะเวลาให้ผู้ป่วยได้รับการส่งต่อไปยังทีมแพทย์ฉุกเฉินได้อย่างปลอดภัย"
+        ],
+        "eval_method": "",
+        "hours": 2,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 10
+          }
+        ],
+        "score_k": 3,
+        "score_p": 5,
+        "score_a": 2,
+        "score_total": 10
+      },
+      {
+        "unit_no": "5",
+        "unit_name": "การสร้างเสริมสมรรถภาพทางกาย",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง พ 3.1 ม.4-6/1  วิเคราะห์ความคิดรวบยอดเกี่ยวกับ          การเคลื่อนไหวรูปแบบต่าง ๆ ในการเล่นกีฬา พ 4.1 ม.4-6/7  วางแผนและปฏิบัติตามแผนการ พัฒนาสมรรถภาพกายและสมรรถภาพกลไก"
+        ],
+        "concepts": [
+          "การที่คนเราจะมีสุขภาพดี ควรมีการวางแผนในการสร้างเสริมสมรรถภาพทางกายที่สัมพันธ์กับสุขภาพและทักษะ เพื่อที่จะได้ทราบความสามารทางกายและทักษะทางกลไก รวมทั้งนำมาปรับปรุงและพัฒนาสมรรถภาพทางกายให้สูงขึ้น เป็นประโยชน์ต่อการดำเนินชีวิตประจำวันได้เป็นอย่างดี"
+        ],
+        "eval_method": "",
+        "hours": 2,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 0,
+            "score_p": 10,
+            "score_a": 0,
+            "score_total": 10
+          }
+        ],
+        "score_k": 0,
+        "score_p": 10,
+        "score_a": 0,
+        "score_total": 10
+      },
+      {
+        "unit_no": "6",
+        "unit_name": "กีฬากับชุมชน",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง พ 3.1 ม.4-6/2  ใช้ความสามารถ      ของตน เพื่อเพิ่ม ศักยภาพของทีม คำนึงถึงผลที่เกิด       ต่อผู้อื่นและสังคม ตัวชี้วัดปลายทาง พ 3.1 ม.4-6/4  แสดงการเคลื่อนไหว ได้อย่างสร้างสรรค์ พ 3.1 ม.4-6/3  เล่นกีฬาไทย กีฬาสากล ประเภทบุคคล/คู่ กีฬาประเภททีม อย่างน้อย ๑ ชนิด พ 3.1 ม.4-6/5  เข้าร่วมกิจกรรม นันทนาการนอกโรงเรียน และนำหลักการ แนวคิดไปปรับปรุงและพัฒนาคุณภาพชีวิต ของตนและสังคม"
+        ],
+        "concepts": [
+          "กีฬาถือเป็นส่วนสำคัญของสังคม ไม่ว่าจะเป็นการให้ความบันเทิงหรือการรวมกลุ่มคนในชุมชน อุตสาหกรรมกีฬาก่อให้เกิดกิจกรรมทางเศรษฐกิจที่สำคัญและกระตุ้นการพัฒนาที่สร้างงานและส่งเสริมเมือง มีคุณค่าทางสังคมที่สำคัญมากกว่าแค่สถิติ กีฬาสามารถสร้างแรงบันดาลใจให้กับบุคคลต่างๆ และรวมกลุ่มคนในชุมชนเข้าด้วยกัน เสริมสร้างสายสัมพันธ์ทางสังคมที่เชื่อมโยงสังคมเข้าด้วยกัน"
+        ],
+        "eval_method": "",
+        "hours": 5,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 0,
+            "score_p": 15,
+            "score_a": 0,
+            "score_total": 15
+          }
+        ],
+        "score_k": 0,
+        "score_p": 15,
+        "score_a": 0,
+        "score_total": 15
       }
     ],
     "indicators": [
@@ -38121,7 +38178,7 @@
     ],
     "is_scheduled_term2": true,
     "classrooms": "ม.5/1-11",
-    "midterm_cutoff": 1,
+    "midterm_cutoff": 3,
     "midExamScores": [
       15
     ],
@@ -38355,146 +38412,152 @@
       {
         "unit_no": "1",
         "unit_name": "สิ่งแวดล้อมดี ชีวีมีสุข",
-        "hours": 7,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [
-          "พ 4.1 ม.4-6/1",
-          "พ 4.1 ม.4-6/6",
-          "พ 4.1 ม.4-6/3",
-          "พ 5.1 ม.4-6/2"
-        ],
-        "kpis": [
-          "พ 4.1 ม.4-6/1 (ระหว่างทาง): วเิคราะห์บทบาทและความรบั ผิดชอบ ของบุคคลที่มีต่อการสร้างเสริมสุขภาพและการ ป้องกันโรคในชุมชน",
-          "พ 4.1 ม.4-6/6 (ปลายทาง): มีส่วนร่วมในการ ส่งเสริมและพัฒนาสุขภาพของบุคคล ในชุมชน"
-        ],
         "indicators": [
-          "พ 4.1 ม.4-6/1 (ระหว่างทาง): วเิคราะห์บทบาทและความรบั ผิดชอบ ของบุคคลที่มีต่อการสร้างเสริมสุขภาพและการ ป้องกันโรคในชุมชน",
-          "พ 4.1 ม.4-6/6 (ปลายทาง): มีส่วนร่วมในการ ส่งเสริมและพัฒนาสุขภาพของบุคคล ในชุมชน"
+          "ตัวชี้วัดระหว่างทาง พ 4.1 ม.4-6/1  วิเคราะห์บทบาทและความรับผิดชอบ ของบุคคลที่มีต่อการสร้างเสริมสุขภาพและการ ป้องกันโรคในชุมชน ตัวชี้วัดปลายทาง พ 4.1 ม.4-6/6  มีส่วนร่วมในการ ส่งเสริมและพัฒนาสุขภาพของบุคคล     ในชุมชน"
         ],
         "concepts": [
-          "การสร้างสิ่งแวดล้อมที่เอื้อต่อสุขภาพ เป็นหนึ่งในกิจกรรม เพื่อการสร้างเสริมสุขภาพ และป้องกันโรคในชุมชน ซึ่งเป็นหน้าที่และความรับผิดชอบของบุคคล และควรมีส่วนร่วม ในการอนุรักษ์ทรัพยากรธรรมชาติ และแก้ไขปัญหาสิ่งแวดล้อมในชุมชน เพื่อสุขภาพและคุณภาพชีวิตที่ดี"
+          "การสร้างสิ่งแวดล้อมที่เอื้อต่อสุขภาพ เป็นหนึ่งในกิจกรรม     เพื่อการสร้างเสริมสุขภาพ และป้องกันโรคในชุมชน ซึ่งเป็นหน้าที่และความรับผิดชอบของบุคคล และควรมีส่วนร่วม ในการอนุรักษ์ทรัพยากรธรรมชาติ และแก้ไขปัญหาสิ่งแวดล้อมในชุมชน เพื่อสุขภาพและคุณภาพชีวิตที่ดี"
         ],
-        "indicators_raw": [
-          "พ 4.1 ม.4-6/1 (ระหว่างทาง): วเิคราะห์บทบาทและความรบั ผิดชอบ ของบุคคลที่มีต่อการสร้างเสริมสุขภาพและการ ป้องกันโรคในชุมชน",
-          "พ 4.1 ม.4-6/6 (ปลายทาง): มีส่วนร่วมในการ ส่งเสริมและพัฒนาสุขภาพของบุคคล ในชุมชน",
-          "พ 4.1 ม.4-6/3 (ปลายทาง): ปฏิบัติตนตามสิทธิ ของผู้บริโภค",
-          "พ 5.1 ม.4-6/2 (ระหว่างทาง): วิเคราะห์ผลกระทบที่เกิดจากการ ครอบครอง การใช้และการจำหน่ายสารเสพติด"
-        ],
+        "eval_method": "",
+        "hours": 3,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 5,
+            "score_a": 5,
+            "score_total": 15
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 5,
+        "score_a": 5,
+        "score_total": 15
       },
       {
         "unit_no": "2",
         "unit_name": "สิทธิผู้บริโภค",
-        "hours": 2,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [
-          "พ 4.1 ม.4-6/3",
-          "พ 3.2 ม.4-6/1",
-          "พ 3.2 ม.4-6/2",
-          "พ 3.2 ม.4-6/3",
-          "พ 3.2 ม.4-6/4"
-        ],
-        "kpis": [
-          "พ 4.1 ม.4-6/3 (ปลายทาง): ปฏิบัติตนตามสิทธิ ของผู้บริโภค"
-        ],
         "indicators": [
-          "พ 4.1 ม.4-6/3 (ปลายทาง): ปฏิบัติตนตามสิทธิ ของผู้บริโภค"
+          "ตัวชี้วัดปลายทาง พ 4.1 ม.4-6/3 ปฏิบัติตนตามสิทธิ ของผู้บริโภค"
         ],
         "concepts": [
-          "สิทธิของบุคคลซึ่งเป็นผู้บริโภค ย่อมได้รับความคุ้มครองในการได้รับข้อมูลที่เป็นความจริง และมีสิทธิร้องเรียนเพื่อให้ได้รับการแก้ไขเยียวยา ความเสียหาย รวมทั้งมีสิทธิรวมตัวกันเพื่อพิทักษ์ สิทธิของผู้บริโภค"
+          "สิทธิของบุคคลซึ่งเป็นผู้บริโภค ย่อมได้รับความคุ้มครองในการได้รับข้อมูลที่เป็นความจริง       และมีสิทธิร้องเรียนเพื่อให้ได้รับการแก้ไขเยียวยา ความเสียหาย รวมทั้งมีสิทธิรวมตัวกันเพื่อพิทักษ์ สิทธิของผู้บริโภค"
         ],
-        "indicators_raw": [
-          "พ 3.2 ม.4-6/1 (ระหว่างทาง): ออกกำลังกายและเล่นกีฬาที่ เหมาะสมกับตนเองอย่างสม่ำเสมอ และใช้ความสามารถ ของตนเองเพิ่มศักยภาพของทีม ลดความเป็นตัวตน คำนึงถึงผลที่เกิดต่อสังคม",
-          "พ 3.2 ม.4-6/2 (ระหว่างทาง): อธิบายและปฏิบัติเกี่ยวกับสิทธิ กฎ กติกา กลวิธีต่าง ๆ ในระหว่างการเล่น การแข่งขัน กีฬากับผู้อื่นและนำไปสรุปเป็นแนวปฏิบัติและ ใช้ในชีวิตประจำวันอย่างต่อเนื่อง",
-          "พ 3.2 ม.4-6/3 (ระหว่างทาง): แสดงออกถึงการมีมารยาทในการดู การเล่น และการแข่งขันกีฬาด้วยความมีน้ำใจนักกีฬา และนำไปใช้ปฏิบัติทุกโอกาสจนเป็นบุคลิกภาพที่ดี",
-          "พ 3.2 ม.4-6/4 (ปลายทาง): รว่ มกิจกรรมทางกาย และเล่นกีฬาอย่างมีความสุข ชื่นชม ในคุณค่าและความงามของการกีฬา"
-        ],
+        "eval_method": "",
+        "hours": 1,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 2,
+            "score_a": 3,
+            "score_total": 10
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 2,
+        "score_a": 3,
+        "score_total": 10
       },
       {
         "unit_no": "3",
         "unit_name": "ผลกระทบจากสารเสพติด",
-        "hours": 9,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
-        "national_kpis": [
-          "พ 5.1 ม.4-6/2",
-          "พ 4.1 ม.4-6/5",
-          "พ 5.1 ม.4-6/4",
-          "พ 5.1 ม.4-6/5",
-          "พ 5.1 ม.4-6/6",
-          "พ 5.1 ม.4-6/7"
-        ],
-        "kpis": [
-          "พ 5.1 ม.4-6/2 (ระหว่างทาง): วิเคราะห์ผลกระทบที่เกิดจากการ ครอบครอง การใช้และการจำหน่ายสารเสพติด"
-        ],
         "indicators": [
-          "พ 5.1 ม.4-6/2 (ระหว่างทาง): วิเคราะห์ผลกระทบที่เกิดจากการ ครอบครอง การใช้และการจำหน่ายสารเสพติด"
+          "ตัวชี้วัดระหว่างทาง พ 5.1 ม.4-6/2 วิเคราะห์ผลกระทบ     ที่เกิดจากการ ครอบครอง การใช้และการจำหน่าย          สารเสพติด"
         ],
         "concepts": [
-          "ปัญหาสารเสพติดถือเป็นปัญหา ที่สำคัญที่จะส่งผลต่อชีวิตและอนาคต ไม่ว่าจะเกิดจาก การครอบครองการใช้ หรือ การจำหน่ายสารเสพติด ซึ่งเป็นสิ่งที่ผิดกฎหมาย ดังนั้นนักเรียน จึงควรป้องกันตนเองไม่ให้เข้าไปยุ่งเกี่ยวกับสารเสพติด"
+          "ปัญหาสารเสพติดถือเป็นปัญหา    ที่สำคัญที่จะส่งผลต่อชีวิตและอนาคต ไม่ว่าจะเกิดจาก การครอบครองการใช้ หรือ      การจำหน่ายสารเสพติด ซึ่งเป็นสิ่งที่ผิดกฎหมาย ดังนั้นนักเรียน      จึงควรป้องกันตนเองไม่ให้เข้าไปยุ่งเกี่ยวกับสารเสพติด"
         ],
-        "indicators_raw": [
-          "พ 4.1 ม.4-6/5 (ปลายทาง): วางแผนและปฏิบัติ ตามแผน การพัฒนาสุขภาพของตนเอง และครอบครัว",
-          "พ 5.1 ม.4-6/4 (ระหว่างทาง): วางแผน กำหนดแนวทางลดอุบัติเหตุ และสร้างเสริมความปลอดภัยในชุมชน",
-          "พ 5.1 ม.4-6/5 (ปลายทาง): มีส่วนร่วมในการ สร้างเสริมความปลอดภัยในชุมชน",
-          "พ 5.1 ม.4-6/6 (ปลายทาง): ใช้ทักษะการตัดสินใจ แก้ปัญหาในสถานการณ์ที่เสี่ยงต่อสุขภาพ และความรุนแรง",
-          "พ 5.1 ม.4-6/7 (ปลายทาง): แสดงวิธีการช่วยฟื้นคืนชีพ อย่างถูกวิธี"
-        ],
+        "eval_method": "",
+        "hours": 2,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 2,
+            "score_a": 3,
             "score_total": 10
-          },
+          }
+        ],
+        "score_k": 5,
+        "score_p": 2,
+        "score_a": 3,
+        "score_total": 10
+      },
+      {
+        "unit_no": "4",
+        "unit_name": "การช่วยฟื้นคืนชีพขั้นพื้นฐาน",
+        "indicators": [
+          "ตัวชี้วัดปลายทาง พ 5.1 ม.4-6/7 แสดงวิธีการช่วยฟื้น คืนชีพ อย่างถูกวิธี"
+        ],
+        "concepts": [
+          "วัยเด็กเป็นวัยที่มีพัฒนาการด้านร่างกายอย่างต่อเนื่อง โดยมักจะไม่อยู่นิ่ง ซุกซน มีพลังมากที่จะเคลื่อนไหวทำสิ่งต่างๆ ตามความต้องการ วัยเด็กจึงเป็นวัยที่มีความเสี่ยงจากการได้รับอุบัติเหตุ การศึกษาวิธีการช่วยฟื้นคืนชีพ   จึงเป็นวิธีหนึ่งที่จะช่วยลดปัญหาความสูญเสียชีวิตในเด็ก เพื่อให้เด็กเจริญเติบโตอย่างสมบูรณ์ ปลอดภัย ปราศจากอันตรายและมีสุขภาพดี เป็นกำลังสำคัญของสังคมและประเทศชาติต่อไป"
+        ],
+        "eval_method": "",
+        "hours": 2,
+        "assessments": [
           {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
+            "eval_methods": "",
+            "score_k": 3,
             "score_p": 5,
             "score_a": 2,
+            "score_total": 10
+          }
+        ],
+        "score_k": 3,
+        "score_p": 5,
+        "score_a": 2,
+        "score_total": 10
+      },
+      {
+        "unit_no": "5",
+        "unit_name": "การสร้างเสริมสมรรถภาพทางกาย",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง พ 3.1 ม.4-6/1  วิเคราะห์ความคิดรวบยอดเกี่ยวกับ          การเคลื่อนไหวรูปแบบต่าง ๆ ในการเล่นกีฬา พ 4.1 ม.4-6/7  วางแผนและปฏิบัติตามแผนการ พัฒนาสมรรถภาพกายและสมรรถภาพกลไก"
+        ],
+        "concepts": [
+          "การที่คนเราจะมีสุขภาพดี ควรมีการวางแผนในการสร้างเสริมสมรรถภาพทางกายที่สัมพันธ์กับสุขภาพและทักษะ เพื่อที่จะได้ทราบความสามารทางกายและทักษะทางกลไก รวมทั้งนำมาปรับปรุงและพัฒนาสมรรถภาพทางกายให้สูงขึ้น เป็นประโยชน์ต่อการดำเนินชีวิตประจำวันได้เป็นอย่างดี"
+        ],
+        "eval_method": "",
+        "hours": 3,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 0,
+            "score_p": 10,
+            "score_a": 0,
+            "score_total": 10
+          }
+        ],
+        "score_k": 0,
+        "score_p": 10,
+        "score_a": 0,
+        "score_total": 10
+      },
+      {
+        "unit_no": "6",
+        "unit_name": "กีฬา กีฬา เป็นยาวิเศษ",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง พ 3.1 ม.4-6/2  ใช้ความสามารถ      ของตน เพื่อเพิ่ม ศักยภาพของทีม คำนึงถึงผลที่เกิด       ต่อผู้อื่นและสังคม ตัวชี้วัดปลายทาง พ 3.1 ม.4-6/4  แสดงการเคลื่อนไหว ได้อย่างสร้างสรรค์ พ 3.1 ม.4-6/3  เล่นกีฬาไทย กีฬาสากล ประเภทบุคคล/คู่ กีฬาประเภททีม อย่างน้อย ๑ ชนิด พ 3.1 ม.4-6/5  เข้าร่วมกิจกรรม นันทนาการนอกโรงเรียน และนำหลักการ แนวคิดไปปรับปรุงและพัฒนาคุณภาพชีวิต ของตนและสังคม"
+        ],
+        "concepts": [
+          "กีฬาถือเป็นส่วนสำคัญของสังคม ไม่ว่าจะเป็นการให้ความบันเทิงหรือการรวมกลุ่มคนในชุมชน อุตสาหกรรมกีฬาก่อให้เกิดกิจกรรมทางเศรษฐกิจที่สำคัญและกระตุ้นการพัฒนาที่สร้างงานและส่งเสริมเมือง มีคุณค่าทางสังคมที่สำคัญมากกว่าแค่สถิติ กีฬาสามารถสร้างแรงบันดาลใจให้กับบุคคลต่างๆ และรวมกลุ่มคนในชุมชนเข้าด้วยกัน เสริมสร้างสายสัมพันธ์ทางสังคมที่เชื่อมโยงสังคมเข้าด้วยกัน"
+        ],
+        "eval_method": "",
+        "hours": 4,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 0,
+            "score_p": 15,
+            "score_a": 0,
             "score_total": 15
           }
-        ]
+        ],
+        "score_k": 0,
+        "score_p": 15,
+        "score_a": 0,
+        "score_total": 15
       }
     ],
     "indicators": [
@@ -38514,7 +38577,7 @@
     ],
     "is_scheduled_term2": true,
     "classrooms": "ม.6/1-11",
-    "midterm_cutoff": 2,
+    "midterm_cutoff": 3,
     "midExamScores": [
       8,
       7
@@ -41267,129 +41330,78 @@
     "units": [
       {
         "unit_no": "1",
-        "unit_name": "พื้นฐานและความรู้ทางวิทยาศาสตร์",
-        "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 1, 2"
-        ],
+        "unit_name": "ธรรมชาติของ วิทยาศาสตร์ และ เทคโนโลยี",
         "indicators": [
-          "ข้อ 1, 2"
+          "ผลการเรียนรู้ที่ 1 ผลการเรียนรู้ที่ 2 ผลการเรียนรู้ที่ 3"
         ],
         "concepts": [
-          "ความหมายของวิทยาศาสตร์และการทดลองเพื่อให้ได้มาซึ่งความรู้"
+          "วิทยาศาสตร์ คือ ความรู้เกี่ยวกับ สิ่งต่าง ๆ ในธรรมชาติที่สะสม รวบรวมไว้อย่างมีระบบโดยผ่าน การค้นคว้าหาความรู้อย่างเป็น ระบบและมีขั้นตอนทดสอบและ เป็นวิชาที่ค้นหาความจริงเกี่ยวกับวัตถุเหตุการณ์และปรากฏการณ์ธรรมชาติ  โดยอาศัยวิธีการทักษะ กระบวนการและเจตคติทาง วิทยาศาสตร์ วิทยาศาสตร์แบ่งเป็น 2 ประเภท คือวิทยาศาสตร์บริสุทธิ์ และวิทยาศาสตร์ประยุกต์"
         ],
+        "eval_method": "",
+        "hours": 14,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "eval_methods": "",
+            "score_k": 12,
+            "score_p": 8,
+            "score_a": 5,
+            "score_total": 25
           }
-        ]
+        ],
+        "score_k": 12,
+        "score_p": 8,
+        "score_a": 5,
+        "score_total": 25
       },
       {
         "unit_no": "2",
-        "unit_name": "กระบวนการทำงานทางวิทยาศาสตร์",
-        "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 3, 4"
-        ],
+        "unit_name": "การใช้อุปกรณ์ ทางวิทยา- ศาสตร์",
         "indicators": [
-          "ข้อ 3, 4"
+          "ผลการเรียนรู้ที่ 4 ผลการเรียนรู้ที่ 5"
         ],
         "concepts": [
-          "ขั้นตอนการทำงานและทักษะการปฏิบัติกิจกรรมอย่างเป็นระบบ"
+          "อุปกรณ์ทางวิทยาศาสตร์ คือ เครื่องมือที่ใช้ทั้งภายในและ ภายนอกห้องปฏิบัติการ เพื่อใช้ทดลองและหาคำตอบต่างๆทางวิทยาศาสตร์"
         ],
+        "eval_method": "",
+        "hours": 12,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "eval_methods": "",
+            "score_k": 10,
+            "score_p": 10,
+            "score_a": 2,
+            "score_total": 22
           }
-        ]
+        ],
+        "score_k": 10,
+        "score_p": 10,
+        "score_a": 2,
+        "score_total": 22
       },
       {
         "unit_no": "3",
-        "unit_name": "ทักษะการใช้เครื่องมือและอุปกรณ์",
-        "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 5, 6"
-        ],
+        "unit_name": "วิทยาศาสตร์ กับการแก้ ปัญหา",
         "indicators": [
-          "ข้อ 5, 6"
+          "ผลการเรียนรู้ที่ 6 ผลการเรียนรู้ที่ 7"
         ],
         "concepts": [
-          "วิธีการใช้ การเก็บรักษา และข้อควรระวังในการใช้อุปกรณ์วิทยาศาสตร์"
+          "ในชีวิตประจำวันทุกคนจะต้องเคยพบกับการแก้ปัญหาต่างๆ ในทาง วิทยาศาสตร์เราใช้วิธีทางวิทยา ศาสตร์เพื่อแก้ปัญหาและหาคำตอบของปัญหานั้น ๆ"
         ],
+        "eval_method": "",
+        "hours": 12,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "eval_methods": "",
+            "score_k": 10,
+            "score_p": 10,
+            "score_a": 3,
+            "score_total": 23
           }
-        ]
-      },
-      {
-        "unit_no": "4",
-        "unit_name": "การแก้ปัญหาและแบบจำลอง",
-        "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 7"
         ],
-        "indicators": [
-          "ข้อ 7"
-        ],
-        "concepts": [
-          "การออกแบบ การสร้างแบบจำลอง และการแก้ปัญหาจากสถานการณ์"
-        ],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
+        "score_k": 10,
+        "score_p": 10,
+        "score_a": 3,
+        "score_total": 23
       }
     ],
     "indicators": [
@@ -41443,129 +41455,78 @@
     "units": [
       {
         "unit_no": "1",
-        "unit_name": "พื้นฐานทักษะกระบวนการ",
-        "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 1"
-        ],
+        "unit_name": "ทักษะพื้นฐาน ทางวิทยา ศาสตร์",
         "indicators": [
-          "ข้อ 1"
+          "ผลการเรียนรู้ที่ 1"
         ],
         "concepts": [
-          "การสังเกต การวัด การจำแนกประเภท และการสื่อความหมายข้อมูลอย่างถูกต้อง"
+          "ทักษะพื้นฐานทางวิทยาศาสตร์หมายถึงพฤติกรรมที่เกิดจากการคิด และปฏิบัติการทางวิทยาศาสตร์ ที่นำมาใช้ในการศึกษาค้นคว้า สืบเสาะหาความรู้ และแก้ปัญหา ต่างๆ อย่างชำนาญ ทักษะกระบวน การทางวิทยาศาสตร์ขั้นพื้นฐาน  มี 8 ทักษะ"
         ],
+        "eval_method": "",
+        "hours": 12,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
+            "eval_methods": "",
             "score_k": 8,
-            "score_p": 5,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 12
           }
-        ]
+        ],
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 12
       },
       {
         "unit_no": "2",
-        "unit_name": "มิติสัมพันธ์และตัวแปร",
-        "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 1, 2"
-        ],
+        "unit_name": "ขั้นตอนของ ทักษะพื้นฐานทางวิทยา ศาสตร์",
         "indicators": [
-          "ข้อ 1, 2"
+          "ผลการเรียนรู้ที่ 2"
         ],
         "concepts": [
-          "ความสัมพันธ์สเปสกับเวลา การพยากรณ์ การกำหนดและควบคุมตัวแปร"
+          "ทักษะทางวิทยาศาสตร์ หมายถึง  ความสามารถและความชำนาญในการคิดเพื่อค้นหาความรู้แก้ปัญหา ต่าง ๆ และปฏิบัติการทาง วิทยาศาสตร์ที่นำมาใช้ในการศึกษาค้นคว้าสืบเสาะหาความรู้และแก้ ปัญหาต่าง ๆ อย่างชำนาญ ทักษะกระบวนการทาง วิทยาศาสตร์ มี 13 ทักษะ"
         ],
+        "eval_method": "",
+        "hours": 10,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "eval_methods": "",
+            "score_k": 18,
+            "score_p": 10,
+            "score_a": 5,
+            "score_total": 33
           }
-        ]
+        ],
+        "score_k": 18,
+        "score_p": 10,
+        "score_a": 5,
+        "score_total": 33
       },
       {
         "unit_no": "3",
-        "unit_name": "การออกแบบการทดลอง",
-        "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 1, 2, 3"
-        ],
+        "unit_name": "ฝึกปฏิบัติการ ใช้ทักษะ พื้นฐานทาง วิทยาศาสตร์",
         "indicators": [
-          "ข้อ 1, 2, 3"
+          "ผลการเรียนรู้ที่ 3"
         ],
         "concepts": [
-          "การตั้งสมมติฐาน การนิยามเชิงปฏิบัติการ และการออกแบบชุดการทดลอง"
+          "ทักษะกระบวนการทาง วิทยาศาสตร์ขั้นบูรณาการเป็น ทักษะขั้นสูงที่มีความซับซ้อน มากขึ้น เพื่อแสวงหาความรู้ โดยใช้ทักษะกระบวนการทาง วิทยาศาสตร์ขั้นพื้นฐาน เป็นฐานในการพัฒนา"
         ],
+        "eval_method": "",
+        "hours": 16,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "eval_methods": "",
+            "score_k": 14,
+            "score_p": 8,
+            "score_a": 3,
+            "score_total": 25
           }
-        ]
-      },
-      {
-        "unit_no": "4",
-        "unit_name": "ปฏิบัติการวิทย์ในท้องถิ่น",
-        "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
-        "national_kpis": [],
-        "kpis": [
-          "ข้อ 3, 4"
         ],
-        "indicators": [
-          "ข้อ 3, 4"
-        ],
-        "concepts": [
-          "การทดลอง การสรุปผล และการใช้ทักษะแก้ปัญหาหรืออนุรักษ์ทรัพยากรท้องถิ่น"
-        ],
-        "assessments": [
-          {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          }
-        ]
+        "score_k": 14,
+        "score_p": 8,
+        "score_a": 3,
+        "score_total": 25
       }
     ],
     "indicators": [
@@ -42607,10 +42568,10 @@
         "unit_no": "1",
         "unit_name": "แรงต่างๆในชีวิตประจำวัน",
         "hours": 4,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 15,
+        "score_p": 5,
+        "score_a": 5,
+        "score_total": 25,
         "national_kpis": [
           "ว 2.2 ม.2/2",
           "ว 2.2 ม.2/1",
@@ -42670,10 +42631,38 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 3,
+            "score_p": 1,
             "score_a": 1,
-            "score_total": 10
+            "score_total": 5
+          },
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 1,
+            "score_a": 1,
+            "score_total": 5
+          },
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 1,
+            "score_a": 1,
+            "score_total": 5
+          },
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 1,
+            "score_a": 1,
+            "score_total": 5
+          },
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 1,
+            "score_a": 1,
+            "score_total": 5
           }
         ]
       },
@@ -42681,10 +42670,10 @@
         "unit_no": "2",
         "unit_name": "การเคลื่อนที่ของวัตถุ",
         "hours": 16,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 5,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [
           "ว 2.2 ม.2/15",
           "ว 2.2 ม.2/14",
@@ -42717,10 +42706,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -42728,10 +42717,10 @@
         "unit_no": "3",
         "unit_name": "โครงสร้างโลกและ ทรัพยากร ธรรมชาติ",
         "hours": 9,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 15,
+        "score_p": 6,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [
           "ว 3.2 ม.2/4",
           "ว 3.2 ม.2/5",
@@ -42776,10 +42765,17 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 10,
+            "score_p": 3,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -42787,10 +42783,10 @@
         "unit_no": "4",
         "unit_name": "เชื้อเพลิงซากดึกดำบรรพ์",
         "hours": 29,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
+        "score_k": 5,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 10,
         "national_kpis": [
           "ว 3.2 ม.2/2",
           "ว 3.2 ม.2/1",
@@ -42825,24 +42821,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       }
@@ -42876,7 +42858,7 @@
     ],
     "is_scheduled_term2": true,
     "classrooms": "ม.2/1-7",
-    "midterm_cutoff": 3,
+    "midterm_cutoff": 2,
     "midExamScores": [
       5,
       5,
@@ -43118,10 +43100,10 @@
         "unit_no": "1",
         "unit_name": "การดำเนิน งานจัดทำ โครงงาน",
         "hours": 19,
-        "score_k": 20,
-        "score_p": 11,
+        "score_k": 9,
+        "score_p": 9,
         "score_a": 4,
-        "score_total": 35,
+        "score_total": 22,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 1: ศึกษา สำรวจเอกสาร หรือแหล่งข้อมูลที่เกี่ยงข้องกับโครงงานวิทยาศาสตร์ได้"
@@ -43135,24 +43117,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 9,
+            "score_p": 9,
+            "score_a": 4,
+            "score_total": 22
           }
         ]
       },
@@ -43160,10 +43128,10 @@
         "unit_no": "2",
         "unit_name": "อภิปรายโครงงานวิทยา ศาสตร์",
         "hours": 12,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 10,
+        "score_p": 9,
+        "score_a": 4,
+        "score_total": 23,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 3: การวิเคราะห์และอภิปรายผลการการจัดทำโครงงานวิทยาศาสตร์"
@@ -43177,17 +43145,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 10,
+            "score_p": 9,
+            "score_a": 4,
+            "score_total": 23
           }
         ]
       },
@@ -43196,9 +43157,9 @@
         "unit_name": "การนำเสนอ โครงงาน",
         "hours": 7,
         "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_p": 13,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 4: จัดทำโครงงานวิทยาศาสตร์และสามารถนำเสนอผลงานได้ รวม 4 ผลการเรียนรู้"
@@ -43213,9 +43174,9 @@
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
             "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_p": 13,
+            "score_a": 4,
+            "score_total": 25
           }
         ]
       }
@@ -43445,8 +43406,8 @@
         "unit_no": "1",
         "unit_name": "เขียน เค้าโครง งานวิจัย",
         "hours": 11,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 10,
+        "score_p": 8,
         "score_a": 2,
         "score_total": 20,
         "national_kpis": [],
@@ -43462,15 +43423,15 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 5,
+            "score_p": 4,
             "score_a": 1,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 5,
+            "score_p": 4,
             "score_a": 1,
             "score_total": 10
           }
@@ -43480,9 +43441,9 @@
         "unit_no": "2",
         "unit_name": "ลงมือทำวิจัย",
         "hours": 8,
-        "score_k": 8,
+        "score_k": 10,
         "score_p": 5,
-        "score_a": 2,
+        "score_a": 0,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -43497,9 +43458,9 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
+            "score_k": 10,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 0,
             "score_total": 15
           }
         ]
@@ -43508,10 +43469,10 @@
         "unit_no": "3",
         "unit_name": "เขียนรายงานและนำเสนอผลงานวิจัย",
         "hours": 14,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 15,
+        "score_p": 7,
+        "score_a": 3,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 3"
@@ -43525,16 +43486,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 10,
+            "score_p": 5,
+            "score_a": 0,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 5,
+            "score_p": 2,
+            "score_a": 3,
             "score_total": 10
           }
         ]
@@ -43543,10 +43504,10 @@
         "unit_no": "4",
         "unit_name": "คุณค่าของการเรียนรู้โลก ทั้งระบบ",
         "hours": 5,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 5,
+        "score_p": 0,
+        "score_a": 5,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 4"
@@ -43560,10 +43521,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 5,
+            "score_p": 0,
+            "score_a": 5,
+            "score_total": 10
           }
         ]
       }
@@ -45691,8 +45652,8 @@
         "unit_no": "1",
         "unit_name": "มหัศจรรย์สารสกัดและน้ำมันสมุนไพร",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
         "score_total": 15,
         "national_kpis": [],
@@ -45708,8 +45669,8 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 10,
+            "score_p": 3,
             "score_a": 2,
             "score_total": 15
           }
@@ -45719,10 +45680,10 @@
         "unit_no": "2",
         "unit_name": "ศาสตร์แห่งสบู่และสีสันธรรมชาติ",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 10,
+        "score_p": 11,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "ข้อ 1, 4, 6"
@@ -45736,17 +45697,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 10,
+            "score_p": 11,
+            "score_a": 4,
+            "score_total": 25
           }
         ]
       },
@@ -45754,10 +45708,10 @@
         "unit_no": "3",
         "unit_name": "นวัตกรรมบำรุงผิวจากธรรมชาติ",
         "hours": 11,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ข้อ 1, 5"
@@ -45771,17 +45725,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 10,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -45789,8 +45736,8 @@
         "unit_no": "4",
         "unit_name": "คุณภาพ ความปลอดภัย และมูลค่าท้องถิ่น",
         "hours": 8,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
         "score_total": 15,
         "national_kpis": [],
@@ -45806,8 +45753,8 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 10,
+            "score_p": 3,
             "score_a": 2,
             "score_total": 15
           }
@@ -47746,10 +47693,10 @@
         "unit_no": "1",
         "unit_name": "สมดุลกล",
         "hours": 20,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 13,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 18,
         "national_kpis": [],
         "kpis": [
           "1. อธิบายสมดุลกลของวัตถุ โมเมนต์ และผลรวมของโมเมนต์ที่มีต่อการหมุน แรงคู่ควบและผลของแรงคู่ควบที่มีต่อสมดุลของวัตถุ เขียนแผนภาพของแรงที่กระทำต่อวัตถุอิสระเมื่อวัตถุอยู่ในสมดุลกล และคำนวณปริมาณต่าง ๆที่เกี่ยวข้อง รวมทั้งทดลองและอธิบายสมดุลของแรงสามแรง 2. สังเกตและอธิบายสภาพการเคลื่อนที่ของวัตถุ เมื่อแรงที่กระทำต่อวัตถุผ่านศูนย์กลางมวลของวัตถุ และผลของของศูนย์ถ่วงที่มีต่อเสถียรภาพของวัตถุ"
@@ -47763,17 +47710,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 13,
+            "score_p": 4,
             "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_total": 18
           }
         ]
       },
@@ -47781,10 +47721,10 @@
         "unit_no": "2",
         "unit_name": "งานและพลังงาน",
         "hours": 19,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 13,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 18,
         "national_kpis": [],
         "kpis": [
           "3. วิเคราะห์และคำนวณงานของแรงคงตัว จากสมการและพื้นที่ใต้กราฟความสัมพันธ์ระหว่างแรงกับตำแหน่ง รวมทั้งอธิบายและคำนวณกำลังเฉลี่ย 4. อธิบาย และคำนวณพลังงานจลน์ พลังงานศักย์ พลังงานกล ทดลองหาความสัมพันธ์ระหว่างงานกับ พลังงานจลน์ ความสัมพันธ์ระหว่างงานกับพลังงานศักย์โน้มถ่วง ความสัมพันธ์ระหว่างขนาดของแรงที่ใช้ดึงสปริงกับระยะที่สปริงยืดออกและความสัมพันธ์ระหว่างงานกับพลังงานศักย์ยืดหยุ่น รวมทั้งอธิบายความสัมพันธ์ระหว่างงานของแรงลัพธ์และพลังงานจลน์ และคำนวณงานที่เกิดขึ้นจากแรงลัพธ์ 5. อธิบายกฎการอนุรักษ์พลังงานกล รวมทั้งวิเคราะห์ และคำนวณปริมาณต่าง ๆ ที่เกี่ยวข้องกับการเคลื่อนที่ของวัตถุในสถานการณ์ต่าง ๆ โดยใช้กฎการอนุรักษ์พลังงานกล 6. อธิบายการทำงาน ประสิทธิภาพและการได้เปรียบเชิงกลของเครื่องกลอย่างง่ายบางชนิด โดยใช้ความรู้เรื่องงานและสมดุลกล รวมทั้งคำนวณประสิทธิภาพและการได้เปรียบเชิงกล"
@@ -47798,10 +47738,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 13,
+            "score_p": 4,
+            "score_a": 1,
+            "score_total": 18
           }
         ]
       },
@@ -47809,10 +47749,10 @@
         "unit_no": "3",
         "unit_name": "โมเมนตัมและการชน",
         "hours": 19,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 12,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 17,
         "national_kpis": [],
         "kpis": [
           "7. อธิบาย และคำนวณ โมเมนตัมของวัตถุ และการดลจากสมการและพื้นที่ใต้กราฟความสัมพันธ์ระหว่างแรงลัพธ์กับเวลา รวมทั้งอธิบายความสัมพันธ์ระหว่างแรงดลกับโมเมนตัม 8. ทดลอง อธิบาย และคำนวณปริมาณต่าง ๆ ที่เกี่ยวกับการชนของวัตถุในหนึ่งมิติ ทั้งแบบยืดหยุ่น ไม่ยืดหยุ่น และการดีดตัวแยกจากกันในหนึ่งมิติซึ่งเป็นไปตามกฎการอนุรักษ์โมเมนตัม"
@@ -47826,10 +47766,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 12,
+            "score_p": 4,
+            "score_a": 1,
+            "score_total": 17
           }
         ]
       },
@@ -47838,9 +47778,9 @@
         "unit_name": "การเคลื่อนที่แบบต่าง ๆ",
         "hours": 20,
         "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 17,
         "national_kpis": [],
         "kpis": [
           "9. อธิบาย วิเคราะห์ และคำนวณปริมาณต่าง ๆ ที่เกี่ยวข้องกับการเคลื่อนที่แบบโพรเจกไทล์ และทดลองการเคลื่อนที่แบบโพรเจกไทล์ 10. ทดลอง และอธิบายความสัมพันธ์ระหว่างแรงสู่ศูนย์กลาง รัศมีของการเคลื่อนที่ อัตราเร็วเชิงเส้น อัตราเร็วเชิงมุม และมวลของวัตถุ ในการเคลื่อนที่แบบวงกลมในระนาบระดับ รวมทั้งคำนวณปริมาณต่าง ๆ ที่เกี่ยวข้อง และประยุกต์ใช้ความรู้การเคลื่อนที่แบบวงกลม ในการอธิบายการโคจรของดาวเทียม"
@@ -47854,17 +47794,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 12,
+            "score_p": 4,
             "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_total": 17
           }
         ]
       }
@@ -48529,10 +48462,10 @@
         "unit_no": "1",
         "unit_name": "สมดุลกล",
         "hours": 15,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 13,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 18,
         "national_kpis": [],
         "kpis": [
           "1. อธิบายสมดุลกลของวัตถุ โมเมนต์ และผลรวมของโมเมนต์ที่มีต่อการหมุน แรงคู่ควบและผลของแรงคู่ควบที่มีต่อสมดุลของวัตถุ เขียนแผนภาพของแรงที่กระทำต่อวัตถุอิสระเมื่อวัตถุอยู่ในสมดุลกล และคำนวณปริมาณต่าง ๆที่เกี่ยวข้อง รวมทั้งทดลองและอธิบายสมดุลของแรงสามแรง 2. สังเกตและอธิบายสภาพการเคลื่อนที่ของวัตถุ เมื่อแรงที่กระทำต่อวัตถุผ่านศูนย์กลางมวลของวัตถุ และผลของของศูนย์ถ่วงที่มีต่อเสถียรภาพของวัตถุ"
@@ -48546,17 +48479,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 13,
+            "score_p": 4,
             "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_total": 18
           }
         ]
       },
@@ -48564,10 +48490,10 @@
         "unit_no": "2",
         "unit_name": "งานและพลังงาน",
         "hours": 14,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 13,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 18,
         "national_kpis": [],
         "kpis": [
           "3. วิเคราะห์และคำนวณงานของแรงคงตัว จากสมการและพื้นที่ใต้กราฟความสัมพันธ์ระหว่างแรงกับตำแหน่ง รวมทั้งอธิบายและคำนวณกำลังเฉลี่ย 4. อธิบาย และคำนวณพลังงานจลน์ พลังงานศักย์ พลังงานกล ทดลองหาความสัมพันธ์ระหว่างงานกับ พลังงานจลน์ ความสัมพันธ์ระหว่างงานกับพลังงานศักย์โน้มถ่วง ความสัมพันธ์ระหว่างขนาดของแรงที่ใช้ดึงสปริงกับระยะที่สปริงยืดออกและความสัมพันธ์ระหว่างงานกับพลังงานศักย์ยืดหยุ่น รวมทั้งอธิบายความสัมพันธ์ระหว่างงานของแรงลัพธ์และพลังงานจลน์ และคำนวณงานที่เกิดขึ้นจากแรงลัพธ์ 5. อธิบายกฎการอนุรักษ์พลังงานกล รวมทั้งวิเคราะห์ และคำนวณปริมาณต่าง ๆ ที่เกี่ยวข้องกับการเคลื่อนที่ของวัตถุในสถานการณ์ต่าง ๆ โดยใช้กฎการอนุรักษ์พลังงานกล 6. อธิบายการทำงาน ประสิทธิภาพและการได้เปรียบเชิงกลของเครื่องกลอย่างง่ายบางชนิด โดยใช้ความรู้เรื่องงานและสมดุลกล รวมทั้งคำนวณประสิทธิภาพและการได้เปรียบเชิงกล"
@@ -48581,10 +48507,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 13,
+            "score_p": 4,
+            "score_a": 1,
+            "score_total": 18
           }
         ]
       },
@@ -48593,9 +48519,9 @@
         "unit_name": "โมเมนตัมและการชน",
         "hours": 16,
         "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 17,
         "national_kpis": [],
         "kpis": [
           "7. อธิบาย และคำนวณ โมเมนตัมของวัตถุ และการดลจากสมการและพื้นที่ใต้กราฟความสัมพันธ์ระหว่างแรงลัพธ์กับเวลา รวมทั้งอธิบายความสัมพันธ์ระหว่างแรงดลกับโมเมนตัม 8. ทดลอง อธิบาย และคำนวณปริมาณต่าง ๆ ที่เกี่ยวกับการชนของวัตถุในหนึ่งมิติ ทั้งแบบยืดหยุ่น ไม่ยืดหยุ่น และการดีดตัวแยกจากกันในหนึ่งมิติซึ่งเป็นไปตามกฎการอนุรักษ์โมเมนตัม"
@@ -48609,17 +48535,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 12,
+            "score_p": 4,
             "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_total": 17
           }
         ]
       },
@@ -48627,10 +48546,10 @@
         "unit_no": "4",
         "unit_name": "การเคลื่อนที่แบบต่าง ๆ",
         "hours": 13,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 12,
+        "score_p": 4,
+        "score_a": 1,
+        "score_total": 17,
         "national_kpis": [],
         "kpis": [
           "9. อธิบาย วิเคราะห์ และคำนวณปริมาณต่าง ๆ ที่เกี่ยวข้องกับการเคลื่อนที่แบบโพรเจกไทล์ และทดลองการเคลื่อนที่แบบโพรเจกไทล์ 10. ทดลอง และอธิบายความสัมพันธ์ระหว่างแรงสู่ศูนย์กลาง รัศมีของการเคลื่อนที่ อัตราเร็วเชิงเส้น อัตราเร็วเชิงมุม และมวลของวัตถุ ในการเคลื่อนที่แบบวงกลมในระนาบระดับ รวมทั้งคำนวณปริมาณต่าง ๆ ที่เกี่ยวข้อง และประยุกต์ใช้ความรู้การเคลื่อนที่แบบวงกลม ในการอธิบายการโคจรของดาวเทียม"
@@ -48644,10 +48563,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 12,
+            "score_p": 4,
+            "score_a": 1,
+            "score_total": 17
           }
         ]
       }
@@ -50257,9 +50176,9 @@
         "unit_no": "1",
         "unit_name": "ปฏิบัติการเกี่ยวกับชีววิทยา",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_k": 4,
+        "score_p": 8,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -50274,10 +50193,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
+            "score_k": 3,
             "score_p": 5,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 1,
+            "score_p": 3,
+            "score_a": 1,
+            "score_total": 5
           }
         ]
       },
@@ -50285,10 +50211,10 @@
         "unit_no": "2",
         "unit_name": "ปฏิบัติการเกี่ยวกับฟิสิกส์",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 4,
+        "score_p": 8,
+        "score_a": 3,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ข้อ 1"
@@ -50302,17 +50228,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 3,
+            "score_p": 5,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
+            "score_k": 1,
             "score_p": 3,
             "score_a": 1,
-            "score_total": 10
+            "score_total": 5
           }
         ]
       },
@@ -50320,9 +50246,9 @@
         "unit_no": "3",
         "unit_name": "ปฏิบัติการเกี่ยวกับเคมี",
         "hours": 7,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_k": 4,
+        "score_p": 8,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -50337,10 +50263,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
+            "score_k": 3,
             "score_p": 5,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 1,
+            "score_p": 3,
+            "score_a": 1,
+            "score_total": 5
           }
         ]
       },
@@ -50348,10 +50281,10 @@
         "unit_no": "4",
         "unit_name": "การนำเสนอผลงานนวัตกรรม",
         "hours": 12,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 7,
+        "score_p": 13,
+        "score_a": 5,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "ข้อ 2 - 5"
@@ -50365,16 +50298,23 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 1,
             "score_p": 3,
             "score_a": 1,
-            "score_total": 10
+            "score_total": 5
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 3,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 5,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -52899,10 +52839,10 @@
         "unit_no": "1",
         "unit_name": "The 100-Year Mystery",
         "hours": 6,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 1: อธิบายกลไกทางชีววิทยา ที่เกี่ยวข้องกับการชะลอวัย (Longevity) และปัจจัยทางโภชนาการที่ส่งผลต่อการทำงานของเซลล์ได้ วิเคราะห์ความสัมพันธ์ ระหว่างโครงสร้างโมเลกุลของสารอาหารกับค่าดัชนีน้ำตาล (GI) และผลกระทบต่อสุขภาพอย่างเป็นระบบได้ ออกแบบและปฏิบัติการทดลอง ทางวิทยาศาสตร์อาหารและจุลชีววิทยาอย่างง่าย โดยใช้ตัวแปรที่เหมาะสมและเครื่องมือที่มีในท้องถิ่นได้ สกัดและทดสอบสมบัติทางชีวภาพ ของสมุนไพรหรือวัตถุดิบในท้องถิ่นที่มีผลต่อการส่งเสริมสุขภาพและชะลอวัยได้ สร้างสรรค์แนวคิดหรือต้นแบบนวัตกรรมอาหาร/ผลิตภัณฑ์สุขภาพ (Prototype) ที่มีพื้นฐานมาจากกระบวนการทางวิทยาศาสตร์เพื่อตอบโจทย์วิถีชีวิตแบบ Blue Zone ได้ สื่อสารและนำเสนอข้อมูลทางวิทยาศาสตร์ ให้ผู้อื่นเข้าใจได้ง่ายและน่าสนใจผ่านสื่อดิจิทัลหรือการนำเสนอเชิงประจักษ์ รวม 6 ผลการเรียนรู้"
@@ -52916,10 +52856,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 7,
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 15
           }
         ]
       },
@@ -52927,9 +52867,9 @@
         "unit_no": "2",
         "unit_name": "Fuel for longevity",
         "hours": 9,
-        "score_k": 8,
+        "score_k": 7,
         "score_p": 5,
-        "score_a": 2,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -52944,9 +52884,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
+            "score_k": 7,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 3,
             "score_total": 15
           }
         ]
@@ -52955,10 +52895,10 @@
         "unit_no": "3",
         "unit_name": "Gut Health: The second brain",
         "hours": 4,
-        "score_k": 6,
+        "score_k": 7,
         "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_a": 5,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 3"
@@ -52972,10 +52912,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 7,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 5,
+            "score_total": 15
           }
         ]
       },
@@ -52983,10 +52923,10 @@
         "unit_no": "4",
         "unit_name": "Anti-aging herbs",
         "hours": 6,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 5,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 4"
@@ -53000,10 +52940,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -53011,10 +52951,10 @@
         "unit_no": "5",
         "unit_name": "Blue Zone Innovation",
         "hours": 13,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 7,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 5",
@@ -53030,17 +52970,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 2,
+            "score_p": 2,
             "score_a": 1,
-            "score_total": 10
+            "score_total": 5
           }
         ]
       }
@@ -80996,8 +80936,8 @@
         "unit_no": "1",
         "unit_name": "วิถีพลเมืองและการสื่อสารดิจิทัล",
         "hours": 8,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
         "score_total": 15,
         "national_kpis": [],
@@ -81013,8 +80953,8 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 10,
+            "score_p": 3,
             "score_a": 2,
             "score_total": 15
           }
@@ -81024,10 +80964,10 @@
         "unit_no": "2",
         "unit_name": "รอบรู้กฎหมายและภัยไซเบอร์",
         "hours": 11,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 7,
+        "score_p": 2,
+        "score_a": 1,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "อธิบายหลักการเบื้องต้นของ พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์ และทรัพย์สินทางปัญญา"
@@ -81041,15 +80981,8 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
+            "score_k": 7,
+            "score_p": 2,
             "score_a": 1,
             "score_total": 10
           }
@@ -81059,10 +80992,10 @@
         "unit_no": "3",
         "unit_name": "ฉลาดสืบค้น รู้เท่าทันสื่อ",
         "hours": 5,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 3,
+        "score_p": 10,
+        "score_a": 2,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "วิเคราะห์ลักษณะของข่าวปลอม (Fake News) และวิธีการตรวจสอบความถูกต้องของข้อมูล"
@@ -81076,10 +81009,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 3,
+            "score_p": 10,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -81087,10 +81020,10 @@
         "unit_no": "4",
         "unit_name": "ก้าวแรกสู่โลกดิจิทัลอย่างสร้างสรรค์",
         "hours": 4,
-        "score_k": 3,
-        "score_p": 1,
+        "score_k": 7,
+        "score_p": 2,
         "score_a": 1,
-        "score_total": 5,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "ประยุกต์ใช้เครื่องมือดิจิทัลในการสืบค้น คัดกรอง และอ้างอิงแหล่งที่มาของข้อมูลอย่างถูกต้อง"
@@ -81104,10 +81037,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 3,
-            "score_p": 1,
+            "score_k": 7,
+            "score_p": 2,
             "score_a": 1,
-            "score_total": 5
+            "score_total": 10
           }
         ]
       },
@@ -81116,8 +81049,8 @@
         "unit_name": "ฉลาดค้น รู้เท่าทันสื่อ",
         "hours": 5,
         "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
+        "score_p": 2,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -81133,8 +81066,8 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_p": 2,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -81144,8 +81077,8 @@
         "unit_name": "เกราะคุ้มกันภัยและกฎหมายไซเบอร์",
         "hours": 5,
         "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
+        "score_p": 2,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -81161,8 +81094,8 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_p": 2,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -82468,249 +82401,228 @@
     "units": [
       {
         "unit_no": "1",
-        "unit_name": "พิกัดภูมิศาสตร์ และเวลาของโลก",
-        "hours": 4,
-        "score_k": 3,
-        "score_p": 1,
-        "score_a": 1,
-        "score_total": 5,
-        "national_kpis": [
-          "ส 5.1 ม.1/2",
-          "ส 3.1 ม.1/1",
-          "ส 5.1 ม.1/1"
-        ],
-        "kpis": [
-          "ส 5.1 ม.1/2 (ระหว่างทาง): อธิบายพิกัดภูมิศาสตร์ (ละติจูด และ ลองจิจูด) เส้นแบ่งเวลา และเปรียบเทียบวัน เวลาของโลก",
-          "ส 3.1 ม.1/1 (ระหว่างทาง): อธิบายความหมายและความสำคัญ ของเศรษฐศาสตร์",
-          "ส 3.1 ม.1/1 (ระหว่างทาง): อธิบายความหมายและความสำคัญ ของเศรษฐศาสตร์"
-        ],
+        "unit_name": "สาระภูมิศาสตร์: พิกัดภูมิศาสตร์ และเวลาของโลก",
         "indicators": [
-          "ส 5.1 ม.1/2 (ระหว่างทาง): อธิบายพิกัดภูมิศาสตร์ (ละติจูด และ ลองจิจูด) เส้นแบ่งเวลา และเปรียบเทียบวัน เวลาของโลก",
-          "ส 3.1 ม.1/1 (ระหว่างทาง): อธิบายความหมายและความสำคัญ ของเศรษฐศาสตร์",
-          "ส 3.1 ม.1/1 (ระหว่างทาง): อธิบายความหมายและความสำคัญ ของเศรษฐศาสตร์"
+          "ตัวชี้วัดระหว่างทาง ส 5.1 ม.1/2 อธิบายพิกัดภูมิศาสตร์ (ละติจูด และลองจิจูด) เส้นแบ่งเวลา และเปรียบเทียบวัน เวลาของโลก"
         ],
         "concepts": [
-          "พิกัดภูมิศาสตร์เป็นระบบบอกตำแหน่งที่ตั้งของ สิ่งต่าง ๆ บนพื้นโลก โดยอ้างอิงตำแหน่งเป็นละติจูดและลองจิจูด โดยมีค่าตำแหน่งตามละติจูดและลองจิจูดที่ตัดกันเป็นค่าพิกัดภูมิศาสตร์ การแบ่งเขตวันและเวลาของประเทศต่าง ๆ ต้องอาศัยเส้นลองจิจูดคำนวณวันและเวลา โดยกำหนดให้เส้นเมริเดียน 0 องศา เป็นเส้นแบ่งเวลามาตรฐาน เนื่องจากกลไลการหมุนรอบตัวเอง 1 รอบ ใช้เวลา 24 ชม. หรือ 360 องศา ดังนั้น ทุก ๆ 15 องศาลองจิจูดจะเท่ากับ 1 ชั่วโมง โดยโลกหมุนจากตะวันตกไปตะวันออก ดังนั้น ลองจิจูดจะเป็นเวลาเร็วกว่าลองจิจูดตะวันตก",
-          "ปัจจุบันทรัพยากร ธรรมชาติมีปริมาณลดลง แต่ความต้องการของมนุษย์มีเพิ่มมากขึ้นส่งผลให้ทรัพยากรเกิดความขาดแคลน ดังนั้น จึงจำเป็นต้องอาศัยความรู้ทางเศรษฐศาสตร์มาช่วยในการบริหารจัดการทรัพยากรให้เกิดประโยชน์สูงสุด"
+          "พิกัดภูมิศาสตร์เป็นระบบบอกตำแหน่งที่ตั้งของ สิ่งต่าง ๆ บนพื้นโลก โดยอ้างอิงตำแหน่งเป็นละติจูดและลองจิจูด โดยมีค่าตำแหน่งตามละติจูดและลองจิจูดที่ตัดกันเป็นค่าพิกัดภูมิศาสตร์ การแบ่งเขตวันและเวลาของประเทศต่าง ๆ  ต้องอาศัยเส้นลองจิจูดคำนวณวันและเวลา โดยกำหนดให้เส้นเมริเดียน 0 องศา เป็นเส้นแบ่งเวลามาตรฐาน เนื่องจากกลไลการหมุนรอบตัวเอง 1 รอบ  ใช้เวลา 24 ชม. หรือ 360 องศา ดังนั้น ทุก ๆ 15 องศาลองจิจูดจะเท่ากับ 1 ชั่วโมง โดยโลกหมุนจากตะวันตกไปตะวันออก ดังนั้น ลองจิจูดจะเป็นเวลาเร็วกว่าลองจิจูดตะวันตก"
         ],
-        "indicators_raw": [
-          "ส 5.1 ม.1/2 (ระหว่างทาง): อธิบายพิกัดภูมิศาสตร์ (ละติจูด และ ลองจิจูด) เส้นแบ่งเวลา และเปรียบเทียบวัน เวลาของโลก",
-          "ส 5.1 ม.1/1 (ระหว่างทาง): วิเคราะห์ลักษณะทางกายภาพของทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย โดยใช้เครื่องมือ ทางภูมิศาสตร์สืบค้นข้อมูล"
-        ],
+        "eval_method": "",
+        "hours": 4,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 3,
-            "score_p": 1,
-            "score_a": 1,
-            "score_total": 5
+            "eval_methods": "",
+            "score_k": 7,
+            "score_p": 3,
+            "score_a": 0,
+            "score_total": 10
           }
-        ]
+        ],
+        "score_k": 7,
+        "score_p": 3,
+        "score_a": 0,
+        "score_total": 10
       },
       {
         "unit_no": "2",
-        "unit_name": "ทวีปเอเชีย",
-        "hours": 10,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [
-          "ส 5.1 ม.1/1",
-          "ส 5.2 ม.1/1",
-          "ส 5.2 ม.1/2",
-          "ส 3.2 ม.1/3"
-        ],
-        "kpis": [
-          "ส 5.1 ม.1/1 (ระหว่างทาง): วิเคราะห์ลักษณะทางกายภาพของทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย โดยใช้เครื่องมือ ทางภูมิศาสตร์สืบค้นข้อมูล",
-          "ส 5.2 ม.1/1 (ระหว่างทาง): สำรวจและระบุทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/2 (ปลายทาง): วิเคราะห์ปัจจัย ทางกายภาพและปัจจัยทางสังคม ที่ส่งผลต่อทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 3.2 ม.1/3 (ระหว่างทาง): ระบุปัจจัยที่มีอิทธิพลต่อการกำหนดอุปสงค์ และอุปทาน",
-          "ส 3.2 ม.1/3 (ระหว่างทาง): ระบุปัจจัยที่มีอิทธิพลต่อการกำหนดอุปสงค์ และอุปทาน"
-        ],
+        "unit_name": "สาระภูมิศาสตร์: ทวีปเอเชีย",
         "indicators": [
-          "ส 5.1 ม.1/1 (ระหว่างทาง): วิเคราะห์ลักษณะทางกายภาพของทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย โดยใช้เครื่องมือ ทางภูมิศาสตร์สืบค้นข้อมูล",
-          "ส 5.2 ม.1/1 (ระหว่างทาง): สำรวจและระบุทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/2 (ปลายทาง): วิเคราะห์ปัจจัย ทางกายภาพและปัจจัยทางสังคม ที่ส่งผลต่อทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 3.2 ม.1/3 (ระหว่างทาง): ระบุปัจจัยที่มีอิทธิพลต่อการกำหนดอุปสงค์ และอุปทาน",
-          "ส 3.2 ม.1/3 (ระหว่างทาง): ระบุปัจจัยที่มีอิทธิพลต่อการกำหนดอุปสงค์ และอุปทาน"
+          "ตัวชี้วัดระหว่างทาง ส 5.1 ม.1/1 วิเคราะห์ลักษณะทางกายภาพของทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย โดยใช้เครื่อง มือทางภูมิศาสตร์สืบค้นข้อมูล ตัวชี้วัดระหว่างทาง ส 5.2 ม.1/1 สำรวจและระบุทำเลที่ตั้งของกิจกรรมทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลีย และ โอเชียเนีย ตัวชี้วัดปลายทาง ส 5.2 ม.1/2 วิเคราะห์ปัจจัยทางกายภาพและปัจจัยทางสังคมที่ส่งผลต่อทำเลที่ตั้งของกิจกรรมทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย  และโอเชียเนีย"
         ],
         "concepts": [
-          "ทวีปเอเชียเป็นทวีปที่มีขนาดเนื้อที่และจำนวนประชากรมากที่สุดในโลก มีความหลากหลายทางธรรมชาติและมีทรัพยากรธรรมชาติ อุดมสมบูรณ์ จึงเป็นแหล่งเศรษฐกิจที่สำคัญของโลกทวีปเอเชียประกอบด้วยประชากรหลากหลายเชื้อชาติ เมื่อประชากรดังกล่าวมีความสัมพันธ์กับธรรมชาติ จึงเกิดการสร้างสรรค์วัฒนธรรมและสังคมที่แตกต่างกันไป",
-          "อุปสงค์และอุปทาน เป็นความต้องการซื้อ และปริมาณการเสนอขายสินค้าและบริการในขณะหนึ่งซึ่งมีความสำคัญต่อการทำงานของตลาดสินค้า และเป็นกลไกสำคัญในการตัดสินใจเกี่ยวกับการจัดสรรทรัพยากรในการผลิต"
+          "ทวีปเอเชียเป็นทวีปที่มีขนาดเนื้อที่และจำนวนประชากรมากที่สุดในโลก มีความหลากหลายทางธรรมชาติและมีทรัพยากรธรรมชาติ อุดมสมบูรณ์ จึงเป็นแหล่งเศรษฐกิจที่สำคัญของโลกทวีปเอเชียประกอบด้วยประชากรหลากหลายเชื้อชาติ เมื่อประชากรดังกล่าวมีความสัมพันธ์กับธรรมชาติ จึงเกิดการสร้างสรรค์วัฒนธรรมและสังคมที่แตกต่างกันไป"
         ],
-        "indicators_raw": [
-          "ส 5.2 ม.1/1 (ระหว่างทาง): สำรวจและระบุทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/2 (ปลายทาง): วิเคราะห์ปัจจัย ทางกายภาพและปัจจัยทางสังคม ที่ส่งผลต่อทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย"
-        ],
+        "eval_method": "",
+        "hours": 10,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "eval_methods": "",
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 10
       },
       {
         "unit_no": "3",
-        "unit_name": "ทวีปออสเตรเลีย และโอเชียเนีย",
-        "hours": 8,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [
-          "ส 5.1 ม.1/1",
-          "ส 5.2 ม.1/1",
-          "ส 5.2 ม.1/2",
-          "ส 3.2 ม.1/1",
-          "ส 5.1 ม.1/3",
-          "ส 5.2 ม.1/3"
-        ],
-        "kpis": [
-          "ส 5.1 ม.1/1 (ระหว่างทาง): วิเคราะห์ลักษณะทางกายภาพของทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย โดยใช้เครื่องมือ ทางภูมิศาสตร์สืบค้นข้อมูล",
-          "ส 5.2 ม.1/1 (ระหว่างทาง): สำรวจและระบุทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/2 (ปลายทาง): วิเคราะห์ปัจจัย ทางกายภาพและปัจจัยทางสังคม ที่ส่งผลต่อทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 3.2 ม.1/1 (ปลายทาง): วิเคราะห์บทบาท หน้าที่และความแตกต่างของ สถาบันการเงินแต่ละประเภท และธนาคารกลาง",
-          "ส 3.2 ม.1/1 (ปลายทาง): วิเคราะห์บทบาท หน้าที่และความแตกต่างของ สถาบันการเงินแต่ละประเภท และธนาคารกลาง"
-        ],
+        "unit_name": "สาระภูมิศาสตร์: ทวีปออสเตรเลีย และโอเชียเนีย",
         "indicators": [
-          "ส 5.1 ม.1/1 (ระหว่างทาง): วิเคราะห์ลักษณะทางกายภาพของทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย โดยใช้เครื่องมือ ทางภูมิศาสตร์สืบค้นข้อมูล",
-          "ส 5.2 ม.1/1 (ระหว่างทาง): สำรวจและระบุทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/2 (ปลายทาง): วิเคราะห์ปัจจัย ทางกายภาพและปัจจัยทางสังคม ที่ส่งผลต่อทำเลที่ตั้งของกิจกรรม ทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 3.2 ม.1/1 (ปลายทาง): วิเคราะห์บทบาท หน้าที่และความแตกต่างของ สถาบันการเงินแต่ละประเภท และธนาคารกลาง",
-          "ส 3.2 ม.1/1 (ปลายทาง): วิเคราะห์บทบาท หน้าที่และความแตกต่างของ สถาบันการเงินแต่ละประเภท และธนาคารกลาง"
+          "ตัวชี้วัดระหว่างทาง ส 5.1 ม.1/1  วิเคราะห์ลักษณะทางกายภาพของทวีป เอเชีย ทวีปออสเตร- เลีย และโอเชียเนีย  โดยใช้เครื่องมือทางภูมิศาสตร์สืบค้นข้อมูล ตัวชี้วัดระหว่างทาง ส 5.2 ม.1/1 สำรวจและระบุทำเลที่ตั้งของกิจกรรมทางเศรษฐกิจและสังคม ในทวีปเอเชีย ทวีปออสเตรเลียและ โอเชียเนีย  ตัวชี้วัดปลายทาง ส 5.2 ม.1/2 วิเคราะห์ปัจจัยทางกายภาพและปัจจัยทางสังคมที่ส่งผลต่อทำเลที่ตั้งของกิจกรรมทางเศรษฐกิจและสังคมในทวีปเอเชีย ทวีปออสเตรเลีย  และโอเชียเนีย"
         ],
         "concepts": [
-          "ทวีปออสเตรเลียและโอเชียเนียประกอบด้วย ประเทศออสเตรเลีย นิวซีแลนด์ และประเทศในหมู่เกาะมหาสมุทรแปซิฟิกอีก 11 ประเทศ เป็นดินแดนที่อยู่ในซีกโลกใต้ ทุกประเทศเป็นแผ่นดินเกาะที่ล้อมรอบด้วยผืนน้ำ ลักษณะทางกายภาพและสิ่งแวดล้อมต่าง ๆ เช่น ภูมิประเทศ ดิน แหล่งน้ำ ภูมิอากาศ พืช สัตว์ เป็นปัจจัยให้ประชากรที่ อาศัยในทวีปออสเตรเลียและประเทศในหมู่เกาะมหาสมุทรแปซิฟิก มีการดำเนินชีวิตและการสร้างสรรค์วัฒนธรรมต่าง ๆ เช่น การค้า เศรษฐกิจ สังคม ที่มีลักษณะเฉพาะ",
-          "สถาบันการเงินแต่ละประเภทและธนาคารกลาง มีหน้าที่แตกต่างกัน การดูแลจัดการให้มีปริมาณเงินในระบบที่เหมาะสมจะช่วยให้ประชาชนมีเงินใช้จ่าย ธุรกิจมีเงินทุนหมุนเวียนในการประกอบการ รัฐมีเงินลงทุนพัฒนาประเทศ เศรษฐกิจของประเทศสามารถขับเคลื่อนไปได้"
+          "ทวีปออสเตรเลียและโอเชียเนียประกอบด้วย ประเทศออสเตรเลีย นิวซีแลนด์ และประเทศในหมู่เกาะมหาสมุทรแปซิฟิกอีก 11 ประเทศ เป็นดินแดนที่อยู่ในซีกโลกใต้ ทุกประเทศเป็นแผ่นดินเกาะที่ล้อมรอบด้วยผืนน้ำ ลักษณะทางกายภาพและสิ่งแวดล้อมต่าง ๆ เช่น ภูมิประเทศ ดิน แหล่งน้ำ ภูมิอากาศ พืช สัตว์ เป็นปัจจัยให้ประชากรที่ อาศัยในทวีปออสเตรเลียและประเทศในหมู่เกาะมหาสมุทรแปซิฟิก มีการดำเนินชีวิตและการสร้างสรรค์วัฒนธรรมต่าง ๆ เช่น การค้า เศรษฐกิจ สังคม ที่มีลักษณะเฉพาะ"
         ],
-        "indicators_raw": [
-          "ส 5.1 ม.1/3 (ระหว่างทาง): วิเคราะห์สาเหตุการเกิดภัยพิบัติ และผลกระทบในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/3 (ระหว่างทาง): สืบค้น อภิปรายประเด็นปัญหาจาก ปฏิสัมพันธ์ระหว่างสิ่งแวดล้อมทางกายภาพกับมนุษย์ ที่เกิดขึ้นในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย"
-        ],
+        "eval_method": "",
+        "hours": 8,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "eval_methods": "",
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 10
       },
       {
         "unit_no": "4",
-        "unit_name": "ภัยพิบัติและการจัดการทรัพยากร ธรรมชาติและสิ่งแวดล้อม",
-        "hours": 7,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [
-          "ส 5.1 ม.1/3",
-          "ส 5.2 ม.1/3",
-          "ส 5.2 ม.1/4",
-          "ส 3.2 ม.1/2",
-          "ส 3.2 ม.1/4",
-          "ส 3.1 ม.1/1"
-        ],
-        "kpis": [
-          "ส 5.1 ม.1/3 (ระหว่างทาง): วิเคราะห์สาเหตุการเกิดภัยพิบัติ และผลกระทบในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/3 (ระหว่างทาง): สืบค้น อภิปรายประเด็นปัญหาจาก ปฏิสัมพันธ์ระหว่างสิ่งแวดล้อมทางกายภาพกับมนุษย์ ที่เกิดขึ้นในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/4 (ปลายทาง): วิเคราะห์แนวทาง การจัดการภัยพิบัติและการจัดการ ทรัพยากรและสิ่งแวดล้อมในทวีป เอเชีย ทวีปออสเตรเลีย และโอเชียเนีย ที่ยั่งยืน",
-          "ส 3.2 ม.1/2 (ระหว่างทาง): ยกตัวอย่างที่สะท้อนให้เห็นการพึ่งพาอาศัยกัน และการแข่งขันกันทางเศรษฐกิจในประเทศ",
-          "ส 3.2 ม.1/2 (ระหว่างทาง): ยกตัวอย่างที่สะท้อนให้เห็นการพึ่งพาอาศัยกัน และการแข่งขันกันทางเศรษฐกิจในประเทศ",
-          "ส 3.2 ม.1/4 (ปลายทาง): อภิปรายผลของ การมีกฎหมายเกี่ยวกับทรัพย์สิน ทางปัญญา",
-          "ส 3.2 ม.1/4 (ปลายทาง): อภิปรายผลของ การมีกฎหมายเกี่ยวกับทรัพย์สิน ทางปัญญา"
-        ],
+        "unit_name": "สาระภูมิศาสตร์: ภัยพิบัติและการจัดการทรัพยากร ธรรมชาติและสิ่งแวดล้อม",
         "indicators": [
-          "ส 5.1 ม.1/3 (ระหว่างทาง): วิเคราะห์สาเหตุการเกิดภัยพิบัติ และผลกระทบในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/3 (ระหว่างทาง): สืบค้น อภิปรายประเด็นปัญหาจาก ปฏิสัมพันธ์ระหว่างสิ่งแวดล้อมทางกายภาพกับมนุษย์ ที่เกิดขึ้นในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย",
-          "ส 5.2 ม.1/4 (ปลายทาง): วิเคราะห์แนวทาง การจัดการภัยพิบัติและการจัดการ ทรัพยากรและสิ่งแวดล้อมในทวีป เอเชีย ทวีปออสเตรเลีย และโอเชียเนีย ที่ยั่งยืน",
-          "ส 3.2 ม.1/2 (ระหว่างทาง): ยกตัวอย่างที่สะท้อนให้เห็นการพึ่งพาอาศัยกัน และการแข่งขันกันทางเศรษฐกิจในประเทศ",
-          "ส 3.2 ม.1/2 (ระหว่างทาง): ยกตัวอย่างที่สะท้อนให้เห็นการพึ่งพาอาศัยกัน และการแข่งขันกันทางเศรษฐกิจในประเทศ",
-          "ส 3.2 ม.1/4 (ปลายทาง): อภิปรายผลของ การมีกฎหมายเกี่ยวกับทรัพย์สิน ทางปัญญา",
-          "ส 3.2 ม.1/4 (ปลายทาง): อภิปรายผลของ การมีกฎหมายเกี่ยวกับทรัพย์สิน ทางปัญญา"
+          "ตัวชี้วัดระหว่างทาง ส 5.1 ม.1/3 วิเคราะห์สาเหตุการเกิดภัยพิบัติและผลกระทบในทวีปเอเชีย ทวีปออสเตรเลีย และโอเชียเนีย ตัวชี้วัดระหว่างทาง ส 5.2 ม.1/3 สืบค้น อธิบายประเด็นปัญหาจากปฏิสัมพันธ์ระหว่างสิ่งแวดล้อมทางกายภาพกับมนุษย์ที่เกิดขึ้นในทวีปเอเชีย ทวีปออสเตรเลีย  และโอเชียเนีย ตัวชี้วัดปลายทาง ส 5.2 ม.1/4 วิเคราะห์แนวทางการจัดการภัยพิบัติ  และการจัดการทรัพยากรและสิ่งแวดล้อมในทวีปเอเชียทวีปออสเตรเลีย และโอเชียเนียที่ยั่งยืน"
         ],
         "concepts": [
-          "ภัยพิบัติธรรมชาติเป็นสิ่งที่เกิดขึ้นเองตามธรรมชาติ และส่งผลกระทบต่อมนุษย์ การหาความรู้และการเตรียมป้องกันภัยพิบัติธรรมชาติ ตลอดจนการร่วมมือกันระหว่างประเทศ จะช่วยให้มนุษย์สามารถรับมือและป้องกันภัย จะช่วยให้มนุษย์อาศัยอยู่ร่วมกันกับธรรมชาติได้อย่างยั่งยืน / สาระเศรษฐศาสตร์",
-          "ระบบเศรษฐกิจจำเป็นต้องมีการพึ่งพาอาศัยกันและการแข่งขันในทางเศรษฐกิจเพื่อนำไปสู่การบรรลุเป้าหมายทางเศรษฐกิจของประเทศ ทรัพย์สินทางปัญญาเป็นผลงานอันเกิดจากความคิดสร้างสรรค์ของมนุษย์ และจะได้รับการคุ้มครองตามกฎหมาย กฎหมายเกี่ยวกับทรัพย์สินทางปัญญาที่สำคัญ ได้แก่ ลิขสิทธิ์ สิทธิบัตร เครื่องหมายการค้า"
+          "ภัยพิบัติธรรมชาติเป็นสิ่งที่เกิดขึ้นเองตามธรรมชาติ และส่งผลกระทบต่อมนุษย์ การหาความรู้และการเตรียมป้องกันภัยพิบัติธรรมชาติ ตลอดจนการร่วมมือกันระหว่างประเทศ จะช่วยให้มนุษย์สามารถรับมือและป้องกันภัย จะช่วยให้มนุษย์อาศัยอยู่ร่วมกันกับธรรมชาติได้อย่างยั่งยืน"
         ],
-        "indicators_raw": [
-          "ส 5.2 ม.1/4 (ปลายทาง): วิเคราะห์แนวทาง การจัดการภัยพิบัติและการจัดการ ทรัพยากรและสิ่งแวดล้อมในทวีป เอเชีย ทวีปออสเตรเลีย และโอเชียเนีย ที่ยั่งยืน",
-          "ส 3.1 ม.1/1 (ระหว่างทาง): อธิบายความหมายและความสำคัญ ของเศรษฐศาสตร์"
-        ],
+        "eval_method": "",
+        "hours": 7,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "eval_methods": "",
+            "score_k": 3,
+            "score_p": 2,
+            "score_a": 0,
+            "score_total": 5
           }
-        ]
+        ],
+        "score_k": 3,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 5
       },
       {
         "unit_no": "5",
-        "unit_name": "ชีวิตเป็นสุขด้วยเศรษฐกิจพอเพียง",
-        "hours": 29,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
-        "national_kpis": [
-          "ส 3.1 ม.1/2",
-          "ส 3.1 ม.1/3",
-          "ส 3.2 ม.1/3",
-          "ส 3.2 ม.1/1",
-          "ส 3.2 ม.1/2",
-          "ส 3.2 ม.1/4"
-        ],
-        "kpis": [
-          "ส 3.1 ม.1/2 (ปลายทาง): วิเคราะห์ค่านิยม และพฤติกรรมการบริโภคของ คนในสังคมซึ่งส่งผลต่อเศรษฐกิจ ของชุมชนและประเทศ",
-          "ส 3.1 ม.1/3 (ปลายทาง): อธิบายความเป็นมา หลักการและความสำคัญของ ปรัชญาของเศรษฐกิจพอเพียง ต่อสังคมไทย"
-        ],
+        "unit_name": "สาระเศรษฐศาสตร์: ทำความรู้จักเศรษฐศาสตร์",
         "indicators": [
-          "ส 3.1 ม.1/2 (ปลายทาง): วิเคราะห์ค่านิยม และพฤติกรรมการบริโภคของ คนในสังคมซึ่งส่งผลต่อเศรษฐกิจ ของชุมชนและประเทศ",
-          "ส 3.1 ม.1/3 (ปลายทาง): อธิบายความเป็นมา หลักการและความสำคัญของ ปรัชญาของเศรษฐกิจพอเพียง ต่อสังคมไทย"
+          "ตัวชี้วัดระหว่างทาง ส 3.1 ม.1/1 อธิบายความหมายและความสำคัญของเศรษฐศาสตร์"
         ],
         "concepts": [
-          "ปรัชญาของเศรษฐกิจพอเพียง เน้นการกระทำที่ตั้งอยู่บนความพอประมาณ ความมีเหตุผล มีภูมิคุ้มกัน ซึ่งจะก่อให้เกิดพลังชุมชนที่เข็มแข็ง ประชาชนควรรมีความกินดีอยู่ดีบนความพอเพียงแม้ว่าจะมีผลกระทบหรือการเปลี่ยนแปลงจากภายนอกก็สามารถผ่านพ้นอุปสรรคและปัญหาต่าง ๆ ไปได้ด้วยดี ดังนั้น การบริโภคเป็นกิจกรรมทางเศรษฐกิจที่มีความสำคัญต่อการพัฒนาเศรษฐกิจของประเทศ ปัจจุบันการบริโภคของมนุษย์มีการเปลี่ยนแปลงไป และความเจริญก้าวหน้าของเทคโนโลยี ส่งผลให้มีการบริโภคสินค้าฟุ่มเฟือย หรือสินค้าที่นอกเหนือจากความจำเป็น การเรียนรู้เกี่ยวกับพฤติกรรมการบริโภค และปฏิบัติตนอย่างถูกต้องจะช่วยให้เป็นผู้บริโภคที่ดี และก่อให้เกิดผลดีต่อระบบเศรษฐกิจ"
+          "ปัจจุบันทรัพยากร ธรรมชาติมีปริมาณลดลง แต่ความต้องการของมนุษย์มีเพิ่มมากขึ้นส่งผลให้ทรัพยากรเกิดความขาดแคลน ดังนั้น จึงจำเป็นต้องอาศัยความรู้ทางเศรษฐศาสตร์มาช่วยในการบริหารจัดการทรัพยากรให้เกิดประโยชน์สูงสุด"
         ],
-        "indicators_raw": [
-          "ส 3.2 ม.1/3 (ระหว่างทาง): ระบุปัจจัยที่มีอิทธิพลต่อการกำหนดอุปสงค์ และอุปทาน",
-          "ส 3.2 ม.1/1 (ปลายทาง): วิเคราะห์บทบาท หน้าที่และความแตกต่างของ สถาบันการเงินแต่ละประเภท และธนาคารกลาง",
-          "ส 3.2 ม.1/2 (ระหว่างทาง): ยกตัวอย่างที่สะท้อนให้เห็นการพึ่งพาอาศัยกัน และการแข่งขันกันทางเศรษฐกิจในประเทศ",
-          "ส 3.2 ม.1/4 (ปลายทาง): อภิปรายผลของ การมีกฎหมายเกี่ยวกับทรัพย์สิน ทางปัญญา",
-          "ส 3.1 ม.1/2 (ปลายทาง): วิเคราะห์ค่านิยม และพฤติกรรมการบริโภคของ คนในสังคมซึ่งส่งผลต่อเศรษฐกิจ ของชุมชนและประเทศ",
-          "ส 3.1 ม.1/3 (ปลายทาง): อธิบายความเป็นมา หลักการและความสำคัญของ ปรัชญาของเศรษฐกิจพอเพียง ต่อสังคมไทย"
-        ],
+        "eval_method": "",
+        "hours": 5,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
+            "eval_methods": "",
+            "score_k": 2,
+            "score_p": 2,
             "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_total": 5
           }
-        ]
+        ],
+        "score_k": 2,
+        "score_p": 2,
+        "score_a": 1,
+        "score_total": 5
+      },
+      {
+        "unit_no": "6",
+        "unit_name": "สาระเศรษฐศาสตร์: อุปสงค์และอุปทาน",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง ส 3.2 ม.1/3 ระบุปัจจัยที่มีอิทธิพล ต่อการกำหนดอุปสงค์ และอุปทาน"
+        ],
+        "concepts": [
+          "อุปสงค์และอุปทาน เป็นความต้องการซื้อ และปริมาณการเสนอขายสินค้าและบริการในขณะหนึ่งซึ่งมีความสำคัญต่อการทำงานของตลาดสินค้า และเป็นกลไกสำคัญในการตัดสินใจเกี่ยวกับการจัดสรรทรัพยากรในการผลิต"
+        ],
+        "eval_method": "",
+        "hours": 4,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 2,
+            "score_p": 2,
+            "score_a": 1,
+            "score_total": 5
+          }
+        ],
+        "score_k": 2,
+        "score_p": 2,
+        "score_a": 1,
+        "score_total": 5
+      },
+      {
+        "unit_no": "7",
+        "unit_name": "สาระเศรษฐศาสตร์: สถาบันการเงิน : สถาบันขับเคลื่อนเศรษฐกิจไทย",
+        "indicators": [
+          "ตัวชี้วัดปลายทาง ส 3.2 ม.1/1 วิเคราะห์บทบาทหน้าที่และความแตกต่างของสถาบันการเงินแต่ละประเภทและธนาคารกลาง"
+        ],
+        "concepts": [
+          "สถาบันการเงินแต่ละประเภทและธนาคารกลาง มีหน้าที่แตกต่างกัน การดูแลจัดการให้มีปริมาณเงินในระบบที่เหมาะสมจะช่วยให้ประชาชนมีเงินใช้จ่าย ธุรกิจมีเงินทุนหมุนเวียนในการประกอบการ รัฐมีเงินลงทุนพัฒนาประเทศ เศรษฐกิจของประเทศสามารถขับเคลื่อนไปได้"
+        ],
+        "eval_method": "",
+        "hours": 6,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 8,
+            "score_p": 2,
+            "score_a": 0,
+            "score_total": 10
+          }
+        ],
+        "score_k": 8,
+        "score_p": 2,
+        "score_a": 0,
+        "score_total": 10
+      },
+      {
+        "unit_no": "8",
+        "unit_name": "สาระเศรษฐศาสตร์: มองดูเศรษฐกิจไทยของเรา",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง ส 3.2 ม.1/2ยกตัวอย่างที่สะท้อนให้เห็นการพึ่งพาอาศัยกัน และการแข่งขันกันทางเศรษฐกิจในประเทศ ตัวชี้วัดปลายทาง ส 3.2 ม.1/4 อภิปรายผลของการมีกฎหมายเกี่ยวกับทรัพย์สินทางปัญญา"
+        ],
+        "concepts": [
+          "ระบบเศรษฐกิจจำเป็นต้องมีการพึ่งพาอาศัยกันและการแข่งขันในทางเศรษฐกิจเพื่อนำไปสู่การบรรลุเป้าหมายทางเศรษฐกิจของประเทศ ทรัพย์สินทางปัญญาเป็นผลงานอันเกิดจากความคิดสร้างสรรค์ของมนุษย์ และจะได้รับการคุ้มครองตามกฎหมาย กฎหมายเกี่ยวกับทรัพย์สินทางปัญญาที่สำคัญ ได้แก่ ลิขสิทธิ์ สิทธิบัตร เครื่องหมายการค้า"
+        ],
+        "eval_method": "",
+        "hours": 6,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 1,
+            "score_p": 2,
+            "score_a": 2,
+            "score_total": 5
+          }
+        ],
+        "score_k": 1,
+        "score_p": 2,
+        "score_a": 2,
+        "score_total": 5
+      },
+      {
+        "unit_no": "9",
+        "unit_name": "สาระเศรษฐศาสตร์: ชีวิตเป็นสุขด้วยเศรษฐกิจพอเพียง",
+        "indicators": [
+          "ตัวชี้วัดระหว่างทาง ส 3.1 ม.1/2 วิเคราะห์ค่านิยมและพฤติกรรมการบริโภคของคนในสังคม ซึ่งส่งผลต่อเศรษฐกิจของชุมชนและประเทศ ตัวชี้วัดปลายทาง ส 3.1 ม.1/3 อธิบายความเป็นมา และหลักการความสำคัญของปรัชญาของเศรษฐกิจพอเพียงต่อสังคมไทย"
+        ],
+        "concepts": [
+          "ปรัชญาของเศรษฐกิจพอเพียง เน้นการกระทำที่ตั้งอยู่บนความพอประมาณ ความมีเหตุผล มีภูมิคุ้มกัน  ซึ่งจะก่อให้เกิดพลังชุมชนที่เข็มแข็ง  ประชาชนควรรมีความกินดีอยู่ดีบนความพอเพียงแม้ว่าจะมีผลกระทบหรือการเปลี่ยนแปลงจากภายนอกก็สามารถผ่านพ้นอุปสรรคและปัญหาต่าง ๆ ไปได้ด้วยดี ดังนั้น การบริโภคเป็นกิจกรรมทางเศรษฐกิจที่มีความสำคัญต่อการพัฒนาเศรษฐกิจของประเทศ ปัจจุบันการบริโภคของมนุษย์มีการเปลี่ยนแปลงไป และความเจริญก้าวหน้าของเทคโนโลยี ส่งผลให้มีการบริโภคสินค้าฟุ่มเฟือย หรือสินค้าที่นอกเหนือจากความจำเป็น การเรียนรู้เกี่ยวกับพฤติกรรมการบริโภค และปฏิบัติตนอย่างถูกต้องจะช่วยให้เป็นผู้บริโภคที่ดี และก่อให้เกิดผลดีต่อระบบเศรษฐกิจ"
+        ],
+        "eval_method": "",
+        "hours": 8,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 4,
+            "score_p": 4,
+            "score_a": 2,
+            "score_total": 10
+          }
+        ],
+        "score_k": 4,
+        "score_p": 4,
+        "score_a": 2,
+        "score_total": 10
       }
     ],
     "indicators": [
@@ -89942,10 +89854,10 @@
         "unit_no": "1",
         "unit_name": "กฎหมาย อาญาเบื้องต้น",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 7,
+        "score_p": 2,
+        "score_a": 1,
+        "score_total": 10,
         "national_kpis": [],
         "kpis": [
           "1. อธิบาย ความ เป็นมาความหมาย และลักษณะของ กฎหมายอาญา 2. อธิบาย พระราชบัญญัติให้ ใช้ประมวลกฎหมาย อาญา พ.ศ.2499 (แก้ไขเพิ่มเติมประมวล กฎหมายอาญาฉบับ ปัจจุบัน)"
@@ -89959,10 +89871,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 7,
+            "score_p": 2,
+            "score_a": 1,
+            "score_total": 10
           }
         ]
       },
@@ -89970,10 +89882,10 @@
         "unit_no": "2",
         "unit_name": "รู้ใช้รู้ตีความอาญา",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 11,
+        "score_p": 9,
+        "score_a": 5,
+        "score_total": 25,
         "national_kpis": [],
         "kpis": [
           "3. วิเคราะห์การใช้และการตีความตัวบทกฎหมายอาญา"
@@ -89987,17 +89899,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_p": 6,
+            "score_a": 3,
+            "score_total": 15
           }
         ]
       },
@@ -90005,9 +89917,9 @@
         "unit_no": "3",
         "unit_name": "รับผิดและโทษ ทางอาญา",
         "hours": 10,
-        "score_k": 12,
+        "score_k": 10,
         "score_p": 6,
-        "score_a": 2,
+        "score_a": 4,
         "score_total": 20,
         "national_kpis": [],
         "kpis": [
@@ -90023,15 +89935,15 @@
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_p": 2,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 4,
+            "score_p": 4,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -90041,8 +89953,8 @@
         "unit_name": "ความผิดลหุโทษ",
         "hours": 9,
         "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_p": 4,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -90057,10 +89969,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 3,
+            "score_p": 1,
+            "score_a": 1,
+            "score_total": 5
+          },
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       }
@@ -90117,10 +90036,10 @@
         "unit_no": "1",
         "unit_name": "พลวัตของโลกและภูมิรัฐศาสตร์",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 10,
+        "score_p": 6,
+        "score_a": 4,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "1. วิเคราะห์ปัจจัยและเหตุการณ์สำคัญที่ส่งผลต่อการเปลี่ยนแปลงของสถานการณ์โลกในปัจจุบัน ทั้งในด้านการเมือง การปกครอง และภูมิรัฐศาสตร์"
@@ -90134,10 +90053,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 5,
+            "score_p": 3,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 3,
+            "score_a": 2,
+            "score_total": 10
           }
         ]
       },
@@ -90145,10 +90071,10 @@
         "unit_no": "2",
         "unit_name": "ความร่วมมือและความขัดแย้งระหว่างประเทศ",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "2. อธิบายรูปแบบความร่วมมือ ความขัดแย้ง และบทบาทขององค์การระหว่างประเทศในการแก้ไขวิกฤตการณ์ที่ส่งผลกระทบต่อมวลมนุษยชาติ"
@@ -90162,17 +90088,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 10,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -90180,8 +90099,8 @@
         "unit_no": "3",
         "unit_name": "เศรษฐกิจโลกและสังคมยุคดิจิทัล",
         "hours": 6,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
         "score_total": 15,
         "national_kpis": [],
@@ -90197,8 +90116,8 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 10,
+            "score_p": 3,
             "score_a": 2,
             "score_total": 15
           }
@@ -90208,9 +90127,9 @@
         "unit_no": "4",
         "unit_name": "วิกฤตการณ์สิ่งแวดล้อมและเป้าหมายการพัฒนาที่ยั่งยืน (SDGs)",
         "hours": 6,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -90225,9 +90144,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -90236,9 +90155,9 @@
         "unit_no": "5",
         "unit_name": "สิทธิมนุษยชนและการเป็นพลเมืองโลก",
         "hours": 7,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -90253,9 +90172,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -93167,10 +93086,10 @@
         "unit_no": "1",
         "unit_name": "เวลาและการแบ่งยุคสมัยทางประวัติศาสตร์สากล (1)",
         "hours": 5,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 16,
+        "score_p": 5,
+        "score_a": 4,
+        "score_total": 25,
         "national_kpis": [
           "ส 4.1 ม.4-6/1"
         ],
@@ -93189,16 +93108,16 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 10,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 2,
+            "score_total": 15
           },
           {
             "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_p": 2,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -93207,10 +93126,10 @@
         "unit_no": "2",
         "unit_name": "การสร้างองค์ความรู้ใหม่ทางประวัติศาสตร์สากล",
         "hours": 4,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 6,
+        "score_p": 2,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 10,
         "national_kpis": [
           "ตัวชี้วัดปลายทาง ส 4.1 ม.4–6/2สร้างองค์ความรู้ใหม่ทางประวัติศาสตร์ โดยใช้วิธีการทางประวัติศาสตร์อย่างเป็นระบบ"
         ],
@@ -93229,10 +93148,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 6,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       },
@@ -93240,9 +93159,9 @@
         "unit_no": "3",
         "unit_name": "อารยธรรมองโลกยุคโบราณ อารยธรรมองโลกยุคโบราณ (1)",
         "hours": 9,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
+        "score_k": 22,
+        "score_p": 7,
+        "score_a": 6,
         "score_total": 35,
         "national_kpis": [
           "ส 4.2 ม.4-6/1",
@@ -93264,24 +93183,24 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 10,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 2,
+            "score_total": 15
           },
           {
             "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_p": 2,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 6,
+            "score_p": 2,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       }
@@ -94093,9 +94012,9 @@
         "unit_no": "1",
         "unit_name": "สิ่งแวดล้อม รอบตัว",
         "hours": 4,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
+        "score_k": 5,
+        "score_p": 2,
+        "score_a": 3,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -94110,9 +94029,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 5,
+            "score_p": 2,
+            "score_a": 3,
             "score_total": 10
           }
         ]
@@ -94121,9 +94040,9 @@
         "unit_no": "2",
         "unit_name": "ระบบนิเวศ และการ เปลี่ยนแปลง ของระบบนิเวศ",
         "hours": 7,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -94138,9 +94057,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -94149,9 +94068,9 @@
         "unit_no": "3",
         "unit_name": "ประชากร และการ เปลี่ยนแปลง ประชากร",
         "hours": 4,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -94166,9 +94085,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -94178,9 +94097,9 @@
         "unit_name": "ความสัมพันธ์ ระหว่าง ประชากร กับสิ่งแวดล้อม",
         "hours": 4,
         "score_k": 3,
-        "score_p": 1,
-        "score_a": 1,
-        "score_total": 5,
+        "score_p": 3,
+        "score_a": 0,
+        "score_total": 6,
         "national_kpis": [],
         "kpis": [
           "4. อธิบายแนวทาง การพัฒนาคุณภาพชีวิต ของประชากรและ ความสัมพันธ์ระหว่าง ประชากรกับสิ่ง แวดล้อม"
@@ -94195,9 +94114,9 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 3,
-            "score_p": 1,
-            "score_a": 1,
-            "score_total": 5
+            "score_p": 3,
+            "score_a": 0,
+            "score_total": 6
           }
         ]
       },
@@ -94205,10 +94124,10 @@
         "unit_no": "5",
         "unit_name": "สถานการณ์สิ่ง แวดล้อมและ ทรัพยากรธรรมชาติ",
         "hours": 6,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 5,
+        "score_p": 2,
+        "score_a": 5,
+        "score_total": 12,
         "national_kpis": [],
         "kpis": [
           "5. วิเคราะห์สถานการณ์ สิ่งแวดล้อมและทรัพยากรธรรมชาติใน ปัจจุบันทรัพยากร ธรรมชาติในปัจจุบัน"
@@ -94222,10 +94141,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 5,
+            "score_p": 2,
+            "score_a": 5,
+            "score_total": 12
           }
         ]
       },
@@ -94233,9 +94152,9 @@
         "unit_no": "6",
         "unit_name": "การอนุรักษ์สิ่ง แวดล้อมและ ทรัพยากรธรรมชาติ",
         "hours": 6,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -94250,9 +94169,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -94261,10 +94180,10 @@
         "unit_no": "7",
         "unit_name": "การพัฒนา คุณภาพสิ่ง แวดล้อม และทรัพยากร ธรรมชาติที่ ยั่งยืน",
         "hours": 7,
-        "score_k": 8,
+        "score_k": 2,
         "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_a": 5,
+        "score_total": 12,
         "national_kpis": [],
         "kpis": [
           "7. มีส่วนร่วมในการ อนุรักษ์และพัฒนา คุณภาพสิ่งแวดล้อม และทรัพยากรธรรม ชาติที่ยั่งยืน"
@@ -94278,10 +94197,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
+            "score_k": 2,
             "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_a": 5,
+            "score_total": 12
           }
         ]
       }
@@ -96161,10 +96080,10 @@
         "unit_no": "1",
         "unit_name": "เหตุการณ์สำคัญในสมัยสุโขทัย",
         "hours": 6,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 8,
+        "score_p": 5,
+        "score_a": 2,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "1. ศึกษาและวิเคราะห์เหตุการณ์สำคัญทางประวัติศาสตร์ในสมัยสุโขทัยที่มีผลต่อพัฒนาการชาติไทย"
@@ -96178,10 +96097,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -96189,9 +96108,9 @@
         "unit_no": "2",
         "unit_name": "เหตุการณ์สำคัญในสมัยอยุธยา",
         "hours": 10,
-        "score_k": 8,
+        "score_k": 7,
         "score_p": 5,
-        "score_a": 2,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -96206,9 +96125,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
+            "score_k": 7,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 3,
             "score_total": 15
           }
         ]
@@ -96217,9 +96136,9 @@
         "unit_no": "3",
         "unit_name": "เหตุการณ์สำคัญในสมัยธนบุรี",
         "hours": 3,
-        "score_k": 6,
+        "score_k": 5,
         "score_p": 3,
-        "score_a": 1,
+        "score_a": 2,
         "score_total": 10,
         "national_kpis": [],
         "kpis": [
@@ -96234,9 +96153,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -96245,10 +96164,10 @@
         "unit_no": "4",
         "unit_name": "เหตุการณ์สำคัญในสมัยรัตนโกสินทร์",
         "hours": 12,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 8,
+        "score_p": 5,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "4. ศึกษาและวิเคราะห์เหตุการณ์สำคัญทางประวัติศาสตร์ในสมัยรัตนโกสินทร์ที่มีผลต่อพัฒนาการชาติไทย"
@@ -96262,17 +96181,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -96281,8 +96193,8 @@
         "unit_name": "มรดกทางวัฒนธรรม",
         "hours": 7,
         "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_p": 4,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -96298,8 +96210,8 @@
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
             "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
+            "score_p": 4,
+            "score_a": 3,
             "score_total": 15
           }
         ]
@@ -97151,8 +97063,8 @@
         "unit_no": "1",
         "unit_name": "ภัยพิบัติ ทางธรรมชาติ",
         "hours": 8,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 10,
+        "score_p": 3,
         "score_a": 2,
         "score_total": 15,
         "national_kpis": [
@@ -97173,8 +97085,8 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 10,
+            "score_p": 3,
             "score_a": 2,
             "score_total": 15
           }
@@ -97184,10 +97096,10 @@
         "unit_no": "2",
         "unit_name": "ทรัพยากร ธรรมชาติและสิ่งแวดล้อมกับการพัฒนาที่ยั่งยืน",
         "hours": 4,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 10,
+        "score_p": 6,
+        "score_a": 4,
+        "score_total": 20,
         "national_kpis": [
           "ส 5.2 ม.4-6/3",
           "ส 5.2 ม.4-6/4"
@@ -97209,9 +97121,16 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 3,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -97220,10 +97139,10 @@
         "unit_no": "3",
         "unit_name": "นโยบายการเงิน นโยบาย การคลัง",
         "hours": 7,
-        "score_k": 6,
+        "score_k": 10,
         "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_a": 2,
+        "score_total": 15,
         "national_kpis": [
           "ส 3.2 ม.4-6/1",
           "ส 5.2 ม.4-6/4"
@@ -97243,10 +97162,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 10,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -97254,10 +97173,10 @@
         "unit_no": "4",
         "unit_name": "การเปิดเสรีทางเศรษฐกิจในยุคโลกา- ภิวัตน์และองค์กรทางเศรษฐกิจ",
         "hours": 19,
-        "score_k": 20,
-        "score_p": 11,
+        "score_k": 10,
+        "score_p": 6,
         "score_a": 4,
-        "score_total": 35,
+        "score_total": 20,
         "national_kpis": [
           "ส 3.2 ม.4-6/2",
           "ส 3.2 ม.4-6/3",
@@ -97282,24 +97201,17 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           },
           {
             "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 10
           }
         ]
       }
@@ -97314,7 +97226,7 @@
     ],
     "is_scheduled_term2": true,
     "classrooms": "ม.6/1-11",
-    "midterm_cutoff": 3,
+    "midterm_cutoff": 2,
     "midExamScores": [
       5,
       5,
@@ -102038,10 +101950,10 @@
         "unit_no": "1",
         "unit_name": "Help Me, Please!",
         "hours": 9,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
+        "score_k": 5,
+        "score_p": 5,
+        "score_a": 5,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "1. ระบุสำนวนภาษาอังกฤษที่ใช้ในการขอความช่วยเหลือ การให้คำแนะนำ และการรีวิวเบื้องต้นได้ถูกต้อง 3. สนทนาและแสดงบทบาทสมมติเพื่อขอความช่วยเหลือและสิ่งของในชีวิตประจำวันได้อย่างคล่องแคล่ว 6. แสดงความเป็นผู้นำ มีน้ำใจช่วยเหลือ และเห็นความสำคัญของการใช้ภาษาอังกฤษในทางสร้างสรรค์"
@@ -102055,23 +101967,9 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
+            "score_k": 5,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 5,
             "score_total": 15
           }
         ]
@@ -102080,10 +101978,10 @@
         "unit_no": "2",
         "unit_name": "World Food & Fun",
         "hours": 4,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 7,
+        "score_p": 8,
+        "score_a": 5,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "2. บอกข้อมูลทางวัฒนธรรมและเปรียบเทียบระดับภาษาในสถานการณ์จำลองต่าง ๆ ได้เหมาะสม 6. แสดงความเป็นผู้นำ มีน้ำใจช่วยเหลือ และเห็นความสำคัญของการใช้ภาษาอังกฤษในทางสร้างสรรค์"
@@ -102097,9 +101995,16 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "score_k": 2,
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
         ]
@@ -102108,9 +102013,9 @@
         "unit_no": "3",
         "unit_name": "Cool Reviewer",
         "hours": 2,
-        "score_k": 8,
+        "score_k": 5,
         "score_p": 5,
-        "score_a": 2,
+        "score_a": 5,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -102125,9 +102030,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
+            "score_k": 5,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 5,
             "score_total": 15
           }
         ]
@@ -102136,10 +102041,10 @@
         "unit_no": "4",
         "unit_name": "Social Hero",
         "hours": 3,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 5,
+        "score_p": 10,
+        "score_a": 5,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "5. สร้างสรรค์นวัตกรรมสื่อรณรงค์สั้น ๆ เพื่อสื่อสารข้อมูลที่เป็นประโยชน์ต่อผู้อื่นได้ 6. แสดงความเป็นผู้นำ มีน้ำใจช่วยเหลือ และเห็นความสำคัญของการใช้ภาษาอังกฤษในทางสร้างสรรค์"
@@ -102153,9 +102058,16 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
+            "score_k": 3,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 2,
+            "score_p": 5,
+            "score_a": 3,
             "score_total": 10
           }
         ]
@@ -102169,7 +102081,7 @@
     ],
     "is_scheduled_term2": true,
     "classrooms": "ม.1/1",
-    "midterm_cutoff": 1,
+    "midterm_cutoff": 2,
     "midExamScores": [
       15
     ],
@@ -111240,10 +111152,10 @@
         "unit_no": "1",
         "unit_name": "TGAT Mastery",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 8,
+        "score_p": 5,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 1: อธิบายลักษณะ โครงสร้าง และสัดส่วนคะแนนของข้อสอบ TGAT, A-Level และข้อสอบมาตรฐานระดับสากลได้ ระบุกลยุทธ์และเทคนิคการทำข้อสอบในแต่ละพาร์ทได้ถูกต้อง อธิบายหลักการบริหารจัดการเวลาในการทำข้อสอบมาตรฐานที่มีความกดดันสูงได้อย่างเป็นระบบ ประยุกต์ใช้เทคนิคการตัดตัวเลือกและการวิเคราะห์โจทย์เชิงรุกในการทำข้อสอบจำลองได้ วิเคราะห์ข้อผิดพลาดจากการทำข้อสอบจำลองและสรุปแนวทางการแก้ไขเพื่อยกระดับคะแนนของตนเองได้ ทำคะแนนในข้อสอบจำลองได้บรรลุเกณฑ์ที่กำหนดตามเป้าหมายส่วนบุคคล มีความรับผิดชอบในการฝึกฝนตนเองอย่างสม่ำเสมอและมีเจตคติเชิงบวกต่อการทดสอบมาตรฐาน รวม 7 ผลการเรียนรู้"
@@ -111257,17 +111169,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 5,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -111275,10 +111180,10 @@
         "unit_no": "2",
         "unit_name": "A-Level Breakdown",
         "hours": 9,
-        "score_k": 8,
+        "score_k": 10,
         "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_a": 5,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 1: อธิบายลักษณะ โครงสร้าง และสัดส่วนคะแนนของข้อสอบ TGAT, A-Level และข้อสอบมาตรฐานระดับสากลได้ ระบุกลยุทธ์และเทคนิคการทำข้อสอบในแต่ละพาร์ทได้ถูกต้อง อธิบายหลักการบริหารจัดการเวลาในการทำข้อสอบมาตรฐานที่มีความกดดันสูงได้อย่างเป็นระบบ ประยุกต์ใช้เทคนิคการตัดตัวเลือกและการวิเคราะห์โจทย์เชิงรุกในการทำข้อสอบจำลองได้ วิเคราะห์ข้อผิดพลาดจากการทำข้อสอบจำลองและสรุปแนวทางการแก้ไขเพื่อยกระดับคะแนนของตนเองได้ ทำคะแนนในข้อสอบจำลองได้บรรลุเกณฑ์ที่กำหนดตามเป้าหมายส่วนบุคคล มีความรับผิดชอบในการฝึกฝนตนเองอย่างสม่ำเสมอและมีเจตคติเชิงบวกต่อการทดสอบมาตรฐาน รวม 7 ผลการเรียนรู้"
@@ -111292,10 +111197,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
+            "score_k": 10,
             "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_a": 5,
+            "score_total": 20
           }
         ]
       },
@@ -111303,10 +111208,10 @@
         "unit_no": "3",
         "unit_name": "Strategic Scoring",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
+        "score_k": 8,
+        "score_p": 8,
         "score_a": 2,
-        "score_total": 20,
+        "score_total": 18,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 2 ระบุกลยุทธ์และเทคนิคการทำข้อสอบในแต่ละพาร์ทได้ถูกต้อง ผลการเรียนรู้ที่ 3 อธิบายหลักการบริหารจัดการเวลาในการทำข้อสอบมาตรฐานที่มีความกดดันสูงได้อย่างเป็นระบบ ผลการเรียนรู้ที่ 5 วิเคราะห์ข้อผิดพลาดจากการทำข้อสอบจำลองและสรุปแนวทางการแก้ไขเพื่อยกระดับคะแนนของตนเองได้"
@@ -111320,17 +111225,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 8,
+            "score_p": 8,
+            "score_a": 2,
+            "score_total": 18
           }
         ]
       },
@@ -111339,9 +111237,9 @@
         "unit_name": "Mock Exam Marathon",
         "hours": 9,
         "score_k": 8,
-        "score_p": 5,
+        "score_p": 7,
         "score_a": 2,
-        "score_total": 15,
+        "score_total": 17,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 5 วิเคราะห์ข้อผิดพลาดจากการทำข้อสอบจำลองและสรุปแนวทางการแก้ไขเพื่อยกระดับ ผลการเรียนรู้ที่ 6 ทำคะแนนในข้อสอบจำลองได้บรรลุเกณฑ์ที่กำหนดตามเป้าหมายส่วนบุคคล ผลการเรียนรู้ที่ 7 มีความรับผิดชอบในการฝึกฝนตนเองอย่างสม่ำเสมอและมีเจตคติเชิงบวกต่อการทดสอบมาตรฐาน"
@@ -111356,9 +111254,9 @@
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
             "score_k": 8,
-            "score_p": 5,
+            "score_p": 7,
             "score_a": 2,
-            "score_total": 15
+            "score_total": 17
           }
         ]
       }
@@ -112255,129 +112153,153 @@
     "units": [
       {
         "unit_no": "1",
-        "unit_name": "Different lifestyles",
-        "hours": 7,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
-        "national_kpis": [],
-        "kpis": [
-          "2.สนทนาโต้ตอบเพื่อแลกเปลี่ยนข้อมูลเกี่ยวกับ ประสบการณ์ อาชีพ การท่องเที่ยว และเหตุการณ์ในชีวิตจริง ได้อย่างเหมาะสม 3.พูดและเขียนบรรยาย พร้อมแสดงความคิดเห็นเกี่ยวกับ ข่าว เหตุการณ์ และประเด็นที่อยู่ในความสนใจของสังคมและโลก ได้ 4.อภิปรายและแสดงความคิดเห็น พร้อมให้เหตุผลเกี่ยวกับ อาชีพ การท่องเที่ยว และประเด็นสังคม ได้อย่างเหมาะสม"
+        "unit_name": "Helping Others in Daily Life",
+        "indicators": [
+          "1.ปฏิบัติตามคำสั่ง คำขอร้อง คำแนะนำ และคำชี้แจงจากสิ่งที่ฟังหรืออ่านในสถานการณ์ต่าง ๆ ได้อย่างถูกต้อง 2.สนทนาโต้ตอบเพื่อแลกเปลี่ยนข้อมูลเกี่ยวกับ ประสบการณ์ อาชีพ การท่องเที่ยว และเหตุการณ์ในชีวิตจริง ได้อย่างเหมาะสม 4.อภิปรายและแสดงความคิดเห็น พร้อมให้เหตุผลเกี่ยวกับ อาชีพ การท่องเที่ยว และประเด็นสังคม ได้อย่างเหมาะสม"
         ],
+        "concepts": [
+          "การใช้ภาษาเพื่อขอและให้ความช่วยเหลือ แก้ปัญหา และสื่อสารในสถานการณ์จริง คำศัพท์: help, problem, emergency โครงสร้าง: Can you help me? You should… การตอบรับ/ปฏิเสธ Role play สถานการณ์ช่วยเหลือ"
+        ],
+        "eval_method": "",
+        "hours": 6,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 3,
+            "score_a": 2,
+            "score_total": 10
+          }
+        ],
+        "score_k": 5,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 10
+      },
+      {
+        "unit_no": "2",
+        "unit_name": "Thai Society and Culture",
+        "indicators": [
+          "3.พูดและเขียนบรรยาย พร้อมแสดงความคิดเห็นเกี่ยวกับ ข่าว เหตุการณ์ และประเด็นที่อยู่ในความสนใจของสังคมและโลก ได้ 4.อภิปรายและแสดงความคิดเห็น พร้อมให้เหตุผลเกี่ยวกับ อาชีพ การท่องเที่ยว และประเด็นสังคม ได้อย่างเหมาะสม 8.เข้าร่วมและจัดกิจกรรมทางภาษาและวัฒนธรรม โดยเชื่อมโยงกับบริบท สังคมและโลก ได้อย่างเหมาะสม"
+        ],
+        "concepts": [
+          "การสื่อสารเกี่ยวกับสังคมไทย วัฒนธรรม และการแสดงความคิดเห็นอย่างเหมาะสม คำศัพท์: culture, tradition, society โครงสร้าง: In Thailand, people… การเปรียบเทียบวัฒนธรรม การแสดงความคิดเห็น"
+        ],
+        "eval_method": "",
+        "hours": 6,
+        "assessments": [
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 3,
+            "score_a": 2,
+            "score_total": 10
+          }
+        ],
+        "score_k": 5,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 10
+      },
+      {
+        "unit_no": "3",
+        "unit_name": "Different lifestyles",
         "indicators": [
           "2.สนทนาโต้ตอบเพื่อแลกเปลี่ยนข้อมูลเกี่ยวกับ ประสบการณ์ อาชีพ การท่องเที่ยว และเหตุการณ์ในชีวิตจริง ได้อย่างเหมาะสม 3.พูดและเขียนบรรยาย พร้อมแสดงความคิดเห็นเกี่ยวกับ ข่าว เหตุการณ์ และประเด็นที่อยู่ในความสนใจของสังคมและโลก ได้ 4.อภิปรายและแสดงความคิดเห็น พร้อมให้เหตุผลเกี่ยวกับ อาชีพ การท่องเที่ยว และประเด็นสังคม ได้อย่างเหมาะสม"
         ],
         "concepts": [
           "การสื่อสารเกี่ยวกับรูปแบบการใช้ชีวิต และการเปรียบเทียบความแตกต่าง คำศัพท์: lifestyle, city, rural โครงสร้าง: Some people… / Others… การเปรียบเทียบ (comparative) การอภิปราย"
         ],
+        "eval_method": "",
+        "hours": 7,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
+            "eval_methods": "",
+            "score_k": 5,
             "score_p": 5,
-            "score_a": 2,
+            "score_a": 5,
             "score_total": 15
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 5,
+        "score_a": 5,
+        "score_total": 15
       },
       {
-        "unit_no": "2",
+        "unit_no": "4",
         "unit_name": "Communication in the Real World",
-        "hours": 6,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [],
-        "kpis": [
-          "2.สนทนาโต้ตอบเพื่อแลกเปลี่ยนข้อมูลเกี่ยวกับ ประสบการณ์ อาชีพ การท่องเที่ยว และเหตุการณ์ในชีวิตจริง ได้อย่างเหมาะสม 5.นำเสนอข้อมูลเกี่ยวกับ ประสบการณ์ การเดินทาง อาชีพ หรือประเด็นระดับโลก จากการสืบค้นได้อย่างเป็นลำดับ 7.ใช้ภาษาอังกฤษในการสืบค้น รวบรวม และวิเคราะห์ข้อมูลจากแหล่งเรียนรู้หรือสื่อเทคโนโลยีเกี่ยวกับ โลกและสังคม ได้"
-        ],
         "indicators": [
           "2.สนทนาโต้ตอบเพื่อแลกเปลี่ยนข้อมูลเกี่ยวกับ ประสบการณ์ อาชีพ การท่องเที่ยว และเหตุการณ์ในชีวิตจริง ได้อย่างเหมาะสม 5.นำเสนอข้อมูลเกี่ยวกับ ประสบการณ์ การเดินทาง อาชีพ หรือประเด็นระดับโลก จากการสืบค้นได้อย่างเป็นลำดับ 7.ใช้ภาษาอังกฤษในการสืบค้น รวบรวม และวิเคราะห์ข้อมูลจากแหล่งเรียนรู้หรือสื่อเทคโนโลยีเกี่ยวกับ โลกและสังคม ได้"
         ],
         "concepts": [
           "การใช้ภาษาอังกฤษในสถานการณ์จริง เช่น โรงเรียน สังคม การเดินทาง คำศัพท์สถานการณ์จริง การสนทนาในชีวิตจริง การแก้ปัญหาเฉพาะหน้า Mini task / simulation"
         ],
+        "eval_method": "",
+        "hours": 6,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
+            "eval_methods": "",
+            "score_k": 5,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 2,
             "score_total": 10
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 3,
+        "score_a": 2,
+        "score_total": 10
       },
       {
-        "unit_no": "3",
+        "unit_no": "5",
         "unit_name": "Talk of the Town (News & Trends)",
-        "hours": 6,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
-        "national_kpis": [],
-        "kpis": [
-          "3. พูดและเขียนบรรยาย พร้อมแสดงความคิดเห็นเกี่ยวกับ ข่าว เหตุการณ์ และประเด็นที่อยู่ในความสนใจของสังคมและโลก ได้ 4. อภิปรายและแสดงความคิดเห็น พร้อมให้เหตุผลเกี่ยวกับ อาชีพ การท่องเที่ยว และประเด็นสังคม ได้อย่างเหมาะสม 6. สรุปและจับใจความสำคัญจากข่าว เรื่องราว หรือข้อมูลที่ฟังหรืออ่านได้ 7. ใช้ภาษาอังกฤษในการสืบค้น รวบรวม และวิเคราะห์ข้อมูลจากแหล่งเรียนรู้หรือสื่อเทคโนโลยีเกี่ยวกับ โลกและสังคม ได้"
-        ],
         "indicators": [
           "3. พูดและเขียนบรรยาย พร้อมแสดงความคิดเห็นเกี่ยวกับ ข่าว เหตุการณ์ และประเด็นที่อยู่ในความสนใจของสังคมและโลก ได้ 4. อภิปรายและแสดงความคิดเห็น พร้อมให้เหตุผลเกี่ยวกับ อาชีพ การท่องเที่ยว และประเด็นสังคม ได้อย่างเหมาะสม 6. สรุปและจับใจความสำคัญจากข่าว เรื่องราว หรือข้อมูลที่ฟังหรืออ่านได้ 7. ใช้ภาษาอังกฤษในการสืบค้น รวบรวม และวิเคราะห์ข้อมูลจากแหล่งเรียนรู้หรือสื่อเทคโนโลยีเกี่ยวกับ โลกและสังคม ได้"
         ],
         "concepts": [
           "การสื่อสารเกี่ยวกับข่าว เหตุการณ์ และกระแสสังคม พร้อมแสดงความคิดเห็น คำศัพท์ข่าว: event, issue, trend โครงสร้าง: I think… because… การจับใจความข่าว การอภิปรายข่าวง่าย ๆ"
         ],
+        "eval_method": "",
+        "hours": 6,
         "assessments": [
           {
-            "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 7,
+            "score_a": 3,
+            "score_total": 15
           }
-        ]
+        ],
+        "score_k": 5,
+        "score_p": 7,
+        "score_a": 3,
+        "score_total": 15
       },
       {
-        "unit_no": "4",
+        "unit_no": "6",
         "unit_name": "English for mass media",
-        "hours": 19,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
-        "national_kpis": [],
-        "kpis": [
-          "5. นำเสนอข้อมูลเกี่ยวกับ ประสบการณ์ การเดินทาง อาชีพ หรือประเด็นระดับโลก จากการสืบค้นได้อย่างเป็นลำดับ 6. สรุปและจับใจความสำคัญจากข่าว เรื่องราว หรือข้อมูลที่ฟังหรืออ่านได้ 7. ใช้ภาษาอังกฤษในการสืบค้น รวบรวม และวิเคราะห์ข้อมูลจากแหล่งเรียนรู้หรือสื่อเทคโนโลยีเกี่ยวกับ โลกและสังคม ได้ 8. เข้าร่วมและจัดกิจกรรมทางภาษาและวัฒนธรรม โดยเชื่อมโยงกับบริบท สังคมและโลก ได้อย่างเหมาะสม"
-        ],
         "indicators": [
           "5. นำเสนอข้อมูลเกี่ยวกับ ประสบการณ์ การเดินทาง อาชีพ หรือประเด็นระดับโลก จากการสืบค้นได้อย่างเป็นลำดับ 6. สรุปและจับใจความสำคัญจากข่าว เรื่องราว หรือข้อมูลที่ฟังหรืออ่านได้ 7. ใช้ภาษาอังกฤษในการสืบค้น รวบรวม และวิเคราะห์ข้อมูลจากแหล่งเรียนรู้หรือสื่อเทคโนโลยีเกี่ยวกับ โลกและสังคม ได้ 8. เข้าร่วมและจัดกิจกรรมทางภาษาและวัฒนธรรม โดยเชื่อมโยงกับบริบท สังคมและโลก ได้อย่างเหมาะสม"
         ],
         "concepts": [
           "การใช้ภาษาอังกฤษจากสื่อ เช่น ข่าว โซเชียลมีเดีย และการนำเสนอข้อมูล คำศัพท์: media, online, information การอ่าน/ฟังข่าว การสรุปข้อมูล การนำเสนอ (presentation)"
         ],
+        "eval_method": "",
+        "hours": 6,
         "assessments": [
           {
-            "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 6,
+            "eval_methods": "",
+            "score_k": 2,
             "score_p": 3,
-            "score_a": 1,
+            "score_a": 5,
             "score_total": 10
-          },
-          {
-            "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
           }
-        ]
+        ],
+        "score_k": 2,
+        "score_p": 3,
+        "score_a": 5,
+        "score_total": 10
       }
     ],
     "indicators": [
@@ -113024,10 +112946,10 @@
         "unit_no": "1",
         "unit_name": "Orientation",
         "hours": 2,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 11,
+        "score_p": 6,
+        "score_a": 3,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 1: สนทนาโต้ตอบเรื่องราวเกี่ยวกับตนเองประสบการณ์ ข่าว เหตุการณ์ เรื่องราว และ ประเด็นต่าง ๆที่อยู่ในความสนใจของสังคม ชุมชนและท้องถิ่น",
@@ -113051,7 +112973,14 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 6,
-            "score_p": 3,
+            "score_p": 2,
+            "score_a": 2,
+            "score_total": 10
+          },
+          {
+            "eval_methods": "",
+            "score_k": 5,
+            "score_p": 4,
             "score_a": 1,
             "score_total": 10
           }
@@ -113061,8 +112990,8 @@
         "unit_no": "2",
         "unit_name": "Interview",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
+        "score_k": 9,
+        "score_p": 4,
         "score_a": 2,
         "score_total": 15,
         "national_kpis": [],
@@ -113078,8 +113007,8 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
+            "score_k": 9,
+            "score_p": 4,
             "score_a": 2,
             "score_total": 15
           }
@@ -113089,10 +113018,10 @@
         "unit_no": "3",
         "unit_name": "Movie and Music",
         "hours": 8,
-        "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_k": 9,
+        "score_p": 4,
+        "score_a": 2,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 3: สรุปความ ตีความ จับใจความสำคัญจากสิ่งที่ฟังและอ่านได้"
@@ -113106,10 +113035,10 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_k": 9,
+            "score_p": 4,
+            "score_a": 2,
+            "score_total": 15
           }
         ]
       },
@@ -113117,10 +113046,10 @@
         "unit_no": "4",
         "unit_name": "Festival",
         "hours": 19,
-        "score_k": 20,
-        "score_p": 11,
-        "score_a": 4,
-        "score_total": 35,
+        "score_k": 11,
+        "score_p": 6,
+        "score_a": 3,
+        "score_total": 20,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ที่ 2: นำเสนอข้อมูล เรื่องราวเกี่ยวกับตนเอง ประสบการณ์ ข่าว เหตุการณ์ เรื่องราว และ ประเด็นต่าง ๆที่อยู่ในความสนใจของสังคม ชุมชนและท้องถิ่น",
@@ -113138,22 +113067,15 @@
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
             "score_k": 6,
             "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_a": 2,
+            "score_total": 11
           },
           {
             "eval_methods": "- การประเมินชิ้นงาน/ภาระงาน",
-            "score_k": 6,
+            "score_k": 5,
             "score_p": 3,
             "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบย่อยระหว่างเรียน",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_total": 9
           }
         ]
       }
@@ -113166,7 +113088,7 @@
     ],
     "is_scheduled_term2": true,
     "classrooms": "ม.6/2-11",
-    "midterm_cutoff": 3,
+    "midterm_cutoff": 2,
     "midExamScores": [
       5,
       5,
@@ -113845,9 +113767,9 @@
         "unit_no": "1",
         "unit_name": "การทำข้อสอบแบบเว้นช่องว่างอย่างมีระบบ (Cloze Test)",
         "hours": 7,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
+        "score_k": 6,
+        "score_p": 6,
+        "score_a": 3,
         "score_total": 15,
         "national_kpis": [],
         "kpis": [
@@ -113862,9 +113784,9 @@
         "assessments": [
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
+            "score_k": 6,
+            "score_p": 6,
+            "score_a": 3,
             "score_total": 15
           }
         ]
@@ -113874,9 +113796,9 @@
         "unit_name": "ภูมิหลังเจ้าของภาษาวัฒนธรรม (Cultural Background)",
         "hours": 6,
         "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_p": 6,
+        "score_a": 3,
+        "score_total": 15,
         "national_kpis": [],
         "kpis": [
           "ผการเรียนรู้ข้อ 5 ใช้กลเม็ด (Tricks) จากการวิเคราะห์คำตอบด้วยทฤษฎีความน่าจะเป็น (Probability Theory) ในการเดาคำตอบได้ ผลการเรียนรู้ข้อ 6 เข้าใจวัฒนธรรมการใช้ภาษาในการสนทนา ตามสถานการณ์ที่ต่างกัน"
@@ -113891,9 +113813,9 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_p": 6,
+            "score_a": 3,
+            "score_total": 15
           }
         ]
       },
@@ -113902,9 +113824,9 @@
         "unit_name": "ข่าว (News)",
         "hours": 6,
         "score_k": 6,
-        "score_p": 3,
-        "score_a": 1,
-        "score_total": 10,
+        "score_p": 4,
+        "score_a": 2,
+        "score_total": 12,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ข้อ 3 บอกความหมายคำศัพท์ที่พบบ่อยในข้อสอบ คำศัพท์เหมือน และตรงข้าม การใช้ Prefix และ Suffix รวมทั้งการเดาคำศัพท์ในบริบท (contextual clues) ที่ต่างกัน ผลการเรียนรู้ข้อ 4 ใช้เทคนิคการอ่านในการทำข้อสอบแบบต่าง ๆ ได้ เช่น เทคนิคการหาความคิดหลัก (Main Idea), หัวเรื่อง (Topic), ชื่อเรื่อง (Title), การแทนสรรพนาม (Pronoun Reference), การสรุป (Inference), ความมุ่งหมาย (Purpose) ได้"
@@ -113919,9 +113841,9 @@
           {
             "eval_methods": "- กิจกรรม/ใบงาน\n- แบบทดสอบย่อย\n- การสังเกตพฤติกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_p": 4,
+            "score_a": 2,
+            "score_total": 12
           }
         ]
       },
@@ -113929,10 +113851,10 @@
         "unit_no": "4",
         "unit_name": "เพลงและโคลง (Song and Poetry)",
         "hours": 9,
-        "score_k": 8,
-        "score_p": 5,
-        "score_a": 2,
-        "score_total": 15,
+        "score_k": 6,
+        "score_p": 4,
+        "score_a": 4,
+        "score_total": 14,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ข้อ 1 สามารถใช้ภาษาต่างประเทศเป็นเครื่องมือในการจัดการด้านการเรียน การแสวงหาความรู้ การเข้าสู่สังคมและการศึกษาต่อ รวมทั้งเชื่อมโยงความรู้ทางด้านภาษาต่างประเทศกับกลุ่มสาระการเรียนรู้อื่น ผลการเรียนรู้ข้อ 6 เข้าใจวัฒนธรรมการใช้ภาษาในการสนทนา ตามสถานการณ์ที่ต่างกัน"
@@ -113946,10 +113868,10 @@
         "assessments": [
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
-            "score_k": 8,
-            "score_p": 5,
-            "score_a": 2,
-            "score_total": 15
+            "score_k": 6,
+            "score_p": 4,
+            "score_a": 4,
+            "score_total": 14
           }
         ]
       },
@@ -113957,10 +113879,10 @@
         "unit_no": "5",
         "unit_name": "การใช้พจนานุกรม และการตรวจจับที่ผิด (Using dictionary and Error detection)",
         "hours": 10,
-        "score_k": 12,
-        "score_p": 6,
-        "score_a": 2,
-        "score_total": 20,
+        "score_k": 6,
+        "score_p": 5,
+        "score_a": 3,
+        "score_total": 14,
         "national_kpis": [],
         "kpis": [
           "ผลการเรียนรู้ข้อ1 สามารถใช้ภาษาต่างประเทศเป็นเครื่องมือในการจัดการด้านการเรียน การแสวงหาความรู้ การเข้าสู่สังคมและการศึกษาต่อ รวมทั้งเชื่อมโยงความรู้ทางด้านภาษาต่างประเทศกับกลุ่มสาระการเรียนรู้อื่น ผลการเรียนรู้ข้อ7 เข้าใจ Sentence Structure และกฎไวยากรณ์ภาษา เพื่อวิเคราะห์ข้อสอบในส่วน Error Recognition"
@@ -113975,16 +113897,9 @@
           {
             "eval_methods": "- การสังเกตพฤติกรรม\n- การประเมินใบงาน/กิจกรรม",
             "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
-          },
-          {
-            "eval_methods": "- การทดสอบระหว่างเรียน\n- การประเมินชิ้นงาน",
-            "score_k": 6,
-            "score_p": 3,
-            "score_a": 1,
-            "score_total": 10
+            "score_p": 5,
+            "score_a": 3,
+            "score_total": 14
           }
         ]
       }
