@@ -718,18 +718,10 @@
               <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ครบ ๑๐๐% (๖๒๖ รายวิชา)</span>
             </div>
               <p class="text-xs text-slate-400 mt-0.5">
-                ครอบคลุมทั้งรายวิชาพื้นฐาน (อิงตัวชี้วัดแกนกลาง) และรายวิชาเพิ่มเติม (อิงผลการเรียนรู้) ปรับสมดุลคะแนน 50:50 (ก่อนกลางภาค 35+15 | หลังกลางภาค 35+15 และทุกช่อง ≤ 15 คะแนน) ครบทุกวิชา
+                ครอบคลุมทั้งรายวิชาพื้นฐาน (อิงตัวชี้วัดแกนกลาง) และรายวิชาเพิ่มเติม (อิงผลการเรียนรู้)
               </p>
             </div>
             <div class="shrink-0 flex items-center gap-2">
-              <a href="https://cutoutppp.github.io/AssessmentHub/sgs-confirm.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-950/50 transition">
-                <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                <span>ยืนยันสัดส่วนคะแนน SGS (ทุกคนต้องกด)</span>
-              </a>
-              <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 text-xs font-semibold transition" title="ระบบจัดทำแผนวัดผล วผ.19 ฉบับเต็ม (ใครไม่ใช้ไม่เป็นไร)">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>แผน วผ.19</span>
-              </a>
             </div>
           </div>
 
@@ -3431,6 +3423,9 @@
           });
         });
 
+        // Course-level outcomes (from teacher docs) take precedence over unit aggregation
+        if ((c.outcomes || []).length > 0) allIndicators.splice(0, allIndicators.length, ...c.outcomes);
+
         const indCount = allIndicators.length;
         const indLabel = indCount > 0
           ? `รวม ${formatDigits(String(indCount))} ${c.is_basic ? 'ตัวชี้วัด' : 'ผลการเรียนรู้'}`
@@ -3613,6 +3608,12 @@
             <p class="text-slate-300 text-xs leading-relaxed whitespace-pre-line">${formatDigits(c.description)}</p>
           </div>
         ` : ''}
+        ${(c.outcomes || []).length > 0 ? `
+          <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] font-bold text-purple-300 block mb-1">ผลการเรียนรู้ (รวม ${formatDigits(String(c.outcomes.length))} ข้อ):</span>
+            ${c.outcomes.map((o, i) => `<div class="text-slate-300 text-xs leading-relaxed">${formatDigits(String(i + 1))}. ${formatDigits(o)}</div>`).join('')}
+          </div>
+        ` : ''}
 
         <div class="rounded-2xl border border-slate-800 overflow-x-auto bg-slate-950/70">
           <table class="w-full text-left text-xs border-collapse">
@@ -3640,14 +3641,6 @@
 
       footerEl.innerHTML = `
         <div class="flex flex-wrap items-center gap-2">
-          <a href="https://cutoutppp.github.io/AssessmentHub/sgs-confirm.html?code=${encodeURIComponent(c.code)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-lg">
-            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-            <span>ยืนยันสัดส่วน SGS วิชานี้ (ทุกคนต้องกด)</span>
-          </a>
-          <a href="https://cutoutppp.github.io/AssessmentHub/assessment-plan/index.html?code=${encodeURIComponent(c.code)}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 font-semibold text-xs transition flex items-center space-x-1.5" title="ทำแผนวัดผล วผ.19 ฉบับเต็ม">
-            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-            <span>แผน วผ.19</span>
-          </a>
           <button onclick="copyCourseWordTable('${c.code}')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center space-x-1.5 shadow-lg">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
             <span>คัดลอกตารางโครงสร้างลง Word</span>
