@@ -540,12 +540,15 @@ class OfficialAssessmentPlanGenerator:
                 add_p(doc, f"ลงชื่อ..................................................ครูผู้สอน", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
                 add_p(doc, f"({t_name})\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
 
-        admins = [
-            ("หัวหน้างานวัดและประเมินผลการเรียนรู้", "[REDACTED]"),
-            ("หัวหน้ากลุ่มบริหารวิชาการ", "[REDACTED]"),
-            ("รองผู้อำนวยการกลุ่มบริหารวิชาการ", "[REDACTED]"),
-            ("ผู้อำนวยการโรงเรียนพัฒนานิคม", "[REDACTED]")
-        ]
+        # Signatory names stay local (school_signatories.json, gitignored)
+        sig_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'school_signatories.json')
+        if os.path.exists(sig_path):
+            with open(sig_path, encoding='utf-8') as f:
+                admins = [(a['role'], a['name']) for a in json.load(f)]
+        else:
+            admins = [(role, "..................................................") for role in (
+                "หัวหน้างานวัดและประเมินผลการเรียนรู้", "หัวหน้ากลุ่มบริหารวิชาการ",
+                "รองผู้อำนวยการกลุ่มบริหารวิชาการ", "ผู้อำนวยการโรงเรียนพัฒนานิคม")]
         for role, name in admins:
             add_p(doc, f"ลงชื่อ..................................................{role}", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=1)
             add_p(doc, f"({name})\t", size_pt=15, align=WD_ALIGN_PARAGRAPH.RIGHT, space_after=3)
