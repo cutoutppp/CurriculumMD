@@ -55,4 +55,11 @@ Curriculum_Vault/CurriculumMD/
 # System
 .DS_Store
 Thumbs.db
-!semester2_teachers_mapping.json
+
+# School timetable extract (local only)
+scratch_tr/
+
+# School data (local only: teacher names, school score ratios)
+school_courses_assessment_matrix.json
+school_courses_data.js
+semester2_teachers_mapping.json
